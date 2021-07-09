@@ -10,13 +10,31 @@ services:
       ports:
         - "3000:3000"
         - "9229:9229"
-      depends_on:
-        - postgres
+#      depends_on:
+#        - postgres
       restart: unless-stopped
       volumes:
-        - ./api:/usr/src/app
-        - /usr/api/src/app/node_modules
+        - ./api:/usr/src/api
+        - /usr/src/api/node_modules
 
+#    frontend:
+#      container_name: ecollector-frondend-dev
+#      build:
+#        context: ./frontend
+#        target: development
+#        dockerfile: Dockerfile
+#      command: quasar dev
+#      ports:
+#        - "8080:8080"
+##      depends_on:
+##        - api
+#      environment:
+#        -  CHOKIDAR_USEPOLLING=true
+#      restart: unless-stopped
+#      volumes:
+#        - ./frontend:/usr/src/frontend
+#        - /usr/src/frontend/node_modules
+#
     postgres:
       container_name: ecollector-postgres-dev
       image: postgres
@@ -42,10 +60,10 @@ services:
       depends_on:
         - postgres
 
-    mailhog:
-      image: mailhog/mailhog:latest
-      container_name: ecollector-mailhog-dev
-      ports:
-        - "8025:8025"
+#    mailhog:
+#      image: mailhog/mailhog:latest
+#      container_name: ecollector-mailhog-dev
+#      ports:
+#        - "8025:8025"
 volumes:
   postgres-dev:
