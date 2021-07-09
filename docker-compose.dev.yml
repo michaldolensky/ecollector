@@ -5,7 +5,7 @@ services:
       build:
         context: ./api
         target: development
-        dockerfile: ./Dockerfile
+        dockerfile: Dockerfile
       command: yarn start:debug
       ports:
         - "3000:3000"
@@ -18,8 +18,8 @@ services:
         - /usr/api/src/app/node_modules
 
     postgres:
-      image: postgres
       container_name: ecollector-postgres-dev
+      image: postgres
       restart: unless-stopped
       working_dir: /application
       volumes:
@@ -30,14 +30,18 @@ services:
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
       ports:
         - "5432:5432"
+
     pgadmin:
-      image: dpage/pgadmin4
       container_name: ecollector-pgadmin-dev
+      image: dpage/pgadmin4
       environment:
         - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-user@example.com}
         - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-pass}
       ports:
         - "5433:80"
+      depends_on:
+        - postgres
+
     mailhog:
       image: mailhog/mailhog:latest
       container_name: ecollector-mailhog-dev
