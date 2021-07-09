@@ -1,12 +1,12 @@
 version: "3.8"
 services:
-    app:
+    api:
+      container_name: ecollector-api-dev
       build:
-        context: ./backend
+        context: ./api
         target: development
         dockerfile: ./Dockerfile
       command: yarn start:debug
-      container_name: ecollector-app-dev
       ports:
         - "3000:3000"
         - "9229:9229"
@@ -14,8 +14,9 @@ services:
         - postgres
       restart: unless-stopped
       volumes:
-        - ./backend:/usr/src/app
-        - /usr/src/app/node_modules
+        - ./api:/usr/src/app
+        - /usr/api/src/app/node_modules
+
     postgres:
       image: postgres
       container_name: ecollector-postgres-dev
