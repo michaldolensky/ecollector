@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+    app:
+      build:
+        context: ./backend
+        target: development
+        dockerfile: ./Dockerfile
+      command: yarn start:debug
+      container_name: ecollector-app-dev
+      ports:
+        - "3000:3000"
+        - "9229:9229"
+      depends_on:
+        - postgres
+      restart: unless-stopped
+      volumes:
+        - ./backend:/usr/src/app
+        - /usr/src/app/node_modules
+    postgres:
+      image: postgres
+      container_name: ecollector-postgres-dev
+      restart: unless-stopped
+      working_dir: /application
+      volumes:
+        - postgres-dev:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: ${POSTGRES_DB:-ecollector-dev}
+        POSTGRES_USER: ${POSTGRES_USER:-postgres}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+      ports:
+        - "5432:5432"
+    pgadmin:
+      image: dpage/pgadmin4
+      container_name: ecollector-pgadmin-dev
+      environment:
+        - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-user@example.com}
+        - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-pass}
+      ports:
+        - "5433:80"
+    mailhog:
+      image: mailhog/mailhog:latest
+      container_name: ecollector-mailhog-dev
+      ports:
+        - "8025:8025"
+volumes:
+  postgres-dev:
