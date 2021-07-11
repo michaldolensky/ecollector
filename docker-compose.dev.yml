@@ -6,14 +6,14 @@ services:
         context: ./api
         target: development
         dockerfile: Dockerfile
-      command: yarn start:debug
+      command: npm run start:debug
       ports:
         - "3000:3000"
         - "9229:9229"
       env_file:
         - .config/.env.dev
-#      depends_on:
-#        - postgres
+      depends_on:
+        - postgres
       restart: unless-stopped
       volumes:
         - ./api/:/usr/src/api

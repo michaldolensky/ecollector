@@ -4,11 +4,11 @@ WORKDIR /usr/src/api
 
 COPY package*.json ./
 
-RUN yarn install
+RUN npm install
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 EXPOSE 3000
 
