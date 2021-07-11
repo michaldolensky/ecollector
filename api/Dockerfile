@@ -1,4 +1,4 @@
-FROM node:14 AS development
+FROM node:14.17.3 AS development
 
 WORKDIR /usr/src/api
 
@@ -12,7 +12,7 @@ RUN npm run build
 
 EXPOSE 3000
 
-FROM node:14 as production
+FROM node:14.17.3 as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
