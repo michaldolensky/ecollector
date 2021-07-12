@@ -1,40 +1,43 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
-import { GetUserArgs } from './dto/get-user.args';
-import { CreateUserDto } from './dto/create-user.dto';
-import { DeleteUserDto } from './dto/delete-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-
-import { User } from './user.entity';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UsersService } from './users.service';
+import { User } from './entities/user.entity';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
-
-  @Query(() => User, { name: 'user', nullable: true })
   // @UseGuards(GqlAuthGuard)
-  async getUser(@Args() getUserArgs: GetUserArgs): Promise<User> {
-    return await this.usersService.getUser(getUserArgs);
+
+  @Mutation(() => User)
+  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    return this.usersService.create(createUserInput);
+  }
+
+  @Query(() => [User], { name: 'users' })
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Query(() => User, { name: 'user' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.usersService.findOne(id);
   }
 
   @Mutation(() => User)
-  async createUser(
-    @Args('createUserData') createUserData: CreateUserDto,
-  ): Promise<User> {
-    return this.usersService.createUser(createUserData);
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return this.usersService.update(updateUserInput.id, updateUserInput);
   }
 
   @Mutation(() => User)
-  async updateUser(
-    @Args('updateUserData') updateUserData: UpdateUserDto,
-  ): Promise<User> {
-    return await this.usersService.updateUser(updateUserData);
+  removeUser(@Args('id', { type: () => Int }) id: number) {
+    return this.usersService.remove(id);
   }
 
-  @Mutation(() => User)
-  async deleteUser(
-    @Args('deleteUserData') deleteUserData: DeleteUserDto,
+  @Query(() => User)
+  getUserByEmail(
+    @Args('email', { type: () => String }) email: string,
   ): Promise<User> {
-    return await this.usersService.deleteUser(deleteUserData);
+    return this.usersService.getUserByEmail(email);
   }
 }
