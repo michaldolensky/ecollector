@@ -1,7 +1,8 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
-@ObjectType()
+@ObjectType('User')
+@InputType('UserInput')
 @Entity({ name: 'users' })
 @Unique(['email', 'username'])
 export class User {
