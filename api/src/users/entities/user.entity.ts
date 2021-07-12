@@ -1,5 +1,6 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { UserRole } from '../../auth/role.enum';
 
 @ObjectType('User')
 @InputType('UserInput')
@@ -21,8 +22,12 @@ export class User {
   @Column()
   password: string;
 
-  @Column('boolean', { default: false })
-  isAdmin: boolean;
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
 
   @Column({ length: 50, nullable: true })
   @Field({ nullable: true })
