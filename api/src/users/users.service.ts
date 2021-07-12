@@ -3,7 +3,7 @@ import { GetUserArgs } from './dto/get-user.args';
 import { CreateUserDto } from './dto/create-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './models/user';
+import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -19,7 +19,6 @@ export class UsersService {
     user.password = createUserData.password;
 
     await this.usersRepository.save(user);
-
     return user;
   }
 
@@ -37,15 +36,12 @@ export class UsersService {
 
   public async getUserByEmail(email: string): Promise<User | undefined> {
     const user = this.usersRepository.findOne({ where: { email: email } });
-
     return await user;
   }
 
   public async deleteUser(deleteUserData: DeleteUserDto): Promise<User> {
     const user = await this.usersRepository.findOne(deleteUserData.userId);
-
     if (user) await this.usersRepository.delete(user);
-
     return user;
   }
 }
