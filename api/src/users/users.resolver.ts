@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-import { User } from './models/user';
+import { User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Resolver(() => User)
