@@ -18,6 +18,8 @@ services:
       volumes:
         - ./api/:/usr/src/api
         - /usr/src/api/node_modules
+      networks:
+        - postgres
 
 #    frontend:
 #      container_name: ecollector-frondend-dev
@@ -30,6 +32,8 @@ services:
 #        - "8080:8080"
 ##      depends_on:
 ##        - api
+#        env_file:
+#         - .config/.env.dev
 #      environment:
 #        -  CHOKIDAR_USEPOLLING=true
 #      restart: unless-stopped
@@ -43,24 +47,29 @@ services:
       restart: unless-stopped
       working_dir: /application
       volumes:
-        - postgres-dev:/var/lib/postgresql/data
-      environment:
-        POSTGRES_DB: ${POSTGRES_DB:-ecollector-dev}
-        POSTGRES_USER: ${POSTGRES_USER:-postgres}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+        - /data/postgres:/data/postgres
+      env_file:
+        - .config/.env.dev
       ports:
         - "5432:5432"
+      networks:
+        - postgres
 
     pgadmin:
+      links:
+        - postgres:postgres
       container_name: ecollector-pgadmin-dev
       image: dpage/pgadmin4
-      environment:
-        - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-user@example.com}
-        - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-pass}
+      env_file:
+        - .config/.env.dev
       ports:
         - "5433:80"
       depends_on:
         - postgres
+      networks:
+        - postgres
+      volumes:
+        - /data/pgadmin:/root/.pgadmin
 
 #    mailhog:
 #      image: mailhog/mailhog:latest
@@ -69,3 +78,7 @@ services:
 #        - "8025:8025"
 volumes:
   postgres-dev:
+
+networks:
+  postgres:
+    driver: bridge

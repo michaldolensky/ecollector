@@ -23,12 +23,12 @@ export class SitesResolver {
   }
 
   @Query(() => [Site], { name: 'sites' })
-  findAll() {
+  getAllSites() {
     return this.sitesService.findAll();
   }
 
   @Query(() => Site, { name: 'site' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  getSiteById(@Args('id', { type: () => Int }) id: number) {
     return this.sitesService.findOne(id);
   }
 
@@ -43,7 +43,7 @@ export class SitesResolver {
   }
 
   @ResolveField(() => User)
-  owner(@Parent() user: User): Promise<User> {
+  getOwnerOfSite(@Parent() user: User): Promise<User> {
     return this.sitesService.getOwner(user.id);
   }
 }
