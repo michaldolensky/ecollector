@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SitesModule } from './sites/sites.module';
 import { DatabaseModule } from './database/database.module';
-import Joi from 'joi';
+import * as Joi from 'joi';
 
 @Module({
   imports: [
