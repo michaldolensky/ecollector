@@ -18,6 +18,8 @@ services:
       volumes:
         - ./api/:/usr/src/api
         - /usr/src/api/node_modules
+      networks:
+        - postgres
 
 #    frontend:
 #      container_name: ecollector-frondend-dev
@@ -50,6 +52,8 @@ services:
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
       ports:
         - "5432:5432"
+      networks:
+        - postgres
 
     pgadmin:
       container_name: ecollector-pgadmin-dev
@@ -61,6 +65,8 @@ services:
         - "5433:80"
       depends_on:
         - postgres
+      networks:
+        - postgres
 
 #    mailhog:
 #      image: mailhog/mailhog:latest
@@ -69,3 +75,7 @@ services:
 #        - "8025:8025"
 volumes:
   postgres-dev:
+
+networks:
+  postgres:
+    driver: bridge
