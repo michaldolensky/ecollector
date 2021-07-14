@@ -2,20 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SitesModule } from './sites/sites.module';
+import { DatabaseModule } from './database/database.module';
 import Joi from 'joi';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      autoLoadEntities: true,
-      synchronize: true,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -28,6 +23,7 @@ import Joi from 'joi';
         JWT_EXPIRATION_TIME: Joi.string().required(),
       }),
     }),
+    DatabaseModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
       tracing: false,
