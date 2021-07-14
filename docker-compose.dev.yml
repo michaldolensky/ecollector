@@ -76,8 +76,6 @@ services:
 #      container_name: ecollector-mailhog-dev
 #      ports:
 #        - "8025:8025"
-volumes:
-  postgres-dev:
 
 networks:
   postgres:
