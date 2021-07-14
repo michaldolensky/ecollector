@@ -1,4 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,35 +18,73 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  create(createUserInput: CreateUserInput) {
+  public async create(createUserInput: CreateUserInput): Promise<User> {
     const newUser = this.usersRepository.create(createUserInput);
 
-    return this.usersRepository.save(newUser);
+    try {
+      await this.usersRepository.insert(newUser);
+      return newUser;
+    } catch (error) {
+      throw new ConflictException();
+    }
   }
 
-  findAll() {
+  public async findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-  findOne(id: number) {
+  public async findOne(id: number): Promise<User | undefined> {
     return this.usersRepository.findOneOrFail(id);
   }
 
-  async update(id: number, updateUserInput: UpdateUserInput) {
-    const user = await this.findOne(id);
+  public async update(
+    userId: number,
+    updateUserInput: UpdateUserInput,
+  ): Promise<User> {
+    const user = await this.findOne(userId);
 
     if (!user) throw new BadRequestException('Invalid user');
-
-    user.firstName = updateUserInput.firstName;
-    user.lastName = updateUserInput.lastName;
-    return this.usersRepository.save(user);
+    Object.assign(user, updateUserInput);
+    await this.usersRepository.update(userId, user);
+    return user;
   }
 
-  remove(id: number) {
-    return this.usersRepository.delete(id);
+  public async remove(id: number) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) throw new Error('User not found!');
+    await this.usersRepository.delete(id);
   }
 
-  getUserByEmail(email: string): Promise<User> {
-    return this.usersRepository.findOne(email);
+  async getById(id: number) {
+    const user = await this.usersRepository.findOne({ id });
+    if (user) {
+      return user;
+    }
+    throw new HttpException(
+      'User with this id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
+  }
+
+  public async getUserByEmail(email: string) {
+    const user = this.usersRepository.findOne({
+      where: { email: email.toLocaleLowerCase() },
+    });
+
+    if (!user) {
+      throw new HttpException(
+        'User with this email does not exist',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return user;
+  }
+
+  public async updatePassword(userId: number, password: string) {
+    const user = await this.findOne(userId);
+    if (user === undefined || user === null) {
+      throw new NotFoundException();
+    }
+    await this.usersRepository.update(user.id, { password });
   }
 }
