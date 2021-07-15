@@ -26,7 +26,6 @@ import * as Joi from 'joi';
     DatabaseModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
-      tracing: false,
       path: '/api/graphql',
       debug: false,
     }),
