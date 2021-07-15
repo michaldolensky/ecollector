@@ -11,6 +11,7 @@ import {
 export class CreateUserInput {
   @Field()
   @IsString()
+  @IsNotEmpty()
   @MinLength(3)
   username: string;
 
@@ -27,11 +28,13 @@ export class CreateUserInput {
 
   @IsString()
   @MaxLength(50)
-  @Field({ nullable: true })
-  firstName?: string;
+  @IsNotEmpty()
+  @Field()
+  firstName: string;
 
   @IsString()
   @MaxLength(50)
-  @Field({ nullable: true })
-  lastName?: string;
+  @IsNotEmpty()
+  @Field()
+  lastName: string;
 }
