@@ -28,7 +28,7 @@
     "@nestjs/graphql": "^8.0.2",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.0.0",
-    "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.3",
     "@nestjs/typeorm": "^8.0.1",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",
