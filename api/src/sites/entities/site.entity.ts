@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { Category } from '../../categories/entities/category.entity';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })
@@ -23,7 +24,10 @@ export class Site {
 
   @Field()
   @Column()
-  urlString!: string;
+  urlString: string;
+
+  @OneToMany(() => Category, (category) => category.site)
+  categories: Category[];
 
   @Field(() => User)
   @OneToOne(() => User)
