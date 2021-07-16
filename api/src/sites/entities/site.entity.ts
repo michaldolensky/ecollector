@@ -2,11 +2,14 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { User } from '../../users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   Unique,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 
@@ -33,4 +36,10 @@ export class Site {
   @OneToOne(() => User)
   @JoinColumn()
   owner: User;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: string;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: string;
 }
