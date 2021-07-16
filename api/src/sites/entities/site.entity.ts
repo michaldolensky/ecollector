@@ -19,11 +19,11 @@ import { Category } from '../../categories/entities/category.entity';
 export class Site {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
-  id!: number;
+  id: number;
 
   @Field()
   @Column()
-  name!: string;
+  name: string;
 
   @Field()
   @Column()
