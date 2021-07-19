@@ -19,16 +19,13 @@ export class CategoriesService {
 
   async create(createCategoryInput: CreateCategoryInput) {
     const category = new Category();
-    console.log(createCategoryInput);
 
     category.name = createCategoryInput.name;
     category.perex = createCategoryInput.perex;
     category.parentId = createCategoryInput.parentId;
     category.siteId = createCategoryInput.siteId;
 
-    await this.categoriesRepository.save(category);
-
-    return category;
+    return await this.categoriesRepository.save(category);
   }
 
   async findAll() {
