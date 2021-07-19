@@ -9,8 +9,8 @@ export class CreateCategoryInput {
   perex: string;
 
   @Field(() => Int, { nullable: true })
-  parent: number;
+  parentId: number;
 
   @Field(() => Int)
-  site: number;
+  siteId: number;
 }

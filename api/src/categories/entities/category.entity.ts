@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Site } from '../../sites/entities/site.entity';
 import { BaseEntity } from '../../common/BaseEntity';
@@ -14,22 +14,23 @@ export class Category extends BaseEntity {
   @Column('text')
   perex: string;
 
-  // @Field(() => Category, { nullable: true })
+  @Field(() => Category, { nullable: true })
   @ManyToOne(() => Category, (category) => category.children)
+  @JoinColumn({ name: 'parentId' })
   parent: Category;
 
-  @RelationId((category: Category) => category.parent)
+  @Column({ nullable: true })
   parentId: number;
 
-  @Field(() => [Category], { nullable: 'items' })
+  @Field(() => [Category], { nullable: 'itemsAndList' })
   @OneToMany(() => Category, (category) => category.parent)
   children: Category[];
 
-  // @Field(() => Site)
+  @Field(() => Site)
   @ManyToOne(() => Site, (site) => site.categories)
+  @JoinColumn({ name: 'siteId' })
   site: Site;
 
-  @RelationId((category: Category) => category.site)
-  @Field(() => Int)
+  @Column()
   siteId: number;
 }
