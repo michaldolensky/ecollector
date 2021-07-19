@@ -1,26 +1,20 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from '../../users/entities/user.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
   Unique,
-  UpdateDateColumn,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
+import { BaseEntity } from '../../common/BaseEntity';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })
 @Unique(['urlString'])
-export class Site {
-  @PrimaryGeneratedColumn()
-  @Field(() => Int)
-  id: number;
-
+export class Site extends BaseEntity {
   @Field()
   @Column()
   name: string;
@@ -36,10 +30,4 @@ export class Site {
   @OneToOne(() => User)
   @JoinColumn()
   owner: User;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: string;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: string;
 }

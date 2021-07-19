@@ -1,12 +1,5 @@
-import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, Index } from 'typeorm';
 import { UserRole } from '../../auth/role.enum';
 import {
   IsEmail,
@@ -15,15 +8,12 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { BaseEntity } from '../../common/BaseEntity';
 
 @ObjectType('User')
 @InputType('UserInput')
 @Entity({ name: 'users' })
-export class User {
-  @Field(() => Int)
-  @PrimaryGeneratedColumn()
-  id?: number;
-
+export class User extends BaseEntity {
   @Field()
   @IsString()
   @MinLength(3)
@@ -62,10 +52,4 @@ export class User {
   @Column({ length: 50, nullable: true })
   @Field({ nullable: true })
   lastName?: string | null;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: string;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: string;
 }

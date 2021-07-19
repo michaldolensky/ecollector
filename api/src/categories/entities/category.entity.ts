@@ -1,23 +1,11 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  RelationId,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Site } from '../../sites/entities/site.entity';
+import { BaseEntity } from '../../common/BaseEntity';
 
 @ObjectType('Category')
 @Entity({ name: 'categories' })
-export class Category {
-  @Field(() => Int)
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Category extends BaseEntity {
   @Column('text')
   @Field(() => String)
   name: string;
@@ -44,12 +32,4 @@ export class Category {
   @RelationId((category: Category) => category.site)
   @Field(() => Int)
   siteId: number;
-
-  @Field(() => Date)
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: string;
-
-  @Field(() => Date)
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: string;
 }
