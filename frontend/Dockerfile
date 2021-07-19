@@ -1,8 +1,9 @@
 FROM node:14 AS development
 
-WORKDIR /usr/src/frontend
+WORKDIR /usr/src/client
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install
 
