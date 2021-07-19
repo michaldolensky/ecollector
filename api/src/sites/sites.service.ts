@@ -15,7 +15,7 @@ export class SitesService {
     const site = new Site();
     site.name = createSiteInput.name;
     site.urlString = createSiteInput.urlString;
-    site.owner = createSiteInput.owner;
+    site.ownerId = createSiteInput.userId;
 
     return this.sitesRepository.save(site);
   }
@@ -42,6 +42,6 @@ export class SitesService {
   }
 
   async getSitesWithOwnerId(userId: number): Promise<Site[]> {
-    return await this.sitesRepository.find({ where: { owner: userId } });
+    return await this.sitesRepository.find({ where: { ownerId: userId } });
   }
 }

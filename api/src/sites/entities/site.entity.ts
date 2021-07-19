@@ -32,4 +32,7 @@ export class Site extends BaseEntity {
   @ManyToOne(() => User, (user) => user.sites)
   @JoinColumn({ name: 'ownerId' })
   owner: User;
+
+  @Column()
+  ownerId: number;
 }

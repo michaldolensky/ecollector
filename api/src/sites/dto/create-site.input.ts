@@ -1,5 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { User } from '../../users/entities/user.entity';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateSiteInput {
@@ -8,6 +7,6 @@ export class CreateSiteInput {
   @Field()
   name!: string;
 
-  @Field(() => User)
-  owner: User;
+  @Field(() => Int)
+  userId: number;
 }
