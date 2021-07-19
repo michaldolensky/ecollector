@@ -12,10 +12,14 @@ import { Site } from './entities/site.entity';
 import { CreateSiteInput } from './dto/create-site.input';
 import { UpdateSiteInput } from './dto/update-site.input';
 import { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
 
 @Resolver(() => Site)
 export class SitesResolver {
-  constructor(private readonly sitesService: SitesService) {}
+  constructor(
+    private readonly sitesService: SitesService,
+    private readonly userService: UsersService,
+  ) {}
 
   @Mutation(() => Site)
   createSite(@Args('createSiteInput') createSiteInput: CreateSiteInput) {
@@ -43,7 +47,7 @@ export class SitesResolver {
   }
 
   @ResolveField(() => User)
-  getOwnerOfSite(@Parent() user: User): Promise<User> {
-    return this.sitesService.getOwner(user.id);
+  owner(@Parent() user: User): Promise<User> {
+    return this.userService.findOne(user.id);
   }
 }

@@ -4,14 +4,11 @@ import { UpdateSiteInput } from './dto/update-site.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Site } from './entities/site.entity';
-import { UsersService } from '../users/users.service';
-import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class SitesService {
   constructor(
     @InjectRepository(Site) private sitesRepository: Repository<Site>,
-    private userService: UsersService,
   ) {}
 
   create(createSiteInput: CreateSiteInput) {
@@ -42,9 +39,5 @@ export class SitesService {
 
   remove(id: number) {
     return this.sitesRepository.delete(id);
-  }
-
-  getOwner(ownerId: number): Promise<User> {
-    return this.userService.findOne(ownerId);
   }
 }

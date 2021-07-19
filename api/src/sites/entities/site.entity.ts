@@ -28,6 +28,6 @@ export class Site extends BaseEntity {
 
   @Field(() => User)
   @OneToOne(() => User)
-  @JoinColumn()
+  @JoinColumn({ name: 'ownerId' })
   owner: User;
 }
