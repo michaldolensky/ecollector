@@ -41,4 +41,14 @@ export class CategoriesService {
   remove(id: number) {
     return `This action removes a #${id} category`;
   }
+
+  async getCategoriesWithSiteId(siteId: number) {
+    return await this.categoriesRepository.find({ where: { siteId } });
+  }
+
+  async getChildrenOfParentOfId(parentId: number) {
+    return await this.categoriesRepository.find({
+      where: { parentId },
+    });
+  }
 }

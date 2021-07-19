@@ -57,8 +57,9 @@ export class CategoriesResolver {
   async site(@Parent() category: Category): Promise<Site> {
     return this.siteService.findOne(category.siteId);
   }
+
   @ResolveField()
-  async parent(@Parent() parent: Category): Promise<Category> {
-    return this.categoryService.findOne(parent.parentId);
+  async subCategory(@Parent() category: Category): Promise<Category[]> {
+    return this.categoryService.getChildrenOfParentOfId(category.id);
   }
 }

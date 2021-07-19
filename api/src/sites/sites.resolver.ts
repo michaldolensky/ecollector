@@ -13,12 +13,15 @@ import { CreateSiteInput } from './dto/create-site.input';
 import { UpdateSiteInput } from './dto/update-site.input';
 import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
+import { CategoriesService } from '../categories/categories.service';
+import { Category } from '../categories/entities/category.entity';
 
 @Resolver(() => Site)
 export class SitesResolver {
   constructor(
     private readonly sitesService: SitesService,
     private readonly userService: UsersService,
+    private readonly categoriesService: CategoriesService,
   ) {}
 
   @Mutation(() => Site)
@@ -49,5 +52,10 @@ export class SitesResolver {
   @ResolveField(() => User)
   owner(@Parent() user: User): Promise<User> {
     return this.userService.findOne(user.id);
+  }
+
+  @ResolveField()
+  async categories(@Parent() site: Site): Promise<Category[]> {
+    return this.categoriesService.getCategoriesWithSiteId(site.id);
   }
 }

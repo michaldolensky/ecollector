@@ -1,12 +1,25 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { SitesService } from '../sites/sites.service';
+import { Site } from '../sites/entities/site.entity';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly sitesService: SitesService,
+  ) {}
   // @UseGuards(GqlAuthGuard)
 
   @Mutation(() => User)
@@ -39,5 +52,10 @@ export class UsersResolver {
     @Args('email', { type: () => String }) email: string,
   ): Promise<User> {
     return this.usersService.getUserByEmail(email);
+  }
+
+  @ResolveField()
+  async sites(@Parent() user: User): Promise<Site[]> {
+    return this.sitesService.getSitesWithOwnerId(user.id);
   }
 }

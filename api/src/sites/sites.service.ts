@@ -40,4 +40,8 @@ export class SitesService {
   remove(id: number) {
     return this.sitesRepository.delete(id);
   }
+
+  async getSitesWithOwnerId(userId: number): Promise<Site[]> {
+    return await this.sitesRepository.find({ where: { owner: userId } });
+  }
 }
