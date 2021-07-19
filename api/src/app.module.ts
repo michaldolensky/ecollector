@@ -30,6 +30,11 @@ import * as Joi from 'joi';
       autoSchemaFile: 'schema.gql',
       path: '/api/graphql',
       debug: false,
+      //TODO
+      // cors: {
+      //   origin: 'http://localhost:3000',
+      //   credentials: true,
+      // },
     }),
     AuthModule,
     UsersModule,
