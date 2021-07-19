@@ -1,7 +1,7 @@
 import { ObjectType, Field, InputType, Int } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Site } from '../../sites/entities/site.entity';
-import { BaseEntity } from '../../common/BaseEntity';
+import { BaseEntity } from '../../common/entities/base.entity';
 
 @ObjectType('Category')
 @InputType('CategoryInput')

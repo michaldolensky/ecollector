@@ -9,7 +9,7 @@ import {
   Unique,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
-import { BaseEntity } from '../../common/BaseEntity';
+import { BaseEntity } from '../../common/entities/base.entity';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })

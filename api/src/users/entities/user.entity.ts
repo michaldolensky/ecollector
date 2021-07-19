@@ -8,7 +8,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { BaseEntity } from '../../common/BaseEntity';
+import { BaseEntity } from '../../common/entities/base.entity';
 import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('User')
