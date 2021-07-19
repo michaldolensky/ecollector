@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { SitesModule } from './sites/sites.module';
 import { DatabaseModule } from './database/database.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ItemsModule } from './items/items.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -34,6 +35,7 @@ import * as Joi from 'joi';
     UsersModule,
     SitesModule,
     CategoriesModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
