@@ -1,11 +1,11 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   Unique,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
@@ -13,6 +13,7 @@ import { BaseEntity } from '../../common/BaseEntity';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })
+@InputType('SiteInput')
 @Unique(['urlString'])
 export class Site extends BaseEntity {
   @Field()
@@ -23,11 +24,12 @@ export class Site extends BaseEntity {
   @Column()
   urlString: string;
 
+  @Field(() => [Category])
   @OneToMany(() => Category, (category) => category.site)
   categories: Category[];
 
   @Field(() => User)
-  @OneToOne(() => User)
+  @ManyToOne(() => User, (user) => user.sites)
   @JoinColumn({ name: 'ownerId' })
   owner: User;
 }

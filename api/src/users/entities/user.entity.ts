@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { UserRole } from '../../auth/role.enum';
 import {
   IsEmail,
@@ -9,6 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { BaseEntity } from '../../common/BaseEntity';
+import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('User')
 @InputType('UserInput')
@@ -40,6 +41,10 @@ export class User extends BaseEntity {
     default: UserRole.USER,
   })
   role: UserRole;
+
+  @Field(() => [Site], { nullable: 'itemsAndList' })
+  @OneToMany(() => Site, (site) => site.owner)
+  sites: Site[];
 
   @IsString()
   @MaxLength(50)
