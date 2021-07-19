@@ -4,7 +4,7 @@ import {
   Mutation,
   Args,
   Int,
-  ResolveProperty,
+  ResolveField,
   Parent,
 } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
@@ -53,11 +53,11 @@ export class CategoriesResolver {
     return this.categoryService.remove(id);
   }
 
-  @ResolveProperty()
+  @ResolveField()
   async site(@Parent() category: Category): Promise<Site> {
     return this.siteService.findOne(category.siteId);
   }
-  @ResolveProperty()
+  @ResolveField()
   async parent(@Parent() parent: Category): Promise<Category> {
     return this.categoryService.findOne(parent.parentId);
   }
