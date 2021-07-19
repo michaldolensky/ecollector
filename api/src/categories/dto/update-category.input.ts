@@ -13,11 +13,8 @@ export class UpdateCategoryInput extends PartialType(CreateCategoryInput) {
   perex: string;
 
   @Field(() => Int, { nullable: true })
-  parent: number;
-
-  @Field(() => [Int], { nullable: 'items' })
-  children: number[];
+  parentId: number;
 
   @Field(() => Int)
-  site: number;
+  siteId: number;
 }

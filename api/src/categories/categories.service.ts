@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,27 +31,40 @@ export class CategoriesService {
     return category;
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async findAll() {
+    return await this.categoriesRepository.find();
   }
 
   async findOne(id: number) {
-    return await this.categoriesRepository.findOneOrFail(id);
+    const category = await this.categoriesRepository.findOne({ id });
+    if (category) {
+      return category;
+    }
+    throw new HttpException(
+      'Category with this id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 
-  update(id: number, updateCategoryInput: UpdateCategoryInput) {
-    return `This action updates a #${id} category`;
+  async update(id: number, updateCategoryInput: Partial<UpdateCategoryInput>) {
+    const category = await this.findOne(id);
+    if (!category) throw new BadRequestException('Invalid category');
+    Object.assign(category, updateCategoryInput);
+    await this.categoriesRepository.update(id, category);
+    return category;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number): Promise<void> {
+    const category = await this.categoriesRepository.findOne({ where: { id } });
+    if (!category) throw new Error('Category not found!');
+    await this.categoriesRepository.delete(id);
   }
 
-  async getCategoriesWithSiteId(siteId: number) {
+  async getCategoriesWithSiteId(siteId: number): Promise<Category[]> {
     return await this.categoriesRepository.find({ where: { siteId } });
   }
 
-  async getChildrenOfParentOfId(parentId: number) {
+  async getChildrenOfParentOfId(parentId: number): Promise<Category[]> {
     return await this.categoriesRepository.find({
       where: { parentId },
     });
