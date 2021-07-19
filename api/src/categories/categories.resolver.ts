@@ -13,12 +13,15 @@ import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { Site } from '../sites/entities/site.entity';
 import { SitesService } from '../sites/sites.service';
+import { ItemsService } from '../items/items.service';
+import { Item } from '../items/entities/item.entity';
 
 @Resolver(() => Category)
 export class CategoriesResolver {
   constructor(
     private readonly categoryService: CategoriesService,
     private readonly siteService: SitesService,
+    private readonly itemService: ItemsService,
   ) {}
 
   @Mutation(() => Category)
@@ -61,5 +64,10 @@ export class CategoriesResolver {
   @ResolveField()
   async subCategory(@Parent() category: Category): Promise<Category[]> {
     return this.categoryService.getChildrenOfParentOfId(category.id);
+  }
+
+  @ResolveField()
+  async items(@Parent() category: Category): Promise<Item[]> {
+    return this.itemService.getItemsOfCategory(category.id);
   }
 }

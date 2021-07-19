@@ -1,8 +1,21 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 import { BaseEntity } from 'src/common/entities/base.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Category } from '../../categories/entities/category.entity';
 
-@ObjectType()
+@ObjectType('Item')
+@InputType('ItemInput')
+@Entity({ name: 'items' })
 export class Item extends BaseEntity {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Column('text')
+  @Field(() => String)
+  name: string;
+
+  @ManyToOne(() => Category, (category) => category.items)
+  @JoinColumn({ name: 'categoryId' })
+  category: Category;
+
+  @Field(() => Int)
+  @Column()
+  categoryId: number;
 }

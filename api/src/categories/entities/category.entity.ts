@@ -2,6 +2,7 @@ import { ObjectType, Field, InputType, Int } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Site } from '../../sites/entities/site.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
+import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Category')
 @InputType('CategoryInput')
@@ -34,4 +35,8 @@ export class Category extends BaseEntity {
 
   @Column()
   siteId: number;
+
+  @Field(() => [Item])
+  @OneToMany(() => Item, (item) => item.category)
+  items: Item[];
 }

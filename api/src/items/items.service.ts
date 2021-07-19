@@ -1,26 +1,62 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemsService {
-  create(createItemInput: CreateItemInput) {
-    return 'This action adds a new item';
+  constructor(
+    @InjectRepository(Item)
+    private itemsRepository: Repository<Item>,
+  ) {}
+  async create(createItemInput: CreateItemInput) {
+    const item = new Item();
+
+    item.name = createItemInput.name;
+    item.categoryId = createItemInput.categoryId;
+
+    return await this.itemsRepository.save(item);
   }
 
-  findAll() {
-    return `This action returns all items`;
+  async findAll() {
+    return await this.itemsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} item`;
+  async findOne(id: number) {
+    const item = await this.itemsRepository.findOne({ id });
+    if (item) {
+      return item;
+    }
+    throw new HttpException(
+      'Item with this id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 
-  update(id: number, updateItemInput: UpdateItemInput) {
-    return `This action updates a #${id} item`;
+  async update(id: number, updateItemInput: Partial<UpdateItemInput>) {
+    const item = await this.findOne(id);
+    if (!item) throw new BadRequestException('Invalid item');
+    Object.assign(item, updateItemInput);
+    await this.itemsRepository.update(id, item);
+    return item;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} item`;
+  async remove(id: number) {
+    const item = await this.itemsRepository.findOne({ where: { id } });
+    if (!item) throw new Error('Item not found!');
+    await this.itemsRepository.delete(id);
+  }
+
+  async getItemsOfCategory(categoryId: number) {
+    return await this.itemsRepository.find({
+      where: { categoryId },
+    });
   }
 }
