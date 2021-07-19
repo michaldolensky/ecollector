@@ -15,7 +15,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import RequestWithUser from './RequestWithUser';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
