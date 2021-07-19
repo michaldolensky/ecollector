@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { CreateSiteInput } from './dto/create-site.input';
 import { UpdateSiteInput } from './dto/update-site.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,21 +29,29 @@ export class SitesService {
     return this.sitesRepository.find();
   }
 
-  findOne(id: number) {
-    return this.sitesRepository.findOneOrFail(id);
+  async findOne(id: number) {
+    const site = await this.sitesRepository.findOne({ id });
+    if (site) {
+      return site;
+    }
+    throw new HttpException(
+      'Site with this id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 
   async update(id: number, updateSiteInput: UpdateSiteInput) {
     const site = await this.findOne(id);
-
     if (!site) throw new BadRequestException('Invalid site');
-
-    site.name = updateSiteInput.name;
-    return this.sitesRepository.save(site);
+    Object.assign(site, updateSiteInput);
+    await this.sitesRepository.update(id, site);
+    return site;
   }
 
-  remove(id: number) {
-    return this.sitesRepository.delete(id);
+  async remove(id: number) {
+    const site = await this.sitesRepository.findOne({ where: { id } });
+    if (!site) throw new Error('Site not found!');
+    await this.sitesRepository.delete(id);
   }
 
   async getSitesWithOwnerId(userId: number): Promise<Site[]> {
