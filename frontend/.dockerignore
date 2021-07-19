@@ -1,0 +1,5 @@
+.git
+Dockerfile
+node_modules
+.quasar
+yarn-error.log
