@@ -48,11 +48,37 @@ export default defineComponent({
     const message = ref<string>('');
     const accept = ref<boolean>(false);
     const loading = ref<boolean>(false);
-    const loggedIn = ref<boolean>(false);
+    const loggedIn = computed(() => $store.state.auth.loggedIn);
 
     if (loggedIn.value) {
       void $router.push('/profile');
     }
+
+    const onSubmit = () => {
+      const user: LoginInterface = {
+        email: email.value,
+        password: password.value,
+      };
+
+      loading.value = true;
+      $store.dispatch('auth/login', user)
+        .then(
+          () => {
+            void $router.push('/profile');
+          },
+          (error) => {
+            loading.value = false;
+            // eslint-disable-next-line no-console
+            console.log(error);
+          },
+        );
+    };
+
+    const onReset = () => {
+      email.value = '';
+      password.value = '';
+      accept.value = false;
+    };
 
     return {
       email,
@@ -60,34 +86,9 @@ export default defineComponent({
       accept,
       loading,
       message,
-      loggedIn: computed(() => $store.state.auth.loggedIn),
-
-      onSubmit() {
-        const user: LoginInterface = {
-          email: email.value,
-          password: password.value,
-        };
-
-        loading.value = true;
-        $store.dispatch('auth/login', user)
-          .then(
-            () => {
-              void $router.push('/profile');
-            },
-            (error) => {
-              loading.value = false;
-              // eslint-disable-next-line no-console
-              console.log(error);
-            },
-          );
-      },
-
-      onReset() {
-        email.value = '';
-        password.value = '';
-        accept.value = false;
-      },
-
+      loggedIn,
+      onSubmit,
+      onReset,
     };
   },
 });
