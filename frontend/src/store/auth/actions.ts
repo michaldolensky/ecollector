@@ -2,9 +2,10 @@ import { ActionTree } from 'vuex';
 import { AuthStateInteface } from 'src/store/auth/state';
 import { api } from 'boot/axios';
 import { StateInterface } from '../index';
-import { LoginInterface } from '../../../../api/src/auth/dto/login.dto';
+import { LoginInterface } from './auth.interface';
 
 const actions: ActionTree<AuthStateInteface, StateInterface> = {
+
   async login({ commit }, loginObject:LoginInterface) {
     return api
       .post('/auth/login', {

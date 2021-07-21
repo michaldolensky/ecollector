@@ -35,7 +35,7 @@
 import { computed, ref, defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'src/store';
-import { LoginInterface } from '../../../../api/src/auth/dto/login.dto';
+import { LoginInterface } from 'src/store/auth/auth.interface';
 
 export default defineComponent({
   name: 'Login',

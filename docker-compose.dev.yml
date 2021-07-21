@@ -21,26 +21,24 @@ services:
     networks:
       - postgres
 
-#  frontend:
-#    container_name: ecollector-frondend-dev
-#    build:
-#      context: ./frontend
-#      target: development
-#      dockerfile: Dockerfile
-#    command: quasar dev
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - api
-#    env_file:
-#      - .config/.env.dev
-#    environment:
-#      - CHOKIDAR_USEPOLLING=true
-#    restart: unless-stopped
-#    volumes:
-#      - ./client:/usr/src/client
-#      - /usr/src/client/node_modules
-  #
+  frontend:
+    container_name: ecollector-frondend-dev
+    build:
+      context: ./frontend
+      target: development
+      dockerfile: Dockerfile
+    command: quasar dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+    env_file:
+      - .config/.env.dev
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/src/frontend
+      - /usr/src/frontend/node_modules
+
   postgres:
     container_name: ecollector-postgres-dev
     image: postgres
