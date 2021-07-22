@@ -8,9 +8,12 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login',
+    path: '/auth/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/auth/Login.vue') },
+    redirect: '/auth/login',
+    children: [
+      { path: '/auth/login', component: () => import('pages/auth/Login.vue') },
+      { path: '/auth/signup', component: () => import('pages/auth/Signup.vue') },
     ],
   },
   {

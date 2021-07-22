@@ -6,8 +6,8 @@
     >
       <q-form
         class="q-gutter-md"
-        @reset="onReset"
-        @submit="onSubmit"
+              @reset="onReset"
+              @submit="onSubmit"
       >
         <q-card-section>
           <q-avatar class="absolute-center shadow-10" size="120px">
@@ -15,18 +15,36 @@
           </q-avatar>
         </q-card-section>
 
-        <q-card-section>
-
-        </q-card-section>
+        <q-card-section></q-card-section>
 
         <q-card-section>
-          <div class="text-h6"> {{ $t('auth.login.login') }}</div>
+          <div class="text-h6"> {{ $t('auth.signup.signup') }}</div>
+          <q-input
+            id="firstName"
+            v-model.trim="firstName"
+            :label="$t('auth.signup.firstName')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            autofocus
+            lazy-rules
+            outlined
+            required
+            square
+          />
+          <q-input
+            id="firstName"
+            v-model.trim="lastName"
+            :label="$t('auth.signup.lastName')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            lazy-rules
+            outlined
+            required
+            square
+          />
           <q-input
             id="email"
             v-model.trim="email"
-            :label="$t('auth.login.email')"
+            :label="$t('auth.signup.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
-            autofocus
             lazy-rules
             outlined
             required
@@ -36,7 +54,18 @@
           <q-input
             id="password"
             v-model="password"
-            :label="$t('auth.login.password')"
+            :label="$t('auth.signup.password')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            outlined
+            required
+            square
+            type="password"
+          />
+          <q-input
+            id="verifyPassword"
+            v-model="verifyPassword"
+            :label="$t('auth.signup.verifyPassword')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
             required
             square
@@ -44,7 +73,7 @@
           />
           <br>
           <q-btn
-            :label="$t('auth.reset')"
+            :label="$t('form.buttons.reset')"
             class="q-ml-sm"
             color="primary"
             flat
@@ -52,8 +81,8 @@
           />
         </q-card-section>
         <q-card-actions align="around">
-          <router-link to="/auth/signup">
-            <q-btn :label="$t('form.buttons.reset')" color="secondary"/>
+          <router-link to="/auth/login">
+            <q-btn :label="$t('auth.signup.button')" color="secondary"/>
           </router-link>
           <q-btn :label="$t('form.buttons.submit')" color="primary" type="submit"/>
         </q-card-actions>
@@ -71,13 +100,16 @@ import { useStore } from 'src/store';
 import { LoginInterface } from 'src/store/auth/auth.interface';
 // TODO
 export default defineComponent({
-  name: 'Login',
+  name: 'Signup',
   setup() {
     const $store = useStore();
     const $router = useRouter();
 
+    const firstName = ref<string>('firstName');
+    const lastName = ref<string>('lastName');
     const email = ref<string>('user2@example.com');
     const password = ref<string>('password');
+    const verifyPassword = ref<string>('password');
     const message = ref<string>('');
     const loading = ref<boolean>(false);
     const loggedIn = computed(() => $store.state.auth.loggedIn);
@@ -93,10 +125,10 @@ export default defineComponent({
       };
 
       loading.value = true;
-      $store.dispatch('auth/login', user)
+      $store.dispatch('auth/signup', user)
         .then(
           () => {
-            void $router.push('/profile');
+            void $router.push('/auth/login');
           },
           (error) => {
             loading.value = false;
@@ -107,13 +139,21 @@ export default defineComponent({
     };
 
     const onReset = () => {
+      firstName.value = '';
+      lastName.value = '';
+
       email.value = '';
+
       password.value = '';
+      verifyPassword.value = '';
     };
 
     return {
+      firstName,
+      lastName,
       email,
       password,
+      verifyPassword,
       loading,
       message,
       loggedIn,
