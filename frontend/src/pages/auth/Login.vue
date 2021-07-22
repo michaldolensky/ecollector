@@ -65,7 +65,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import {
+  computed, defineComponent, reactive, ref, toRaw, toRefs,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'src/store';
 import { LoginInterface } from 'src/store/auth/auth.interface';
@@ -76,8 +78,11 @@ export default defineComponent({
     const $store = useStore();
     const $router = useRouter();
 
-    const email = ref<string>('user2@example.com');
-    const password = ref<string>('password');
+    const LoginData = reactive<LoginInterface>({
+      email: 'user2@example.com',
+      password: 'password',
+    });
+
     const message = ref<string>('');
     const loading = ref<boolean>(false);
     const loggedIn = computed(() => $store.state.auth.loggedIn);
@@ -87,13 +92,8 @@ export default defineComponent({
     }
 
     const onSubmit = () => {
-      const user: LoginInterface = {
-        email: email.value,
-        password: password.value,
-      };
-
       loading.value = true;
-      $store.dispatch('auth/login', user)
+      $store.dispatch('auth/login', toRaw(LoginData))
         .then(
           () => {
             void $router.push('/profile');
@@ -107,13 +107,12 @@ export default defineComponent({
     };
 
     const onReset = () => {
-      email.value = '';
-      password.value = '';
+      LoginData.email = '';
+      LoginData.password = '';
     };
 
     return {
-      email,
-      password,
+      ...toRefs(LoginData),
       loading,
       message,
       loggedIn,
