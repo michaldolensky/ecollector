@@ -3,11 +3,11 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
-          flat
-          dense
-          round
-          icon="menu"
           aria-label="Menu"
+          dense
+          flat
+          icon="menu"
+          round
           @click="toggleLeftDrawer"
         />
 
@@ -21,14 +21,14 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
       bordered
       class="bg-grey-1"
+      show-if-above
     >
       <q-list>
         <q-item-label
-          header
           class="text-grey-8"
+          header
         >
           Essential Links
         </q-item-label>
@@ -42,13 +42,14 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script lang="ts">
 import EssentialLink from 'components/EssentialLink.vue';
+import { defineComponent, ref } from 'vue';
 
 const linksList = [
   {
@@ -94,8 +95,6 @@ const linksList = [
     link: 'https://awesome.quasar.dev',
   },
 ];
-
-import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
