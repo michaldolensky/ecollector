@@ -3,6 +3,7 @@
   <component name="ProjectStartupSharedConfiguration">
     <configurations>
       <configuration id="npm.dev" name="dev" />
+      <configuration id="Docker.Docker-dev" name="Docker-dev" />
     </configurations>
   </component>
 </project>
