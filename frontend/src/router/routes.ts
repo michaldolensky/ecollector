@@ -24,16 +24,16 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/auth/',
+    path: '/auth',
     component: () => import('layouts/MainLayout.vue'),
-    redirect: '/auth/login',
+    redirect: 'login',
     children: [
       {
-        path: '/auth/login',
+        path: 'login',
         alias: '/login',
         component: () => import('pages/auth/Login.vue'),
       },
-      { path: '/auth/signup', component: () => import('pages/auth/Signup.vue') },
+      { path: 'signup', component: () => import('pages/auth/Signup.vue') },
     ],
   },
   {
