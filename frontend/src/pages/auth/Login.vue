@@ -70,7 +70,7 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'src/store';
-import { LoginInterface } from 'src/store/auth/auth.interface';
+import { LoginInterface } from 'src/types/auth.interface';
 // TODO
 export default defineComponent({
   name: 'Login',
