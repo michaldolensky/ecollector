@@ -1,7 +1,7 @@
 <template>
   <q-list
     v-for="item in DashboardNavigationItems"
-    :key="item.name"
+    :key="item.routeName"
     :separator="false"
     bordered
   >
