@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/site',
     component: () => import('layouts/SiteLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') },
+    children: [{ path: '', component: () => import('pages/ItemsPage.vue') },
     ],
   },
   {
@@ -18,7 +18,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     redirect: '/auth/login',
     children: [
-      { path: '/auth/login', component: () => import('pages/auth/Login.vue') },
+      {
+        path: '/auth/login',
+        alias: '/login',
+        component: () => import('pages/auth/Login.vue'),
+      },
       { path: '/auth/signup', component: () => import('pages/auth/Signup.vue') },
     ],
   },
