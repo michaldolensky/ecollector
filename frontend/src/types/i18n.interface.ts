@@ -22,4 +22,12 @@ export interface I18nInterface{
       submit: string,
     },
   },
+  dashboard: {
+    navigation: {
+      home: string,
+      items: string,
+      categories: string
+      settings: string
+    }
+  }
 }

@@ -8,6 +8,16 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/dashboard',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { name: 'DashBoardIndex', path: '', component: () => import('pages/dashboard/Index.vue') },
+      { name: 'DashBoardItems', path: 'items', component: () => import('pages/dashboard/Items.vue') },
+      { name: 'DashBoardCategories', path: 'categories', component: () => import('pages/dashboard/Categories.vue') },
+      { name: 'DashBoardSettings', path: 'settings', component: () => import('pages/dashboard/Settings.vue') },
+    ],
+  },
+  {
     path: '/site',
     component: () => import('layouts/SiteLayout.vue'),
     children: [{ path: '', component: () => import('pages/ItemsPage.vue') },

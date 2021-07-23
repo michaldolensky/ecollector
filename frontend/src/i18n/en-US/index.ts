@@ -10,7 +10,6 @@ export default {
       email: 'Email',
       password: 'Password',
     },
-
     signup: {
       signup: 'Sign up',
       firstName: 'First Name',
@@ -25,6 +24,14 @@ export default {
     buttons: {
       reset: 'Reset',
       submit: 'Submit',
+    },
+  },
+  dashboard: {
+    navigation: {
+      home: 'Home',
+      items: 'Items',
+      categories: 'Categories',
+      settings: 'Settings',
     },
   },
 } as I18nInterface;
