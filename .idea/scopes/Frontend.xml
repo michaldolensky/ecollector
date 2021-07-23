@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Frontend" pattern="file[ecollector_v2]:frontend//*&amp;&amp;!file:.gitignore&amp;&amp;!file:.graphqlconfig&amp;&amp;!file:docker-compose.dev.yml&amp;&amp;!file:docker-compose.yml&amp;&amp;!file:README.md&amp;&amp;!file:schema.graphql&amp;&amp;!file[ecollector_v2]:.config//*&amp;&amp;!file[ecollector_v2]:.github//*&amp;&amp;!file[ecollector_v2]:.idea//*&amp;&amp;!file[ecollector_v2]:api//*" />
+</component>
