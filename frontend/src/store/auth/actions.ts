@@ -1,10 +1,10 @@
 import { ActionTree } from 'vuex';
-import { AuthStateInteface } from 'src/store/auth/state';
+import { AuthStateInterface } from 'src/store/auth/state';
 import { api } from 'boot/axios';
+import { LoginInterface } from 'src/types/auth.interface';
 import { StateInterface } from '../index';
-import { LoginInterface } from './auth.interface';
 
-const actions: ActionTree<AuthStateInteface, StateInterface> = {
+const actions: ActionTree<AuthStateInterface, StateInterface> = {
 
   async login({ commit }, loginObject:LoginInterface) {
     return api

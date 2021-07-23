@@ -29,14 +29,34 @@
 
         <q-card-section>
           <div class="text-h6">
-            {{ $t('auth.login.login') }}
+            {{ $t('auth.signup.signup') }}
           </div>
+          <q-input
+            id="firstName"
+            v-model.trim="firstName"
+            :label="$t('auth.signup.firstName')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            autofocus
+            lazy-rules
+            outlined
+            required
+            square
+          />
+          <q-input
+            id="firstName"
+            v-model.trim="lastName"
+            :label="$t('auth.signup.lastName')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            lazy-rules
+            outlined
+            required
+            square
+          />
           <q-input
             id="email"
             v-model.trim="email"
-            :label="$t('auth.login.email')"
+            :label="$t('auth.signup.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
-            autofocus
             lazy-rules
             outlined
             required
@@ -46,7 +66,18 @@
           <q-input
             id="password"
             v-model="password"
-            :label="$t('auth.login.password')"
+            :label="$t('auth.signup.password')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            outlined
+            required
+            square
+            type="password"
+          />
+          <q-input
+            id="verifyPassword"
+            v-model="verifyPassword"
+            :label="$t('auth.signup.verifyPassword')"
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
             required
             square
@@ -54,7 +85,7 @@
           />
           <br>
           <q-btn
-            :label="$t('auth.reset')"
+            :label="$t('form.buttons.reset')"
             class="q-ml-sm"
             color="primary"
             flat
@@ -62,9 +93,9 @@
           />
         </q-card-section>
         <q-card-actions align="around">
-          <router-link to="/auth/signup">
+          <router-link to="/auth/login">
             <q-btn
-              :label="$t('form.buttons.reset')"
+              :label="$t('auth.signup.button')"
               color="secondary"
             />
           </router-link>
@@ -80,24 +111,22 @@
 </template>
 
 <script lang="ts">
-import {
-  computed, defineComponent, reactive, ref, toRaw, toRefs,
-} from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'src/store';
 import { LoginInterface } from 'src/types/auth.interface';
 // TODO
 export default defineComponent({
-  name: 'Login',
+  name: 'Signup',
   setup() {
     const $store = useStore();
     const $router = useRouter();
 
-    const LoginData = reactive<LoginInterface>({
-      email: 'user2@example.com',
-      password: 'password',
-    });
-
+    const firstName = ref<string>('firstName');
+    const lastName = ref<string>('lastName');
+    const email = ref<string>('user2@example.com');
+    const password = ref<string>('password');
+    const verifyPassword = ref<string>('password');
     const message = ref<string>('');
     const loading = ref<boolean>(false);
     const loggedIn = computed(() => $store.state.auth.loggedIn);
@@ -107,11 +136,16 @@ export default defineComponent({
     }
 
     const onSubmit = () => {
+      const user: LoginInterface = {
+        email: email.value,
+        password: password.value,
+      };
+
       loading.value = true;
-      $store.dispatch('auth/login', toRaw(LoginData))
+      $store.dispatch('auth/signup', user)
         .then(
           () => {
-            void $router.push('/profile');
+            void $router.push('/auth/login');
           },
           (error) => {
             loading.value = false;
@@ -122,12 +156,21 @@ export default defineComponent({
     };
 
     const onReset = () => {
-      LoginData.email = '';
-      LoginData.password = '';
+      firstName.value = '';
+      lastName.value = '';
+
+      email.value = '';
+
+      password.value = '';
+      verifyPassword.value = '';
     };
 
     return {
-      ...toRefs(LoginData),
+      firstName,
+      lastName,
+      email,
+      password,
+      verifyPassword,
       loading,
       message,
       loggedIn,

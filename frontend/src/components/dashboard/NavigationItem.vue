@@ -1,8 +1,10 @@
 <template>
   <q-item
+    v-ripple
+    :to="{name:routeName}"
     clickable
+    exact
     tag="a"
-    :href="link"
   >
     <q-item-section
       v-if="icon"
@@ -13,9 +15,6 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>
-        {{ caption }}
-      </q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -24,23 +23,20 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: 'NavigationItem',
   props: {
     title: {
       type: String,
       required: true,
     },
-
     caption: {
       type: String,
       default: '',
     },
-
-    link: {
+    routeName: {
       type: String,
       default: '#',
     },
-
     icon: {
       type: String,
       default: '',

@@ -4,7 +4,7 @@ import {
   createStore, Store, Store as VuexStore, useStore as vuexUseStore,
 } from 'vuex';
 
-import { AuthStateInteface } from 'src/store/auth/state';
+import { AuthStateInterface } from 'src/store/auth/state';
 import auth from './auth';
 
 /*
@@ -17,7 +17,7 @@ import auth from './auth';
  */
 
 export interface StateInterface {
-  auth: AuthStateInteface
+  auth: AuthStateInterface
 }
 
 // provide typings for `this.$store`

@@ -1,8 +1,8 @@
 import { MutationTree } from 'vuex';
-import { AuthStateInteface, UserStateInterface } from './state';
+import { AuthStateInterface, UserStateInterface } from './state';
 
-const mutation: MutationTree<AuthStateInteface> = {
-  loginSuccess(state:AuthStateInteface, user) {
+const mutation: MutationTree<AuthStateInterface> = {
+  loginSuccess(state:AuthStateInterface, user) {
     state.loggedIn = true;
     state.user = user as UserStateInterface;
   },
