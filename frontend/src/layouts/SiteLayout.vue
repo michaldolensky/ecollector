@@ -68,7 +68,11 @@ export default defineComponent({
 
     const categories = ref([
       { name: 'Foo', id: 1, description: 'Cat1 Desc' },
-      { name: 'Bar' },
+      { name: 'Bar', id: 2, description: 'Cat2 Desc' },
+    ]);
+    const items = ref([
+      { name: 'item1', id: 1, description: 'Item 1 Desc' },
+      { name: 'item2', id: 2, description: 'Item 1 Desc' },
     ]);
 
     return {
@@ -76,6 +80,7 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      items,
 
       categories,
     };
