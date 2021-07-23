@@ -4,12 +4,12 @@ export interface UserStateInterface {
   username:string
 }
 
-export interface AuthStateInteface {
+export interface AuthStateInterface {
   user:UserStateInterface|null;
   loggedIn: boolean;
 }
 
-function state(): AuthStateInteface {
+function state(): AuthStateInterface {
   return {
     user: null,
     loggedIn: false,
