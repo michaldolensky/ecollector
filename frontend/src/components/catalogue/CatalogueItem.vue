@@ -1,5 +1,8 @@
 <template>
-  <q-card flat bordered>
+  <q-card
+    bordered
+    flat
+  >
     <q-card-section>
       <h3>{{ item.name }}</h3>
     </q-card-section>

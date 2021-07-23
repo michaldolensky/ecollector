@@ -1,12 +1,12 @@
 <template>
   <q-page padding>
- {{currentUser}}
+    {{ currentUser }}
   </q-page>
 </template>
 
 <script lang="ts">
 import {
-  computed, defineComponent, ref, onMounted,
+  computed, defineComponent, onMounted, ref,
 } from 'vue';
 import { useStore } from 'src/store';
 import { useRouter } from 'vue-router';

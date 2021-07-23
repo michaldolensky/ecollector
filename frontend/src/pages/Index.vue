@@ -1,9 +1,16 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <q-list>
-      <q-list> >
-        <template v-for="route in allRoutes" :key="route.path">
-          <EssentialLink :link="route.path" :title="route.path"/>
+      <q-list>
+        >
+        <template
+          v-for="route in allRoutes"
+          :key="route.path"
+        >
+          <EssentialLink
+            :link="route.path"
+            :title="route.path"
+          />
         </template>
       </q-list>
     </q-list>

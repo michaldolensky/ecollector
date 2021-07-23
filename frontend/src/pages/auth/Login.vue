@@ -1,5 +1,8 @@
 <template>
-  <q-page class="flex flex-center" padding>
+  <q-page
+    class="flex flex-center"
+    padding
+  >
     <q-card
       class="login-card"
       square
@@ -10,17 +13,24 @@
         @submit="onSubmit"
       >
         <q-card-section>
-          <q-avatar class="absolute-center shadow-10" size="120px">
-            <q-icon color="grey-4" name="mdi-account-circle" size="120px"/>
+          <q-avatar
+            class="absolute-center shadow-10"
+            size="120px"
+          >
+            <q-icon
+              color="grey-4"
+              name="mdi-account-circle"
+              size="120px"
+            />
           </q-avatar>
         </q-card-section>
 
-        <q-card-section>
-
-        </q-card-section>
+        <q-card-section />
 
         <q-card-section>
-          <div class="text-h6"> {{ $t('auth.login.login') }}</div>
+          <div class="text-h6">
+            {{ $t('auth.login.login') }}
+          </div>
           <q-input
             id="email"
             v-model.trim="email"
@@ -53,14 +63,19 @@
         </q-card-section>
         <q-card-actions align="around">
           <router-link to="/auth/signup">
-            <q-btn :label="$t('form.buttons.reset')" color="secondary"/>
+            <q-btn
+              :label="$t('form.buttons.reset')"
+              color="secondary"
+            />
           </router-link>
-          <q-btn :label="$t('form.buttons.submit')" color="primary" type="submit"/>
+          <q-btn
+            :label="$t('form.buttons.submit')"
+            color="primary"
+            type="submit"
+          />
         </q-card-actions>
-
       </q-form>
     </q-card>
-
   </q-page>
 </template>
 

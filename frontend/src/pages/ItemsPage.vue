@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
-    <template v-for="item in items" :key="item.id">
-      <CatalogueItem :item="item"></CatalogueItem>
+    <template
+      v-for="item in items"
+      :key="item.id"
+    >
+      <CatalogueItem :item="item" />
     </template>
   </q-page>
 </template>
