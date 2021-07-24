@@ -5,3 +5,10 @@ declare module '*.vue' {
   const component: ComponentOptions;
   export default component;
 }
+
+declare module '*.graphql' {
+  import { DocumentNode } from 'graphql';
+
+  const content: DocumentNode;
+  export default content;
+}

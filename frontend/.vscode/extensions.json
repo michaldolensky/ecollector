@@ -1,8 +1,8 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    
-    "octref.vetur"
+    "octref.vetur",
+    "apollographql.vscode-apollo"
   ],
   "unwantedRecommendations": [
     "hookyqr.beautify",
