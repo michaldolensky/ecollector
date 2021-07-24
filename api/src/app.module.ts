@@ -39,7 +39,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
       //TODO
       cors: {
-        origin: 'http://localhost:8080',
+        origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
         credentials: true,
       },
     }),

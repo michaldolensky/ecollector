@@ -13,7 +13,7 @@ async function bootstrap() {
   //TODO:
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:8080'],
+    origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
   });
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
