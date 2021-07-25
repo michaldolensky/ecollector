@@ -1,7 +1,7 @@
 import enUS from './en-US';
-import csCZ from './cs-CZ';
+import cs from './cs';
 
 export default {
   'en-US': enUS,
-  'cs-CZ': csCZ,
+  cs,
 };
