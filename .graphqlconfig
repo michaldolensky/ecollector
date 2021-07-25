@@ -1,6 +1,6 @@
 {
   "name": "Ecollector",
-  "schemaPath": "schema.graphql",
+  "schemaPath": "api/schema.graphql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
