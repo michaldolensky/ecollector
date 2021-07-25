@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -12,6 +12,8 @@ import { ItemsModule } from './items/items.module';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+
+const graphQLLogger = new Logger('GraphQLModule');
 
 @Module({
   imports: [
@@ -36,7 +38,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       autoSchemaFile: 'schema.gql',
       path: '/api/graphql',
       debug: false,
-
+      formatError: (error) => {
+        graphQLLogger.error('error', error);
+        return error;
+      },
       //TODO
       cors: {
         origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
