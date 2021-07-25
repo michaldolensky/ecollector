@@ -11,10 +11,10 @@ const routes: RouteRecordRaw[] = [
     path: '/site/:siteId/dashboard',
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
-      { name: 'DashBoardIndex', path: '', component: () => import('pages/dashboard/Index.vue') },
-      { name: 'DashBoardItems', path: 'items', component: () => import('pages/dashboard/Items.vue') },
-      { name: 'DashBoardCategories', path: 'categories', component: () => import('pages/dashboard/Categories.vue') },
-      { name: 'DashBoardSettings', path: 'settings', component: () => import('pages/dashboard/Settings.vue') },
+      { name: 'DashBoardIndex', path: '', component: () => import('pages/site/dashboard/Index.vue') },
+      { name: 'DashBoardItems', path: 'items', component: () => import('pages/site/dashboard/Items.vue') },
+      { name: 'DashBoardCategories', path: 'categories', component: () => import('pages/site/dashboard/Categories.vue') },
+      { name: 'DashBoardSettings', path: 'settings', component: () => import('pages/site/dashboard/Settings.vue') },
     ],
   },
   {
