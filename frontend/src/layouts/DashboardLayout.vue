@@ -23,7 +23,8 @@
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      :mini="miniState"
+      :width="200"
       behavior="desktop"
       elevated
       show-if-above
@@ -46,12 +47,12 @@ export default defineComponent({
   name: 'DashBoardLayout',
   components: { DashboardDrawerItemsComponent },
   setup() {
-    const leftDrawerOpen = ref(false);
+    const miniState = ref(false);
 
     return {
-      leftDrawerOpen,
+      miniState,
       toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
+        miniState.value = !miniState.value;
       },
     };
   },
