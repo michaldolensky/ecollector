@@ -1,11 +1,10 @@
 <template>
   <q-list
-    v-for="item in DashboardNavigationItems"
-    :key="item.routeName"
-    :separator="false"
     bordered
   >
     <NavigationItem
+      v-for="item in DashboardNavigationItems"
+      :key="item.routeName"
       :icon="item.icon"
       :route-name="item.routeName"
       :title="$t(item.nameString)"
