@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/dashboard',
+    path: '/site/:siteId/dashboard',
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
       { name: 'DashBoardIndex', path: '', component: () => import('pages/dashboard/Index.vue') },

@@ -31,5 +31,13 @@ export default {
       categories: 'Categories',
       settings: 'Settings',
     },
+    table: {
+      items: {
+        notFound: 'No items found.',
+      },
+      createdAt: 'Created',
+      updatedAt: 'Updated',
+      name: 'Name',
+    },
   },
 };
