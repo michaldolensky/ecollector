@@ -9,6 +9,7 @@ import { UpdateItemInput } from './dto/update-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Item } from './entities/item.entity';
+import { GetItemsArgs } from './dto/getItems.args';
 
 @Injectable()
 export class ItemsService {
@@ -57,6 +58,13 @@ export class ItemsService {
   async getItemsOfCategory(categoryId: number) {
     return await this.itemsRepository.find({
       where: { categoryId },
+    });
+  }
+
+  async getAllItemsFromSite(args: GetItemsArgs) {
+    console.log(args);
+    return await this.itemsRepository.find({
+      where: { siteId: args.siteId },
     });
   }
 }

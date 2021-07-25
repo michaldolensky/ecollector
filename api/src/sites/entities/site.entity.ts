@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
+import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })
@@ -27,6 +28,10 @@ export class Site extends BaseEntity {
   @Field(() => [Category])
   @OneToMany(() => Category, (category) => category.site)
   categories: Category[];
+
+  @Field(() => [Item])
+  @OneToMany(() => Item, (item) => item.site)
+  items: Item[];
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.sites)
