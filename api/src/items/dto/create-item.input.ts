@@ -1,4 +1,4 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateItemInput {
@@ -7,4 +7,6 @@ export class CreateItemInput {
 
   @Field(() => Int)
   categoryId: number;
+  @Field(() => Int)
+  siteId: number;
 }

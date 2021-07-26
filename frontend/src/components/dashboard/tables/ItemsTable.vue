@@ -4,7 +4,7 @@
     :filter="filter"
     :grid="$q.screen.xs"
     :loading="loading"
-    :no-data-label="$t('dashboard.table.items.notFound')"
+    :no-data-label="t('dashboard.table.items.notFound')"
     :pagination="initialPagination"
     :rows="items"
     row-key="id"
@@ -29,6 +29,7 @@
     <template #body-cell-Action="props">
       <q-td :props="props">
         <q-btn
+          :to="`editItem/${props.row.id}`"
           dense
           flat
           icon="edit"
@@ -40,6 +41,7 @@
           flat
           icon="delete"
           size="sm"
+          @click="confirmDelete(props.row)"
         />
       </q-td>
     </template>
@@ -56,13 +58,16 @@
         </template>
       </q-input>
     </template>
-    {{ filter }}
   </q-table>
 </template>
 <script lang="ts">
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
 import { PropType, ref } from 'vue';
 import { ItemInterface } from 'src/types/item.interface';
+import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
+import { useI18n } from 'src/boot/i18n';
+import { useItems } from 'src/use/useItems';
 
 export default {
   name: 'ItemsTable',
@@ -76,7 +81,25 @@ export default {
     },
   },
   setup() {
+    const $q = useQuasar();
+    const { t } = useI18n();
+    const { removeItem } = useItems();
+
+    const confirmDelete = (item: ItemInterface) => {
+      $q.dialog({
+        title: 'Confirm',
+        message: t('dashboard.dialog.delete', [item.name]),
+        cancel: true,
+        persistent: true,
+      }).onOk(() => {
+        void removeItem(item.id);
+      });
+    };
+
     return {
+      t,
+      confirmDelete,
+      router: useRouter(),
       filter: ref(''),
       ItemsTableColumns,
       initialPagination: {

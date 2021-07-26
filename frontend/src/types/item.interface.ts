@@ -7,3 +7,7 @@ export interface ItemInterface {
   createdAt:Date
   category:CategoryInterface
 }
+
+export interface RemovedItem extends Partial<ItemInterface>{
+  id:number
+}

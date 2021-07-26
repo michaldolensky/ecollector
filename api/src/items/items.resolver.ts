@@ -45,7 +45,7 @@ export class ItemsResolver {
   }
 
   @Mutation(() => Item)
-  removeItem(@Args('id', { type: () => Int }) id: number) {
+  removeItem(@Args('itemId', { type: () => Int }) id: number) {
     return this.itemsService.remove(id);
   }
 

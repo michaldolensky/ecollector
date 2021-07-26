@@ -22,6 +22,7 @@ export class ItemsService {
 
     item.name = createItemInput.name;
     item.categoryId = createItemInput.categoryId;
+    item.siteId = createItemInput.siteId;
 
     return await this.itemsRepository.save(item);
   }
@@ -49,10 +50,12 @@ export class ItemsService {
     return item;
   }
 
-  async remove(id: number) {
-    const item = await this.itemsRepository.findOne({ where: { id } });
+  async remove(itemId: number) {
+    const item = await this.itemsRepository.findOne({ where: { id: itemId } });
     if (!item) throw new Error('Item not found!');
-    await this.itemsRepository.delete(id);
+    await this.itemsRepository.delete(itemId);
+    console.log(item);
+    return item;
   }
 
   async getItemsOfCategory(categoryId: number) {

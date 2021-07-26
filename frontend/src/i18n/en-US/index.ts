@@ -31,6 +31,9 @@ export default {
       categories: 'Categories',
       settings: 'Settings',
     },
+    dialog: {
+      delete: 'Do you really wish to delete {0}?',
+    },
     table: {
       items: {
         notFound: 'No items found.',

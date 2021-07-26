@@ -3,40 +3,50 @@
     <div v-if="loading">
       Loading...
     </div>
-    <div v-else-if="error">
-      Error: {{ error.message }}
-    </div>
+    <!--    <div v-else-if="error">-->
+    <!--      Error: {{ error.message }}-->
+    <!--    </div>-->
     <div
-      v-else-if="result && result.items"
+      v-else-if="true"
       class="q-pa-md"
     >
       <ItemsTable
         :items="result.items"
         :loading="loading"
       />
+      <q-page-sticky
+        :offset="[18, 18]"
+        position="bottom-right"
+      >
+        <q-btn
+          color="accent"
+          fab
+          icon="add"
+          @click="addItem(newItem)"
+        />
+      </q-page-sticky>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useQuery } from '@vue/apollo-composable';
-import { GET_ITEMS_QUERY } from 'src/apollo/dashboard/getItems.query';
+import { useItems } from 'src/use/useItems';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
-import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'ItemDashboard',
   components: { ItemsTable },
   setup() {
-    const $route = useRoute();
-    const { result, loading, error } = useQuery(GET_ITEMS_QUERY, {
-      siteId: parseInt($route.params.siteId, 10),
-    });
+    const { result, loading, addItem } = useItems();
+
+    const newItem = { name: 'name', categoryId: 1, siteId: 1 };
+
     return {
       result,
       loading,
-      error,
+      addItem,
+      newItem,
     };
   },
 });
