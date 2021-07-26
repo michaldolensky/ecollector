@@ -1,8 +1,7 @@
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
@@ -37,10 +36,7 @@ export class CategoriesService {
     if (category) {
       return category;
     }
-    throw new HttpException(
-      'Category with this id does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+    throw new NotFoundException('Category with this id does not exist');
   }
 
   async update(id: number, updateCategoryInput: Partial<UpdateCategoryInput>) {
@@ -53,7 +49,7 @@ export class CategoriesService {
 
   async remove(id: number): Promise<void> {
     const category = await this.categoriesRepository.findOne({ where: { id } });
-    if (!category) throw new Error('Category not found!');
+    if (!category) throw new NotFoundException('Category not found!');
     await this.categoriesRepository.delete(id);
   }
 

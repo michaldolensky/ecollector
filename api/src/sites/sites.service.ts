@@ -1,8 +1,7 @@
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateSiteInput } from './dto/create-site.input';
 import { UpdateSiteInput } from './dto/update-site.input';
@@ -34,10 +33,7 @@ export class SitesService {
     if (site) {
       return site;
     }
-    throw new HttpException(
-      'Site with this id does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+    throw new NotFoundException('Site with this id does not exist');
   }
 
   async update(id: number, updateSiteInput: UpdateSiteInput) {
@@ -50,7 +46,7 @@ export class SitesService {
 
   async remove(id: number) {
     const site = await this.sitesRepository.findOne({ where: { id } });
-    if (!site) throw new Error('Site not found!');
+    if (!site) throw new NotFoundException('Site not found!');
     await this.sitesRepository.delete(id);
   }
 

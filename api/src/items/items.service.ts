@@ -1,8 +1,7 @@
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
@@ -17,6 +16,7 @@ export class ItemsService {
     @InjectRepository(Item)
     private itemsRepository: Repository<Item>,
   ) {}
+
   async create(createItemInput: CreateItemInput) {
     const item = new Item();
 
@@ -36,10 +36,7 @@ export class ItemsService {
     if (item) {
       return item;
     }
-    throw new HttpException(
-      'Item with this id does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+    throw new NotFoundException('Item with this id does not exist');
   }
 
   async update(id: number, updateItemInput: Partial<UpdateItemInput>) {
@@ -52,7 +49,7 @@ export class ItemsService {
 
   async remove(itemId: number) {
     const item = await this.itemsRepository.findOne({ where: { id: itemId } });
-    if (!item) throw new Error('Item not found!');
+    if (!item) throw new NotFoundException('Item not found!');
     await this.itemsRepository.delete(itemId);
     console.log(item);
     return item;
@@ -65,7 +62,6 @@ export class ItemsService {
   }
 
   async getAllItemsFromSite(args: GetItemsArgs) {
-    console.log(args);
     return await this.itemsRepository.find({
       where: { siteId: args.siteId },
     });
