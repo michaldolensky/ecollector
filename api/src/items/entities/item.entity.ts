@@ -1,8 +1,9 @@
 import { Field, HideField, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { BaseEntity } from 'src/common/entities/base.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { Site } from '../../sites/entities/site.entity';
+import { Image } from '../../images/entities/image.entity';
 
 @ObjectType('Item')
 @InputType('ItemInput')
@@ -28,4 +29,7 @@ export class Item extends BaseEntity {
   @HideField()
   @Column()
   siteId: number;
+
+  @OneToMany(() => Image, (image) => image.item)
+  images: Image[];
 }

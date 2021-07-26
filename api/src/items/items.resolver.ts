@@ -14,6 +14,8 @@ import { UpdateItemInput } from './dto/update-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { Category } from '../categories/entities/category.entity';
 import { CategoriesService } from '../categories/categories.service';
+import { getRepository } from 'typeorm';
+import { Image } from '../images/entities/image.entity';
 
 @Resolver(() => Item)
 export class ItemsResolver {
@@ -52,5 +54,9 @@ export class ItemsResolver {
   @ResolveField()
   async category(@Parent() item: Item): Promise<Category> {
     return this.categoriesService.findOne(item.categoryId);
+  }
+  @ResolveField()
+  async images(@Parent() item: Item): Promise<Image[]> {
+    return await getRepository(Image).find({ where: { id: item.id } });
   }
 }

@@ -12,6 +12,8 @@ import { ItemsModule } from './items/items.module';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ImagesModule } from './images/images.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 const graphQLLogger = new Logger('GraphQLModule');
 
@@ -19,7 +21,7 @@ const graphQLLogger = new Logger('GraphQLModule');
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'assets', 'client'),
-      exclude: ['/api*'],
+      exclude: ['/api*', '/images'],
     }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
@@ -48,11 +50,15 @@ const graphQLLogger = new Logger('GraphQLModule');
         credentials: true,
       },
     }),
+    MulterModule.register({
+      dest: './files',
+    }),
     AuthModule,
     UsersModule,
     SitesModule,
     CategoriesModule,
     ItemsModule,
+    ImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
