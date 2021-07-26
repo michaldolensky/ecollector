@@ -1,4 +1,4 @@
-import { ItemInterface } from 'src/types/item.interface';
+import { Item } from 'src/use/useItems';
 
 export const ItemsTableColumns = [
 
@@ -7,7 +7,7 @@ export const ItemsTableColumns = [
     required: true,
     label: 'Name',
     align: 'left',
-    field: (item:ItemInterface) => item.name,
+    field: (item:Item) => item.name,
     format: (val:string) => `${val}`,
     sortable: true,
   },
@@ -16,7 +16,7 @@ export const ItemsTableColumns = [
     required: true,
     label: 'Category',
     align: 'left',
-    field: (item:ItemInterface) => item.category.name,
+    field: (item:Item) => item.category.name,
     format: (val:string) => `${val}`,
     sortable: true,
   },
@@ -25,7 +25,7 @@ export const ItemsTableColumns = [
     required: true,
     label: 'Created',
     align: 'left',
-    field: (item:ItemInterface) => item.createdAt,
+    field: (item:Item) => item.createdAt,
     format: (val:string) => `${val}`,
     sortable: true,
   },
@@ -34,7 +34,7 @@ export const ItemsTableColumns = [
     required: true,
     label: 'Updated',
     align: 'left',
-    field: (item:ItemInterface) => item.updatedAt,
+    field: (item:Item) => item.updatedAt,
     format: (val:string) => `${val}`,
     sortable: true,
   },

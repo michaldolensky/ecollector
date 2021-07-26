@@ -11,19 +11,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { ItemInterface } from 'src/types/item.interface';
 import CatalogueItem from 'components/catalogue/CatalogueItem.vue';
+import { Item } from 'src/use/useItems';
 
 export default defineComponent({
   name: 'ItemsPage',
   components: { CatalogueItem },
   props: {
     items: {
-      type: Array as PropType<ItemInterface[]>,
-      default: () => ([
-        { name: 'item1', id: 1, description: 'Item 1 Desc' },
-        { name: 'item2', id: 2, description: 'Item 1 Desc' },
-      ]),
+      type: Array as PropType<Item[]>,
       required: true,
     },
   },

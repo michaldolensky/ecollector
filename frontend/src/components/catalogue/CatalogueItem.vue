@@ -11,14 +11,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { ItemInterface } from 'src/types/item.interface';
+import { Item } from 'src/use/useItems';
 
 export default defineComponent({
   name: 'CatalogueItem',
   components: { },
   props: {
     item: {
-      type: Object as PropType<ItemInterface>,
+      type: Object as PropType<Item>,
       default: () => ({}),
       required: true,
     },

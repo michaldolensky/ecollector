@@ -63,11 +63,10 @@
 <script lang="ts">
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
 import { PropType, ref } from 'vue';
-import { ItemInterface } from 'src/types/item.interface';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
-import { useItems } from 'src/use/useItems';
+import { Item, useItems } from 'src/use/useItems';
 
 export default {
   name: 'ItemsTable',
@@ -76,7 +75,7 @@ export default {
       type: Boolean,
     },
     items: {
-      type: Array as PropType<ItemInterface[]>,
+      type: Array as PropType<Item[]>,
       default: () => [],
     },
   },
@@ -85,7 +84,7 @@ export default {
     const { t } = useI18n();
     const { removeItem } = useItems();
 
-    const confirmDelete = (item: ItemInterface) => {
+    const confirmDelete = (item: Item) => {
       $q.dialog({
         title: 'Confirm',
         message: t('dashboard.dialog.delete', [item.name]),
