@@ -15,7 +15,14 @@ async function bootstrap() {
     credentials: true,
     origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      disableErrorMessages: process.env.NODE_ENV === 'PRODUCTION',
+    }),
+  );
   app.use(cookieParser());
   await app.listen(PORT);
 
