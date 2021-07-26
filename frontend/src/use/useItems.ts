@@ -1,10 +1,9 @@
-import { GET_ITEMS_QUERY } from 'src/apollo/dashboard/getItems.query';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 
 import { CategoryInterface } from 'src/types/category.interface';
-import { DELETE_ITEM } from 'src/apollo/dashboard/deleteItem';
-import { CREATE_ITEM } from 'src/apollo/dashboard/createItem';
-import { UPDATE_ITEM } from 'src/apollo/dashboard/updateItem';
+import {
+  CREATE_ITEM, DELETE_ITEM, GET_ITEMS_QUERY, UPDATE_ITEM,
+} from 'src/apollo/dashboard/itemQueries';
 
 export interface Item {
   id:number
