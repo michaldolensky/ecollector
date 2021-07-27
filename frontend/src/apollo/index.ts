@@ -4,6 +4,7 @@ import { createHttpLink, InMemoryCache } from '@apollo/client/core';
 export const getClientOptions = () => <ApolloClientOptions<unknown>>Object.assign(
   <ApolloClientOptions<unknown>>{
     link: createHttpLink({
+      credentials: 'include',
       uri:
         process.env.GRAPHQL_URI
         || 'http://localhost:3000/api/graphql',
