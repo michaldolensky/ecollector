@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { PostgresErrorCode } from '../database/enums/postgresErrorCodes';
 import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './tokenPayload.interface';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -53,6 +54,22 @@ export class AuthService {
     }
   }
 
+  public async getCookieWithJwtToken(user: User) {
+    const payload: TokenPayload = {
+      userId: user.id,
+      role: user.role,
+      ownedSites: await this.userService.getUsersSitesIds(user.id),
+    };
+    const token = this.jwtService.sign(payload);
+    return `Authorization=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
+      'JWT_EXPIRATION_TIME',
+    )}`;
+  }
+
+  public getCookieForLogOut() {
+    return `Authorization=; HttpOnly; Path=/; Max-Age=0`;
+  }
+
   private async verifyPassword(
     plainTextPassword: string,
     hashedPassword: string,
@@ -67,17 +84,5 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
-  }
-
-  public getCookieWithJwtToken(userId: number) {
-    const payload: TokenPayload = { userId };
-    const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
-      'JWT_EXPIRATION_TIME',
-    )}`;
-  }
-
-  public getCookieForLogOut() {
-    return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
   }
 }

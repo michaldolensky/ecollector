@@ -1,12 +1,12 @@
 import {
   Body,
-  Req,
   Controller,
+  Get,
   HttpCode,
   Post,
-  UseGuards,
+  Req,
   Res,
-  Get,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
@@ -29,7 +29,7 @@ export class AuthController {
   @Post('login')
   async logIn(@Req() request: RequestWithUser, @Res() response: Response) {
     const { user } = request;
-    const cookie = this.authService.getCookieWithJwtToken(user.id);
+    const cookie = await this.authService.getCookieWithJwtToken(user);
     response.setHeader('Set-Cookie', cookie);
     user.password = undefined;
     return response.send(user);

@@ -80,6 +80,16 @@ export class UsersService {
     return user;
   }
 
+  public async getUsersSitesIds(userId: number) {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['sites'],
+    });
+    return user.sites.map((value) => {
+      return value.id;
+    });
+  }
+
   public async updatePassword(userId: number, password: string) {
     const user = await this.findOne(userId);
     if (user === undefined || user === null) {
