@@ -30,6 +30,9 @@ export class Item extends BaseEntity {
   @Column()
   siteId: number;
 
-  @OneToMany(() => Image, (image) => image.item)
-  images: Image[];
+  @OneToMany(() => Image, (image) => image.item, {
+    eager: true,
+  })
+  @Field(() => [Image], { nullable: 'itemsAndList' })
+  images?: Image[];
 }
