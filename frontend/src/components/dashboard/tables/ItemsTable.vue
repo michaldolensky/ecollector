@@ -29,7 +29,7 @@
     <template #body-cell-Action="props">
       <q-td :props="props">
         <q-btn
-          :to="`editItem/${props.row.id}`"
+          :to="`items/edit/${props.row.id}`"
           dense
           flat
           icon="edit"

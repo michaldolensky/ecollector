@@ -13,6 +13,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       { name: 'DashBoardIndex', path: '', component: () => import('pages/site/dashboard/Index.vue') },
       { name: 'DashBoardItems', path: 'items', component: () => import('pages/site/dashboard/Items.vue') },
+      { name: 'DashBoardItemEdit', path: 'items/edit/:itemId', component: () => import('pages/site/dashboard/EditItemPage.vue') },
       { name: 'DashBoardCategories', path: 'categories', component: () => import('pages/site/dashboard/Categories.vue') },
       { name: 'DashBoardSettings', path: 'settings', component: () => import('pages/site/dashboard/Settings.vue') },
     ],
