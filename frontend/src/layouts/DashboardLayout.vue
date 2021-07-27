@@ -1,5 +1,8 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout
+    containerv
+    iew="hHh Lpr lff"
+  >
     <q-header
       class="bg-primary text-white"
       elevated
@@ -7,6 +10,7 @@
       <q-toolbar>
         <q-btn
           dense
+
           flat
           icon="menu"
           round
@@ -26,6 +30,7 @@
       :mini="miniState"
       :width="200"
       behavior="desktop"
+      bordered
       elevated
       show-if-above
       side="left"
