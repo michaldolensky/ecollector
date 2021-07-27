@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Item } from 'src/use/useItems';
+import { Item } from 'src/module/useItems';
 
 export default defineComponent({
   name: 'CatalogueItem',

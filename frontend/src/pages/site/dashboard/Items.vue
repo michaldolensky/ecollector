@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useItems } from 'src/use/useItems';
+import { useItems } from 'src/module/useItems';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 
 export default defineComponent({

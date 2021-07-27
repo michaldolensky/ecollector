@@ -66,7 +66,7 @@ import { PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
-import { Item, useItems } from 'src/use/useItems';
+import { Item, useItems } from 'src/module/useItems';
 
 export default {
   name: 'ItemsTable',

@@ -1,4 +1,4 @@
-import { Item } from 'src/use/useItems';
+import { Item } from 'src/module/useItems';
 
 export const ItemsTableColumns = [
 
