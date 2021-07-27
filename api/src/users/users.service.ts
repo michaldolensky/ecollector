@@ -56,7 +56,10 @@ export class UsersService {
   }
 
   async getById(id: number) {
-    const user = await this.usersRepository.findOne({ id });
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['sites'],
+    });
     if (user) {
       return user;
     }
