@@ -10,9 +10,9 @@ export = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
   entities: ['src/**/entities/*.entity.ts'],
-  migrations: ['src/migrations/*.{ts,js}'],
+  migrations: ['migrations/*.{ts,js}'],
   cli: {
-    migrationsDir: 'src/migrations/',
+    migrationsDir: 'migrations/',
   },
   extra: {
     ssl:
