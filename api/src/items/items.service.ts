@@ -17,12 +17,12 @@ export class ItemsService {
     private itemsRepository: Repository<Item>,
   ) {}
 
-  async create(createItemInput: CreateItemInput) {
+  async create(createItemInput: CreateItemInput, siteId: number) {
     const item = new Item();
 
     item.name = createItemInput.name;
     item.categoryId = createItemInput.categoryId;
-    item.siteId = createItemInput.siteId;
+    item.siteId = siteId;
 
     return await this.itemsRepository.save(item);
   }

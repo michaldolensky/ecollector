@@ -16,6 +16,9 @@ import { Category } from '../categories/entities/category.entity';
 import { CategoriesService } from '../categories/categories.service';
 import { getRepository } from 'typeorm';
 import { Image } from '../images/entities/image.entity';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { RoleGuard } from '../auth/guards/role.guard';
 
 @Resolver(() => Item)
 export class ItemsResolver {
@@ -23,9 +26,14 @@ export class ItemsResolver {
     private readonly itemsService: ItemsService,
     private readonly categoriesService: CategoriesService,
   ) {}
+
+  @UseGuards(GqlAuthGuard, RoleGuard)
   @Mutation(() => Item)
-  createItem(@Args('createItemInput') createItemInput: CreateItemInput) {
-    return this.itemsService.create(createItemInput);
+  createItem(
+    @Args('createItemInput') createItemInput: CreateItemInput,
+    @Args('siteId', { type: () => Int }) siteId: number,
+  ) {
+    return this.itemsService.create(createItemInput, siteId);
   }
 
   @Query(() => [Item], { name: 'items' })

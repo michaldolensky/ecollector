@@ -7,6 +7,4 @@ export class CreateItemInput {
 
   @Field(() => Int)
   categoryId: number;
-  @Field(() => Int)
-  siteId: number;
 }

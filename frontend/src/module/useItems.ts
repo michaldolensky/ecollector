@@ -18,7 +18,6 @@ interface ItemsVars {
   siteId: number;
 }
 interface createItemVars {
-  siteId: number;
   name: string;
   categoryId: number;
 }
@@ -41,8 +40,8 @@ export function useItems() {
       void refetch();
     });
   };
-  const addItem = (itemVars:createItemVars) => {
-    void createItemMutation({ createItemInput: itemVars }).then(() => {
+  const addItem = (itemVars:createItemVars, siteId:number) => {
+    void createItemMutation({ createItemInput: itemVars, siteId }).then(() => {
       void refetch();
     });
   };

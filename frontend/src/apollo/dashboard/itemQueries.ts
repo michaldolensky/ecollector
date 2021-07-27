@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const CREATE_ITEM = gql`
-  mutation createItem($createItemInput:CreateItemInput!){
-    createItem(createItemInput: $createItemInput) {
+  mutation createItem($createItemInput:CreateItemInput!, $siteId: Int!){
+    createItem(createItemInput: $createItemInput,siteId:$siteId) {
       id
       categoryId
       name

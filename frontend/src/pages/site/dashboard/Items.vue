@@ -22,7 +22,7 @@
           color="accent"
           fab
           icon="add"
-          @click="addItem(newItem)"
+          @click="addItem(newItem, 1)"
         />
       </q-page-sticky>
     </div>
@@ -40,7 +40,7 @@ export default defineComponent({
   setup() {
     const { result, loading, addItem } = useItems();
 
-    const newItem = { name: 'name', categoryId: 1, siteId: 1 };
+    const newItem = { name: 'name', categoryId: 1 };
 
     return {
       result,
