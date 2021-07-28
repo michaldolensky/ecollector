@@ -38,12 +38,6 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/stage',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/StagePage.vue') },
-    ],
-  },
-  {
     path: '/profile',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Profile.vue') },
