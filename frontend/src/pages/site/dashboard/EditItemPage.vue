@@ -66,6 +66,12 @@
                 Item details
               </div>
             </q-card-section>
+            <q-card-section>
+              added to colection
+              internalNumber
+              countInStock
+              availableForExchange
+            </q-card-section>
           </q-card>
         </div>
       </div>
