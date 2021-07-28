@@ -111,7 +111,7 @@ export default defineComponent({
       $store.dispatch('auth/login', toRaw(LoginData))
         .then(
           () => {
-            void $router.push('/profile');
+            void $router.push({ name: 'profile' });
           },
           (error) => {
             loading.value = false;
