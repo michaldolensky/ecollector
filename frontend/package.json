@@ -23,7 +23,7 @@
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.3",
     "@quasar/quasar-app-extension-apollo": "^2.0.0-beta.3",
-    "@types/node": "^10.17.15",
+    "@types/node": "^16.4.5",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "eslint": "^7.31.0",
