@@ -19,6 +19,7 @@ import { Image } from '../images/entities/image.entity';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
+import { DeleteItemArgs } from './dto/delete-item.input';
 
 @Resolver(() => Item)
 export class ItemsResolver {
@@ -55,8 +56,8 @@ export class ItemsResolver {
   }
 
   @Mutation(() => Item)
-  removeItem(@Args('itemId', { type: () => Int }) id: number) {
-    return this.itemsService.remove(id);
+  removeItem(@Args() { deleteItemInput: { itemId } }: DeleteItemArgs) {
+    return this.itemsService.remove(itemId);
   }
 
   @ResolveField()
