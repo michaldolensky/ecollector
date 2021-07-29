@@ -35,7 +35,7 @@ export class Category extends BaseEntity {
   @Column()
   siteId: number;
 
-  @Field(() => [Item])
+  @Field(() => [Item], { nullable: 'itemsAndList' })
   @OneToMany(() => Item, (item) => item.category)
-  items: Item[];
+  items?: Item[];
 }
