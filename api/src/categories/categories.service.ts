@@ -3,11 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
+import { CreateCategoryInput } from './dto/create-category.input';
 
 @Injectable()
 export class CategoriesService {
@@ -16,13 +16,13 @@ export class CategoriesService {
     private categoriesRepository: Repository<Category>,
   ) {}
 
-  async create(createCategoryInput: CreateCategoryInput) {
+  async create(createCategoryInput: CreateCategoryInput, siteId: number) {
     const category = new Category();
 
     category.name = createCategoryInput.name;
     category.perex = createCategoryInput.perex;
     category.parentId = createCategoryInput.parentId;
-    category.siteId = createCategoryInput.siteId;
+    category.siteId = siteId;
 
     return await this.categoriesRepository.save(category);
   }

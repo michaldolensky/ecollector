@@ -9,7 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
 import { Category } from './entities/category.entity';
-import { CreateCategoryInput } from './dto/create-category.input';
+import { CreateCategoryArgs } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { Site } from '../sites/entities/site.entity';
 import { SitesService } from '../sites/sites.service';
@@ -26,10 +26,8 @@ export class CategoriesResolver {
   ) {}
 
   @Mutation(() => Category)
-  createCategory(
-    @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
-  ) {
-    return this.categoryService.create(createCategoryInput);
+  createCategory(@Args() { siteId, createCategoryInput }: CreateCategoryArgs) {
+    return this.categoryService.create(createCategoryInput, siteId);
   }
 
   @Query(() => [Category], { name: 'categories' })

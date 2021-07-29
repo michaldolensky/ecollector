@@ -1,4 +1,5 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
+import { SiteIdArgs } from '../../common/args/siteId.args';
 
 @InputType()
 export class CreateCategoryInput {
@@ -10,7 +11,10 @@ export class CreateCategoryInput {
 
   @Field(() => Int, { nullable: true })
   parentId: number;
+}
 
-  @Field(() => Int)
-  siteId: number;
+@ArgsType()
+export class CreateCategoryArgs extends SiteIdArgs {
+  @Field(() => CreateCategoryInput)
+  createCategoryInput: CreateCategoryInput;
 }
