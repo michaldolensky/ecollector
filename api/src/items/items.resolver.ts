@@ -10,7 +10,7 @@ import {
 import { ItemsService } from './items.service';
 import { Item } from './entities/item.entity';
 import { CreateItemArgs } from './dto/create-item.input';
-import { UpdateItemInput } from './dto/update-item.input';
+import { UpdateItemArgs } from './dto/update-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { Category } from '../categories/entities/category.entity';
 import { CategoriesService } from '../categories/categories.service';
@@ -48,7 +48,7 @@ export class ItemsResolver {
   }
 
   @Mutation(() => Item)
-  updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
+  updateItem(@Args() { updateItemInput }: UpdateItemArgs) {
     return this.itemsService.update(updateItemInput.id, updateItemInput);
   }
 
