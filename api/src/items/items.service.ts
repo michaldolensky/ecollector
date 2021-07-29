@@ -51,7 +51,6 @@ export class ItemsService {
     const item = await this.itemsRepository.findOne({ where: { id: itemId } });
     if (!item) throw new NotFoundException('Item not found!');
     await this.itemsRepository.delete(itemId);
-    console.log(item);
     return item;
   }
 
