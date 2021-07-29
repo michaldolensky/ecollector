@@ -10,15 +10,15 @@ export const CREATE_ITEM = gql`
   }
 `;
 export const DELETE_ITEM = gql`
-  mutation removeItem($itemId:Int!){
-    removeItem(itemId:$itemId) {
+  mutation removeItem($deleteItemInput:DeleteItemInput!,$siteId:Int!){
+    removeItem(deleteItemInput: $deleteItemInput,siteId: $siteId) {
       id
     }
   }
 `;
 export const UPDATE_ITEM = gql`
-  mutation updateItem($updateItemInput:UpdateItemInput!){
-    updateItem(updateItemInput:  $updateItemInput) {
+  mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
+    updateItem(updateItemInput: $updateItemInput,siteId: $siteId) {
       id
       categoryId
       name
