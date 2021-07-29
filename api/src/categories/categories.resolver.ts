@@ -15,6 +15,7 @@ import { Site } from '../sites/entities/site.entity';
 import { SitesService } from '../sites/sites.service';
 import { ItemsService } from '../items/items.service';
 import { Item } from '../items/entities/item.entity';
+import { DeleteCategoryArgs } from './dto/delete-category.input';
 
 @Resolver(() => Category)
 export class CategoriesResolver {
@@ -52,8 +53,10 @@ export class CategoriesResolver {
   }
 
   @Mutation(() => Category)
-  removeCategory(@Args('id', { type: () => Int }) id: number) {
-    return this.categoryService.remove(id);
+  removeCategory(
+    @Args() { deleteCategoryInput: { categoryId } }: DeleteCategoryArgs,
+  ) {
+    return this.categoryService.remove(categoryId);
   }
 
   @ResolveField()
