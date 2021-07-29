@@ -9,7 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { ItemsService } from './items.service';
 import { Item } from './entities/item.entity';
-import { CreateItemInput } from './dto/create-item.input';
+import { CreateItemArgs } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { Category } from '../categories/entities/category.entity';
@@ -30,10 +30,7 @@ export class ItemsResolver {
 
   @UseGuards(GqlAuthGuard, RoleGuard)
   @Mutation(() => Item)
-  createItem(
-    @Args('createItemInput') createItemInput: CreateItemInput,
-    @Args('siteId', { type: () => Int }) siteId: number,
-  ) {
+  createItem(@Args() { createItemInput, siteId }: CreateItemArgs) {
     return this.itemsService.create(createItemInput, siteId);
   }
 
