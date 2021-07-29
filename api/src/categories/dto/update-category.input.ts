@@ -1,5 +1,6 @@
 import { CreateCategoryInput } from './create-category.input';
-import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
+import { ArgsType, Field, InputType, Int, PartialType } from '@nestjs/graphql';
+import { SiteIdArgs } from '../../common/args/siteId.args';
 
 @InputType()
 export class UpdateCategoryInput extends PartialType(CreateCategoryInput) {
@@ -14,7 +15,10 @@ export class UpdateCategoryInput extends PartialType(CreateCategoryInput) {
 
   @Field(() => Int, { nullable: true })
   parentId: number;
+}
 
-  @Field(() => Int)
-  siteId: number;
+@ArgsType()
+export class UpdateCategoryArgs extends SiteIdArgs {
+  @Field(() => UpdateCategoryInput)
+  updateCategoryInput: UpdateCategoryInput;
 }

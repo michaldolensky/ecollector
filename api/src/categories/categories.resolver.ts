@@ -10,7 +10,7 @@ import {
 import { CategoriesService } from './categories.service';
 import { Category } from './entities/category.entity';
 import { CreateCategoryArgs } from './dto/create-category.input';
-import { UpdateCategoryInput } from './dto/update-category.input';
+import { UpdateCategoryArgs } from './dto/update-category.input';
 import { Site } from '../sites/entities/site.entity';
 import { SitesService } from '../sites/sites.service';
 import { ItemsService } from '../items/items.service';
@@ -41,9 +41,7 @@ export class CategoriesResolver {
   }
 
   @Mutation(() => Category)
-  updateCategory(
-    @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
-  ) {
+  updateCategory(@Args() { updateCategoryInput }: UpdateCategoryArgs) {
     return this.categoryService.update(
       updateCategoryInput.id,
       updateCategoryInput,
