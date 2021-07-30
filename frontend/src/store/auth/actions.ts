@@ -34,6 +34,15 @@ const actions: ActionTree<AuthStateInterface, StateInterface> = {
         },
       );
   },
+  async logout({ commit }) {
+    return api
+      .post('/auth/logout').then(
+        () => {
+          commit('loginFailure');
+          return Promise.resolve();
+        },
+      );
+  },
   // logout() {
   //
   // },

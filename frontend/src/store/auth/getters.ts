@@ -6,9 +6,12 @@ const getters: GetterTree<AuthStateInterface, StateInterface> = {
   isLoggedIn(state:AuthStateInterface) {
     return state.loggedIn;
   },
-  isAdmin(state:AuthStateInterface) {
-    return state.user?.role === 'Admin';
+  getFullName(state: AuthStateInterface) {
+    let fullName = '';
+    if (state.user) fullName = `${state.user.firstName} ${state.user.lastName}`;
+    return fullName;
   },
+
 };
 
 export default getters;
