@@ -45,8 +45,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
+// fixme
 const maxSize = 1000;
-const heavyList = [];
+const heavyList:{
+  label: string,
+  caption: string,
+}[] = [];
 
 for (let i = 0; i < maxSize; i += 1) {
   heavyList.push({
