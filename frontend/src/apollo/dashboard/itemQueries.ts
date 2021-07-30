@@ -26,7 +26,7 @@ export const UPDATE_ITEM = gql`
   }
 `;
 export const GET_ITEMS_QUERY = gql`
-  query getItems($siteId:Int){
+  query getItems($siteId:Int!){
     items(siteId:$siteId) {
       id
       createdAt

@@ -26,15 +26,12 @@ export const UPDATE_CATEGORY = gql`
   }
 `;
 export const GET_CATEGORIES_QUERY = gql`
-  query getItems($siteId:Int){
-    items(siteId:$siteId) {
+  query getCategories($siteId:Int!){
+    categories(siteId:$siteId) {
       id
       createdAt
       updatedAt
       name
-      category{
-        name
-      }
     }
   }
 `;
