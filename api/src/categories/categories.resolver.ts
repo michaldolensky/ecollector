@@ -16,6 +16,7 @@ import { SitesService } from '../sites/sites.service';
 import { ItemsService } from '../items/items.service';
 import { Item } from '../items/entities/item.entity';
 import { DeleteCategoryArgs } from './dto/delete-category.input';
+import { SiteIdArgs } from '../common/args/siteId.args';
 
 @Resolver(() => Category)
 export class CategoriesResolver {
@@ -31,7 +32,10 @@ export class CategoriesResolver {
   }
 
   @Query(() => [Category], { name: 'categories' })
-  findAll() {
+  findAll(@Args() { siteId }: SiteIdArgs) {
+    if (siteId) {
+      return this.categoryService.getCategoriesWithSiteId(siteId);
+    }
     return this.categoryService.findAll();
   }
 

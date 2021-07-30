@@ -11,7 +11,6 @@ import { ItemsService } from './items.service';
 import { Item } from './entities/item.entity';
 import { CreateItemArgs } from './dto/create-item.input';
 import { UpdateItemArgs } from './dto/update-item.input';
-import { GetItemsArgs } from './dto/getItems.args';
 import { Category } from '../categories/entities/category.entity';
 import { CategoriesService } from '../categories/categories.service';
 import { getRepository } from 'typeorm';
@@ -20,6 +19,7 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { DeleteItemArgs } from './dto/delete-item.input';
+import { SiteIdArgs } from '../common/args/siteId.args';
 
 @Resolver(() => Item)
 export class ItemsResolver {
@@ -35,9 +35,9 @@ export class ItemsResolver {
   }
 
   @Query(() => [Item], { name: 'items' })
-  findAll(@Args() args: GetItemsArgs) {
-    if (args.siteId) {
-      return this.itemsService.getAllItemsFromSite(args);
+  findAll(@Args() { siteId }: SiteIdArgs) {
+    if (siteId) {
+      return this.itemsService.getAllItemsFromSite(siteId);
     }
     return this.itemsService.findAll();
   }
