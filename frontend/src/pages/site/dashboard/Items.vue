@@ -1,5 +1,7 @@
 <template>
-  <q-page>
+  <q-page
+    padding
+  >
     <div v-if="loading">
       Loading...
     </div>
