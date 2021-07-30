@@ -22,7 +22,7 @@ export class Item extends BaseEntity {
   categoryId: number;
 
   @Field(() => Site)
-  @ManyToOne(() => Site, (site) => site.items)
+  @ManyToOne(() => Site, (site) => site.categories)
   @JoinColumn({ name: 'siteId' })
   site: Site;
 
