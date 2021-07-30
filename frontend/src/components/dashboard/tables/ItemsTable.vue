@@ -62,13 +62,13 @@
 </template>
 <script lang="ts">
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
-import { PropType, ref } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
 import { Item, useItems } from 'src/module/useItems';
 
-export default {
+export default defineComponent({
   name: 'ItemsTable',
   props: {
     loading: {
@@ -109,5 +109,5 @@ export default {
       },
     };
   },
-};
+});
 </script>
