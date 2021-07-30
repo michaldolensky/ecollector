@@ -1,5 +1,5 @@
-import { RouteRecordRaw } from 'vue-router';
 import { useSites } from 'src/module/useSites';
+import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
 
@@ -36,6 +36,10 @@ const routes: RouteRecordRaw[] = [
           }
           next({ name: 'Error404' });
         },
+        meta: {
+          requireOwner: true,
+          requireLogin: true,
+        },
         children: [
           {
             name: 'DashBoardIndex',
@@ -66,7 +70,6 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'auth',
-        redirect: 'login',
         component: () => import('layouts/MainLayout.vue'),
         children: [
           {
@@ -88,6 +91,12 @@ const routes: RouteRecordRaw[] = [
         ],
       },
     ],
+  },
+
+  {
+    path: '/error401',
+    name: 'Error401',
+    component: () => import('pages/Error401.vue'),
   },
 
   // Always leave this as last one,

@@ -33,6 +33,7 @@ module.exports = configure((ctx) => ({
     'i18n',
     'axios',
     'apollo',
+    'routeGuard',
   ],
 
   // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

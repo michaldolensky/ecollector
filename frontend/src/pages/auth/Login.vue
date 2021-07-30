@@ -103,7 +103,7 @@ export default defineComponent({
     const loggedIn = computed(() => $store.state.auth.loggedIn);
 
     if (loggedIn.value) {
-      void $router.push('/profile');
+      void $router.push({ name: 'profile' });
     }
 
     const onSubmit = () => {

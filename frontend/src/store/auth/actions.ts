@@ -22,6 +22,18 @@ const actions: ActionTree<AuthStateInterface, StateInterface> = {
         },
       );
   },
+  async me({ commit }) {
+    return api
+      .get('/auth/me').then(
+        (user) => {
+          commit('loginSuccess', user.data);
+          return Promise.resolve(user.data);
+        },
+        () => {
+          commit('loginFailure');
+        },
+      );
+  },
   // logout() {
   //
   // },

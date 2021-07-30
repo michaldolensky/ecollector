@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import MainHeader from 'components/index/MainHeader.vue';
+import { useStore } from 'src/store';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -25,11 +26,12 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false);
-    const isLoggedIn = ref(false);
+
+    const store = useStore();
     const name = ref('User Name');
 
     return {
-      isLoggedIn,
+      isLoggedIn: computed(() => store.state.auth.loggedIn),
       name,
 
       leftDrawerOpen,

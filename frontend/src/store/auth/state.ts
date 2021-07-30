@@ -2,6 +2,7 @@ export interface UserStateInterface {
   role: string
   email: string
   username:string
+  sitesIds:number[]
 }
 
 export interface AuthStateInterface {
