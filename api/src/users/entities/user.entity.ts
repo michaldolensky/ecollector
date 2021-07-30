@@ -16,13 +16,6 @@ import { Site } from '../../sites/entities/site.entity';
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
   @Field()
-  @IsString()
-  @MinLength(3)
-  @Index({ unique: true })
-  @Column({ length: 50 })
-  username: string;
-
-  @Field()
   @IsEmail()
   @IsNotEmpty()
   @Index({ unique: true })
