@@ -3,8 +3,8 @@ import { StateInterface } from '../index';
 import { AuthStateInterface } from './state';
 
 const getters: GetterTree<AuthStateInterface, StateInterface> = {
-  someGetter(/* context */) {
-    // your code
+  isLoggedIn(state:AuthStateInterface) {
+    return state.loggedIn;
   },
 };
 
