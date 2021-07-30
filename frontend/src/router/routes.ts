@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+import { useSites } from 'src/module/useSites';
 
 const routes: RouteRecordRaw[] = [
 
@@ -27,6 +28,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'site/:siteId/dashboard',
         component: () => import('layouts/DashboardLayout.vue'),
+        beforeEnter: (to, from, next) => {
+          const { getSiteIdFromString } = useSites();
+          const siteId = getSiteIdFromString(to.params.siteId as string);
+          if (siteId > 0) {
+            next();
+          }
+          next({ name: 'Error404' });
+        },
         children: [
           {
             name: 'DashBoardIndex',
@@ -85,6 +94,7 @@ const routes: RouteRecordRaw[] = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
+    name: 'Error404',
     component: () => import('pages/Error404.vue'),
   },
 ];
