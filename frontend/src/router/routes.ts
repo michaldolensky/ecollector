@@ -69,6 +69,23 @@ const routes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: 'account',
+        component: () => import('layouts/MainLayout.vue'),
+        meta: { requireOwner: true },
+        children: [
+          {
+            path: 'profile',
+            name: 'profile',
+            component: () => import('pages/account/Profile.vue'),
+          },
+          {
+            path: 'sites',
+            name: 'SitesList',
+            component: () => import('pages/account/SitesListPage.vue'),
+          },
+        ],
+      },
+      {
         path: 'auth',
         component: () => import('layouts/MainLayout.vue'),
         children: [
@@ -83,11 +100,7 @@ const routes: RouteRecordRaw[] = [
             name: 'signup',
             component: () => import('pages/auth/Signup.vue'),
           },
-          {
-            path: 'profile',
-            name: 'profile',
-            component: () => import('pages/auth/Profile.vue'),
-          },
+
         ],
       },
     ],

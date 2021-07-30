@@ -27,6 +27,7 @@
     <q-list>
       <q-item
         v-close-popup
+        :to="{name:'profile'}"
         clickable
       >
         <q-item-section>
@@ -36,17 +37,16 @@
 
       <q-item
         v-close-popup
+        :to="{name:'SitesList'}"
         clickable
       >
         <q-item-section>
-          <q-item-label>Articles</q-item-label>
+          <q-item-label>Sites</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
       <q-item
-        v-close-popup
         :to="{name:'index'}"
-        clickable
       >
         <q-item-section>
           <q-item-label @click="logout">
