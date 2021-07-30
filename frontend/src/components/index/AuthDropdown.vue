@@ -34,7 +34,7 @@
           <q-item-label>Profile</q-item-label>
         </q-item-section>
       </q-item>
-
+      <q-separator />
       <q-item
         v-close-popup
         :to="{name:'SitesList'}"
@@ -45,9 +45,7 @@
         </q-item-section>
       </q-item>
       <q-separator />
-      <q-item
-        :to="{name:'index'}"
-      >
+      <q-item>
         <q-item-section>
           <q-item-label @click="logout">
             Logout
