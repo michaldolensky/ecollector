@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@vue/apollo-composable';
-
 import { CategoryInterface } from 'src/types/category.interface';
 import { CREATE_ITEM, DELETE_ITEM, GET_ITEMS_QUERY } from 'src/apollo/dashboard/itemQueries';
+import { useSites } from 'src/module/useSites';
 
 export interface Item {
   id:number
@@ -29,19 +29,23 @@ interface createItemVars {
 // }
 
 export function useItems() {
-  const { result, loading, refetch } = useQuery<ItemData, ItemsVars>(GET_ITEMS_QUERY);
+  const { currentSiteId } = useSites();
+
+  const { result, loading, refetch } = useQuery<ItemData, ItemsVars>(GET_ITEMS_QUERY, {
+    siteId: currentSiteId.value,
+  });
 
   const { mutate: removeItemMutation } = useMutation(DELETE_ITEM);
   const { mutate: createItemMutation } = useMutation(CREATE_ITEM);
   // const { mutate: updateItemMutation } = useMutation(UPDATE_ITEM);
 
   const removeItem = (id:number) => {
-    void removeItemMutation({ itemId: id }).then(() => {
+    void removeItemMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
-  const addItem = (itemVars:createItemVars, siteId:number) => {
-    void createItemMutation({ createItemInput: itemVars, siteId }).then(() => {
+  const addItem = (itemVars:createItemVars) => {
+    void createItemMutation({ createItemInput: itemVars, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
