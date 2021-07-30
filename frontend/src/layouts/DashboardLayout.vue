@@ -12,7 +12,7 @@
       <DashboardDrawerItemsComponent />
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="bg-grey-3">
       <router-view />
     </q-page-container>
   </q-layout>
