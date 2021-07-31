@@ -1,6 +1,14 @@
 <template>
   <q-page padding>
     {{ currentUser }}
+    <div class="q-pa-md">
+      <div class="row">
+        <div class="col">
+          <SitesTable />
+        </div>
+        <div class="col" />
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -10,9 +18,11 @@ import {
 } from 'vue';
 import { useStore } from 'src/store';
 import { useRouter } from 'vue-router';
+import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 
 export default defineComponent({
   name: 'Profile',
+  components: { SitesTable },
   setup() {
     const $store = useStore();
     const $router = useRouter();

@@ -1,6 +1,13 @@
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 
+export interface Site{
+  id:number,
+  name:string,
+  createdAt:Date
+  updateAt:Date
+}
+
 export function useSites() {
   const route = useRoute();
 

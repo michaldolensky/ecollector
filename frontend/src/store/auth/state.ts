@@ -1,7 +1,10 @@
+import { Site } from 'src/module/useSites';
+
 export interface UserStateInterface {
   role: string
   email: string
   sitesIds:number[]
+  sites:Site[]
   firstName:string
   lastName:string
 }
