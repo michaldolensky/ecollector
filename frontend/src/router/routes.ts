@@ -49,7 +49,7 @@ const routes: RouteRecordRaw[] = [
           {
             name: 'DashBoardItems',
             path: 'items',
-            component: () => import('pages/site/dashboard/Items.vue'),
+            component: () => import('pages/site/dashboard/DashboardItemsPage.vue'),
           },
           {
             name: 'DashBoardItemEdit',

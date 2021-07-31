@@ -37,7 +37,7 @@ import { useItems } from 'src/module/useItems';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 
 export default defineComponent({
-  name: 'ItemDashboard',
+  name: 'DashboardItemsPage',
   components: { ItemsTable },
   setup() {
     const { result, loading, addItem } = useItems();
