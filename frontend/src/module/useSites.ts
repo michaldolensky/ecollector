@@ -1,5 +1,7 @@
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import { CREATE_SITE } from 'src/apollo/dashboard/siteQueries';
+import { useMutation } from '@vue/apollo-composable';
 
 export interface Site{
   id:number,
@@ -8,11 +10,25 @@ export interface Site{
   updateAt:Date
 }
 
+export interface CreateItemInput {
+  name:string,
+}
+
 export function useSites() {
   const route = useRoute();
-
   const getSiteIdFromString = (siteIdParam: string):number => parseInt(siteIdParam, 10);
   const currentSiteId = computed<number>(() => getSiteIdFromString(<string>route.params.siteId));
 
-  return { getSiteIdFromString, currentSiteId };
+  const { mutate: createSiteMutation } = useMutation(CREATE_SITE);
+
+  const addSite = (siteInput:CreateItemInput) => {
+    console.log(siteInput);
+    void createSiteMutation({ createSiteInput: siteInput }).then((data) => {
+      console.log(data);
+    });
+  };
+
+  return {
+    getSiteIdFromString, currentSiteId, addSite,
+  };
 }

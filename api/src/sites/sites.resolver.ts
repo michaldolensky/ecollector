@@ -15,6 +15,9 @@ import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
 @Resolver(() => Site)
 export class SitesResolver {
@@ -24,9 +27,13 @@ export class SitesResolver {
     private readonly categoriesService: CategoriesService,
   ) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Site)
-  createSite(@Args('createSiteInput') createSiteInput: CreateSiteInput) {
-    return this.sitesService.create(createSiteInput);
+  createSite(
+    @Args('createSiteInput') createSiteInput: CreateSiteInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.sitesService.create(createSiteInput, currentUser);
   }
 
   @Query(() => [Site], { name: 'sites' })

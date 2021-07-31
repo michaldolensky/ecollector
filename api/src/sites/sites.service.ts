@@ -8,6 +8,7 @@ import { UpdateSiteInput } from './dto/update-site.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Site } from './entities/site.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class SitesService {
@@ -15,12 +16,10 @@ export class SitesService {
     @InjectRepository(Site) private sitesRepository: Repository<Site>,
   ) {}
 
-  create(createSiteInput: CreateSiteInput) {
+  create(createSiteInput: CreateSiteInput, currentUser: User) {
     const site = new Site();
     site.name = createSiteInput.name;
-    site.urlString = createSiteInput.urlString;
-    site.ownerId = createSiteInput.userId;
-
+    site.ownerId = currentUser.id;
     return this.sitesRepository.save(site);
   }
 

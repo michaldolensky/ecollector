@@ -5,8 +5,8 @@
     :no-data-label="t('dashboard.table.categories.notFound')"
     :pagination="initialPagination"
     :rows="sites"
+
     row-key="id"
-    title="Your sites."
   >
     <template #body-cell-Name="props">
       <q-td :props="props">
@@ -22,17 +22,14 @@
       <q-td :props="props">
         <q-btn
           :to="`/site/${props.row.id}/dashboard`"
-
+          flat
           icon="edit"
-          label="Manage"
-          push
         />
         <q-btn
           :to="`/site/${props.row.id}/`"
           class="q-ml-sm"
+          flat
           icon="open_in_new"
-          label="Open"
-          push
         />
       </q-td>
     </template>
@@ -42,6 +39,7 @@
         borderless
         debounce="300"
         dense
+        filled
         placeholder="Search"
       >
         <template #append>
@@ -60,7 +58,6 @@ import { useStore } from 'src/store';
 
 export default defineComponent({
   name: 'CategoriesTable',
-
   setup() {
     const store = useStore();
     const { t } = useI18n();
