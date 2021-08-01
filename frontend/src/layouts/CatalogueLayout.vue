@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <q-layout view="hHh LpR fFf">
     <q-drawer
       :width="300"
       bordered

@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <q-layout view="hhh LpR fFf">
     <q-drawer
       :mini="miniState"
       :width="200"
