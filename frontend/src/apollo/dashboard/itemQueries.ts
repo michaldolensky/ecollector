@@ -1,5 +1,27 @@
 import gql from 'graphql-tag';
 
+export const GET_ITEM = gql`
+  query item($id:Int!){
+  item(id: $id) {
+    id
+    name
+    numberForExchange
+    numberInCollection
+    internalNumber
+    longDesc
+    shortDesc
+    category{
+      id
+      name
+    }
+    images{
+      id
+      path
+      size
+    }
+  }
+}
+`;
 export const CREATE_ITEM = gql`
   mutation createItem($createItemInput:CreateItemInput!, $siteId: Int!){
     createItem(createItemInput: $createItemInput,siteId:$siteId) {

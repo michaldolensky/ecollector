@@ -28,6 +28,10 @@ interface createCategoryVars {
 export function useCategories() {
   const { currentSiteId } = useSites();
 
+  const getCategories = () => useQuery<CategoryData, CategorieVars>(GET_CATEGORIES_QUERY, {
+    siteId: currentSiteId.value,
+  });
+
   const { result, loading, refetch } = useQuery<CategoryData, CategorieVars>(GET_CATEGORIES_QUERY, {
     siteId: currentSiteId.value,
   });
@@ -57,6 +61,7 @@ export function useCategories() {
   return {
     result,
     loading,
+    getCategories,
     removeCategory,
     addCategory,
   };

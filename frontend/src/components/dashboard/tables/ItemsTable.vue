@@ -91,7 +91,7 @@ export default defineComponent({
         cancel: true,
         persistent: true,
       }).onOk(() => {
-        void removeItem(item.id);
+        if (item.id != null) void removeItem(item.id);
       });
     };
 

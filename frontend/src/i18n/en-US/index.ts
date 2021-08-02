@@ -43,4 +43,7 @@ export default {
       name: 'Name',
     },
   },
+  validation: {
+    required: 'Field is required',
+  },
 };

@@ -57,6 +57,11 @@ const routes: RouteRecordRaw[] = [
             component: () => import('pages/site/dashboard/EditItemPage.vue'),
           },
           {
+            name: 'DashBoardItemCreate',
+            path: 'items/new/',
+            component: () => import('pages/site/dashboard/EditItemPage.vue'),
+          },
+          {
             name: 'DashBoardCategories',
             path: 'categories',
             component: () => import('pages/site/dashboard/Categories.vue'),

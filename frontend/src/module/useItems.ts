@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@vue/apollo-composable';
-import { CategoryInterface } from 'src/types/category.interface';
-import { CREATE_ITEM, DELETE_ITEM, GET_ITEMS_QUERY } from 'src/apollo/dashboard/itemQueries';
+import {
+  CREATE_ITEM, DELETE_ITEM, GET_ITEM, GET_ITEMS_QUERY, UPDATE_ITEM,
+} from 'src/apollo/dashboard/itemQueries';
 import { useSites } from 'src/module/useSites';
 
 export interface Item {
@@ -8,7 +9,12 @@ export interface Item {
   name:string
   updatedAt:Date
   createdAt:Date
-  category:CategoryInterface
+  categoryId:number|null
+  shortDesc:string
+  longDesc:string
+  internalNumber:string
+  numberForExchange:number
+  numberInCollection:number
 }
 
 interface ItemData {
@@ -17,16 +23,28 @@ interface ItemData {
 interface ItemsVars {
   siteId: number;
 }
-interface createItemVars {
+
+export interface ItemInput extends Partial<Item>{
+  id?: number
   name: string;
-  categoryId: number;
+  categoryId: number|null;
+  shortDesc:string
+  longDesc:string
+  internalNumber:string
+  numberForExchange:number
+  numberInCollection:number
 }
+
 // interface updateItemVars {
 //   id:number;
 //   siteId: number;
 //   name: string;
 //   categoryId: number;
 // }
+
+export interface IGetItem{
+  id:number
+}
 
 export function useItems() {
   const { currentSiteId } = useSites();
@@ -35,30 +53,36 @@ export function useItems() {
     siteId: currentSiteId.value,
   });
 
+  const getItem = (id:number) => useQuery<Item, IGetItem>(GET_ITEM, {
+    id,
+  });
+
   const { mutate: removeItemMutation } = useMutation(DELETE_ITEM);
   const { mutate: createItemMutation } = useMutation(CREATE_ITEM);
-  // const { mutate: updateItemMutation } = useMutation(UPDATE_ITEM);
+  const { mutate: updateItemMutation } = useMutation(UPDATE_ITEM);
 
   const removeItem = (id:number) => {
     void removeItemMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
-  const addItem = (itemVars:createItemVars) => {
+  const createItem = (itemVars:ItemInput) => {
     void createItemMutation({ createItemInput: itemVars, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
-  // const updateItem = (itemVars:updateItemVars) => {
-  //   void updateItemMutation({ updateItemInput: itemVars }).then(() => {
-  //     void refetch();
-  //   });
-  // };
+  const updateItem = (itemVars:ItemInput) => {
+    void updateItemMutation({ updateItemInput: itemVars, siteId: currentSiteId.value }).then(() => {
+      void refetch();
+    });
+  };
 
   return {
+    getItem,
     result,
     loading,
     removeItem,
-    addItem,
+    updateItem,
+    createItem,
   };
 }

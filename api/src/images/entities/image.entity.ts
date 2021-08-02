@@ -16,6 +16,9 @@ export class Image extends BaseEntity {
   @Column()
   size: number;
 
-  @ManyToOne(() => Item, (item) => item.images)
+  @ManyToOne(() => Item, (item) => item.images, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   item: Item;
 }

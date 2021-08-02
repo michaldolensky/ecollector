@@ -16,7 +16,7 @@ export const ItemsTableColumns = [
     required: true,
     label: 'Category',
     align: 'left',
-    field: (item:Item) => item.category.name,
+    field: (item:Item) => item.name,
     format: (val:string) => `${val}`,
     sortable: true,
   },

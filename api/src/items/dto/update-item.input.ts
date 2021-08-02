@@ -1,6 +1,7 @@
 import { CreateItemInput } from './create-item.input';
 import { ArgsType, Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import { SiteIdArgs } from '../../common/args/siteId.args';
+import { IsNumber, MaxLength } from 'class-validator';
 
 @InputType()
 export class UpdateItemInput extends PartialType(CreateItemInput) {
@@ -8,7 +9,23 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   id: number;
 
   @Field()
+  @MaxLength(100)
   name: string;
+
+  @MaxLength(250)
+  shortDesc: string;
+
+  @MaxLength(15000)
+  longDesc: string;
+
+  @MaxLength(50)
+  internalNumber: string;
+  @IsNumber()
+  @Field(() => Int)
+  numberForExchange: number;
+  @IsNumber()
+  @Field(() => Int)
+  numberInCollection: number;
 }
 @ArgsType()
 export class UpdateItemArgs extends SiteIdArgs {

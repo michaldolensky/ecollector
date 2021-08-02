@@ -16,17 +16,6 @@
         :items="result.items"
         :loading="loading"
       />
-      <q-page-sticky
-        :offset="[18, 18]"
-        position="bottom-right"
-      >
-        <q-btn
-          color="accent"
-          fab
-          icon="add"
-          @click="addItem(newItem, 1)"
-        />
-      </q-page-sticky>
     </div>
   </q-page>
 </template>
@@ -40,15 +29,11 @@ export default defineComponent({
   name: 'DashboardItemsPage',
   components: { ItemsTable },
   setup() {
-    const { result, loading, addItem } = useItems();
-
-    const newItem = { name: 'name', categoryId: 1 };
+    const { result, loading } = useItems();
 
     return {
       result,
       loading,
-      addItem,
-      newItem,
     };
   },
 });

@@ -1,10 +1,27 @@
 import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
 import { SiteIdArgs } from '../../common/args/siteId.args';
+import { IsNumber, MaxLength } from 'class-validator';
 
 @InputType()
 export class CreateItemInput {
-  @Field(() => String)
+  @MaxLength(100)
   name: string;
+
+  @MaxLength(250)
+  shortDesc: string;
+  @MaxLength(15000)
+  longDesc: string;
+
+  @MaxLength(50)
+  internalNumber: string;
+
+  @IsNumber()
+  @Field(() => Int)
+  numberForExchange: number;
+
+  @IsNumber()
+  @Field(() => Int)
+  numberInCollection: number;
 
   @Field(() => Int)
   categoryId: number;

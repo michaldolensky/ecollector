@@ -4,102 +4,51 @@
     padding
     q-pa-md
   >
-    <div class=" items-start  full-width ">
-      <div class="row">
-        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                Item description
-              </div>
-            </q-card-section>
-
-            <q-separator />
-            <q-card-section>
-              <q-input
-                v-model="name"
-                label="Outlined"
-                outlined
-              />
-            </q-card-section>
-            <q-card-section>
-              <q-input
-                v-model="text1"
-                filled
-                outlined
-                type="textarea"
-              />
-            </q-card-section>
-            <q-card-section>
-              <q-editor
-                v-model="editor"
-                min-height="5rem"
-                outlined
-              />
-            </q-card-section>
-          </q-card>
-          <q-card />
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                Item images
-              </div>
-            </q-card-section>
-            <q-separator />
-
-            <q-card-section>
-              <q-uploader
-                :factory="factoryFn"
-                batch
-                label="Batch upload"
-                max-files="10"
-                multiple
-                style="max-width: 300px"
-              />
-            </q-card-section>
-          </q-card>
-        </div>
-        <div class="col-12 col-md-4 q-pa-md ">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                Item details
-              </div>
-            </q-card-section>
-            <q-card-section>
-              added to colection
-              internalNumber
-              countInStock
-              availableForExchange
-            </q-card-section>
-          </q-card>
-        </div>
-      </div>
-    </div>
+    <ItemForm
+      v-if="editItem"
+      :edit-item="editItem"
+      @submit="handleSubmit"
+    />
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import ItemForm from 'components/dashboard/forms/ItemForm.vue';
+import { ItemInput, useItems } from 'src/module/useItems';
+import { defineComponent, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'ItemDashboard',
-  components: {},
+  components: { ItemForm },
   setup() {
-    // const item = reactive<Item>({
-    //   name: 'string',
-    // });
+    const route = useRoute();
+    const editItem = ref();
+    const { getItem } = useItems();
 
-    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-    const factoryFn = () => ({
-      url: 'http://localhost:3000/images?siteId=1&itemId=17',
-      method: 'POST',
-      fieldName: 'images',
+    onMounted(() => {
+      if (route.name === 'DashBoardItemCreate') {
+        editItem.value = {};
+      } else {
+        const { onResult } = getItem(17);
+        onResult((result) => {
+          editItem.value = result;
+        });
+      }
     });
 
+    const { createItem, updateItem } = useItems();
+    const handleSubmit = (object:ItemInput) => {
+      if (object.id) {
+        updateItem(object);
+      } else {
+        createItem(object);
+      }
+    };
+
     return {
-      // ...toRefs(item),
-      factoryFn,
+      handleSubmit,
+      editItem,
     };
   },
 });

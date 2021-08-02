@@ -31,7 +31,7 @@ export class ItemsService {
   }
 
   async findOne(id: number) {
-    const item = await this.itemsRepository.findOne({ id });
+    const item = await this.itemsRepository.findOneOrFail({ id });
     if (item) {
       return item;
     }
@@ -42,7 +42,7 @@ export class ItemsService {
     const item = await this.findOne(id);
     if (!item) throw new BadRequestException('Invalid item');
     Object.assign(item, updateItemInput);
-    await this.itemsRepository.update(id, item);
+    await this.itemsRepository.save(item);
     return item;
   }
 

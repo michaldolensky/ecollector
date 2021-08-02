@@ -4,14 +4,37 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { Site } from '../../sites/entities/site.entity';
 import { Image } from '../../images/entities/image.entity';
+import { IsNumber, MaxLength } from 'class-validator';
 
 @ObjectType('Item')
 @InputType('ItemInput')
 @Entity({ name: 'items' })
 export class Item extends BaseEntity {
   @Column('text')
-  @Field(() => String)
+  @MaxLength(100)
   name: string;
+
+  @Column({ default: '' })
+  @MaxLength(250)
+  shortDesc: string;
+
+  @Column({ default: '' })
+  @MaxLength(15000)
+  longDesc: string;
+
+  @Column({ default: '' })
+  @MaxLength(50)
+  internalNumber: string;
+
+  @IsNumber()
+  @Column({ default: 0 })
+  @Field(() => Int)
+  numberForExchange: number;
+
+  @IsNumber()
+  @Column({ default: 0 })
+  @Field(() => Int)
+  numberInCollection: number;
 
   @ManyToOne(() => Category, (category) => category.items)
   @JoinColumn({ name: 'categoryId' })
