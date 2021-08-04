@@ -65,13 +65,18 @@ export default defineComponent({
       loading,
       filterFn(val:string, update:unknown) {
         if (val === '') {
+          // Update nemá type
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           update(() => {
             if (categories.value !== undefined) {
               options.value = categories.value;
             }
           });
         }
-
+        // Update nemá type
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         update(() => {
           const needle: string = val.toLowerCase();
           if (categories.value != null) {
