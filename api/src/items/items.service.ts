@@ -3,10 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateItemInput } from './dto/create-item.input';
-import { UpdateItemInput } from './dto/update-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { sanitizeHTML } from '../common/utils/sanitize-html';
+import { CreateItemInput } from './dto/create-item.input';
+import { UpdateItemInput } from './dto/update-item.input';
 import { Item } from './entities/item.entity';
 
 @Injectable()
@@ -22,6 +23,11 @@ export class ItemsService {
     item.name = createItemInput.name;
     item.categoryId = createItemInput.categoryId;
     item.siteId = siteId;
+    item.longDesc = sanitizeHTML(createItemInput.longDesc);
+    item.shortDesc = createItemInput.shortDesc;
+    item.numberInCollection = createItemInput.numberInCollection;
+    item.numberForExchange = createItemInput.numberForExchange;
+    item.internalNumber = createItemInput.internalNumber;
 
     return await this.itemsRepository.save(item);
   }
@@ -41,6 +47,7 @@ export class ItemsService {
   async update(id: number, updateItemInput: Partial<UpdateItemInput>) {
     const item = await this.findOne(id);
     if (!item) throw new BadRequestException('Invalid item');
+    updateItemInput.longDesc = sanitizeHTML(updateItemInput.longDesc);
     Object.assign(item, updateItemInput);
     await this.itemsRepository.save(item);
     return item;
