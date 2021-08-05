@@ -35,7 +35,7 @@
           <q-card-section>
             <q-input
               v-model="item.name"
-              :rules="[val => !!val || 'Field is required']"
+              :rules="[required]"
               counter
               label="Item name"
               maxlength="100"
@@ -45,7 +45,6 @@
 
             <q-input
               v-model="item.shortDesc"
-              :rules="[val => !!val || 'Field is required']"
               label="Short description"
               maxlength="250"
               outlined
@@ -131,6 +130,7 @@
 import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import { Item, ItemInput } from 'src/module/useItems';
+import { validationHelper } from 'src/validationHelper';
 import {
   computed, defineComponent, PropType, reactive, SetupContext,
 } from 'vue';
@@ -200,6 +200,7 @@ export default defineComponent({
     };
 
     return {
+      ...validationHelper,
       uploadImage,
       item,
       inEditMode,
