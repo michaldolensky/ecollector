@@ -1,7 +1,7 @@
-import { CreateItemInput } from './create-item.input';
 import { ArgsType, Field, InputType, Int, PartialType } from '@nestjs/graphql';
-import { SiteIdArgs } from '../../common/args/siteId.args';
 import { IsNumber, MaxLength } from 'class-validator';
+import { SiteIdArgs } from '../../common/args/siteId.args';
+import { CreateItemInput } from './create-item.input';
 
 @InputType()
 export class UpdateItemInput extends PartialType(CreateItemInput) {
