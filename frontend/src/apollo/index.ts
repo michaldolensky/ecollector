@@ -9,7 +9,9 @@ export const getClientOptions = () => <ApolloClientOptions<unknown>>Object.assig
         process.env.GRAPHQL_URI
         || 'http://localhost:3000/api/graphql',
     }),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      addTypename: false,
+    }),
     connectToDevTools: process.env.NODE_ENV === 'development',
   },
 );
