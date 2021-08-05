@@ -10,7 +10,6 @@
     :options="options"
     :rules="[required]"
     clearable
-    emit-value
     input-debounce="0"
     label="Category"
     map-options
@@ -19,7 +18,7 @@
     outlined
     use-input
     @filter="filterFn"
-    @update:model-value="handleInput"
+    @update:model-value="$emit('update:modelValue',value)"
   />
 </template>
 
@@ -27,19 +26,20 @@
 import { useResult } from '@vue/apollo-composable';
 import { Category, useCategories } from 'src/module/useCategories';
 import { validationHelper } from 'src/validationHelper';
-import { defineComponent, ref, SetupContext } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ItemCategorySelect',
   components: {},
   props: {
     modelValue: {
-      type: Number,
-      default: 0,
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: {},
     },
   },
   emits: ['update:modelValue'],
-  setup(props, ctx: SetupContext) {
+  setup(props) {
     const value = ref(props.modelValue);
     const { getCategories } = useCategories();
     const options = ref();
@@ -52,15 +52,10 @@ export default defineComponent({
       return [];
     });
 
-    const handleInput = () => {
-      ctx.emit('update:modelValue', value.value);
-    };
-
     return {
       value,
       ...validationHelper,
       result,
-      handleInput,
       options,
       loading,
       filterFn(val:string, update:unknown) {
@@ -89,7 +84,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-
-</style>

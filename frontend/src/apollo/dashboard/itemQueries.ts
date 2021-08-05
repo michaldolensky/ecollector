@@ -10,6 +10,9 @@ export const GET_ITEM = gql`
     internalNumber
     longDesc
     shortDesc
+    categoryId
+    updatedAt
+    createdAt
     category{
       id
       name

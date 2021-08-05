@@ -32,7 +32,7 @@ export default defineComponent({
       } else {
         const { onResult } = getItem(17);
         onResult((result) => {
-          editItem.value = result;
+          editItem.value = result.data.item;
         });
       }
     });

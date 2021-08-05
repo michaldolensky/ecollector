@@ -15,10 +15,17 @@ export interface Item {
   internalNumber:string
   numberForExchange:number
   numberInCollection:number
+  category:{
+    id:number
+    name:string
+  }
 }
 
 interface ItemData {
   items: Item[];
+}
+interface ItemDataSingle {
+  item: Item;
 }
 interface ItemsVars {
   siteId: number;
@@ -53,7 +60,7 @@ export function useItems() {
     siteId: currentSiteId.value,
   });
 
-  const getItem = (id:number) => useQuery<Item, IGetItem>(GET_ITEM, {
+  const getItem = (id:number) => useQuery<ItemDataSingle, IGetItem>(GET_ITEM, {
     id,
   });
 

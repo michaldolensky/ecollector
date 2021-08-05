@@ -26,6 +26,9 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @IsNumber()
   @Field(() => Int)
   numberInCollection: number;
+
+  @Field(() => Int)
+  categoryId: number;
 }
 @ArgsType()
 export class UpdateItemArgs extends SiteIdArgs {

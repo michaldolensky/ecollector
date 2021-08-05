@@ -102,7 +102,7 @@
               label="Item ID"
               outlined
             />
-            <ItemCategorySelect v-model="item.categoryId" />
+            <ItemCategorySelect v-model="item.category" />
             <q-input
               v-model="item.internalNumber"
               label="Internal Number"
@@ -165,6 +165,7 @@ export default defineComponent({
       internalNumber: '',
       numberForExchange: 0,
       numberInCollection: 0,
+      category: undefined,
     });
 
     const inEditMode = computed(() => (props.editItem?.id));
@@ -178,7 +179,7 @@ export default defineComponent({
     // });
 
     const handleSave = () => {
-      let modifiedItem = {};
+      let modifiedItem:ItemInput;
 
       if (inEditMode.value) {
         modifiedItem = {
@@ -191,6 +192,13 @@ export default defineComponent({
           ...item,
         };
       }
+      if (!item.category?.id) {
+        throw new Error('Category id not loaded');
+      }
+      modifiedItem.categoryId = item.category.id;
+      delete modifiedItem.category;
+      delete modifiedItem.updatedAt;
+      delete modifiedItem.createdAt;
       ctx.emit('submit', modifiedItem);
     };
 
