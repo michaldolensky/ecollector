@@ -57,11 +57,7 @@
             <div class="text-h6 text-weight-regular">
               Long description
             </div>
-            <q-editor
-              v-model="item.longDesc"
-              min-height="15rem"
-              outlined
-            />
+            <Editor v-model="item.longDesc" />
           </q-card-section>
         </q-card>
         <q-card />
@@ -132,6 +128,7 @@
 </template>
 
 <script lang="ts">
+import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import { Item, ItemInput } from 'src/module/useItems';
 import {
@@ -146,7 +143,7 @@ const uploadImage = () => ({
 
 export default defineComponent({
   name: 'ItemForm',
-  components: { ItemCategorySelect },
+  components: { Editor, ItemCategorySelect },
   props: {
     editItem: {
       type: Object as PropType<Item>,
