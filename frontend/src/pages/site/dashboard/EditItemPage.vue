@@ -14,17 +14,20 @@
 
 <script lang="ts">
 import ItemForm from 'components/dashboard/forms/ItemForm.vue';
+import { useQuasar } from 'quasar';
 import { ItemInput, useItems } from 'src/module/useItems';
 import { defineComponent, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'ItemDashboard',
   components: { ItemForm },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const editItem = ref();
     const { createItem, updateItem, getItem } = useItems();
+    const $q = useQuasar();
 
     const itemId = parseInt(<string>route.params.itemId, 10);
 
@@ -39,11 +42,26 @@ export default defineComponent({
       }
     });
     const handleSubmit = (object:ItemInput) => {
-      // todo
       if (object.id) {
-        updateItem(object);
+        void updateItem(object).then((result) => {
+          if (result?.data) {
+            $q.notify({
+              type: 'positive',
+              message: 'Item updated',
+            });
+            editItem.value = result.data.updateItem;
+          }
+        });
       } else {
-        createItem(object);
+        void createItem(object).then((data) => {
+          if (data?.data) {
+            $q.notify({
+              type: 'positive',
+              message: 'Item created',
+            });
+            void router.push({ name: 'DashBoardItemEdit', params: { itemId: data.data.createItem.id } });
+          }
+        });
       }
     };
 

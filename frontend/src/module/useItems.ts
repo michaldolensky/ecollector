@@ -67,24 +67,18 @@ export function useItems() {
   });
 
   const { mutate: removeItemMutation } = useMutation(DELETE_ITEM);
-  const { mutate: createItemMutation } = useMutation(CREATE_ITEM);
-  const { mutate: updateItemMutation } = useMutation(UPDATE_ITEM);
+  const { mutate: createItemMutation } = useMutation<{ createItem: Item } >(CREATE_ITEM);
+  const { mutate: updateItemMutation } = useMutation<{ updateItem: Item } >(UPDATE_ITEM);
 
   const removeItem = (id:number) => {
     void removeItemMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
-  const createItem = (itemVars:ItemInput) => {
-    void createItemMutation({ createItemInput: itemVars, siteId: currentSiteId.value }).then(() => {
-      void refetch();
-    });
-  };
-  const updateItem = (itemVars:ItemInput) => {
-    void updateItemMutation({ updateItemInput: itemVars, siteId: currentSiteId.value }).then(() => {
-      void refetch();
-    });
-  };
+  // eslint-disable-next-line max-len
+  const createItem = (itemVars:ItemInput) => createItemMutation({ createItemInput: itemVars, siteId: currentSiteId.value });
+  // eslint-disable-next-line max-len
+  const updateItem = (itemVars:ItemInput) => updateItemMutation({ updateItemInput: itemVars, siteId: currentSiteId.value });
 
   return {
     getItem,

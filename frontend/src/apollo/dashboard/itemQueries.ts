@@ -45,8 +45,24 @@ export const UPDATE_ITEM = gql`
   mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
     updateItem(updateItemInput: $updateItemInput,siteId: $siteId) {
       id
-      categoryId
       name
+      numberForExchange
+      numberInCollection
+      internalNumber
+      longDesc
+      shortDesc
+      categoryId
+      updatedAt
+      createdAt
+      category{
+        id
+        name
+      }
+      images{
+        id
+        path
+        main
+      }
     }
   }
 `;
