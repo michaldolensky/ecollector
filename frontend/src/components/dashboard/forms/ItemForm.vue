@@ -118,7 +118,7 @@ import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySe
 import { Item, ItemInput } from 'src/module/useItems';
 import { validationHelper } from 'src/validationHelper';
 import {
-  computed, defineComponent, PropType, reactive, SetupContext, watch,
+  computed, defineComponent, PropType, reactive, SetupContext,
 } from 'vue';
 
 export default defineComponent({
@@ -142,7 +142,6 @@ export default defineComponent({
       internalNumber: '',
       numberForExchange: 0,
       numberInCollection: 0,
-      category: undefined,
     });
 
     const inEditMode = computed(() => (props.editItem?.id) > 0);
@@ -150,12 +149,6 @@ export default defineComponent({
     if (inEditMode.value) {
       Object.assign(item, props.editItem);
     }
-
-    watch(item, (va) => {
-      console.log('item watch');
-
-      console.log(va);
-    });
 
     const handleSave = () => {
       let modifiedItem:ItemInput;

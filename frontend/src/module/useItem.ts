@@ -1,7 +1,7 @@
 import { useQuery, useResult } from '@vue/apollo-composable';
 import { GET_ITEM } from 'src/apollo/dashboard/itemQueries';
 import { IGetItem, Item, ItemDataSingle } from 'src/module/useItems';
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 
 export const useItem = () => {
   const modifyItem = reactive<Partial<Item>>({
@@ -32,10 +32,9 @@ export const useItem = () => {
   const setAsMainImage = () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     Object.assign(modifyItem, useResult(result, null, (data) => data.item).value!);
-    // console.log(isReadonly(modifyItem.value.images[0].path));
 
     if (modifyItem.images !== undefined) {
-      const images2 = modifyItem.images.map((value) => {
+      modifyItem.images = modifyItem.images.map((value) => {
         const a = {
           id: 0,
           main: false,
@@ -47,15 +46,12 @@ export const useItem = () => {
 
         return a;
       });
-      modifyItem.images = images2;
-
-      console.log(images2);
     }
   };
 
-  watch([item], (va) => {
-    console.log(va);
-  });
+  // watch([item], (va) => {
+  //   console.log(va);
+  // });
 
   return {
     selectItem,

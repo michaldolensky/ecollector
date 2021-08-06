@@ -34,8 +34,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Object,
-      // eslint-disable-next-line vue/require-valid-default-prop
-      default: {},
+      default: null,
     },
   },
   emits: ['update:modelValue'],

@@ -22,10 +22,7 @@ export function useSites() {
   const { mutate: createSiteMutation } = useMutation(CREATE_SITE);
 
   const addSite = (siteInput:CreateItemInput) => {
-    console.log(siteInput);
-    void createSiteMutation({ createSiteInput: siteInput }).then((data) => {
-      console.log(data);
-    });
+    void createSiteMutation({ createSiteInput: siteInput });
   };
 
   return {
