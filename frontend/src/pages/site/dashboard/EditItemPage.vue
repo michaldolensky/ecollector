@@ -26,11 +26,13 @@ export default defineComponent({
     const editItem = ref();
     const { createItem, updateItem, getItem } = useItems();
 
+    const itemId = parseInt(<string>route.params.itemId, 10);
+
     onMounted(() => {
       if (route.name === 'DashBoardItemCreate') {
         editItem.value = {};
       } else {
-        const { onResult } = getItem(17);
+        const { onResult } = getItem(itemId);
         onResult((result) => {
           editItem.value = result.data.item;
         });
