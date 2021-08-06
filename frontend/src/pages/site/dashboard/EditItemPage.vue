@@ -24,7 +24,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const editItem = ref();
-    const { getItem } = useItems();
+    const { createItem, updateItem, getItem } = useItems();
 
     onMounted(() => {
       if (route.name === 'DashBoardItemCreate') {
@@ -36,9 +36,8 @@ export default defineComponent({
         });
       }
     });
-
-    const { createItem, updateItem } = useItems();
     const handleSubmit = (object:ItemInput) => {
+      // todo
       if (object.id) {
         updateItem(object);
       } else {

@@ -60,25 +60,10 @@
           </q-card-section>
         </q-card>
         <q-card />
-        <q-card>
-          <q-card-section>
-            <div class="text-h6 text-weight-regular">
-              Item images
-            </div>
-          </q-card-section>
-          <q-separator />
-
-          <q-card-section>
-            <q-uploader
-              :factory="uploadImage"
-              batch
-              label="Batch upload"
-              max-files="10"
-              multiple
-              style="max-width: 300px"
-            />
-          </q-card-section>
-        </q-card>
+        <editItemImages
+          v-model="item.images"
+          :in-edit-mode="inEditMode"
+        />
       </div>
       <div class="col-12 col-md-4 q-pa-md ">
         <q-card>
@@ -127,23 +112,18 @@
 </template>
 
 <script lang="ts">
+import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import { Item, ItemInput } from 'src/module/useItems';
 import { validationHelper } from 'src/validationHelper';
 import {
-  computed, defineComponent, PropType, reactive, SetupContext,
+  computed, defineComponent, PropType, reactive, SetupContext, watch,
 } from 'vue';
-
-const uploadImage = () => ({
-  url: 'http://localhost:3000/images?siteId=1&itemId=17',
-  method: 'POST',
-  fieldName: 'images',
-});
 
 export default defineComponent({
   name: 'ItemForm',
-  components: { Editor, ItemCategorySelect },
+  components: { EditItemImages, Editor, ItemCategorySelect },
   props: {
     editItem: {
       type: Object as PropType<Item>,
@@ -165,15 +145,17 @@ export default defineComponent({
       category: undefined,
     });
 
-    const inEditMode = computed(() => (props.editItem?.id));
+    const inEditMode = computed(() => (props.editItem?.id) > 0);
 
     if (inEditMode.value) {
       Object.assign(item, props.editItem);
     }
 
-    // watch(item, (item) => {
-    //   console.log(item);
-    // });
+    watch(item, (va) => {
+      console.log('item watch');
+
+      console.log(va);
+    });
 
     const handleSave = () => {
       let modifiedItem:ItemInput;
@@ -201,7 +183,6 @@ export default defineComponent({
 
     return {
       ...validationHelper,
-      uploadImage,
       item,
       inEditMode,
       handleSave,

@@ -54,8 +54,8 @@ export class Item extends BaseEntity {
   siteId: number;
 
   @OneToMany(() => Image, (image) => image.item, {
-    eager: true,
+    cascade: ['update', 'remove', 'insert'],
   })
   @Field(() => [Image], { nullable: 'itemsAndList' })
-  images?: Image[];
+  images: Image[];
 }

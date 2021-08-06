@@ -63,6 +63,12 @@ export class ItemsResolver {
   }
   @ResolveField()
   async images(@Parent() item: Item): Promise<Image[]> {
-    return await getRepository(Image).find({ where: { id: item.id } });
+    return await getRepository(Image).find({
+      where: { itemId: item.id },
+      order: {
+        main: 'DESC',
+        id: 'ASC',
+      },
+    });
   }
 }

@@ -7,11 +7,12 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { ImagesService } from './images.service';
+import { getRepository } from 'typeorm';
 import { Item } from '../items/entities/item.entity';
+import { DeleteImageArgs } from './dto/delete-image.input';
 import { GetImagesArgs } from './dto/getImages.args';
 import { Image } from './entities/image.entity';
-import { getRepository } from 'typeorm';
+import { ImagesService } from './images.service';
 
 @Resolver(() => Image)
 export class ImagesResolver {
@@ -31,7 +32,7 @@ export class ImagesResolver {
   }
 
   @Mutation(() => Image)
-  removeImage(@Args('imageId', { type: () => Int }) id: number) {
+  removeImage(@Args() { deleteImageInput: { id } }: DeleteImageArgs) {
     return this.imagesService.remove(id);
   }
 

@@ -1,6 +1,6 @@
-import { BaseEntity } from '../../common/entities/base.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
 import { InputType, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Image')
@@ -20,5 +20,12 @@ export class Image extends BaseEntity {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'itemId' })
   item: Item;
+
+  @Column()
+  itemId: number;
+
+  @Column({ default: false, type: 'boolean' })
+  main: boolean;
 }

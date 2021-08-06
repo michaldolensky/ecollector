@@ -9,4 +9,6 @@ export class CreateImageInput {
 
   @Field(() => Int)
   itemId: number;
+
+  main: boolean;
 }

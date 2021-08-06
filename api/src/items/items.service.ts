@@ -45,10 +45,23 @@ export class ItemsService {
   }
 
   async update(id: number, updateItemInput: Partial<UpdateItemInput>) {
-    const item = await this.findOne(id);
+    const item = await this.itemsRepository.findOne({
+      where: { id },
+      relations: ['images'],
+    });
     if (!item) throw new BadRequestException('Invalid item');
+
     updateItemInput.longDesc = sanitizeHTML(updateItemInput.longDesc);
     Object.assign(item, updateItemInput);
+
+    item.images = item.images.map((image) => {
+      const updatingImage = updateItemInput.images.find(
+        (x) => image.id === x.id,
+      );
+      image.path = updatingImage.path;
+      image.main = updatingImage.main;
+      return image;
+    });
     await this.itemsRepository.save(item);
     return item;
   }

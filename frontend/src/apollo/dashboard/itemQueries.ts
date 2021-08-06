@@ -20,7 +20,7 @@ export const GET_ITEM = gql`
     images{
       id
       path
-      size
+      main
     }
   }
 }

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@vue/apollo-composable';
 import {
   CREATE_ITEM, DELETE_ITEM, GET_ITEM, GET_ITEMS_QUERY, UPDATE_ITEM,
 } from 'src/apollo/dashboard/itemQueries';
+import { Image } from 'src/module/useImages';
 import { useSites } from 'src/module/useSites';
 
 export interface Item {
@@ -19,12 +20,13 @@ export interface Item {
     id:number
     name:string
   }
+  images:Image[]
 }
 
 interface ItemData {
   items: Item[];
 }
-interface ItemDataSingle {
+export interface ItemDataSingle {
   item: Item;
 }
 interface ItemsVars {

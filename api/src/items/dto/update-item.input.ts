@@ -1,6 +1,7 @@
 import { ArgsType, Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import { IsNumber, MaxLength } from 'class-validator';
 import { SiteIdArgs } from '../../common/args/siteId.args';
+import { UpdateImageInput } from '../../images/dto/update-image.input';
 import { Image } from '../../images/entities/image.entity';
 import { CreateItemInput } from './create-item.input';
 
@@ -31,7 +32,7 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @Field(() => Int)
   categoryId: number;
 
-  @Field(() => [Image], { nullable: 'itemsAndList' })
+  @Field(() => [UpdateImageInput], { nullable: 'itemsAndList' })
   images?: Image[];
 }
 @ArgsType()
