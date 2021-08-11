@@ -1,4 +1,5 @@
 import { Site } from 'src/module/useSites';
+import { toRowDate } from 'src/utils';
 
 export const SitesTableColumns = [
 
@@ -17,7 +18,7 @@ export const SitesTableColumns = [
     label: 'Created',
     align: 'left',
     field: (item:Site) => item.createdAt,
-    format: (val:string) => `${new Date(val).toLocaleDateString()}`,
+    format: (val:string) => `${toRowDate(val)}`,
     sortable: true,
   },
 

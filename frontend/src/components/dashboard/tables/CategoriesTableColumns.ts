@@ -1,4 +1,5 @@
 import { Category } from 'src/module/useCategories';
+import { toRowDate } from 'src/utils';
 
 export const CategoriesTableColumns = [
 
@@ -17,7 +18,7 @@ export const CategoriesTableColumns = [
     label: 'Created',
     align: 'left',
     field: (item:Category) => item.createdAt,
-    format: (val:string) => `${val}`,
+    format: (val:string) => `${toRowDate(val)}`,
     sortable: true,
   },
   {
@@ -26,7 +27,7 @@ export const CategoriesTableColumns = [
     label: 'Updated',
     align: 'left',
     field: (item:Category) => item.updatedAt,
-    format: (val:string) => `${val}`,
+    format: (val:string) => `${toRowDate(val)}`,
     sortable: true,
   },
   {

@@ -1,4 +1,5 @@
 import { Item } from 'src/module/useItems';
+import { toRowDate } from 'src/utils';
 
 export const ItemsTableColumns = [
 
@@ -26,16 +27,7 @@ export const ItemsTableColumns = [
     label: 'Created',
     align: 'left',
     field: (item:Item) => item.createdAt,
-    format: (val:string) => `${val}`,
-    sortable: true,
-  },
-  {
-    name: 'Updated',
-    required: true,
-    label: 'Updated',
-    align: 'left',
-    field: (item:Item) => item.updatedAt,
-    format: (val:string) => `${val}`,
+    format: (val:string) => `${toRowDate(val)}`,
     sortable: true,
   },
   {
