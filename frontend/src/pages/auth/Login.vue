@@ -94,7 +94,7 @@ export default defineComponent({
     const $router = useRouter();
 
     const LoginData = reactive<LoginInterface>({
-      email: 'user2@example.com',
+      email: 'admin@example.com',
       password: 'password',
     });
 
