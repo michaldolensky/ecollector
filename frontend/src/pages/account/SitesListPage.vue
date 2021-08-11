@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
-import AddSiteDialog from 'components/dashboard/tables/AddSiteDialog.vue';
+import AddSiteDialog from 'components/dashboard/forms/AddSiteDialog.vue';
 
 export default defineComponent({
   name: 'SiteListPage',
