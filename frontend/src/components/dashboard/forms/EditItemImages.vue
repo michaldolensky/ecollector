@@ -97,9 +97,9 @@ export default defineComponent({
     const updateImages = () => emit('update:modelValue', images);
 
     const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
-      const responceImages:Image[] = JSON.parse(info.xhr.response) as Image[];
+      const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
 
-      responceImages.forEach((value) => {
+      responseImages.forEach((value) => {
         const img:Image = {
           main: value.main,
           path: value.path,
