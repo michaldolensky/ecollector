@@ -38,6 +38,7 @@ export class ImagesController {
     @Query('itemId') itemId: number,
   ) {
     const response: Image[] = [];
+
     for (const file of files) {
       const image = await this.imagesService.create({
         filename: file.filename,
@@ -45,7 +46,7 @@ export class ImagesController {
         originalName: file.originalname,
         path: file.path,
         size: file.size,
-        main: false,
+        main: (await this.imagesService.getCountOfImagesOfItem(itemId)) === 0,
       });
       response.push(image);
     }

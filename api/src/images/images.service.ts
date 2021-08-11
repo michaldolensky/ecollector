@@ -23,6 +23,14 @@ export class ImagesService {
     return await this.imagesRepository.save(image);
   }
 
+  async getCountOfImagesOfItem(itemId: number) {
+    return this.imagesRepository.count({
+      where: {
+        itemId,
+      },
+    });
+  }
+
   async findAll({ itemId, main }: GetImagesArgs, parent?: Item) {
     return await this.imagesRepository.find({
       where: {
