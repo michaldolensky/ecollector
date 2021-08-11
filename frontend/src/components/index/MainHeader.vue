@@ -3,6 +3,15 @@
     bordered
   >
     <q-toolbar>
+      <q-btn
+        v-if="showDrawer"
+        class="q-mr-sm"
+        dense
+        flat
+        icon="menu"
+        round
+        @click="toggleDrawer"
+      />
       <q-toolbar-title shrink>
         <q-item
           clickable
@@ -22,11 +31,23 @@
   </q-header>
 </template>
 <script lang="ts">
-import AccountDropdown from 'components/index/AuthDropdown.vue';
+import useDrawers from 'src/module/useDrawers';
+import { defineComponent, ref } from 'vue';
 
-export default {
+import AccountDropdown from 'components/index/AuthDropdown.vue';
+import { useRoute } from 'vue-router';
+
+export default defineComponent({
   name: 'MainHeader',
   components: { AccountDropdown },
+  setup() {
+    const { drawerState, toggleDrawer } = useDrawers();
+    const route = useRoute();
+    const showDrawer = ref(route.meta.showDrawer);
 
-};
+    return {
+      toggleDrawer, drawerState, showDrawer,
+    };
+  },
+});
 </script>

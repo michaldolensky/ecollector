@@ -2,14 +2,6 @@
   <q-layout>
     <q-header>
       <q-toolbar>
-        <q-btn
-          aria-label="Menu"
-          dense
-          flat
-          icon="menu"
-          round
-          @click="toggleLeftDrawer"
-        />
         <q-toolbar-title shrink>
           SiteName
         </q-toolbar-title>

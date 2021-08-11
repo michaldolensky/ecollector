@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hhh LpR fFf">
     <q-drawer
+      v-model="drawerState"
       :mini="miniState"
       :width="200"
       behavior="desktop"
@@ -20,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import useDrawers from 'src/module/useDrawers';
 import DashboardDrawerItemsComponent from '../components/dashboard/DashboardDrawerItemsComponent.vue';
 
 export default defineComponent({
@@ -27,12 +29,11 @@ export default defineComponent({
   components: { DashboardDrawerItemsComponent },
   setup() {
     const miniState = ref(false);
+    const { drawerState } = useDrawers();
 
     return {
       miniState,
-      toggleLeftDrawer() {
-        miniState.value = !miniState.value;
-      },
+      drawerState,
     };
   },
 });

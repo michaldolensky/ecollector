@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <q-drawer
+      v-model="drawerState"
       :width="300"
       bordered
       elevated
@@ -43,6 +44,7 @@
 </template>
 
 <script lang="ts">
+import useDrawers from 'src/module/useDrawers';
 import { defineComponent, ref } from 'vue';
 
 // fixme
@@ -60,12 +62,18 @@ for (let i = 0; i < maxSize; i += 1) {
 }
 
 export default defineComponent({
-  // name: 'LayoutName',
+  name: 'CatalogueLayout',
   components: { },
 
   setup() {
-    const leftDrawer = ref(false);
-    return { leftDrawer, heavyList };
+    const miniState = ref(false);
+    const { drawerState } = useDrawers();
+
+    return {
+      miniState,
+      drawerState,
+      heavyList,
+    };
   },
 });
 </script>

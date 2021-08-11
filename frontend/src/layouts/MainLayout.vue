@@ -2,9 +2,7 @@
   <q-layout
     view="lHh Lpr lFf"
   >
-    <MainHeader
-      :toggle-left-drawer="toggleLeftDrawer"
-    />
+    <MainHeader />
 
     <q-page-container>
       <router-view />
@@ -13,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import MainHeader from 'components/index/MainHeader.vue';
 
 export default defineComponent({
@@ -22,14 +20,7 @@ export default defineComponent({
   components: { MainHeader },
 
   setup() {
-    const leftDrawerOpen = ref(false);
-
     return {
-
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
     };
   },
 });
