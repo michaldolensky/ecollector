@@ -11,6 +11,9 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/site/:siteId/',
         component: () => import('layouts/SiteLayout.vue'),
+        meta: {
+          showDrawer: true,
+        },
         children: [
           {
             path: 'catalogue/',
@@ -39,6 +42,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           requireOwner: true,
           requireLogin: true,
+          showDrawer: true,
         },
         children: [
           {
