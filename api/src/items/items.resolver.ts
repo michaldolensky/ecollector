@@ -8,13 +8,14 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { getRepository } from 'typeorm';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
 import { SiteIdArgs } from '../common/args/siteId.args';
+import { GetImagesArgs } from '../images/dto/get-images.args';
 import { Image } from '../images/entities/image.entity';
+import { ImagesService } from '../images/images.service';
 import { CreateItemArgs } from './dto/create-item.input';
 import { DeleteItemArgs } from './dto/delete-item.input';
 import { UpdateItemArgs } from './dto/update-item.input';
@@ -26,6 +27,7 @@ export class ItemsResolver {
   constructor(
     private readonly itemsService: ItemsService,
     private readonly categoriesService: CategoriesService,
+    private readonly imagesService: ImagesService,
   ) {}
 
   @UseGuards(GqlAuthGuard, RoleGuard)
@@ -62,13 +64,10 @@ export class ItemsResolver {
     return this.categoriesService.findOne(item.categoryId);
   }
   @ResolveField()
-  async images(@Parent() item: Item): Promise<Image[]> {
-    return await getRepository(Image).find({
-      where: { itemId: item.id },
-      order: {
-        main: 'DESC',
-        id: 'ASC',
-      },
-    });
+  async images(
+    @Parent() item: Item,
+    @Args() args: GetImagesArgs,
+  ): Promise<Image[]> {
+    return this.imagesService.findAll(args, item);
   }
 }

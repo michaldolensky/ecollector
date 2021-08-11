@@ -1,11 +1,11 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Item } from '../items/entities/item.entity';
 import { CreateImageInput } from './dto/create-image.input';
-import { UpdateImageInput } from './dto/update-image.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Image } from './entities/image.entity';
 import * as fs from 'fs';
-import { GetImagesArgs } from './dto/getImages.args';
+import { GetImagesArgs } from './dto/get-images.args';
 
 @Injectable()
 export class ImagesService {
@@ -23,8 +23,18 @@ export class ImagesService {
     return await this.imagesRepository.save(image);
   }
 
-  async findAll() {
-    return await this.imagesRepository.find();
+  async findAll({ itemId, main }: GetImagesArgs, parent?: Item) {
+    return await this.imagesRepository.find({
+      where: {
+        ...(itemId && { itemId }),
+        ...(parent.id && { itemId: parent.id }),
+        ...(main && { main }),
+      },
+      order: {
+        main: 'DESC',
+        id: 'ASC',
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -50,9 +60,5 @@ export class ImagesService {
       }
     });
     return image;
-  }
-
-  getAllImagesFromItem(args: GetImagesArgs) {
-    return '';
   }
 }

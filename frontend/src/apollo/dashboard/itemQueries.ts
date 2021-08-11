@@ -78,7 +78,7 @@ export const GET_ITEMS_QUERY = gql`
       category{
         name
       }
-      images{
+      images(main:true){
         path
         main
       }

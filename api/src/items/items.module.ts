@@ -1,4 +1,5 @@
 import { forwardRef, Module } from '@nestjs/common';
+import { ImagesModule } from '../images/images.module';
 import { ItemsService } from './items.service';
 import { ItemsResolver } from './items.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +10,7 @@ import { CategoriesModule } from '../categories/categories.module';
   imports: [
     TypeOrmModule.forFeature([Item]),
     forwardRef(() => CategoriesModule),
+    forwardRef(() => ImagesModule),
   ],
   providers: [ItemsResolver, ItemsService],
   exports: [ItemsService],

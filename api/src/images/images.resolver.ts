@@ -10,7 +10,7 @@ import {
 import { getRepository } from 'typeorm';
 import { Item } from '../items/entities/item.entity';
 import { DeleteImageArgs } from './dto/delete-image.input';
-import { GetImagesArgs } from './dto/getImages.args';
+import { GetImagesArgs } from './dto/get-images.args';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
@@ -20,10 +20,7 @@ export class ImagesResolver {
 
   @Query(() => [Image], { name: 'images' })
   findAll(@Args() args: GetImagesArgs) {
-    if (args.itemId) {
-      return this.imagesService.getAllImagesFromItem(args);
-    }
-    return this.imagesService.findAll();
+    return this.imagesService.findAll(args);
   }
 
   @Query(() => Image, { name: 'image' })
