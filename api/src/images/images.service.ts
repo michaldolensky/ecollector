@@ -45,10 +45,6 @@ export class ImagesService {
     throw new NotFoundException('Item with this id does not exist');
   }
 
-  update(id: number, updateImageInput: UpdateImageInput) {
-    return `This action updates a #${id} image`;
-  }
-
   async remove(id: number) {
     const image = await this.imagesRepository.findOne({ where: { id } });
     if (!image) throw new NotFoundException('Image not found!');
