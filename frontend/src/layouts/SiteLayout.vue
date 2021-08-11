@@ -13,8 +13,8 @@
         />
         <q-tabs align="left">
           <q-route-tab
-            :to="{name:'CatalogueIndex',params:{siteId:1}}"
-            label="Catalogue"
+            :to="{name:'CatalogIndex',params:{siteId:1}}"
+            label="Catalog"
           />
         </q-tabs>
       </q-toolbar>

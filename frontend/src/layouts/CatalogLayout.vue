@@ -62,7 +62,7 @@ for (let i = 0; i < maxSize; i += 1) {
 }
 
 export default defineComponent({
-  name: 'CatalogueLayout',
+  name: 'CatalogLayout',
   components: { },
 
   setup() {

@@ -11,7 +11,7 @@
     <q-item-section>
       {{ category.name }}
       <q-item-label caption>
-        {{ category.description }}
+        {{ category.description }}ss
       </q-item-label>
     </q-item-section>
   </q-item>
@@ -26,7 +26,7 @@ interface Category {
 }
 
 export default defineComponent({
-  name: 'CatalogueListCategory',
+  name: 'CatalogListCategory',
   components: { },
   props: {
     category: {

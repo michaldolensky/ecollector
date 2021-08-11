@@ -4,7 +4,7 @@
     flat
   >
     <q-card-section>
-      <h3>{{ item.name }}</h3>
+      <h3>{{ item.name }}a</h3>
     </q-card-section>
   </q-card>
 </template>
@@ -14,7 +14,7 @@ import { defineComponent, PropType } from 'vue';
 import { Item } from 'src/module/useItems';
 
 export default defineComponent({
-  name: 'CatalogueItem',
+  name: 'CatalogItem',
   components: { },
   props: {
     item: {
