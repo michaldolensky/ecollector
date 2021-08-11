@@ -4,14 +4,14 @@
     class="q-gutter-md "
   >
     <q-btn
-      :label="$t('auth.login.button')"
-      :to="{ name: 'login' }"
+      :label="$t('auth.signup.button')"
+      :to="{ name: 'signup' }"
       color="white"
       text-color="black"
     />
     <q-btn
-      :label="$t('auth.signup.button')"
-      :to="{ name: 'signup' }"
+      :label="$t('auth.login.button')"
+      :to="{ name: 'login' }"
       color="white"
       text-color="black"
     />
