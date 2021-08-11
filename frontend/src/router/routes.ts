@@ -70,12 +70,14 @@ const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteR
         {
           path: '/site/:siteId/',
           component: () => import('layouts/SiteLayout.vue'),
+          redirect: { name: 'catalogue' },
           meta: {
             showDrawer: true,
           },
           children: [
             {
               path: 'catalogue/',
+              name: 'catalogue',
               component: () => import('layouts/CatalogueLayout.vue'),
               children: [
                 {
