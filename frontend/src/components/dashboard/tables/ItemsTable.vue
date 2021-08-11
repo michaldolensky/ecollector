@@ -10,18 +10,23 @@
     row-key="id"
     title="Items"
   >
-    <template #body-cell-Name="props">
+    <template #body-cell-Image="props">
       <q-td :props="props">
-        <q-item style="max-width: 420px">
-          <!--          <q-item-section avatar>-->
-          <!--            <q-avatar>-->
-          <!--              <img :src="props.row.icon">-->
-          <!--            </q-avatar>-->
-          <!--          </q-item-section>-->
-
-          <q-item-section>
-            <q-item-label>{{ props.row.name }}</q-item-label>
-          </q-item-section>
+        <q-item>
+          <q-avatar
+            v-if="props.row.images[0]"
+            square
+          >
+            <img
+              :src="config.SERVER_URL+props.row.images[0].path"
+            >
+          </q-avatar>
+          <q-icon
+            v-else
+            color="grey-4"
+            name="image"
+            size="4em"
+          />
         </q-item>
       </q-td>
     </template>
@@ -41,7 +46,7 @@
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(props.row)"
+          @click="confirmDelete(props.row.id)"
         />
       </q-td>
     </template>
@@ -62,6 +67,7 @@
 </template>
 <script lang="ts">
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
+import { config } from 'src/config';
 import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
@@ -98,6 +104,7 @@ export default defineComponent({
     return {
       t,
       confirmDelete,
+      config,
       router: useRouter(),
       filter: ref(''),
       ItemsTableColumns,

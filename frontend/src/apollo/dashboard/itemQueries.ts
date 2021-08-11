@@ -70,11 +70,17 @@ export const GET_ITEMS_QUERY = gql`
   query getItems($siteId:Int!){
     items(siteId:$siteId) {
       id
+      name
       createdAt
       updatedAt
-      name
+      numberForExchange
+      numberInCollection
       category{
         name
+      }
+      images{
+        path
+        main
       }
     }
   }
