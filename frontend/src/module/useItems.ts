@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import {
-  CREATE_ITEM, DELETE_ITEM, GET_ITEM, GET_ITEMS_QUERY, UPDATE_ITEM,
+  CREATE_ITEM, DELETE_ITEM, GET_ITEM, GET_DASHBOARD_ITEMS, UPDATE_ITEM,
 } from 'src/apollo/dashboard/itemQueries';
 import { Image } from 'src/module/useImages';
 import { useSites } from 'src/module/useSites';
@@ -58,7 +58,7 @@ export interface IGetItem{
 export function useItems() {
   const { currentSiteId } = useSites();
 
-  const { result, loading, refetch } = useQuery<ItemData, ItemsVars>(GET_ITEMS_QUERY, {
+  const { result, loading, refetch } = useQuery<ItemData, ItemsVars>(GET_DASHBOARD_ITEMS, {
     siteId: currentSiteId.value,
   });
 
