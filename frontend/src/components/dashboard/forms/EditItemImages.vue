@@ -70,6 +70,7 @@
 import { config } from 'src/config';
 import { Image, useImages } from 'src/module/useImages';
 import { defineComponent, PropType, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'EditItemImages',
@@ -88,8 +89,11 @@ export default defineComponent({
   setup(props, { emit }) {
     const { removeImage } = useImages();
 
+    const route = useRoute();
+    const { siteId, itemId } = route.params;
+
     const uploadImage = () => ({
-      url: 'http://localhost:3000/uploads?siteId=1&itemId=17',
+      url: `http://localhost:3000/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
       method: 'POST',
       fieldName: 'images',
     });
