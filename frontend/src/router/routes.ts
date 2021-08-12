@@ -24,40 +24,37 @@ const validateSiteId:NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 
-const redirectToLogin = (to:RouteLocationNormalized, str:string) => {
-  console.log(to, str);
-  return {
-    name: 'login',
-    query: { redirect: to.fullPath },
-  };
-};
+const redirectToLogin = (to:RouteLocationNormalized) => ({
+  name: 'login',
+  query: { redirect: to.fullPath },
+});
 
 const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteRecordRaw[] => {
   const isAdmin = () => auth.user?.role === 'Admin';
 
-  const requireAuth:NavigationGuard = async (to, from, next) => {
-    await dispatch('auth/me');
-
+  const requireAuth:NavigationGuard = (to, from, next) => {
     if (!auth.loggedIn) {
-      next(redirectToLogin(to, 'auth'));
-    } else {
-      next();
+      next(redirectToLogin(to));
     }
+    next();
+  };
+  const checkAuth:NavigationGuard = async (to, from, next) => {
+    await dispatch('auth/me');
+    next();
   };
 
   // const requireAdmin:NavigationGuard = (to, from, next) => {
-  //   console.log('isAdmin', isAdmin());
   //   if (isAdmin()) {
   //     next();
   //   } else {
-  //     next(redirectToLogin(to, 'admin'));
+  //     next(redirectToLogin(to));
   //   }
   // };
   const requireOwner:NavigationGuard = (to, from, next) => {
     if (auth.user?.sitesIds.includes(parseInt(<string>to.params.siteId, 10)) || isAdmin()) {
       next();
     } else {
-      next(redirectToLogin(to, 'owner'));
+      next(redirectToLogin(to));
     }
   };
 
@@ -65,6 +62,7 @@ const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteR
     {
       path: '',
       component: () => import('layouts/MainLayout.vue'),
+      beforeEnter: [checkAuth],
       children: [
         { path: '', name: 'index', component: () => import('pages/MainPage.vue') },
         {
@@ -82,7 +80,12 @@ const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteR
               children: [
                 {
                   name: 'CatalogIndex',
-                  path: '',
+                  path: '/',
+                  component: () => import('pages/site/catalog/Items.vue'),
+                },
+                {
+                  name: 'CatalogCategory',
+                  path: ':categoryId/',
                   component: () => import('pages/site/catalog/Items.vue'),
                 },
               ],

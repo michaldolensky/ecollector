@@ -5,8 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Category } from '../categories/entities/category.entity';
 import { sanitizeHTML } from '../common/utils/sanitize-html';
 import { CreateItemInput } from './dto/create-item.input';
+import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
 import { Item } from './entities/item.entity';
 
@@ -32,8 +34,15 @@ export class ItemsService {
     return await this.itemsRepository.save(item);
   }
 
-  async findAll() {
-    return await this.itemsRepository.find();
+  async findAll({ categoryId, siteId }: GetItemsArgs, parent?: Category) {
+    console.log(parent);
+    return await this.itemsRepository.find({
+      where: {
+        ...(categoryId && { categoryId }),
+        ...(parent?.id && { categoryId: parent.id }),
+        ...(siteId && { siteId }),
+      },
+    });
   }
 
   async findOne(id: number) {

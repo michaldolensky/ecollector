@@ -12,12 +12,12 @@ import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
-import { SiteIdArgs } from '../common/args/siteId.args';
 import { GetImagesArgs } from '../images/dto/get-images.args';
 import { Image } from '../images/entities/image.entity';
 import { ImagesService } from '../images/images.service';
 import { CreateItemArgs } from './dto/create-item.input';
 import { DeleteItemArgs } from './dto/delete-item.input';
+import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemArgs } from './dto/update-item.input';
 import { Item } from './entities/item.entity';
 import { ItemsService } from './items.service';
@@ -37,11 +37,8 @@ export class ItemsResolver {
   }
 
   @Query(() => [Item], { name: 'items' })
-  findAll(@Args() { siteId }: SiteIdArgs) {
-    if (siteId) {
-      return this.itemsService.getAllItemsFromSite(siteId);
-    }
-    return this.itemsService.findAll();
+  findAll(@Args() args: GetItemsArgs) {
+    return this.itemsService.findAll(args);
   }
 
   @Query(() => Item, { name: 'item' })

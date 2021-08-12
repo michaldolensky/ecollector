@@ -35,7 +35,7 @@ export class ImagesService {
     return await this.imagesRepository.find({
       where: {
         ...(itemId && { itemId }),
-        ...(parent.id && { itemId: parent.id }),
+        ...(parent?.id && { itemId: parent.id }),
         ...(main && { main }),
       },
       order: {

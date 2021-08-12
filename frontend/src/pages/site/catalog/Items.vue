@@ -2,16 +2,16 @@
   <q-page>
     <q-scroll-area style="height: 80vh; width:100%">
       <div
-        v-if="items"
+        v-if="!loading"
         class="q-pa-md row items-start q-gutter-md"
       >
         <q-card
-          v-for="item in items"
+          v-for="item in result.items"
           :key="item.id"
           class="my-card"
         >
           <q-img
-            :src="item.download_url"
+            :src=" config.SERVER_URL+item.images[0].path"
             fit="scale-down"
             loading="lazy"
             style="max-height: 250px"
@@ -35,10 +35,10 @@
           <q-card-section />
           <q-card-section>
             <div class="text-h6">
-              Our Changing Planet
+              {{ item.name }}
             </div>
             <div class="text-subtitle2">
-              by John Doe
+              {{ item.shortDesc }}
             </div>
           </q-card-section>
 
@@ -52,23 +52,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { GET_CATALOG_ITEMS } from 'src/apollo/catalog/itemQueries';
+import { CatalogItemVars, ItemData } from 'src/module/useCatalogue';
+import { defineComponent, watch } from 'vue';
+import { useQuery } from '@vue/apollo-composable';
+import { useSites } from 'src/module/useSites';
+import { useRoute } from 'vue-router';
+
+import { config } from 'src/config';
 
 export default defineComponent({
   // name: 'PageName'
 
   setup() {
-    // source https://picsum.photos/v2/list
-    // eslint-disable-next-line no-unused-vars
-    const items = ref([{
-      id: '0', author: 'Alejandro Escamilla', width: 5616, height: 3744, url: 'https://unsplash.com/photos/yC-Yzbqy7PY', download_url: 'https://picsum.photos/id/0/5616/3744',
-    }, {
-      id: '1', author: 'Alejandro Escamilla', width: 5616, height: 3744, url: 'https://unsplash.com/photos/LNRyGwIJr5c', download_url: 'https://picsum.photos/id/1/5616/3744',
-    }]);
+    const { currentSiteId, getSiteIdFromString } = useSites();
+    const route = useRoute();
 
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unused-vars
-    return { items };
+    const { result, loading, variables } = useQuery<ItemData, CatalogItemVars>(GET_CATALOG_ITEMS, {
+      siteId: currentSiteId.value,
+      categoryId: getSiteIdFromString(<string>route.params.categoryId),
+    });
+    watch(
+      () => route.params.categoryId,
+      () => {
+        variables.value = {
+          siteId: currentSiteId.value,
+          categoryId: getSiteIdFromString(<string>route.params.categoryId),
+        };
+      },
+    );
+
+    return { result, loading, config };
   },
 
 });

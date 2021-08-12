@@ -13,8 +13,8 @@
         style="height: 80vh"
       >
         <q-virtual-scroll
-
-          :items="heavyList"
+          v-if="!loading"
+          :items="result.categories"
           :virtual-scroll-item-size="32"
           scroll-target="#scroll-area-with-virtual-scroll-1 > .scroll"
           separator
@@ -23,13 +23,12 @@
             <q-item
               :key="index"
               v-ripple
+              :to="{params:{categoryId:item.id}}"
               clickable
             >
               <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
-                <q-item-label caption>
-                  {{ item.caption }}
-                </q-item-label>
+                <q-item-label>{{ item.name }}</q-item-label>
+                <q-item-label caption />
               </q-item-section>
             </q-item>
           </template>
@@ -44,22 +43,14 @@
 </template>
 
 <script lang="ts">
+import { GET_CATALOG_CATEGORIES } from 'src/apollo/catalog/categoryQueries';
+import {
+  CatalogCategoryVars, CategoryData,
+} from 'src/module/useCatalogue';
 import useDrawers from 'src/module/useDrawers';
+import { useSites } from 'src/module/useSites';
 import { defineComponent, ref } from 'vue';
-
-// fixme
-const maxSize = 1000;
-const heavyList:{
-  label: string,
-  caption: string,
-}[] = [];
-
-for (let i = 0; i < maxSize; i += 1) {
-  heavyList.push({
-    label: `Option ${i + 1}`,
-    caption: `Caption ${i + 1}`,
-  });
-}
+import { useQuery } from '@vue/apollo-composable';
 
 export default defineComponent({
   name: 'CatalogLayout',
@@ -68,11 +59,18 @@ export default defineComponent({
   setup() {
     const miniState = ref(false);
     const { drawerState } = useDrawers();
+    const { currentSiteId } = useSites();
+
+    // eslint-disable-next-line max-len
+    const { result, loading } = useQuery<CategoryData, CatalogCategoryVars>(GET_CATALOG_CATEGORIES, {
+      siteId: currentSiteId.value,
+    });
 
     return {
       miniState,
       drawerState,
-      heavyList,
+      loading,
+      result,
     };
   },
 });

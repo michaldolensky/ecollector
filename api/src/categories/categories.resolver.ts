@@ -7,6 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { GetItemsArgs } from '../items/dto/getItems.args';
 import { CategoriesService } from './categories.service';
 import { Category } from './entities/category.entity';
 import { CreateCategoryArgs } from './dto/create-category.input';
@@ -70,7 +71,10 @@ export class CategoriesResolver {
   }
 
   @ResolveField()
-  async items(@Parent() category: Category): Promise<Item[]> {
-    return this.itemService.getItemsOfCategory(category.id);
+  async items(
+    @Parent() category: Category,
+    @Args() args: GetItemsArgs,
+  ): Promise<Item[]> {
+    return this.itemService.findAll(args, category);
   }
 }
