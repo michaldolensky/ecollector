@@ -7,7 +7,7 @@ import * as Joi from 'joi';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
-import { DatabaseModule } from './database/database.module';
+import { DatabaseModule } from './config/database/database.module';
 import { ImagesModule } from './images/images.module';
 import { ItemsModule } from './items/items.module';
 import { SitesModule } from './sites/sites.module';
@@ -42,7 +42,6 @@ const graphQLLogger = new Logger('GraphQLModule');
         graphQLLogger.error('error', error);
         return error;
       },
-      //TODO
       cors: {
         origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
         credentials: true,
