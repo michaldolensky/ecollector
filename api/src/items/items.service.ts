@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
-import { sanitizeHTML } from '../common/utils/sanitize-html';
+import { sanitizeHtmlUtils } from '../common/utils/sanitize-html.utils';
 import { CreateItemInput } from './dto/create-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
@@ -25,7 +25,7 @@ export class ItemsService {
     item.name = createItemInput.name;
     item.categoryId = createItemInput.categoryId;
     item.siteId = siteId;
-    item.longDesc = sanitizeHTML(createItemInput.longDesc);
+    item.longDesc = sanitizeHtmlUtils(createItemInput.longDesc);
     item.shortDesc = createItemInput.shortDesc;
     item.numberInCollection = createItemInput.numberInCollection;
     item.numberForExchange = createItemInput.numberForExchange;
@@ -60,7 +60,7 @@ export class ItemsService {
     });
     if (!item) throw new BadRequestException('Invalid item');
 
-    updateItemInput.longDesc = sanitizeHTML(updateItemInput.longDesc);
+    updateItemInput.longDesc = sanitizeHtmlUtils(updateItemInput.longDesc);
     Object.assign(item, updateItemInput);
 
     item.images = item.images.map((image) => {
