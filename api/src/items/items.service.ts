@@ -3,7 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Category } from '../categories/entities/category.entity';
+import { sanitizeHtmlUtils } from '../common/utils/sanitize-html.utils';
 import { CreateItemInput } from './dto/create-item.input';
+import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
