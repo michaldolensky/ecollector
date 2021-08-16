@@ -1,7 +1,9 @@
+import useAuth from 'src/module/useAuth';
 import { useSites } from 'src/module/useSites';
-import { StateInterface } from 'src/store';
+
+const { state, me } = useAuth();
+
 import { NavigationGuard, RouteRecordRaw, RouteLocationNormalized } from 'vue-router';
-import { Store } from 'vuex';
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -29,17 +31,18 @@ const redirectToLogin = (to:RouteLocationNormalized) => ({
   query: { redirect: to.fullPath },
 });
 
-const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteRecordRaw[] => {
-  const isAdmin = () => auth.user?.role === 'Admin';
+const getRoutes = (): RouteRecordRaw[] => {
+  const isAdmin = () => state.user?.role === 'Admin';
 
   const requireAuth:NavigationGuard = (to, from, next) => {
-    if (!auth.loggedIn) {
-      next(redirectToLogin(to));
-    }
+    console.log(!state.authState);
+    // if (state.authState !== authStateEnum.LOGGED_IN) {
+    //   next(redirectToLogin(to));
+    // }
     next();
   };
   const checkAuth:NavigationGuard = async (to, from, next) => {
-    await dispatch('auth/me');
+    await me();
     next();
   };
 
@@ -51,7 +54,7 @@ const getRoutes = ({ dispatch, state: { auth } }: Store<StateInterface>): RouteR
   //   }
   // };
   const requireOwner:NavigationGuard = (to, from, next) => {
-    if (auth.user?.sitesIds.includes(parseInt(<string>to.params.siteId, 10)) || isAdmin()) {
+    if (state.user?.sitesIds.includes(parseInt(<string>to.params.siteId, 10)) || isAdmin()) {
       next();
     } else {
       next(redirectToLogin(to));

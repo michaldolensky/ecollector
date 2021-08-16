@@ -4,7 +4,6 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserInput } from '../users/dto/create-user.input';
 import * as bcrypt from 'bcrypt';
 import { PostgresErrorCode } from '../config/database/enums/postgresErrorCodes';
-import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './tokenPayload.interface';
 import { User } from '../users/entities/user.entity';
 
@@ -13,7 +12,6 @@ export class AuthService {
   constructor(
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
   ) {}
 
   public async register(createUserInput: CreateUserInput) {
@@ -39,10 +37,10 @@ export class AuthService {
     }
   }
 
-  public async getAuthenticatedUser(email: string, plainTextPassword: string) {
+  public async getAuthenticatedUser(email: string, plainPassword: string) {
     try {
       const user = await this.userService.getUserByEmail(email);
-      await this.verifyPassword(plainTextPassword, user.password);
+      await this.verifyPassword(plainPassword, user.password);
 
       user.password = undefined;
       return user;
@@ -54,28 +52,18 @@ export class AuthService {
     }
   }
 
-  public async getCookieWithJwtToken(user: User) {
+  public async login(user: User) {
     const payload: TokenPayload = {
       userId: user.id,
       role: user.role,
       ownedSites: await this.userService.getUsersSitesIds(user.id),
     };
-    const token = this.jwtService.sign(payload);
-    return `Authorization=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
-      'JWT_EXPIRATION_TIME',
-    )}`;
+    return { accessToken: this.jwtService.sign(payload) };
   }
 
-  public getCookieForLogOut() {
-    return `Authorization=; HttpOnly; Path=/; Max-Age=0`;
-  }
-
-  private async verifyPassword(
-    plainTextPassword: string,
-    hashedPassword: string,
-  ) {
+  private async verifyPassword(plainPassword: string, hashedPassword: string) {
     const isPasswordMatching = await bcrypt.compare(
-      plainTextPassword,
+      plainPassword,
       hashedPassword,
     );
     if (!isPasswordMatching) {

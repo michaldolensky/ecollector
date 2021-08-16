@@ -19,7 +19,7 @@
 
   <q-btn-dropdown
     v-else
-    :label="FullName"
+    :label="fullName"
     color="white"
     icon="account_circle"
     text-color="black"
@@ -47,7 +47,7 @@
       <q-separator />
       <q-item>
         <q-item-section>
-          <q-item-label @click="logout">
+          <q-item-label @click="doLogout">
             Logout
           </q-item-label>
         </q-item-section>
@@ -56,26 +56,23 @@
   </q-btn-dropdown>
 </template>
 <script lang="ts">
+import useAuth from 'src/module/useAuth';
 import { useRouter } from 'vue-router';
-import { useStore } from 'src/store';
-import { computed } from 'vue';
 
 export default {
   name: 'AccountDropdown',
   setup() {
+    const { fullName, logout, isLoggedIn } = useAuth();
     const router = useRouter();
-    const store = useStore();
 
-    const logout = async () => {
-      await store.dispatch('auth/logout');
+    const doLogout = async () => {
+      logout();
       await router.push('/auth/login');
     };
     return {
-      logout,
-      isLoggedIn: computed(() => store.state.auth.loggedIn),
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return
-      FullName: computed(() => store.getters['auth/getFullName']),
+      doLogout,
+      fullName,
+      isLoggedIn,
     };
   },
 

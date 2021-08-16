@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
+import useAuth from 'src/module/useAuth';
 import {
-  computed, defineComponent, onMounted, ref,
+  defineComponent, onMounted, ref,
 } from 'vue';
-import { useStore } from 'src/store';
 import { useRouter } from 'vue-router';
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 
@@ -23,10 +23,10 @@ export default defineComponent({
   name: 'Profile',
   components: { SitesTable },
   setup() {
-    const $store = useStore();
+    const { state } = useAuth();
     const $router = useRouter();
 
-    const currentUser = ref($store.state.auth.user);
+    const currentUser = ref(state);
 
     const verifyIfUserExists = () => {
       if (!currentUser.value) {
@@ -37,10 +37,6 @@ export default defineComponent({
     onMounted(() => {
       verifyIfUserExists();
     });
-
-    return {
-      currentUser: computed(() => $store.state.auth.user),
-    };
   },
 });
 </script>

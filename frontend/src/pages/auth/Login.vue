@@ -80,17 +80,17 @@
 </template>
 
 <script lang="ts">
+import useAuth from 'src/module/useAuth';
+import { LoginInterface } from 'src/types/auth.interface';
 import {
   computed, defineComponent, reactive, ref, toRaw, toRefs,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'src/store';
-import { LoginInterface } from 'src/types/auth.interface';
-// TODO
+
 export default defineComponent({
   name: 'Login',
   setup() {
-    const $store = useStore();
+    const { login, state } = useAuth();
     const $router = useRouter();
 
     const LoginData = reactive<LoginInterface>({
@@ -100,22 +100,21 @@ export default defineComponent({
 
     const message = ref<string>('');
     const loading = ref<boolean>(false);
-    const loggedIn = computed(() => $store.state.auth.loggedIn);
+    const loggedIn = computed(() => state.authState);
 
-    if (loggedIn.value) {
+    if (state.isLoggedIn) {
       void $router.push({ name: 'profile' });
     }
 
     const onSubmit = () => {
       loading.value = true;
-      $store.dispatch('auth/login', toRaw(LoginData))
+      login(toRaw(LoginData))
         .then(
           () => {
             void $router.push({ name: 'profile' });
           },
           (error) => {
             loading.value = false;
-            // eslint-disable-next-line no-console
             console.log(error);
           },
         );

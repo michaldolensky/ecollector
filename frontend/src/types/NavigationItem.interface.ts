@@ -1,5 +1,5 @@
 export interface NavigationItemInterface{
-  name:string,
-  url:string
+  nameString:string,
+  routeName:string
   icon:string
 }

@@ -111,15 +111,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import useAuth from 'src/module/useAuth';
+import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'src/store';
 import { LoginInterface } from 'src/types/auth.interface';
 // TODO
 export default defineComponent({
   name: 'Signup',
   setup() {
-    const $store = useStore();
+    const { signup, state } = useAuth();
     const $router = useRouter();
 
     const firstName = ref<string>('firstName');
@@ -129,9 +129,8 @@ export default defineComponent({
     const verifyPassword = ref<string>('password');
     const message = ref<string>('');
     const loading = ref<boolean>(false);
-    const loggedIn = computed(() => $store.state.auth.loggedIn);
 
-    if (loggedIn.value) {
+    if (state.authState) {
       void $router.push('/profile');
     }
 
@@ -142,15 +141,14 @@ export default defineComponent({
       };
 
       loading.value = true;
-      $store.dispatch('auth/signup', user)
+
+      signup(user)
         .then(
           () => {
             void $router.push('/auth/login');
           },
-          (error) => {
+          () => {
             loading.value = false;
-            // eslint-disable-next-line no-console
-            console.log(error);
           },
         );
     };
@@ -173,7 +171,7 @@ export default defineComponent({
       verifyPassword,
       loading,
       message,
-      loggedIn,
+      loggedIn: state.authState,
       onSubmit,
       onReset,
     };

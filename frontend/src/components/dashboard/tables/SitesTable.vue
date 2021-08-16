@@ -50,21 +50,22 @@
   </q-table>
 </template>
 <script lang="ts">
+import useAuth from 'src/module/useAuth';
 import { computed, defineComponent, ref } from 'vue';
 import { useI18n } from 'src/boot/i18n';
 import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
 import { Site } from 'src/module/useSites';
-import { useStore } from 'src/store';
 
 export default defineComponent({
   name: 'CategoriesTable',
   setup() {
-    const store = useStore();
+    const { state } = useAuth();
+
     const { t } = useI18n();
 
     return {
       t,
-      sites: computed(() => store.state.auth.user?.sites as Site[]),
+      sites: computed(() => state?.user?.sites as Site[]),
       filter: ref(''),
       SitesTableColumns,
       initialPagination: {
