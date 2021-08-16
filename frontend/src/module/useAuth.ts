@@ -3,7 +3,7 @@ import { api } from 'boot/axios';
 import { Site } from 'src/module/useSites';
 import { LoginInterface } from 'src/types/auth.interface';
 import {
-  computed, ComputedRef, reactive, readonly, watch,
+  computed, ComputedRef, reactive, readonly,
 } from 'vue';
 
 export const localStorageTokenKey = 'token';
@@ -55,13 +55,6 @@ const useAuth = () => {
         },
       );
   };
-  watch(
-    () => state.user,
-    (value) => {
-      console.log(value);
-    },
-  );
-
   const login = (loginObject: LoginInterface) => api
     .post('/auth/login', {
       email: loginObject.email,
