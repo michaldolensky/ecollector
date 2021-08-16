@@ -3,13 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateItemInput } from './dto/create-item.input';
+import { UpdateItemInput } from './dto/update-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Category } from '../categories/entities/category.entity';
-import { sanitizeHtmlUtils } from '../common/utils/sanitize-html.utils';
-import { CreateItemInput } from './dto/create-item.input';
-import { GetItemsArgs } from './dto/getItems.args';
-import { UpdateItemInput } from './dto/update-item.input';
 import { Item } from './entities/item.entity';
 
 @Injectable()
@@ -22,14 +19,9 @@ export class ItemsService {
   async create(createItemInput: CreateItemInput, siteId: number) {
     const item = new Item();
 
-    item.name = createItemInput.name;
-    item.categoryId = createItemInput.categoryId;
+    Object.assign(item, createItemInput);
     item.siteId = siteId;
     item.longDesc = sanitizeHtmlUtils(createItemInput.longDesc);
-    item.shortDesc = createItemInput.shortDesc;
-    item.numberInCollection = createItemInput.numberInCollection;
-    item.numberForExchange = createItemInput.numberForExchange;
-    item.internalNumber = createItemInput.internalNumber;
 
     return await this.itemsRepository.save(item);
   }
@@ -80,17 +72,5 @@ export class ItemsService {
     if (!item) throw new NotFoundException('Item not found!');
     await this.itemsRepository.delete(itemId);
     return item;
-  }
-
-  async getItemsOfCategory(categoryId: number) {
-    return await this.itemsRepository.find({
-      where: { categoryId },
-    });
-  }
-
-  async getAllItemsFromSite(siteId: number) {
-    return await this.itemsRepository.find({
-      where: { siteId },
-    });
   }
 }
