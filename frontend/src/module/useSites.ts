@@ -1,3 +1,4 @@
+import { getParsedInt } from 'src/utils';
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { CREATE_SITE } from 'src/apollo/dashboard/siteQueries';
@@ -16,8 +17,7 @@ export interface CreateItemInput {
 
 export function useSites() {
   const route = useRoute();
-  const getSiteIdFromString = (siteIdParam: string):number => parseInt(siteIdParam, 10);
-  const currentSiteId = computed<number>(() => getSiteIdFromString(<string>route.params.siteId));
+  const currentSiteId = computed<number>(() => getParsedInt(route.params.siteId));
 
   const { mutate: createSiteMutation } = useMutation(CREATE_SITE);
 
@@ -26,6 +26,6 @@ export function useSites() {
   };
 
   return {
-    getSiteIdFromString, currentSiteId, addSite,
+    currentSiteId, addSite,
   };
 }

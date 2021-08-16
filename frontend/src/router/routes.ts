@@ -1,5 +1,5 @@
 import useAuth from 'src/module/useAuth';
-import { useSites } from 'src/module/useSites';
+import { getParsedInt } from 'src/utils';
 
 const { state, me } = useAuth();
 
@@ -12,15 +12,19 @@ declare module 'vue-router' {
 }
 
 const validateItemId:NavigationGuard = (to, from, next) => {
-  const { getSiteIdFromString } = useSites();
-  const siteId = getSiteIdFromString(to.params.siteId as string);
+  const siteId = getParsedInt(to.params.siteId);
   if (siteId > 0) {
     next();
   } else next({ name: 'Error404' });
 };
 const validateSiteId:NavigationGuard = (to, from, next) => {
-  const { getSiteIdFromString } = useSites();
-  const siteId = getSiteIdFromString(to.params.siteId as string);
+  const siteId = getParsedInt(to.params.siteId);
+  if (siteId > 0) {
+    next();
+  } else next({ name: 'Error404' });
+};
+const validateCategoryId:NavigationGuard = (to, from, next) => {
+  const siteId = getParsedInt(to.params.categoryId);
   if (siteId > 0) {
     next();
   } else next({ name: 'Error404' });
@@ -35,10 +39,9 @@ const getRoutes = (): RouteRecordRaw[] => {
   const isAdmin = () => state.user?.role === 'Admin';
 
   const requireAuth:NavigationGuard = (to, from, next) => {
-    console.log(!state.authState);
-    // if (state.authState !== authStateEnum.LOGGED_IN) {
-    //   next(redirectToLogin(to));
-    // }
+    if (state.isLoggedIn) {
+      next(redirectToLogin(to));
+    }
     next();
   };
   const checkAuth:NavigationGuard = async (to, from, next) => {
@@ -54,7 +57,7 @@ const getRoutes = (): RouteRecordRaw[] => {
   //   }
   // };
   const requireOwner:NavigationGuard = (to, from, next) => {
-    if (state.user?.sitesIds.includes(parseInt(<string>to.params.siteId, 10)) || isAdmin()) {
+    if (state.user?.sitesIds.includes(getParsedInt(to.params.siteId)) || isAdmin()) {
       next();
     } else {
       next(redirectToLogin(to));
@@ -84,12 +87,12 @@ const getRoutes = (): RouteRecordRaw[] => {
                 {
                   name: 'CatalogIndex',
                   path: '/',
-                  component: () => import('pages/site/catalog/Items.vue'),
+                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
                 },
                 {
                   name: 'CatalogCategory',
                   path: ':categoryId/',
-                  component: () => import('pages/site/catalog/Items.vue'),
+                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
                 },
               ],
             },
@@ -127,7 +130,18 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'DashBoardCategories',
               path: 'categories',
-              component: () => import('pages/site/dashboard/Categories.vue'),
+              component: () => import('pages/site/dashboard/DashboardCategoriesPage.vue'),
+            },
+            {
+              name: 'DashBoardCategoryEdit',
+              path: 'categories/edit/:categoryId',
+              component: () => import('pages/site/dashboard/EditCategoryPage.vue'),
+              beforeEnter: [validateCategoryId],
+            },
+            {
+              name: 'DashBoardCategoryCreate',
+              path: 'categories/new/',
+              component: () => import('pages/site/dashboard/EditCategoryPage.vue'),
             },
             {
               name: 'DashBoardSettings',
