@@ -66,11 +66,6 @@ export class CategoriesResolver {
   }
 
   @ResolveField()
-  async subCategory(@Parent() category: Category): Promise<Category[]> {
-    return this.categoryService.getChildrenOfParentOfId(category.id);
-  }
-
-  @ResolveField()
   async items(
     @Parent() category: Category,
     @Args() args: GetItemsArgs,

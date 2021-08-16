@@ -21,7 +21,6 @@ export class CategoriesService {
 
     category.name = createCategoryInput.name;
     category.perex = createCategoryInput.perex;
-    category.parentId = createCategoryInput.parentId;
     category.siteId = siteId;
 
     return await this.categoriesRepository.save(category);
@@ -55,11 +54,5 @@ export class CategoriesService {
 
   async getCategoriesWithSiteId(siteId: number): Promise<Category[]> {
     return await this.categoriesRepository.find({ where: { siteId } });
-  }
-
-  async getChildrenOfParentOfId(parentId: number): Promise<Category[]> {
-    return await this.categoriesRepository.find({
-      where: { parentId },
-    });
   }
 }
