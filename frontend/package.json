@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@quasar/cli": "^1.2.1",
-    "@quasar/extras": "^1.10.9",
+    "@quasar/extras": "^1.10.11",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^2.0.3",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.3",
+    "@quasar/app": "^3.1.0",
     "@quasar/quasar-app-extension-apollo": "^2.0.0-beta.3",
     "@types/node": "^10.17.15",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
