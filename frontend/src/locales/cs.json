@@ -4,7 +4,8 @@
       "login": "",
       "logout": "",
       "reset": "",
-      "Signup": ""
+      "Signup": "",
+      "submit": "buttons.auth.submit"
     },
     "forms": {
       "reset": "",
@@ -35,7 +36,9 @@
   "tables": {
     "createdAt": "",
     "notFound": {
-      "items": ""
+      "items": "",
+      "categories": "tables.notFound.categories",
+      "sites": "tables.notFound.sites"
     },
     "name": "",
     "updatedAt": ""

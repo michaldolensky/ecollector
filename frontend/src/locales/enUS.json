@@ -1,55 +1,52 @@
 {
-  "auth": {
-    "login": {
-      "button": "Login",
-      "email": "Email",
-      "password": "Password"
+  "buttons": {
+    "auth": {
+      "login": "Login",
+      "logout": "Logout",
+      "reset": "Reset",
+      "Signup": "Signup",
+      "submit": "Submit"
     },
-    "logout": {
-      "button": "Logout"
-    },
-    "signup": {
-      "button": "Signup",
-      "email": "Email",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "password": "Password",
-      "signup": "Sign up",
-      "verifyPassword": "Verify password"
-    }
-  },
-  "dashboard": {
-    "dialog": {
-      "delete": "Do you really wish to delete {0}?"
-    },
-    "navigation": {
-      "categories": "Categories",
-      "home": "Home",
-      "items": "Items",
-      "settings": "Settings"
-    },
-    "table": {
-      "createdAt": "Created",
-      "items": {
-        "notFound": "No items found."
-      },
-      "name": "Name",
-      "updatedAt": "Updated"
-    }
-  },
-  "form": {
-    "buttons": {
+    "forms": {
       "reset": "Reset",
       "submit": "Submit"
     }
   },
-  "profile": {
-    "name": "Profile"
+  "forms": {
+    "password": "Password",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "verifyPassword": "Verify password",
+    "validation": {
+      "required": "Field is required"
+    }
   },
-  "sites": {
-    "name": "Sites"
+  "dialogs": {
+    "dashboard": {
+      "delete": "Do you really wish to delete {0}?"
+    }
   },
-  "validation": {
-    "required": "Field is required"
+  "navigation": {
+    "categories": "Categories",
+    "home": "Home",
+    "items": "Items",
+    "settings": "Settings"
+  },
+  "tables": {
+    "createdAt": "Created",
+    "notFound": {
+      "items": "No items found.",
+      "categories": "No categories found.",
+      "sites": "No sites found."
+    },
+    "name": "Name",
+    "updatedAt": "Updated"
+  },
+  "pages": {
+    "login": "Login",
+    "signup": "Signup",
+    "profile": "Profile",
+    "sites": "Sites"
   }
 }

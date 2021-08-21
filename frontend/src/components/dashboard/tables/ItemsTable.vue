@@ -4,7 +4,7 @@
     :filter="filter"
     :grid="$q.screen.xs"
     :loading="loading"
-    :no-data-label="t('dashboard.table.items.notFound')"
+    :no-data-label="t('tables.notFound.items')"
     :pagination="initialPagination"
     :rows="items"
     row-key="id"
@@ -93,7 +93,7 @@ export default defineComponent({
     const confirmDelete = (item: Item) => {
       $q.dialog({
         title: 'Confirm',
-        message: t('dashboard.dialog.delete', [item.name]),
+        message: t('dialogs.dashboard.delete', [item.name]),
         cancel: true,
         persistent: true,
       }).onOk(() => {

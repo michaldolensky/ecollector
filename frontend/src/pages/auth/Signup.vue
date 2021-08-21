@@ -29,12 +29,12 @@
 
         <q-card-section>
           <div class="text-h6">
-            {{ $t('auth.signup.signup') }}
+            {{ $t('pages.signup') }}
           </div>
           <q-input
             id="firstName"
             v-model.trim="firstName"
-            :label="$t('auth.signup.firstName')"
+            :label="$t('forms.firstName')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             autofocus
             lazy-rules
@@ -45,7 +45,7 @@
           <q-input
             id="firstName"
             v-model.trim="lastName"
-            :label="$t('auth.signup.lastName')"
+            :label="$t('forms.lastName')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             lazy-rules
             outlined
@@ -55,7 +55,7 @@
           <q-input
             id="email"
             v-model.trim="email"
-            :label="$t('auth.signup.email')"
+            :label="$t('forms.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             lazy-rules
             outlined
@@ -66,7 +66,7 @@
           <q-input
             id="password"
             v-model="password"
-            :label="$t('auth.signup.password')"
+            :label="$t('forms.password')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
             required
@@ -76,7 +76,7 @@
           <q-input
             id="verifyPassword"
             v-model="verifyPassword"
-            :label="$t('auth.signup.verifyPassword')"
+            :label="$t('forms.verifyPassword')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
             required
@@ -85,7 +85,7 @@
           />
           <br>
           <q-btn
-            :label="$t('form.buttons.reset')"
+            :label="$t('buttons.auth.reset')"
             class="q-ml-sm"
             color="primary"
             flat
@@ -95,12 +95,12 @@
         <q-card-actions align="around">
           <router-link to="/auth/login">
             <q-btn
-              :label="$t('auth.signup.button')"
+              :label="$t('buttons.auth.login')"
               color="secondary"
             />
           </router-link>
           <q-btn
-            :label="$t('form.buttons.submit')"
+            :label="$t('buttons.auth.submit')"
             color="primary"
             type="submit"
           />

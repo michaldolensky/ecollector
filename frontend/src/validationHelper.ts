@@ -4,6 +4,6 @@ const { t } = useI18n();
 
 export const validationHelper = {
 
-  required: (val:string) => !!val || t('validation.required'),
+  required: (val:string) => !!val || t('forms.validation.required'),
 
 };

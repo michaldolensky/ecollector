@@ -29,12 +29,12 @@
 
         <q-card-section>
           <div class="text-h6">
-            {{ $t('auth.login.login') }}
+            {{ $t('pages.login') }}
           </div>
           <q-input
             id="email"
             v-model.trim="email"
-            :label="$t('auth.login.email')"
+            :label="$t('forms.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             autofocus
             lazy-rules
@@ -46,7 +46,7 @@
           <q-input
             id="password"
             v-model="password"
-            :label="$t('auth.login.password')"
+            :label="$t('forms.password')"
             outlined
             required
             square
@@ -54,7 +54,7 @@
           />
           <br>
           <q-btn
-            :label="$t('auth.reset')"
+            :label="$t('buttons.auth.reset')"
             class="q-ml-sm"
             color="primary"
             flat
@@ -64,12 +64,12 @@
         <q-card-actions align="around">
           <router-link to="/auth/signup">
             <q-btn
-              :label="$t('form.buttons.reset')"
+              :label="$t('buttons.auth.reset')"
               color="secondary"
             />
           </router-link>
           <q-btn
-            :label="$t('form.buttons.submit')"
+            :label="$t('buttons.auth.submit')"
             color="primary"
             type="submit"
           />

@@ -2,7 +2,7 @@
   <q-table
     :columns="SitesTableColumns"
     :filter="filter"
-    :no-data-label="t('dashboard.table.categories.notFound')"
+    :no-data-label="t('tables.notFound.sites')"
     :pagination="initialPagination"
     :rows="sites"
 

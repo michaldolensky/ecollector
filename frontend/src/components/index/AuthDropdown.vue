@@ -4,13 +4,13 @@
     class="q-gutter-md "
   >
     <q-btn
-      :label="$t('auth.signup.button')"
+      :label="$t('buttons.auth.Signup')"
       :to="{ name: 'signup' }"
       color="white"
       text-color="black"
     />
     <q-btn
-      :label="$t('auth.login.button')"
+      :label="$t('buttons.auth.login')"
       :to="{ name: 'login' }"
       color="white"
       text-color="black"
@@ -31,7 +31,7 @@
         clickable
       >
         <q-item-section>
-          <q-item-label>{{ $t('profile.name') }}</q-item-label>
+          <q-item-label>{{ $t('pages.profile') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
@@ -41,7 +41,7 @@
         clickable
       >
         <q-item-section>
-          <q-item-label>{{ $t('sites.name') }}</q-item-label>
+          <q-item-label>{{ $t('pages.sites') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
@@ -51,7 +51,7 @@
         @click="authStore.logout()"
       >
         <q-item-section>
-          <q-item-label> {{ $t('auth.logout.button') }}</q-item-label>
+          <q-item-label> {{ $t('buttons.auth.logout') }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
