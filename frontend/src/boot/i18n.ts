@@ -3,8 +3,10 @@ import { createI18n } from 'vue-i18n';
 
 import messages from 'src/i18n';
 
+// fixme
+// locale: navigator.languages[0] || navigator.language || 'en-US',,
 const i18n = createI18n({
-  locale: navigator.languages[0] || navigator.language || 'en-us',
+  locale: 'en-US',
   messages,
 });
 
