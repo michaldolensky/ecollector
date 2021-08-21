@@ -3,6 +3,8 @@ import { api } from 'boot/axios';
 import { defineStore } from 'pinia';
 import { Site } from 'src/module/useSites';
 import { LoginInterface } from 'src/types/auth.interface';
+import { getParsedInt } from 'src/utils';
+import { RouteLocationNormalized } from 'vue-router';
 
 export const localStorageTokenKey = 'token';
 
@@ -35,6 +37,10 @@ export const useAuthStore = defineStore({
     isAdmin: (state) => state.user?.role === 'Admin',
   },
   actions: {
+    isOwner(to:RouteLocationNormalized) {
+      return this.user?.sitesIds.includes(getParsedInt(to.params.siteId));
+    },
+
     me() {
       const token = localStorage.getItem(localStorageTokenKey) ?? '';
 

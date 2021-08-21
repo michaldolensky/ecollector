@@ -59,8 +59,7 @@ const getRoutes = (): RouteRecordRaw[] => {
   // };
   const requireOwner:NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
-
-    if (authStore.user?.sitesIds.includes(getParsedInt(to.params.siteId)) || authStore.isAdmin) {
+    if (authStore.isOwner(to) || authStore.isAdmin) {
       next();
     } else {
       next(redirectToLogin(to, from));
