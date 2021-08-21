@@ -12,31 +12,13 @@
 </template>
 
 <script lang="ts">
-import useAuth from 'src/module/useAuth';
 import {
-  defineComponent, onMounted, ref,
+  defineComponent,
 } from 'vue';
-import { useRouter } from 'vue-router';
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 
 export default defineComponent({
   name: 'Profile',
   components: { SitesTable },
-  setup() {
-    const { state } = useAuth();
-    const $router = useRouter();
-
-    const currentUser = ref(state);
-
-    const verifyIfUserExists = () => {
-      if (!currentUser.value) {
-        void $router.push('/login');
-      }
-    };
-
-    onMounted(() => {
-      verifyIfUserExists();
-    });
-  },
 });
 </script>

@@ -1,6 +1,6 @@
 import type { ApolloClientOptions } from '@apollo/client/core';
 import { createHttpLink, InMemoryCache } from '@apollo/client/core';
-import { localStorageTokenKey } from 'src/module/useAuth';
+import { localStorageTokenKey } from 'src/stores/auth';
 
 const token = localStorage.getItem(localStorageTokenKey) ?? '';
 

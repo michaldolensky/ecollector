@@ -1,7 +1,5 @@
-import useAuth from 'src/module/useAuth';
 import { getParsedInt } from 'src/utils';
-
-const { state, me } = useAuth();
+import { useAuthStore } from 'src/stores/auth';
 
 import { NavigationGuard, RouteRecordRaw, RouteLocationNormalized } from 'vue-router';
 
@@ -30,37 +28,42 @@ const validateCategoryId:NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 
-const redirectToLogin = (to:RouteLocationNormalized) => ({
-  name: 'login',
-  query: { redirect: to.fullPath },
-});
+const redirectToLogin = (to:RouteLocationNormalized, from: RouteLocationNormalized) => {
+  console.log(from);
+  return {
+    name: 'login',
+    query: { redirect: to.fullPath },
+  };
+};
 
 const getRoutes = (): RouteRecordRaw[] => {
-  const isAdmin = () => state.user?.role === 'Admin';
-
   const requireAuth:NavigationGuard = (to, from, next) => {
-    if (state.isLoggedIn) {
-      next(redirectToLogin(to));
-    }
-    next();
+    const authStore = useAuthStore();
+    if (!authStore.authState) {
+      next(redirectToLogin(to, from));
+    } else next();
   };
   const checkAuth:NavigationGuard = async (to, from, next) => {
-    await me();
+    const authStore = useAuthStore();
+    await authStore.me();
     next();
   };
 
   // const requireAdmin:NavigationGuard = (to, from, next) => {
-  //   if (isAdmin()) {
+  //   const authStore = useAuthStore();
+  //   if (authStore.isAdmin) {
   //     next();
   //   } else {
   //     next(redirectToLogin(to));
   //   }
   // };
   const requireOwner:NavigationGuard = (to, from, next) => {
-    if (state.user?.sitesIds.includes(getParsedInt(to.params.siteId)) || isAdmin()) {
+    const authStore = useAuthStore();
+
+    if (authStore.user?.sitesIds.includes(getParsedInt(to.params.siteId)) || authStore.isAdmin) {
       next();
     } else {
-      next(redirectToLogin(to));
+      next(redirectToLogin(to, from));
     }
   };
 

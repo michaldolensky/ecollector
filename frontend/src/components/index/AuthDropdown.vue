@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!isLoggedIn"
+    v-if="!authStore.authState"
     class="q-gutter-md "
   >
     <q-btn
@@ -19,7 +19,7 @@
 
   <q-btn-dropdown
     v-else
-    :label="fullName"
+    :label="authStore.fullName"
     color="white"
     icon="account_circle"
     text-color="black"
@@ -48,7 +48,7 @@
       <q-item
         :to="{name:'login'}"
         clickable
-        @click="logout"
+        @click="authStore.logout()"
       >
         <q-item-section>
           <q-item-label> {{ $t('auth.logout.button') }}</q-item-label>
@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-import useAuth from 'src/module/useAuth';
+import { useAuthStore } from 'src/stores/auth';
 
-const { fullName, logout, isLoggedIn } = useAuth();
+const authStore = useAuthStore();
 </script>

@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import useAuth from 'src/module/useAuth';
+import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
 import {
   computed, defineComponent, reactive, ref, toRaw, toRefs,
@@ -90,7 +90,8 @@ import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'Login',
   setup() {
-    const { login, state } = useAuth();
+    const authStore = useAuthStore();
+
     const $router = useRouter();
 
     const LoginData = reactive<LoginInterface>({
@@ -100,15 +101,15 @@ export default defineComponent({
 
     const message = ref<string>('');
     const loading = ref<boolean>(false);
-    const loggedIn = computed(() => state.authState);
+    const loggedIn = computed(() => authStore.authState);
 
-    if (state.isLoggedIn) {
+    if (authStore.authState) {
       void $router.push({ name: 'profile' });
     }
 
     const onSubmit = () => {
       loading.value = true;
-      login(toRaw(LoginData))
+      authStore.login(toRaw(LoginData))
         .then(
           () => {
             void $router.push({ name: 'profile' });

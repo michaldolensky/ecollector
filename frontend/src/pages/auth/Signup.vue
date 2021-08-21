@@ -111,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import useAuth from 'src/module/useAuth';
+import { useAuthStore } from 'src/stores/auth';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { LoginInterface } from 'src/types/auth.interface';
@@ -119,7 +119,8 @@ import { LoginInterface } from 'src/types/auth.interface';
 export default defineComponent({
   name: 'Signup',
   setup() {
-    const { signup, state } = useAuth();
+    const authStore = useAuthStore();
+
     const $router = useRouter();
 
     const firstName = ref<string>('firstName');
@@ -130,7 +131,7 @@ export default defineComponent({
     const message = ref<string>('');
     const loading = ref<boolean>(false);
 
-    if (state.authState) {
+    if (authStore.authState) {
       void $router.push('/profile');
     }
 
@@ -142,7 +143,7 @@ export default defineComponent({
 
       loading.value = true;
 
-      signup(user)
+      authStore.signup(user)
         .then(
           () => {
             void $router.push('/auth/login');
@@ -171,7 +172,7 @@ export default defineComponent({
       verifyPassword,
       loading,
       message,
-      loggedIn: state.authState,
+      loggedIn: authStore.authState,
       onSubmit,
       onReset,
     };
