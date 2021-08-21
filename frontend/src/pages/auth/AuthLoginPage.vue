@@ -33,7 +33,7 @@
           </div>
           <q-input
             id="email"
-            v-model.trim="email"
+            v-model.trim="loginData.email"
             :label="$t('forms.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             autofocus
@@ -45,7 +45,7 @@
           />
           <q-input
             id="password"
-            v-model="password"
+            v-model="loginData.password"
             :label="$t('forms.password')"
             outlined
             required
@@ -79,61 +79,41 @@
   </q-page>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
-import {
-  defineComponent, reactive, ref, toRaw, toRefs,
-} from 'vue';
+import { reactive, ref, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'Login',
-  setup() {
-    const authStore = useAuthStore();
-    const $router = useRouter();
+const authStore = useAuthStore();
+const $router = useRouter();
 
-    const LoginData = reactive<LoginInterface>({
-      email: 'admin@example.com',
-      password: 'password',
-    });
+if (authStore.isLoggedIn) void $router.push({ name: 'profile' });
 
-    const message = ref<string>('');
-    const loading = ref<boolean>(false);
-
-    if (authStore.isLoggedIn) {
-      void $router.push({ name: 'profile' });
-    }
-
-    const onSubmit = () => {
-      loading.value = true;
-      authStore.login(toRaw(LoginData))
-        .then(
-          () => {
-            void $router.push({ name: 'profile' });
-          },
-          () => {
-            loading.value = false;
-          },
-        );
-    };
-
-    const onReset = () => {
-      LoginData.email = '';
-      LoginData.password = '';
-    };
-
-    return {
-      ...toRefs(LoginData),
-      loading,
-      message,
-      loggedIn: authStore.authState,
-      onSubmit,
-      onReset,
-    };
-  },
-
+const loading = ref<boolean>(false);
+const loginData = reactive<LoginInterface>({
+  email: 'admin@example.com',
+  password: 'password',
 });
+
+const onSubmit = () => {
+  loading.value = true;
+  authStore.login(toRaw(loginData))
+    .then(
+      () => {
+        void $router.push({ name: 'profile' });
+      },
+      () => {
+        loading.value = false;
+      },
+    );
+};
+
+const onReset = () => {
+  loginData.email = '';
+  loginData.password = '';
+};
+
 </script>
 
 <style lang="sass" scoped>
