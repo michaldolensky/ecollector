@@ -1,5 +1,10 @@
 import { useMutation, useQuery } from '@vue/apollo-composable';
-import { CREATE_CATEGORY, DELETE_CATAGORY, GET_CATEGORIES_QUERY } from 'src/apollo/dashboard/categoryQueries';
+import {
+  CREATE_CATEGORY,
+  DELETE_CATAGORY,
+  GET_CATEGORIES_QUERY,
+  UPDATE_CATEGORY,
+} from 'src/apollo/dashboard/categoryQueries';
 import { useSites } from 'src/module/useSites';
 
 export interface Category {
@@ -18,12 +23,26 @@ interface CategorieVars {
 interface createCategoryVars {
   name: string;
 }
-// interface updateItemVars {
-//   id:number;
-//   siteId: number;
-//   name: string;
-//   categoryId: number;
-// }
+
+export interface CategoryInput{
+  id:number
+  name:string
+  perex:string
+}
+
+interface updateCategoryVars {
+  id:number;
+  name: string;
+  perex:string
+}
+
+export interface CategoryDataSingle {
+  category: Category;
+}
+
+export interface IGetCategory{
+  id:number
+}
 
 export function useCategories() {
   const { currentSiteId } = useSites();
@@ -37,26 +56,21 @@ export function useCategories() {
   });
 
   const { mutate: removeCategoryMutation } = useMutation(DELETE_CATAGORY);
-  const { mutate: createCategoryMutation } = useMutation(CREATE_CATEGORY);
-  // const { mutate: updateItemMutation } = useMutation(UPDATE_ITEM);
+  // eslint-disable-next-line max-len
+  const { mutate: createCategoryMutation } = useMutation<{ createCategory: Category }>(CREATE_CATEGORY);
+  // eslint-disable-next-line max-len
+  const { mutate: updateCategoryMutation } = useMutation<{ updateCategory: Category }>(UPDATE_CATEGORY);
 
   const removeCategory = (id:number) => {
     void removeCategoryMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
       void refetch();
     });
   };
-  const addCategory = (createItemInput:createCategoryVars) => {
-    // eslint-disable-next-line max-len
-    void createCategoryMutation({ createCategoryInput: createItemInput, siteId: currentSiteId.value })
-      .then(() => {
-        void refetch();
-      });
-  };
-  // const updateItem = (itemVars:updateItemVars) => {
-  //   void updateItemMutation({ updateItemInput: itemVars }).then(() => {
-  //     void refetch();
-  //   });
-  // };
+  // eslint-disable-next-line max-len
+  const addCategory = (createItemInput:createCategoryVars) => createCategoryMutation({ createCategoryInput: createItemInput, siteId: currentSiteId.value });
+
+  // eslint-disable-next-line max-len
+  const updateCategory = (categoryVars:updateCategoryVars) => updateCategoryMutation({ updateItemInput: categoryVars, siteId: currentSiteId.value });
 
   return {
     result,
@@ -64,5 +78,6 @@ export function useCategories() {
     getCategories,
     removeCategory,
     addCategory,
+    updateCategory,
   };
 }

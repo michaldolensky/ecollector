@@ -13,12 +13,6 @@
     <template #body-cell-Name="props">
       <q-td :props="props">
         <q-item style="max-width: 420px">
-          <!--          <q-item-section avatar>-->
-          <!--            <q-avatar>-->
-          <!--              <img :src="props.row.icon">-->
-          <!--            </q-avatar>-->
-          <!--          </q-item-section>-->
-
           <q-item-section>
             <q-item-label>{{ props.row.name }}</q-item-label>
           </q-item-section>

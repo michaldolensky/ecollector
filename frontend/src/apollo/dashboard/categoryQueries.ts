@@ -17,11 +17,11 @@ export const DELETE_CATAGORY = gql`
   }
 `;
 export const UPDATE_CATEGORY = gql`
-  mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
-    updateItem(updateItemInput: $updateItemInput,siteId: $siteId) {
+  mutation updateCategory($updateCategoryInput:UpdateCategoryInput!,$siteId:Int!){
+    updateCategory(updateCategoryInput:  $updateCategoryInput,siteId: $siteId) {
       id
-      categoryId
       name
+      perex
     }
   }
 `;
@@ -32,6 +32,15 @@ export const GET_CATEGORIES_QUERY = gql`
       createdAt
       updatedAt
       name
+    }
+  }
+`;
+export const GET_CATEGORY = gql`
+  query getCategory($id:Int!){
+    category(id:$id) {
+      id
+      name
+      perex
     }
   }
 `;

@@ -4,62 +4,69 @@
     padding
     q-pa-md
   >
-    <ItemForm
-      v-if="editItem"
-      :edit-item="editItem"
+    <CategoryForm
+      v-if="editCategory"
+      :edit-item="editCategory"
       @submit="handleSubmit"
     />
   </q-page>
 </template>
 
 <script lang="ts">
-import ItemForm from 'components/dashboard/forms/ItemForm.vue';
+import CategoryForm from 'components/dashboard/forms/CategoryForm.vue';
 import { useQuasar } from 'quasar';
-import { ItemInput, useItems } from 'src/module/useItems';
+import { GET_CATEGORY } from 'src/apollo/dashboard/categoryQueries';
+import {
+  CategoryDataSingle, CategoryInput, IGetCategory, useCategories,
+} from 'src/module/useCategories';
 import { defineComponent, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useQuery } from '@vue/apollo-composable';
 
 export default defineComponent({
-  name: 'ItemDashboard',
-  components: { ItemForm },
+  name: 'EditCategoryPage',
+  components: { CategoryForm },
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const editItem = ref();
-    const { createItem, updateItem, getItem } = useItems();
+    const editCategory = ref();
+    const { updateCategory, addCategory } = useCategories();
     const $q = useQuasar();
 
-    const itemId = parseInt(<string>route.params.itemId, 10);
+    const categoryId = parseInt(<string>route.params.categoryId, 10);
 
     onMounted(() => {
-      if (route.name === 'DashBoardItemCreate') {
-        editItem.value = {};
+      if (route.name === 'DashBoardCategoryCreate') {
+        editCategory.value = {};
       } else {
-        const { onResult } = getItem(itemId);
+        const { onResult } = useQuery<CategoryDataSingle, IGetCategory>(GET_CATEGORY, {
+          id: categoryId,
+        });
+
         onResult((result) => {
-          editItem.value = result.data.item;
+          editCategory.value = result.data.category;
         });
       }
     });
-    const handleSubmit = (object:ItemInput) => {
+    const handleSubmit = (object:CategoryInput) => {
       if (object.id) {
-        void updateItem(object).then((result) => {
+        void updateCategory(object).then((result) => {
           if (result?.data) {
             $q.notify({
               type: 'positive',
-              message: 'Item updated',
+              message: 'Category updated',
             });
-            editItem.value = result.data.updateItem;
+            editCategory.value = result.data.updateCategory;
           }
         });
       } else {
-        void createItem(object).then((data) => {
+        void addCategory(object).then((data) => {
           if (data?.data) {
             $q.notify({
               type: 'positive',
-              message: 'Item created',
+              message: 'Category created',
             });
-            void router.push({ name: 'DashBoardItemEdit', params: { itemId: data.data.createItem.id } });
+            void router.push({ name: 'DashBoardItemEdit', params: { categoryId: data.data.createCategory.id } });
           }
         });
       }
@@ -67,7 +74,7 @@ export default defineComponent({
 
     return {
       handleSubmit,
-      editItem,
+      editCategory,
     };
   },
 });

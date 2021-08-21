@@ -125,7 +125,7 @@ export default defineComponent({
   name: 'ItemForm',
   components: { EditItemImages, Editor, ItemCategorySelect },
   props: {
-    editItem: {
+    editCategory: {
       type: Object as PropType<Item>,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       default: () => {},
@@ -144,10 +144,10 @@ export default defineComponent({
       numberInCollection: 0,
     });
 
-    const inEditMode = computed(() => (props.editItem?.id) > 0);
+    const inEditMode = computed(() => (props.editCategory?.id) > 0);
 
     if (inEditMode.value) {
-      Object.assign(item, props.editItem);
+      Object.assign(item, props.editCategory);
     }
 
     const handleSave = () => {
@@ -156,7 +156,7 @@ export default defineComponent({
       if (inEditMode.value) {
         modifiedItem = {
           ...item,
-          id: props.editItem?.id,
+          id: props.editCategory?.id,
         };
       } else {
         delete item.id;
