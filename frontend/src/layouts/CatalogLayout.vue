@@ -42,36 +42,18 @@
   </q-layout>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { GET_CATALOG_CATEGORIES } from 'src/apollo/catalog/categoryQueries';
-import {
-  CatalogCategoryVars, CategoryData,
-} from 'src/module/useCatalog';
+import { CatalogCategoryVars, CategoryData } from 'src/module/useCatalog';
 import useDrawers from 'src/module/useDrawers';
 import { useSites } from 'src/module/useSites';
-import { defineComponent, ref } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 
-export default defineComponent({
-  name: 'CatalogLayout',
-  components: { },
+const { drawerState } = useDrawers();
+const { currentSiteId } = useSites();
 
-  setup() {
-    const miniState = ref(false);
-    const { drawerState } = useDrawers();
-    const { currentSiteId } = useSites();
-
-    // eslint-disable-next-line max-len
-    const { result, loading } = useQuery<CategoryData, CatalogCategoryVars>(GET_CATALOG_CATEGORIES, {
-      siteId: currentSiteId.value,
-    });
-
-    return {
-      miniState,
-      drawerState,
-      loading,
-      result,
-    };
-  },
+// eslint-disable-next-line max-len
+const { result, loading } = useQuery<CategoryData, CatalogCategoryVars>(GET_CATALOG_CATEGORIES, {
+  siteId: currentSiteId.value,
 });
 </script>
