@@ -177,12 +177,12 @@ const getRoutes = (): RouteRecordRaw[] => {
               path: 'login',
               alias: '/login',
               name: 'login',
-              component: () => import('pages/auth/Login.vue'),
+              component: () => import('pages/auth/AuthLoginPage.vue'),
             },
             {
               path: 'signup',
               name: 'signup',
-              component: () => import('pages/auth/Signup.vue'),
+              component: () => import('pages/auth/AuthSignupPage.vue'),
             },
 
           ],
