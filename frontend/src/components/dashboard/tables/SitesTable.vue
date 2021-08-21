@@ -50,10 +50,9 @@
   </q-table>
 </template>
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useI18n } from 'src/boot/i18n';
 import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
-import { Site } from 'src/module/useSites';
 import { useAuthStore } from 'src/stores/auth';
 
 export default defineComponent({
@@ -64,7 +63,7 @@ export default defineComponent({
 
     return {
       t,
-      sites: computed(() => authStore.user?.sites as Site[]),
+      sites: authStore.sites,
       filter: ref(''),
       SitesTableColumns,
       initialPagination: {

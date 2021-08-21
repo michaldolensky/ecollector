@@ -83,7 +83,7 @@
 import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
 import {
-  computed, defineComponent, reactive, ref, toRaw, toRefs,
+  defineComponent, reactive, ref, toRaw, toRefs,
 } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -91,7 +91,6 @@ export default defineComponent({
   name: 'Login',
   setup() {
     const authStore = useAuthStore();
-
     const $router = useRouter();
 
     const LoginData = reactive<LoginInterface>({
@@ -101,9 +100,8 @@ export default defineComponent({
 
     const message = ref<string>('');
     const loading = ref<boolean>(false);
-    const loggedIn = computed(() => authStore.authState);
 
-    if (authStore.authState) {
+    if (authStore.isLoggedIn) {
       void $router.push({ name: 'profile' });
     }
 
@@ -129,7 +127,7 @@ export default defineComponent({
       ...toRefs(LoginData),
       loading,
       message,
-      loggedIn,
+      loggedIn: authStore.authState,
       onSubmit,
       onReset,
     };

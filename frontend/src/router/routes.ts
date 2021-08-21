@@ -39,9 +39,9 @@ const redirectToLogin = (to:RouteLocationNormalized, from: RouteLocationNormaliz
 const getRoutes = (): RouteRecordRaw[] => {
   const requireAuth:NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
-    if (!authStore.authState) {
-      next(redirectToLogin(to, from));
-    } else next();
+    if (authStore.isLoggedIn) {
+      next();
+    } else next(redirectToLogin(to, from));
   };
   const checkAuth:NavigationGuard = async (to, from, next) => {
     const authStore = useAuthStore();
