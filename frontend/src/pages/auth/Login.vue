@@ -113,9 +113,8 @@ export default defineComponent({
           () => {
             void $router.push({ name: 'profile' });
           },
-          (error) => {
+          () => {
             loading.value = false;
-            console.log(error);
           },
         );
     };
