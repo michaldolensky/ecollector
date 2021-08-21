@@ -30,24 +30,14 @@
     </q-toolbar>
   </q-header>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import useDrawers from 'src/module/useDrawers';
-import { defineComponent, ref } from 'vue';
-
+import { ref } from 'vue';
 import AccountDropdown from 'components/index/AuthDropdown.vue';
 import { useRoute } from 'vue-router';
 
-export default defineComponent({
-  name: 'MainHeader',
-  components: { AccountDropdown },
-  setup() {
-    const { drawerState, toggleDrawer } = useDrawers();
-    const route = useRoute();
-    const showDrawer = ref(route.meta.showDrawer);
+const { toggleDrawer } = useDrawers();
+const route = useRoute();
+const showDrawer = ref(route.meta.showDrawer);
 
-    return {
-      toggleDrawer, drawerState, showDrawer,
-    };
-  },
-});
 </script>

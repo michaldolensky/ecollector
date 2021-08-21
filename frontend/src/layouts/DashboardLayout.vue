@@ -19,22 +19,11 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import useDrawers from 'src/module/useDrawers';
 import DashboardDrawerItemsComponent from '../components/dashboard/DashboardDrawerItemsComponent.vue';
 
-export default defineComponent({
-  name: 'DashBoardLayout',
-  components: { DashboardDrawerItemsComponent },
-  setup() {
-    const miniState = ref(false);
-    const { drawerState } = useDrawers();
-
-    return {
-      miniState,
-      drawerState,
-    };
-  },
-});
+const miniState = ref(false);
+const { drawerState } = useDrawers();
 </script>
