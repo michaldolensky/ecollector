@@ -8,9 +8,8 @@ type MessageSchema = typeof enUS
 
 // fixme
 // locale: navigator.languages[0] || navigator.language || 'en-US',,
-const i18n = createI18n<[MessageSchema], Locales, false>({
+const i18n = createI18n<[MessageSchema], Locales>({
   locale: Locales.EN,
-  legacy: false,
   messages: {
     [Locales.EN]: enUS,
     [Locales.CS]: cs,
