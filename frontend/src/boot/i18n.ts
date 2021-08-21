@@ -1,13 +1,21 @@
 import { boot } from 'quasar/wrappers';
+import cs from 'src/locales/cs.json';
+import { Locales } from 'src/types/Locales';
 import { createI18n } from 'vue-i18n';
+import enUS from '../locales/enUS.json';
 
-import messages from 'src/i18n';
+type MessageSchema = typeof enUS
 
 // fixme
 // locale: navigator.languages[0] || navigator.language || 'en-US',,
-const i18n = createI18n({
-  locale: 'en-US',
-  messages,
+const i18n = createI18n<[MessageSchema], Locales, false>({
+  locale: Locales.EN,
+  legacy: false,
+  messages: {
+    [Locales.EN]: enUS,
+    [Locales.CS]: cs,
+  },
+  fallbackLocale: Locales.EN,
 });
 
 export default boot(({ app }) => {
@@ -16,6 +24,7 @@ export default boot(({ app }) => {
 });
 
 export function useI18n() {
+  // https://github.com/intlify/vue-i18n-next/issues/324
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const {
     t, te, tm, rt, d, n, ...globalApi

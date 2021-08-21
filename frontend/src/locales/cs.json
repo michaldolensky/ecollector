@@ -1,0 +1,46 @@
+{
+  "auth": {
+    "login": {
+      "button": "Login",
+      "email": "Email",
+      "password": "Password"
+    },
+    "signup": {
+      "button": "Signup",
+      "email": "Email",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "password": "Password",
+      "signup": "Sign up",
+      "verifyPassword": "Verify password"
+    }
+  },
+  "dashboard": {
+    "dialog": {
+      "delete": "Do you really wish to delete {0}?"
+    },
+    "navigation": {
+      "categories": "Categories",
+      "home": "Home",
+      "items": "Items",
+      "settings": "Settings"
+    },
+    "table": {
+      "createdAt": "Created",
+      "items": {
+        "notFound": "No items found."
+      },
+      "name": "Name",
+      "updatedAt": "Updated"
+    }
+  },
+  "form": {
+    "buttons": {
+      "reset": "Reset",
+      "submit": "Submit"
+    }
+  },
+  "validation": {
+    "required": "Field is required"
+  }
+}
