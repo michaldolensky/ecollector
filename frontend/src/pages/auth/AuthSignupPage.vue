@@ -33,7 +33,7 @@
           </div>
           <q-input
             id="firstName"
-            v-model.trim="firstName"
+            v-model.trim="registerData.firstName"
             :label="$t('forms.firstName')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             autofocus
@@ -44,7 +44,7 @@
           />
           <q-input
             id="firstName"
-            v-model.trim="lastName"
+            v-model.trim="registerData.lastName"
             :label="$t('forms.lastName')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             lazy-rules
@@ -54,7 +54,7 @@
           />
           <q-input
             id="email"
-            v-model.trim="email"
+            v-model.trim="registerData.email"
             :label="$t('forms.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             lazy-rules
@@ -65,7 +65,7 @@
           />
           <q-input
             id="password"
-            v-model="password"
+            v-model="registerData.password"
             :label="$t('forms.password')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
@@ -75,7 +75,7 @@
           />
           <q-input
             id="verifyPassword"
-            v-model="verifyPassword"
+            v-model="registerData.verifyPassword"
             :label="$t('forms.verifyPassword')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
             outlined
@@ -110,75 +110,52 @@
   </q-page>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useAuthStore } from 'src/stores/auth';
-import { defineComponent, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { LoginInterface } from 'src/types/auth.interface';
-// TODO
-export default defineComponent({
-  name: 'Signup',
-  setup() {
-    const authStore = useAuthStore();
 
-    const $router = useRouter();
+const authStore = useAuthStore();
+const $router = useRouter();
 
-    const firstName = ref<string>('firstName');
-    const lastName = ref<string>('lastName');
-    const email = ref<string>('user2@example.com');
-    const password = ref<string>('password');
-    const verifyPassword = ref<string>('password');
-    const message = ref<string>('');
-    const loading = ref<boolean>(false);
+if (authStore.isLoggedIn) void $router.push('/profile');
 
-    if (authStore.authState) {
-      void $router.push('/profile');
-    }
-
-    const onSubmit = () => {
-      const user: LoginInterface = {
-        email: email.value,
-        password: password.value,
-      };
-
-      loading.value = true;
-
-      authStore.signup(user)
-        .then(
-          () => {
-            void $router.push('/auth/login');
-          },
-          () => {
-            loading.value = false;
-          },
-        );
-    };
-
-    const onReset = () => {
-      firstName.value = '';
-      lastName.value = '';
-
-      email.value = '';
-
-      password.value = '';
-      verifyPassword.value = '';
-    };
-
-    return {
-      firstName,
-      lastName,
-      email,
-      password,
-      verifyPassword,
-      loading,
-      message,
-      loggedIn: authStore.authState,
-      onSubmit,
-      onReset,
-    };
-  },
-
+const registerData = reactive({
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'user2@example.com',
+  password: 'password',
+  verifyPassword: 'password',
 });
+const loading = ref<boolean>(false);
+
+const onSubmit = () => {
+  const user: LoginInterface = {
+    email: registerData.email,
+    password: registerData.password,
+  };
+
+  loading.value = true;
+
+  authStore.signup(user)
+    .then(
+      () => {
+        void $router.push('/auth/login');
+      },
+      () => {
+        loading.value = false;
+      },
+    );
+};
+
+const onReset = () => {
+  registerData.firstName = '';
+  registerData.lastName = '';
+  registerData.email = '';
+  registerData.password = '';
+  registerData.verifyPassword = '';
+};
 </script>
 
 <style lang="sass" scoped>
