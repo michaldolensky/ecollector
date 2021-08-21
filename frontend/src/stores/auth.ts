@@ -15,7 +15,7 @@ interface UserStateInterface {
   lastName: string
 }
 
-interface LoginReturn {
+interface LoginResponseData {
   accessToken: string
 }
 
@@ -64,7 +64,7 @@ export const useAuthStore = defineStore({
           email: loginObject.email,
           password: loginObject.password,
         }).then(
-          (response: AxiosResponse<LoginReturn>) => {
+          (response: AxiosResponse<LoginResponseData>) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
             void this.me();
@@ -83,7 +83,7 @@ export const useAuthStore = defineStore({
           email: loginObject.email,
           password: loginObject.password,
         }).then(
-          (response: AxiosResponse<LoginReturn>) => {
+          (response: AxiosResponse<LoginResponseData>) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
             void this.me();
