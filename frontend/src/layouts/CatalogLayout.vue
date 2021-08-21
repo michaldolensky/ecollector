@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <q-drawer
-      v-model="drawerState"
+      v-model="settings.drawerState"
       :width="300"
       bordered
       elevated
@@ -45,11 +45,12 @@
 <script lang="ts" setup>
 import { GET_CATALOG_CATEGORIES } from 'src/apollo/catalog/categoryQueries';
 import { CatalogCategoryVars, CategoryData } from 'src/module/useCatalog';
-import useDrawers from 'src/module/useDrawers';
 import { useSites } from 'src/module/useSites';
 import { useQuery } from '@vue/apollo-composable';
+import { useSiteSettingsStore } from 'src/stores/settings';
 
-const { drawerState } = useDrawers();
+const settings = useSiteSettingsStore();
+
 const { currentSiteId } = useSites();
 
 // eslint-disable-next-line max-len

@@ -10,7 +10,7 @@
         flat
         icon="menu"
         round
-        @click="toggleDrawer"
+        @click="settings.toggleDrawer"
       />
       <q-toolbar-title shrink>
         <q-item
@@ -31,12 +31,13 @@
   </q-header>
 </template>
 <script lang="ts" setup>
-import useDrawers from 'src/module/useDrawers';
-import { ref } from 'vue';
 import AccountDropdown from 'components/index/AuthDropdown.vue';
+import { useSiteSettingsStore } from 'src/stores/settings';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const { toggleDrawer } = useDrawers();
+const settings = useSiteSettingsStore();
+
 const route = useRoute();
 const showDrawer = ref(route.meta.showDrawer);
 

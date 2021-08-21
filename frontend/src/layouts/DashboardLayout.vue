@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hhh LpR fFf">
     <q-drawer
-      v-model="drawerState"
+      v-model="settings.drawerState"
       :mini="miniState"
       :width="200"
       behavior="desktop"
@@ -20,10 +20,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useSiteSettingsStore } from 'src/stores/settings';
 import { ref } from 'vue';
-import useDrawers from 'src/module/useDrawers';
 import DashboardDrawerItemsComponent from '../components/dashboard/DashboardDrawerItemsComponent.vue';
 
+const settings = useSiteSettingsStore();
+
 const miniState = ref(false);
-const { drawerState } = useDrawers();
 </script>
