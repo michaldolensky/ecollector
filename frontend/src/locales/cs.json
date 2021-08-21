@@ -5,6 +5,9 @@
       "email": "Email",
       "password": "Password"
     },
+    "logout": {
+      "button": "Odhlásit"
+    },
     "signup": {
       "button": "Signup",
       "email": "Email",
@@ -39,6 +42,12 @@
       "reset": "Reset",
       "submit": "Submit"
     }
+  },
+  "profile": {
+    "name": "Profil"
+  },
+  "sites": {
+    "name": "Stránky"
   },
   "validation": {
     "required": "Field is required"

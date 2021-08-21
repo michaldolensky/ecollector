@@ -5,6 +5,9 @@
       "email": "Email",
       "password": "Password"
     },
+    "logout": {
+      "button": "Logout"
+    },
     "signup": {
       "button": "Signup",
       "email": "Email",
@@ -39,6 +42,12 @@
       "reset": "Reset",
       "submit": "Submit"
     }
+  },
+  "profile": {
+    "name": "Profile"
+  },
+  "sites": {
+    "name": "Sites"
   },
   "validation": {
     "required": "Field is required"

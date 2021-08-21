@@ -31,7 +31,7 @@
         clickable
       >
         <q-item-section>
-          <q-item-label>Profile</q-item-label>
+          <q-item-label>{{ $t('profile.name') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
@@ -41,40 +41,25 @@
         clickable
       >
         <q-item-section>
-          <q-item-label>Sites</q-item-label>
+          <q-item-label>{{ $t('sites.name') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator />
-      <q-item>
+      <q-item
+        :to="{name:'login'}"
+        clickable
+        @click="logout"
+      >
         <q-item-section>
-          <q-item-label @click="doLogout">
-            Logout
-          </q-item-label>
+          <q-item-label> {{ $t('auth.logout.button') }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
   </q-btn-dropdown>
 </template>
-<script lang="ts">
+
+<script lang="ts" setup>
 import useAuth from 'src/module/useAuth';
-import { useRouter } from 'vue-router';
 
-export default {
-  name: 'AccountDropdown',
-  setup() {
-    const { fullName, logout, isLoggedIn } = useAuth();
-    const router = useRouter();
-
-    const doLogout = async () => {
-      logout();
-      await router.push('/auth/login');
-    };
-    return {
-      doLogout,
-      fullName,
-      isLoggedIn,
-    };
-  },
-
-};
+const { fullName, logout, isLoggedIn } = useAuth();
 </script>
