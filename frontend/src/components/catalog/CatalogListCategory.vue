@@ -9,38 +9,28 @@
     </q-item-section>
 
     <q-item-section>
-      {{ category.name }}
+      {{ props.category.name }}
       <q-item-label caption>
-        {{ category.description }}ss
+        {{ props.category.description }}
       </q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
 interface Category {
   id:number,
   name:string,
+  description:string
+}
+interface Props{
+  category:Category
 }
 
-export default defineComponent({
-  name: 'CatalogListCategory',
-  components: { },
-  props: {
-    category: {
-      type: Object as PropType<Category>,
-      default: () => ({}),
-      required: true,
-    },
-  },
-  setup(props) {
-    return {
-      ...props,
-    };
-  },
-});
+const props = defineProps<Props>();
+
 </script>
 
 <style lang="scss" scoped>

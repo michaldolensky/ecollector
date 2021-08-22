@@ -3,7 +3,7 @@
     class="my-card"
   >
     <q-img
-      :src=" config.SERVER_URL+item.images[0].path"
+      :src="config.SERVER_URL+props.item.images[0].path"
       fit="scale-down"
       loading="lazy"
       style="max-height: 250px"
@@ -27,36 +27,28 @@
     <q-card-section />
     <q-card-section>
       <div class="text-h6">
-        {{ item.name }}
+        {{ props.item.name }}
       </div>
       <div class="text-subtitle2">
-        {{ item.shortDesc }}
+        {{ props.item.shortDesc }}
       </div>
     </q-card-section>
     <q-card-section class="q-pt-none">
-      {{ item.height }}
+      {{ props.item.height }}
     </q-card-section>
   </q-card>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { config } from 'src/config';
 import { CatalogItem } from 'src/module/useCatalog';
-import { defineComponent, PropType } from 'vue';
+import { defineProps } from 'vue';
 
-export default defineComponent({
-  name: 'CatelogItem',
-  props: {
-    item: {
-      type: Array as PropType<CatalogItem[]>,
-      default: () => [],
-    },
-  },
-  setup() {
-    return {
-      config,
-    };
-  },
-});
+interface Props{
+  item:CatalogItem
+}
+
+const props = defineProps<Props>();
+
 </script>
 <style lang="sass" scoped>
 .my-card
