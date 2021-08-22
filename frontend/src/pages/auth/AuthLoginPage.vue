@@ -86,9 +86,9 @@ import { reactive, ref, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
-const $router = useRouter();
+const router = useRouter();
 
-if (authStore.isLoggedIn) void $router.push({ name: 'profile' });
+if (authStore.isLoggedIn) void router.push({ name: 'profile' });
 
 const loading = ref<boolean>(false);
 const loginData = reactive<LoginInterface>({
@@ -101,7 +101,7 @@ const onSubmit = () => {
   authStore.login(toRaw(loginData))
     .then(
       () => {
-        void $router.push({ name: 'profile' });
+        void router.push({ name: 'profile' });
       },
       () => {
         loading.value = false;
