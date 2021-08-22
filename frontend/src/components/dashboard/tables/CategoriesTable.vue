@@ -2,7 +2,7 @@
   <q-table
     :columns="CategoriesTableColumns"
     :filter="filter"
-    :grid="$q.screen.xs"
+    :grid="q.screen.xs"
     :loading="props.loading"
     :no-data-label="t('tables.notFound.categories')"
     :pagination="initialPagination"
@@ -72,7 +72,7 @@ const props = withDefaults(defineProps<Props>(), {
   categories: () => [],
 });
 
-const $q = useQuasar();
+const q = useQuasar();
 const { t } = useI18n();
 const { removeCategory } = useCategories();
 
@@ -86,7 +86,7 @@ const initialPagination = reactive({
 });
 
 const confirmDelete = (category: Category) => {
-  $q.dialog({
+  q.dialog({
     title: 'Confirm',
     message: t('dialogs.dashboard.delete', [category.name]),
     cancel: true,
