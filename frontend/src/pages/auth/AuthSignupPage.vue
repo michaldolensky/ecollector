@@ -117,9 +117,9 @@ import { useRouter } from 'vue-router';
 import { LoginInterface } from 'src/types/auth.interface';
 
 const authStore = useAuthStore();
-const $router = useRouter();
+const router = useRouter();
 
-if (authStore.isLoggedIn) void $router.push('/profile');
+if (authStore.isLoggedIn) void router.push('/profile');
 
 const registerData = reactive({
   firstName: 'firstName',
@@ -141,7 +141,7 @@ const onSubmit = () => {
   authStore.signup(user)
     .then(
       () => {
-        void $router.push('/auth/login');
+        void router.push('/auth/login');
       },
       () => {
         loading.value = false;
