@@ -1,10 +1,10 @@
 <template>
   <q-btn
     label="Add new site"
-    @click="SiteDialog=true"
+    @click="SiteDialogOpen=true"
   />
   <q-dialog
-    v-model="SiteDialog"
+    v-model="SiteDialogOpen"
     square
     @hide="onReset"
   >
@@ -53,34 +53,22 @@
     </q-card>
   </q-dialog>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import { useSites } from 'src/module/useSites';
 
-export default {
-  name: 'AddSiteDialog',
+const SiteDialogOpen = ref(false);
+const { addSite } = useSites();
+const site = reactive({
+  name: '',
+});
 
-  setup() {
-    const SiteDialogOpen = ref(false);
-    const { addSite } = useSites();
-    const site = reactive({
-      name: '',
-    });
-
-    const onReset = () => {
-      site.name = '';
-    };
-
-    const onSubmit = () => {
-      addSite(site);
-    };
-
-    return {
-      SiteDialog: SiteDialogOpen,
-      site,
-      onReset,
-      onSubmit,
-    };
-  },
+const onReset = () => {
+  site.name = '';
 };
+
+const onSubmit = () => {
+  addSite(site);
+};
+
 </script>
