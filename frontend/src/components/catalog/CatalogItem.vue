@@ -39,6 +39,7 @@
   </q-card>
 </template>
 <script lang="ts" setup>
+// noinspection ES6UnusedImports
 import { config } from 'src/config';
 import { CatalogItem } from 'src/module/useCatalog';
 import { defineProps } from 'vue';
