@@ -3,27 +3,27 @@
     :columns="CategoriesTableColumns"
     :filter="filter"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="props.loading"
     :no-data-label="t('tables.notFound.categories')"
     :pagination="initialPagination"
-    :rows="categories"
+    :rows="props.categories"
     row-key="id"
     title="Categories"
   >
-    <template #body-cell-Name="props">
-      <q-td :props="props">
+    <template #body-cell-Name="prop">
+      <q-td :prop="prop">
         <q-item style="max-width: 420px">
           <q-item-section>
-            <q-item-label>{{ props.row.name }}</q-item-label>
+            <q-item-label>{{ prop.row.name }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-td>
     </template>
 
-    <template #body-cell-Action="props">
-      <q-td :props="props">
+    <template #body-cell-Action="prop">
+      <q-td :prop="prop">
         <q-btn
-          :to="`categories/edit/${props.row.id}`"
+          :to="`categories/edit/${prop.row.id}`"
           dense
           flat
           icon="edit"
@@ -35,7 +35,7 @@
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(props.row)"
+          @click="confirmDelete(prop.row)"
         />
       </q-td>
     </template>
@@ -54,54 +54,46 @@
     </template>
   </q-table>
 </template>
-<script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script lang="ts" setup>
+import {
+  defineProps, reactive, ref, withDefaults,
+} from 'vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
+// noinspection ES6UnusedImports
 import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTableColumns';
 import { Category, useCategories } from 'src/module/useCategories';
 
-export default defineComponent({
-  name: 'CategoriesTable',
-  props: {
-    loading: {
-      type: Boolean,
-    },
-    categories: {
-      type: Array as PropType<Category[]>,
-      default: () => [],
-    },
-  },
-  setup() {
-    const $q = useQuasar();
-    const { t } = useI18n();
-    const { removeCategory } = useCategories();
-
-    const confirmDelete = (category: Category) => {
-      $q.dialog({
-        title: 'Confirm',
-        message: t('dialogs.dashboard.delete', [category.name]),
-        cancel: true,
-        persistent: true,
-      }).onOk(() => {
-        void removeCategory(category.id);
-      });
-    };
-
-    return {
-      t,
-      confirmDelete,
-      router: useRouter(),
-      filter: ref(''),
-      CategoriesTableColumns,
-      initialPagination: {
-        sortBy: 'name',
-        descending: false,
-        page: 1,
-        rowsPerPage: 50,
-      },
-    };
-  },
+interface Props{
+  categories:Category[]
+  loading: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  categories: () => [],
 });
+
+const $q = useQuasar();
+const { t } = useI18n();
+const { removeCategory } = useCategories();
+
+const filter = ref('');
+
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
+});
+
+const confirmDelete = (category: Category) => {
+  $q.dialog({
+    title: 'Confirm',
+    message: t('dialogs.dashboard.delete', [category.name]),
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    void removeCategory(category.id);
+  });
+};
+
 </script>
