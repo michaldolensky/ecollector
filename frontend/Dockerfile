@@ -1,4 +1,4 @@
-FROM node:14 AS development
+FROM node:14.17.3-alpine AS development
 
 WORKDIR /usr/src/frontend
 
@@ -12,6 +12,6 @@ RUN quasar build
 
 EXPOSE 8080
 
-FROM node:14 as production
+FROM node:14.17.3-alpine as production
 
 
