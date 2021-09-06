@@ -13,7 +13,7 @@
   "dependencies": {
     "@quasar/cli": "^1.2.1",
     "@quasar/extras": "^1.10.11",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "core-js": "^3.16.3",
     "pinia": "^2.0.0-rc.6",
     "quasar": "^2.0.4",
@@ -32,7 +32,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-vue": "^7.16.0",
+    "eslint-plugin-vue": "^7.17.0",
     "typescript": "^4.3.5"
   },
   "browserslist": [
