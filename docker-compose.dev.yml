@@ -41,7 +41,7 @@ services:
 
   postgres:
     container_name: ecollector-postgres-dev
-    image: postgres
+    image: postgres:13.4
     restart: unless-stopped
     working_dir: /application
     volumes:
