@@ -4,7 +4,7 @@
  */
 
 // Configuration for your app
-// https://v2.quasar.dev/quasar-cli/quasar-conf-js
+// https://quasar.dev/quasar-cli/quasar-conf-js
 
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -13,7 +13,7 @@
 const { configure } = require('quasar/wrappers');
 
 module.exports = configure((ctx) => ({
-  // https://v2.quasar.dev/quasar-cli/supporting-ts
+  // https://quasar.dev/quasar-cli/supporting-ts
   supportTS: {
     tsCheckerConfig: {
       eslint: {
@@ -23,12 +23,12 @@ module.exports = configure((ctx) => ({
     },
   },
 
-  // https://v2.quasar.dev/quasar-cli/prefetch-feature
+  // https://quasar.dev/quasar-cli/prefetch-feature
   // preFetch: true,
 
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
-  // https://v2.quasar.dev/quasar-cli/boot-files
+  // https://quasar.dev/quasar-cli/boot-files
   boot: [
     'i18n',
     'axios',
@@ -36,7 +36,7 @@ module.exports = configure((ctx) => ({
     'pinia',
   ],
 
-  // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
+  // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
   css: [
     'app.scss',
   ],
@@ -55,18 +55,19 @@ module.exports = configure((ctx) => ({
     'material-icons', // optional, you are not bound to it
   ],
 
-  // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
+  // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
   build: {
     vueRouterMode: 'history', // available values: 'hash', 'history'
 
     // transpile: false,
+    // publicPath: '/',
 
     // Add dependencies for transpiling with Babel (Array of string/regex)
     // (from node_modules, which are by default not transpiled).
     // Applies only if "transpile" is set to true.
     // transpileDependencies: [],
 
-    // rtl: true, // https://v2.quasar.dev/options/rtl-support
+    // rtl: true, // https://quasar.dev/options/rtl-support
     // preloadChunks: true,
     // showProgress: false,
     // gzip: true,
@@ -75,14 +76,14 @@ module.exports = configure((ctx) => ({
     // Options below are automatically set depending on the env, set them if you want to override
     // extractCSS: false,
 
-    // https://v2.quasar.dev/quasar-cli/handling-webpack
+    // https://quasar.dev/quasar-cli/handling-webpack
     // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
     chainWebpack(/* chain */) {
       //
     },
   },
 
-  // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
+  // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
   devServer: {
     https: false,
     port: 8080,
@@ -90,7 +91,7 @@ module.exports = configure((ctx) => ({
 
   },
 
-  // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
+  // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
   framework: {
     config: {},
 
@@ -112,10 +113,10 @@ module.exports = configure((ctx) => ({
   },
 
   // animations: 'all', // --- includes all animations
-  // https://v2.quasar.dev/options/animations
+  // https://quasar.dev/options/animations
   animations: [],
 
-  // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
+  // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
   ssr: {
     pwa: false,
 
@@ -138,7 +139,7 @@ module.exports = configure((ctx) => ({
     ],
   },
 
-  // https://v2.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
+  // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
   pwa: {
     workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
     workboxOptions: {}, // only for GenerateSW
