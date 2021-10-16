@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { api } from 'boot/axios';
 import { defineStore } from 'pinia';
 import { Site } from 'src/module/useSites';
@@ -47,12 +47,12 @@ export const useAuthStore = defineStore({
       const token = localStorage.getItem(localStorageTokenKey) ?? '';
 
       return api
-        .get('/auth/me', {
+        .get<UserStateInterface>('/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }).then(
-          (response: AxiosResponse<UserStateInterface>) => {
+          (response) => {
             this.user = response.data;
             this.authState = true;
             return response;
@@ -68,11 +68,11 @@ export const useAuthStore = defineStore({
     },
     login(loginObject: LoginInterface) {
       return api
-        .post('/auth/login', {
+        .post<LoginResponseData>('/auth/login', {
           email: loginObject.email,
           password: loginObject.password,
         }).then(
-          (response: AxiosResponse<LoginResponseData>) => {
+          (response) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
             void this.me();
@@ -87,11 +87,11 @@ export const useAuthStore = defineStore({
     },
     signup(loginObject: LoginInterface) {
       return api
-        .post('/auth/signup', {
+        .post<LoginResponseData>('/auth/signup', {
           email: loginObject.email,
           password: loginObject.password,
         }).then(
-          (response: AxiosResponse<LoginResponseData>) => {
+          (response) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
             void this.me();
