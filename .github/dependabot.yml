@@ -13,3 +13,6 @@ updates:
     directory: "/frontend" # Location of package manifests
     schedule:
       interval: "daily"
+  - package-ecosystem: "docker"
+    schedule:
+      interval: "daily"
