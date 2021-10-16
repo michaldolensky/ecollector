@@ -58,6 +58,12 @@ module.exports = configure((ctx) => ({
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
   build: {
     vueRouterMode: 'history', // available values: 'hash', 'history'
+    env: ctx.dev
+      ? require('dotenv').config({ path: '../.config/.env.dev' }).parsed
+      : require('dotenv').config({ path: '../.config/.env' }).parsed,
+    // env: {
+    //   GRAPHQL_URI: 'http://localhost:3000/api/graphql',
+    // },
 
     // transpile: false,
     // publicPath: '/',

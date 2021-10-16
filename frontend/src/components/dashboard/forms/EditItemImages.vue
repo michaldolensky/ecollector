@@ -42,7 +42,7 @@
           :key="image.id"
         >
           <q-img
-            :src="config.SERVER_URL+image.path"
+            :src="process.env.SERVER_URL+image.path"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">
@@ -67,7 +67,6 @@
   </q-card>
 </template>
 <script lang="ts">
-import { config } from 'src/config';
 import { Image, useImages } from 'src/module/useImages';
 import { defineComponent, PropType, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -93,7 +92,7 @@ export default defineComponent({
     const { siteId, itemId } = route.params;
 
     const uploadImage = () => ({
-      url: `http://localhost:3000/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
+      url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
       method: 'POST',
       fieldName: 'images',
     });
@@ -131,7 +130,6 @@ export default defineComponent({
 
     return {
       imagesUploaded,
-      config,
       images,
       uploadImage,
       deleteImage,

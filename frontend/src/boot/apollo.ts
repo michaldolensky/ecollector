@@ -15,9 +15,7 @@ export default boot(
         headers: {
           authorization: `Bearer ${token}`,
         },
-        uri:
-          process.env.GRAPHQL_URI
-          || 'http://localhost:3000/api/graphql',
+        uri: process.env.GRAPHQL_URL,
       }),
       cache: new InMemoryCache({
         addTypename: false,

@@ -18,7 +18,7 @@
             square
           >
             <img
-              :src="config.SERVER_URL+props.row.images[0].path"
+              :src="process.env.SERVER_URL+props.row.images[0].path"
             >
           </q-avatar>
           <q-icon
@@ -67,7 +67,6 @@
 </template>
 <script lang="ts">
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
-import { config } from 'src/config';
 import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
@@ -104,7 +103,6 @@ export default defineComponent({
     return {
       t,
       confirmDelete,
-      config,
       router: useRouter(),
       filter: ref(''),
       ItemsTableColumns,

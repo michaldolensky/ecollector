@@ -60,7 +60,6 @@ import {
 } from 'vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
-// noinspection ES6UnusedImports
 import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTableColumns';
 import { Category, useCategories } from 'src/module/useCategories';
 

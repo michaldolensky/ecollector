@@ -3,7 +3,7 @@
     class="my-card"
   >
     <q-img
-      :src="config.SERVER_URL+props.item.images[0].path"
+      :src="process.env.SERVER_URL+props.item.images[0].path"
       fit="scale-down"
       loading="lazy"
       style="max-height: 250px"
@@ -39,8 +39,6 @@
   </q-card>
 </template>
 <script lang="ts" setup>
-// noinspection ES6UnusedImports
-import { config } from 'src/config';
 import { CatalogItem } from 'src/module/useCatalog';
 import { defineProps } from 'vue';
 
