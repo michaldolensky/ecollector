@@ -15,13 +15,9 @@ updates:
       interval: "daily"
   - package-ecosystem: "docker"
     directory: "/api"
-    registries:
-      - dockerhub # Allow version updates for dependencies in this registry
     schedule:
       interval: "monthly"
   - package-ecosystem: "docker"
     directory: "/frontend"
-    registries:
-      - dockerhub # Allow version updates for dependencies in this registry
     schedule:
       interval: "monthly"
