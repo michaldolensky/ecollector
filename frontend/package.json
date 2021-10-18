@@ -11,14 +11,14 @@
     "dev": "quasar dev"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "3.4.16",
     "@quasar/cli": "^1.2.1",
     "@quasar/extras": "^1.11.2",
     "@vue/apollo-composable": "^4.0.0-alpha.15",
     "axios": "^0.23.0",
     "core-js": "^3.18.3",
     "graphql": "^15.6.1",
-    "graphql-tag": "^2.12.5",
+    "graphql-tag": "2.12.5",
     "pinia": "^2.0.0-rc.13",
     "quasar": "^2.1.5",
     "vue": "^3.2.9",
