@@ -6043,10 +6043,10 @@ pify@^3.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
-pinia@2.0.0-rc.13:
-  version "2.0.0-rc.13"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-rc.13.tgz#b9f858da278130469ed8dd89f8348de54f216541"
-  integrity sha512-NLOqK+tCIx1a4qZByqLZVdAK7ilTxkG6Opmj1O8hTjxpu4VSO2+eL2pPcO3JE/4ifZ6FBx87X2DU7NTY36z7Bw==
+pinia@2.0.0-rc.14:
+  version "2.0.0-rc.14"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-rc.14.tgz#c5c004c60b56806f465cae1bacce3922cf3163ac"
+  integrity sha512-vM8vYMsFdFDK1ND6j4+f7TC4hKB8moAjyn9HcHKqdOf1bHN4fL5g9Mz/8t8U0pEqnUwR2AU8yxD0gr+uU18x3g==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.19"
     vue-demi "*"
@@ -6462,10 +6462,10 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-quasar@2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.1.5.tgz#636bea9166630af62a93bd378ab29c62995b030c"
-  integrity sha512-eVov2A6cahQP1i//3VF5etN6L9HMinlNMAUY+wnwqiAv3ebsD/Zhefb93rsdjv4bUuPgD6rB0ym/YPF8G5Oq0g==
+quasar@2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.1.7.tgz#77a2d70524dd54c233a5f206608a5e33497855bb"
+  integrity sha512-BaDDIvvAah/xzNdd8kX8wu9MyaYHo8Ki/HmmYn7BHLlBrByuTklA6k26qcWz/AzwdCR+shZnw/+iUevpb4zxGw==
 
 query-string@^5.0.1:
   version "5.1.1"
