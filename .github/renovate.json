@@ -1,6 +1,20 @@
 {
   "extends": [
-    "config:base"
+    ":separateMajorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":renovatePrefix",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":updateNotScheduled",
+    ":automergeDisabled",
+    ":ignoreModulesAndTests",
+    ":maintainLockFilesDisabled",
+    ":autodetectPinVersions",
+    ":prHourlyLimit2",
+    ":prConcurrentLimit20",
+    "group:monorepos",
+    "helpers:disableTypesNodeMajor",
+    "helpers:oddIsUnstablePackages"
   ],
   "labels": ["dependencies"],
   "packageRules": [
