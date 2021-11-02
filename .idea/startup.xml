@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectStartupSharedConfiguration">
     <configurations>
-      <configuration id="npm.dev" name="dev" />
-      <configuration id="Docker.Docker-dev" name="Docker-dev" />
+      <configuration id="Compound.startup" name="startup" />
     </configurations>
   </component>
 </project>
