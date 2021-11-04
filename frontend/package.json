@@ -20,7 +20,7 @@
     "graphql": "15.6.1",
     "graphql-tag": "2.12.5",
     "pinia": "2.0.0",
-    "quasar": "2.2.2",
+    "quasar": "2.2.3",
     "vue-i18n": "9.2.0-beta.17",
     "vuex": "4.0.2"
   },
