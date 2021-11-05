@@ -43,10 +43,8 @@
 </template>
 
 <script lang="ts" setup>
-import { GET_CATALOG_CATEGORIES } from 'src/apollo/catalog/categoryQueries';
-import { CatalogCategoryVars, CategoryData } from 'src/module/useCatalog';
+import { useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/module/useSites';
-import { useQuery } from '@vue/apollo-composable';
 import { useSiteSettingsStore } from 'src/stores/settings';
 
 const settings = useSiteSettingsStore();
@@ -54,7 +52,7 @@ const settings = useSiteSettingsStore();
 const { currentSiteId } = useSites();
 
 // eslint-disable-next-line max-len
-const { result, loading } = useQuery<CategoryData, CatalogCategoryVars>(GET_CATALOG_CATEGORIES, {
+const { result, loading } = useGetCatalogueCategoriesQuery({
   siteId: currentSiteId.value,
 });
 </script>

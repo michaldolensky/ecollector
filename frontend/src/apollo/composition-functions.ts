@@ -381,6 +381,13 @@ export type UserInput = {
   sites?: Maybe<Array<Maybe<SiteInput>>>;
 };
 
+export type GetCatalogueCategoriesQueryVariables = Exact<{
+  siteId: Scalars['Int'];
+}>;
+
+
+export type GetCatalogueCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: number, name: string }> };
+
 export type ItemQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -487,6 +494,34 @@ export type UpdateSiteMutationVariables = Exact<{
 export type UpdateSiteMutation = { __typename?: 'Mutation', updateSite: { __typename?: 'Site', id: number, name: string } };
 
 
+export const GetCatalogueCategoriesDocument = gql`
+    query getCatalogueCategories($siteId: Int!) {
+  categories(siteId: $siteId) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetCatalogueCategoriesQuery__
+ *
+ * To run a query within a Vue component, call `useGetCatalogueCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCatalogueCategoriesQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetCatalogueCategoriesQuery({
+ *   siteId: // value for 'siteId'
+ * });
+ */
+export function useGetCatalogueCategoriesQuery(variables: GetCatalogueCategoriesQueryVariables | VueCompositionApi.Ref<GetCatalogueCategoriesQueryVariables> | ReactiveFunction<GetCatalogueCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>(GetCatalogueCategoriesDocument, variables, options);
+}
+export type GetCatalogueCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>;
 export const ItemDocument = gql`
     query item($id: Int!) {
   item(id: $id) {

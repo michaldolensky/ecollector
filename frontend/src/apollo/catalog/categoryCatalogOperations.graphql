@@ -1,0 +1,6 @@
+query getCatalogueCategories($siteId:Int!){
+  categories(siteId:$siteId) {
+    id
+    name
+  }
+}

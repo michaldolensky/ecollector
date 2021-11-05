@@ -1,7 +1,6 @@
-import { GET_CATALOG_CATEGORIES } from 'src/apollo/catalog/categoryQueries';
+import { Category, useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/module/useSites';
 import { reactive } from 'vue';
-import { useQuery } from '@vue/apollo-composable';
 
 export interface CatalogCategory {
   id:number
@@ -16,7 +15,7 @@ export interface CategoryData {
 
 export interface CatalogState{
   currentCategory:CatalogCategory|null
-  categories:CatalogCategory[]|null
+  categories:Category[]|null
   loading:boolean
 }
 
@@ -48,24 +47,24 @@ const CatalogStateData = reactive<CatalogState>({
 });
 
 const useCatalog = () => {
-  const { currentSiteId } = useSites();
+  // const { currentSiteId } = useSites();
+  //
+  // // eslint-disable-next-line max-len
+  // const { onResult, loading: load } = useGetCatalogueCategoriesQuery({
+  //   siteId: currentSiteId.value,
+  // });
+  //
+  // onResult((result) => {
+  //   CatalogStateData.categories = result.data.categories;
+  // });
+  //
+  // const catalogState: CatalogState = {
+  //   currentCategory: CatalogStateData.currentCategory,
+  //   categories: CatalogStateData.categories,
+  //   loading: load.value,
+  // };
 
-  // eslint-disable-next-line max-len
-  const { onResult, loading: load } = useQuery<CategoryData, CatalogCategoryVars>(GET_CATALOG_CATEGORIES, {
-    siteId: currentSiteId.value,
-  });
-
-  onResult((result) => {
-    CatalogStateData.categories = result.data.categories;
-  });
-
-  const catalogState: CatalogState = {
-    currentCategory: CatalogStateData.currentCategory,
-    categories: CatalogStateData.categories,
-    loading: load.value,
-  };
-
-  return catalogState;
+  // return catalogState;
 };
 
 export default useCatalog;
