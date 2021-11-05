@@ -1,0 +1,14 @@
+overwrite: true
+schema: "http://localhost:3000/api/graphql"
+documents: "src/apollo/**/*.graphql"
+generates:
+  src/apollo/composition-functions.ts:
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-vue-apollo"
+    config:
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
