@@ -1,0 +1,6 @@
+mutation removeImage($deleteImageInput:DeleteImageInput!,$siteId:Int!){
+  removeImage(deleteImageInput: $deleteImageInput,siteId: $siteId) {
+    id
+  }
+}
+
