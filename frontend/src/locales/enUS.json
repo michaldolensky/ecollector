@@ -48,5 +48,21 @@
     "signup": "Signup",
     "profile": "Profile",
     "sites": "Sites"
+  },
+  "dashboard": {
+    "navigation": {
+      "home": "Home",
+      "items": "Items",
+      "categories": "Categories",
+      "settings": "Settings"
+    },
+    "items": {
+      "addItem": "Add item"
+    }
+  },
+  "filters": {
+    "items": {
+      "search": "Search"
+    }
   }
 }

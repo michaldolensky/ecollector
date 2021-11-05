@@ -111,75 +111,65 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import { Item, ItemInput } from 'src/module/useItems';
 import { validationHelper } from 'src/validationHelper';
 import {
-  computed, defineComponent, PropType, reactive, SetupContext,
+  computed, reactive,
 } from 'vue';
 
-export default defineComponent({
-  name: 'ItemForm',
-  components: { EditItemImages, Editor, ItemCategorySelect },
-  props: {
-    editCategory: {
-      type: Object as PropType<Item>,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: () => {},
-    },
-  },
-  emits: ['submit'],
-  setup(props, ctx: SetupContext) {
-    const item = reactive<ItemInput>({
-      id: 0,
-      name: '',
-      categoryId: 0,
-      shortDesc: '',
-      longDesc: '',
-      internalNumber: '',
-      numberForExchange: 0,
-      numberInCollection: 0,
-    });
+interface Props {
+  editItem?: Item | Record<string, never>
+}
 
-    const inEditMode = computed(() => (props.editCategory?.id) > 0);
+const { required } = validationHelper;
 
-    if (inEditMode.value) {
-      Object.assign(item, props.editCategory);
-    }
+const props = defineProps<Props>();
 
-    const handleSave = () => {
-      let modifiedItem:ItemInput;
+const emit = defineEmits(['submit']);
 
-      if (inEditMode.value) {
-        modifiedItem = {
-          ...item,
-          id: props.editCategory?.id,
-        };
-      } else {
-        delete item.id;
-        modifiedItem = {
-          ...item,
-        };
-      }
-      if (!item.category?.id) {
-        throw new Error('Category id not loaded');
-      }
-      modifiedItem.categoryId = item.category.id;
-      delete modifiedItem.category;
-      delete modifiedItem.updatedAt;
-      delete modifiedItem.createdAt;
-      ctx.emit('submit', modifiedItem);
-    };
-
-    return {
-      ...validationHelper,
-      item,
-      inEditMode,
-      handleSave,
-    };
-  },
+const item = reactive<ItemInput>({
+  id: 0,
+  name: '',
+  categoryId: 0,
+  shortDesc: '',
+  longDesc: '',
+  internalNumber: '',
+  numberForExchange: 0,
+  numberInCollection: 0,
 });
+
+const inEditMode = computed(() => (props.editItem?.id) > 0);
+
+if (inEditMode.value) {
+  Object.assign(item, props.editItem);
+}
+
+const handleSave = () => {
+  let modifiedItem:ItemInput;
+
+  if (inEditMode.value) {
+    modifiedItem = {
+      ...item,
+      id: props.editItem?.id,
+    };
+  } else {
+    delete item.id;
+    modifiedItem = {
+      ...item,
+    };
+  }
+  if (!item.category?.id) {
+    throw new Error('Category id not loaded');
+  }
+  modifiedItem.categoryId = item.category.id;
+  delete modifiedItem.category;
+  delete modifiedItem.updatedAt;
+  delete modifiedItem.createdAt;
+  emit('submit', modifiedItem);
+};
+
 </script>

@@ -3,7 +3,7 @@ import { toRowDate } from 'src/utils';
 
 export const ItemsTableColumns = [
   {
-    name: 'Image',
+    name: 'image',
     required: true,
     label: 'Name',
     align: 'left',
@@ -12,7 +12,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Name',
+    name: 'name',
     required: true,
     label: 'Name',
     align: 'left',
@@ -30,7 +30,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Available for exchange',
+    name: 'availableForExchange',
     required: true,
     label: 'Available for exchange',
     align: 'left',
@@ -39,7 +39,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Count',
+    name: 'count',
     required: true,
     label: 'Count',
     align: 'left',
@@ -48,7 +48,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Created',
+    name: 'created',
     required: true,
     label: 'Created',
     align: 'left',
@@ -57,7 +57,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Action', label: 'Actions', field: 'Action', sortable: false, align: 'center',
+    name: 'action', label: 'Actions', field: 'Action', sortable: false, align: 'center',
   },
 
 ];

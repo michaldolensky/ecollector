@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { DashboardNavigationItems } from 'src/data/DashboardNavigationItems';
+import { DashboardNavigationItems } from 'src/router/DashboardNavigationItems';
 import NavigationItem from 'components/dashboard/NavigationItem.vue';
 
 export default defineComponent({

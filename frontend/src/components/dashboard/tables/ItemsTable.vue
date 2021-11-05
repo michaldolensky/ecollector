@@ -1,24 +1,24 @@
 <template>
   <q-table
     :columns="ItemsTableColumns"
-    :filter="filter"
+    :filter="props.filter"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="props.loading"
     :no-data-label="t('tables.notFound.items')"
     :pagination="initialPagination"
-    :rows="items"
+    :rows="props.items"
     row-key="id"
-    title="Items"
   >
-    <template #body-cell-Image="props">
-      <q-td :props="props">
+    <template #body-cell-image="slotProps">
+      <q-td>
         <q-item>
           <q-avatar
-            v-if="props.row.images[0]"
+            v-if="slotProps.row.images[0]"
             square
           >
             <img
-              :src="process.env.SERVER_URL+props.row.images[0].path"
+              :alt="slotProps.row.name"
+              :src="serverUrl+slotProps.row.images[0].path"
             >
           </q-avatar>
           <q-icon
@@ -31,10 +31,10 @@
       </q-td>
     </template>
 
-    <template #body-cell-Action="props">
-      <q-td :props="props">
+    <template #body-cell-action="slotProps">
+      <q-td>
         <q-btn
-          :to="`items/edit/${props.row.id}`"
+          :to="`items/edit/${slotProps.row.id}`"
           dense
           flat
           icon="edit"
@@ -46,73 +46,52 @@
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(props.row.id)"
+          @click="confirmDelete(slotProps.row.id)"
         />
       </q-td>
     </template>
-    <template #top-right>
-      <q-input
-        v-model="filter"
-        borderless
-        debounce="300"
-        dense
-        placeholder="Search"
-      >
-        <template #append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-    </template>
   </q-table>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
-import { defineComponent, PropType, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
 import { Item, useItems } from 'src/module/useItems';
+import { reactive } from 'vue';
 
-export default defineComponent({
-  name: 'ItemsTable',
-  props: {
-    loading: {
-      type: Boolean,
-    },
-    items: {
-      type: Array as PropType<Item[]>,
-      default: () => [],
-    },
-  },
-  setup() {
-    const $q = useQuasar();
-    const { t } = useI18n();
-    const { removeItem } = useItems();
-
-    const confirmDelete = (item: Item) => {
-      $q.dialog({
-        title: 'Confirm',
-        message: t('dialogs.dashboard.delete', [item.name]),
-        cancel: true,
-        persistent: true,
-      }).onOk(() => {
-        if (item.id != null) void removeItem(item.id);
-      });
-    };
-
-    return {
-      t,
-      confirmDelete,
-      router: useRouter(),
-      filter: ref(''),
-      ItemsTableColumns,
-      initialPagination: {
-        sortBy: 'name',
-        descending: false,
-        page: 1,
-        rowsPerPage: 50,
-      },
-    };
-  },
+interface Props {
+  loading?: boolean
+  items?: Item[]
+  filter?: string
+}
+const props = withDefaults(defineProps<Props>(), {
+  items: () => [],
+  loading: false,
+  filter: '',
 });
+
+const { removeItem } = useItems();
+const { t } = useI18n();
+const serverUrl = process.env.SERVER_URL;
+
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
+});
+
+const confirmDelete = (item: Item) => {
+  const $q = useQuasar();
+
+  $q.dialog({
+    title: 'Confirm',
+    message: t('dialogs.dashboard.delete', [item.name]),
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    if (item.id != null) void removeItem(item.id);
+  });
+};
+
 </script>
