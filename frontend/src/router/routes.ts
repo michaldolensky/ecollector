@@ -116,18 +116,18 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'DashBoardItems',
               path: 'items',
-              component: () => import('pages/site/dashboard/DashboardItemsPage.vue'),
+              component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
             },
             {
               name: 'DashBoardItemEdit',
               path: 'items/edit/:itemId',
-              component: () => import('pages/site/dashboard/EditItemPage.vue'),
+              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
               beforeEnter: [validateItemId],
             },
             {
               name: 'DashBoardItemCreate',
               path: 'items/new/',
-              component: () => import('pages/site/dashboard/EditItemPage.vue'),
+              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
             },
             {
               name: 'DashBoardCategories',
