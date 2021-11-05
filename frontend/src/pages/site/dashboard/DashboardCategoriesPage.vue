@@ -35,12 +35,10 @@ export default defineComponent({
   components: { CategoriesTable },
 
   setup() {
-    const { result, loading, addCategory } = useCategories();
-
+    const { result, loading } = useCategories();
     return {
       result,
       loading,
-      addCategory,
     };
   },
 });
