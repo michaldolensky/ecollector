@@ -10,15 +10,16 @@
     row-key="id"
     title="Items"
   >
-    <template #body-cell-image="props">
-      <q-td :props="props">
+    <template #body-cell-image="slotProps">
+      <q-td>
         <q-item>
           <q-avatar
-            v-if="props.row.images[0]"
+            v-if="slotProps.row.images[0]"
             square
           >
             <img
-              :src="serverUrl+props.row.images[0].path"
+              :src="serverUrl+slotProps.row.images[0].path"
+              alt="props.row."
             >
           </q-avatar>
           <q-icon
@@ -31,10 +32,10 @@
       </q-td>
     </template>
 
-    <template #body-cell-action="props">
-      <q-td :props="props">
+    <template #body-cell-action="slotProps">
+      <q-td>
         <q-btn
-          :to="`items/edit/${props.row.id}`"
+          :to="`items/edit/${slotProps.row.id}`"
           dense
           flat
           icon="edit"
@@ -46,7 +47,7 @@
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(props.row.id)"
+          @click="confirmDelete(slotProps.row.id)"
         />
       </q-td>
     </template>
