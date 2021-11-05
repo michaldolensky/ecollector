@@ -1,0 +1,20 @@
+mutation createSite($createSiteInput:CreateSiteInput!){
+  createSite(createSiteInput: $createSiteInput) {
+    id
+    name
+  }
+}
+
+mutation removeSite($id:Int!){
+  removeSite(id: $id) {
+    id
+  }
+}
+
+mutation updateSite($updateSiteInput:UpdateSiteInput!){
+  updateSite(updateSiteInput: $updateSiteInput) {
+    id
+    name
+  }
+}
+
