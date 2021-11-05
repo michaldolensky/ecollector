@@ -1,7 +1,9 @@
-import { useMutation, useQuery } from '@vue/apollo-composable';
 import {
-  CREATE_ITEM, DELETE_ITEM, GET_ITEM, GET_DASHBOARD_ITEMS, UPDATE_ITEM,
-} from 'src/apollo/dashboard/itemQueries';
+  CreateItemInput, UpdateItemInput,
+  useCreateItemMutation,
+  useGetItemsQuery, useItemQuery,
+  useRemoveItemMutation, useUpdateItemMutation,
+} from 'src/apollo/composition-functions';
 import { Image } from 'src/module/useImages';
 import { useSites } from 'src/module/useSites';
 
@@ -23,16 +25,6 @@ export interface Item {
   images:Image[]
 }
 
-interface ItemData {
-  items: Item[];
-}
-export interface ItemDataSingle {
-  item: Item;
-}
-interface ItemsVars {
-  siteId: number;
-}
-
 export interface ItemInput extends Partial<Item>{
   id?: number
   name: string;
@@ -44,41 +36,34 @@ export interface ItemInput extends Partial<Item>{
   numberInCollection:number
 }
 
-// interface updateItemVars {
-//   id:number;
-//   siteId: number;
-//   name: string;
-//   categoryId: number;
-// }
-
-export interface IGetItem{
-  id:number
-}
-
 export function useItems() {
   const { currentSiteId } = useSites();
 
-  const { result, loading, refetch } = useQuery<ItemData, ItemsVars>(GET_DASHBOARD_ITEMS, {
+  const { result, loading, refetch } = useGetItemsQuery({
     siteId: currentSiteId.value,
   });
 
-  const getItem = (id:number) => useQuery<ItemDataSingle, IGetItem>(GET_ITEM, {
+  const getItem = (id:number) => useItemQuery({
     id,
   });
-
-  const { mutate: removeItemMutation } = useMutation(DELETE_ITEM);
-  const { mutate: createItemMutation } = useMutation<{ createItem: Item } >(CREATE_ITEM);
-  const { mutate: updateItemMutation } = useMutation<{ updateItem: Item } >(UPDATE_ITEM);
+  const { mutate: removeItemMutation } = useRemoveItemMutation({ });
+  const { mutate: createItemMutation } = useCreateItemMutation({});
+  const { mutate: updateItemMutation } = useUpdateItemMutation({});
 
   const removeItem = (id:number) => {
-    void removeItemMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
+    void removeItemMutation({
+      deleteItemInput: {
+        itemId: id,
+      },
+      siteId: currentSiteId.value,
+    }).then(() => {
       void refetch();
     });
   };
   // eslint-disable-next-line max-len
-  const createItem = (itemVars:ItemInput) => createItemMutation({ createItemInput: itemVars, siteId: currentSiteId.value });
+  const createItem = (createItemInput:CreateItemInput) => createItemMutation({ createItemInput, siteId: currentSiteId.value });
   // eslint-disable-next-line max-len
-  const updateItem = (itemVars:ItemInput) => updateItemMutation({ updateItemInput: itemVars, siteId: currentSiteId.value });
+  const updateItem = (updateItemInput:UpdateItemInput) => updateItemMutation({ updateItemInput, siteId: currentSiteId.value });
 
   return {
     getItem,
