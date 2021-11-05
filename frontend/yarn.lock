@@ -1405,7 +1405,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@graphql-codegen/add@^3.1.0":
+"@graphql-codegen/add@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-3.1.0.tgz#cd02fd6d80a7f62839cb27160b62e48366a237c5"
   integrity sha512-vRRHpuUFadYXnPrb5RNiIzm3Ao39UxjvrdX760lEfXh2qeG7YddM5QFC+ev2BH3X452R15gv/gf/rXy0+Hqm1A==
@@ -1501,7 +1501,7 @@
     auto-bind "~4.0.0"
     tslib "~2.3.0"
 
-"@graphql-codegen/typescript-vue-apollo@^3.2.0":
+"@graphql-codegen/typescript-vue-apollo@3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-vue-apollo/-/typescript-vue-apollo-3.2.0.tgz#3d9fd9c0aaa950016789053cf63a7abe71973d16"
   integrity sha512-ampS3AXXZ4uh+GjkP5X+1nJlhuBvMNaf3+7rVu3cxw6qEGRQ+CUW6kR2atD5ROyYr3Z6q0AEMWmht4caAFhwAA==
