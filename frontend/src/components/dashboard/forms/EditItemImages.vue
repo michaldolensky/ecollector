@@ -42,7 +42,7 @@
           :key="image.id"
         >
           <q-img
-            :src="process.env.SERVER_URL+image.path"
+            :src="serverUrl+image.path"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">
@@ -91,6 +91,8 @@ export default defineComponent({
     const route = useRoute();
     const { siteId, itemId } = route.params;
 
+    const serverUrl = process.env.SERVER_URL;
+
     const uploadImage = () => ({
       url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
       method: 'POST',
@@ -129,6 +131,7 @@ export default defineComponent({
     };
 
     return {
+      serverUrl,
       imagesUploaded,
       images,
       uploadImage,
