@@ -1,14 +1,13 @@
 <template>
   <q-table
     :columns="ItemsTableColumns"
-    :filter="filter"
+    :filter="props.filter"
     :grid="$q.screen.xs"
     :loading="props.loading"
     :no-data-label="t('tables.notFound.items')"
     :pagination="initialPagination"
     :rows="props.items"
     row-key="id"
-    title="Items"
   >
     <template #body-cell-image="slotProps">
       <q-td>
@@ -51,19 +50,6 @@
         />
       </q-td>
     </template>
-    <template #top-right>
-      <q-input
-        v-model="filter"
-        borderless
-        debounce="300"
-        dense
-        placeholder="Search"
-      >
-        <template #append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-    </template>
   </q-table>
 </template>
 <script lang="ts" setup>
@@ -71,21 +57,23 @@ import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
 import { Item, useItems } from 'src/module/useItems';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 
 interface Props {
-  loading: boolean
-  items: Item[]
+  loading?: boolean
+  items?: Item[]
+  filter?: string
 }
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
+  loading: false,
+  filter: '',
 });
 
 const { removeItem } = useItems();
 const { t } = useI18n();
 const serverUrl = process.env.SERVER_URL;
 
-const filter = ref();
 const initialPagination = reactive({
   sortBy: 'name',
   descending: false,
