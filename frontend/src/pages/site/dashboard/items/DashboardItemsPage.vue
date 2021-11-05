@@ -9,7 +9,7 @@
       v-else-if="true"
       class="q-pa-md"
     >
-      <ItemsTable
+      <items-table
         :items="result.items"
         :loading="loading"
       />
@@ -28,21 +28,10 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { useItems } from 'src/module/useItems';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 
-export default defineComponent({
-  name: 'DashboardItemsPage',
-  components: { ItemsTable },
-  setup() {
-    const { result, loading } = useItems();
+const { result, loading } = useItems();
 
-    return {
-      result,
-      loading,
-    };
-  },
-});
 </script>
