@@ -1,0 +1,35 @@
+mutation createCategory($createCategoryInput:CreateCategoryInput!, $siteId: Int!){
+  createCategory(createCategoryInput: $createCategoryInput, siteId:$siteId) {
+    id
+    name
+    perex
+  }
+}
+
+mutation removeCategory($deleteCategoryInput:DeleteCategoryInput!,$siteId:Int!){
+  removeCategory(deleteCategoryInput: $deleteCategoryInput,siteId: $siteId) {
+    id
+  }
+}
+mutation updateCategory($updateCategoryInput:UpdateCategoryInput!,$siteId:Int!){
+  updateCategory(updateCategoryInput:  $updateCategoryInput,siteId: $siteId) {
+    id
+    name
+    perex
+  }
+}
+query getCategories($siteId:Int!){
+  categories(siteId:$siteId) {
+    id
+    createdAt
+    updatedAt
+    name
+  }
+}
+query getCategory($id:Int!){
+  category(id:$id) {
+    id
+    name
+    perex
+  }
+}

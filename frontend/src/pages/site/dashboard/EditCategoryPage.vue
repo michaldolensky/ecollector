@@ -15,13 +15,10 @@
 <script lang="ts">
 import CategoryForm from 'components/dashboard/forms/CategoryForm.vue';
 import { useQuasar } from 'quasar';
-import { GET_CATEGORY } from 'src/apollo/dashboard/categoryQueries';
-import {
-  CategoryDataSingle, CategoryInput, IGetCategory, useCategories,
-} from 'src/module/useCategories';
+import { useGetCategoryQuery } from 'src/apollo/composition-functions';
+import { CategoryInput, useCategories } from 'src/module/useCategories';
 import { defineComponent, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useQuery } from '@vue/apollo-composable';
 
 export default defineComponent({
   name: 'EditCategoryPage',
@@ -30,7 +27,7 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const editCategory = ref();
-    const { updateCategory, addCategory } = useCategories();
+    const { updateCategory, createCategory } = useCategories();
     const $q = useQuasar();
 
     const categoryId = parseInt(<string>route.params.categoryId, 10);
@@ -39,7 +36,7 @@ export default defineComponent({
       if (route.name === 'DashBoardCategoryCreate') {
         editCategory.value = {};
       } else {
-        const { onResult } = useQuery<CategoryDataSingle, IGetCategory>(GET_CATEGORY, {
+        const { onResult } = useGetCategoryQuery({
           id: categoryId,
         });
 
@@ -60,7 +57,7 @@ export default defineComponent({
           }
         });
       } else {
-        void addCategory(object).then((data) => {
+        void createCategory(object).then((data) => {
           if (data?.data) {
             $q.notify({
               type: 'positive',

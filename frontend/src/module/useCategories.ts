@@ -1,10 +1,11 @@
-import { useMutation, useQuery } from '@vue/apollo-composable';
 import {
-  CREATE_CATEGORY,
-  DELETE_CATAGORY,
-  GET_CATEGORIES_QUERY,
-  UPDATE_CATEGORY,
-} from 'src/apollo/dashboard/categoryQueries';
+  CreateCategoryInput,
+  UpdateCategoryInput,
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
+  useRemoveCategoryMutation, useUpdateCategoryMutation,
+} from 'src/apollo/composition-functions';
+
 import { useSites } from 'src/module/useSites';
 
 export interface Category {
@@ -14,70 +15,53 @@ export interface Category {
   createdAt:Date
 }
 
-interface CategoryData {
-  categories: Category[];
-}
-interface CategorieVars {
-  siteId: number;
-}
-interface createCategoryVars {
-  name: string;
-}
-
 export interface CategoryInput{
   id:number
   name:string
   perex:string
 }
 
-interface updateCategoryVars {
-  id:number;
-  name: string;
-  perex:string
-}
-
-export interface CategoryDataSingle {
-  category: Category;
-}
-
-export interface IGetCategory{
-  id:number
-}
-
 export function useCategories() {
   const { currentSiteId } = useSites();
 
-  const getCategories = () => useQuery<CategoryData, CategorieVars>(GET_CATEGORIES_QUERY, {
+  const getCategories = () => useGetCategoriesQuery({
     siteId: currentSiteId.value,
   });
 
-  const { result, loading, refetch } = useQuery<CategoryData, CategorieVars>(GET_CATEGORIES_QUERY, {
+  const { result, loading, refetch } = useGetCategoriesQuery({
     siteId: currentSiteId.value,
   });
 
-  const { mutate: removeCategoryMutation } = useMutation(DELETE_CATAGORY);
+  const { mutate: removeCategoryMutation } = useRemoveCategoryMutation({});
   // eslint-disable-next-line max-len
-  const { mutate: createCategoryMutation } = useMutation<{ createCategory: Category }>(CREATE_CATEGORY);
+  const { mutate: createCategoryMutation } = useCreateCategoryMutation({});
   // eslint-disable-next-line max-len
-  const { mutate: updateCategoryMutation } = useMutation<{ updateCategory: Category }>(UPDATE_CATEGORY);
+  const { mutate: updateCategoryMutation } = useUpdateCategoryMutation({});
 
   const removeCategory = (id:number) => {
-    void removeCategoryMutation({ itemId: id, siteId: currentSiteId.value }).then(() => {
+    void removeCategoryMutation({
+      deleteCategoryInput: {
+        categoryId: id,
+      },
+      siteId: currentSiteId.value,
+    }).then(() => {
       void refetch();
     });
   };
+
+  // todo rename
   // eslint-disable-next-line max-len
-  const addCategory = (createItemInput:createCategoryVars) => createCategoryMutation({ createCategoryInput: createItemInput, siteId: currentSiteId.value });
+  const createCategory = (createCategoryInput:CreateCategoryInput) => createCategoryMutation({ createCategoryInput, siteId: currentSiteId.value });
 
   // eslint-disable-next-line max-len
-  const updateCategory = (categoryVars:updateCategoryVars) => updateCategoryMutation({ updateItemInput: categoryVars, siteId: currentSiteId.value });
+  const updateCategory = (updateCategoryInput:UpdateCategoryInput) => updateCategoryMutation({ updateCategoryInput, siteId: currentSiteId.value });
 
   return {
     result,
     loading,
     getCategories,
     removeCategory,
-    addCategory,
+    createCategory,
     updateCategory,
   };
 }

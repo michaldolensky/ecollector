@@ -2,6 +2,7 @@
   <configuration default="false" name="startup" type="CompoundRunConfigurationType">
     <toRun name="Docker-dev" type="docker-deploy" />
     <toRun name="dev" type="js.build_tools.npm" />
+    <toRun name="generate" type="js.build_tools.npm" />
     <toRun name="Docker api log" type="RUN_ANYTHING_CONFIGURATION" />
     <method v="2" />
   </configuration>

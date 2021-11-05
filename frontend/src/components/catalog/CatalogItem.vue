@@ -3,7 +3,7 @@
     class="my-card"
   >
     <q-img
-      :src="process.env.SERVER_URL+props.item.images[0].path"
+      :src="serverUrl+props.item.images[0].path"
       fit="scale-down"
       loading="lazy"
       style="max-height: 250px"
@@ -47,6 +47,7 @@ interface Props{
 }
 
 const props = defineProps<Props>();
+const serverUrl = process.env.SERVER_URL;
 
 </script>
 <style lang="sass" scoped>

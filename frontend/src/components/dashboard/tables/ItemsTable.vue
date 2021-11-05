@@ -46,7 +46,7 @@
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(slotProps.row.id)"
+          @click="confirmDelete(slotProps.row)"
         />
       </q-td>
     </template>
@@ -71,6 +71,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { removeItem } = useItems();
+const { dialog } = useQuasar();
+
 const { t } = useI18n();
 const serverUrl = process.env.SERVER_URL;
 
@@ -82,9 +84,7 @@ const initialPagination = reactive({
 });
 
 const confirmDelete = (item: Item) => {
-  const $q = useQuasar();
-
-  $q.dialog({
+  dialog({
     title: 'Confirm',
     message: t('dialogs.dashboard.delete', [item.name]),
     cancel: true,

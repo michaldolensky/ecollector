@@ -1,0 +1,78 @@
+query item($id:Int!){
+  item(id: $id) {
+    id
+    name
+    numberForExchange
+    numberInCollection
+    internalNumber
+    longDesc
+    shortDesc
+    categoryId
+    updatedAt
+    createdAt
+    category{
+      id
+      name
+    }
+    images{
+      id
+      path
+      main
+    }
+  }
+}
+
+mutation createItem($createItemInput:CreateItemInput!, $siteId: Int!){
+  createItem(createItemInput: $createItemInput,siteId:$siteId) {
+    id
+    categoryId
+    name
+  }
+}
+mutation removeItem($deleteItemInput:DeleteItemInput!,$siteId:Int!){
+  removeItem(deleteItemInput: $deleteItemInput,siteId: $siteId) {
+    id
+  }
+}
+
+mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
+  updateItem(updateItemInput: $updateItemInput,siteId: $siteId) {
+    id
+    name
+    numberForExchange
+    numberInCollection
+    internalNumber
+    longDesc
+    shortDesc
+    categoryId
+    updatedAt
+    createdAt
+    category{
+      id
+      name
+    }
+    images{
+      id
+      path
+      main
+    }
+  }
+}
+
+query getItems($siteId:Int!){
+  items(siteId:$siteId) {
+    id
+    name
+    createdAt
+    updatedAt
+    numberForExchange
+    numberInCollection
+    category{
+      name
+    }
+    images(main:true){
+      path
+      main
+    }
+  }
+}

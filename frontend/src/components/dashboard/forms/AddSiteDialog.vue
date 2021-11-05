@@ -58,7 +58,7 @@ import { reactive, ref } from 'vue';
 import { useSites } from 'src/module/useSites';
 
 const SiteDialogOpen = ref(false);
-const { addSite } = useSites();
+const { createSite } = useSites();
 const site = reactive({
   name: '',
 });
@@ -68,7 +68,7 @@ const onReset = () => {
 };
 
 const onSubmit = () => {
-  addSite(site);
+  void createSite(site);
 };
 
 </script>
