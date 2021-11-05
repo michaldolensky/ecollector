@@ -93,7 +93,6 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
 
     // TypeScript
     quotes: ['warn', 'single', { avoidEscape: true }],
@@ -102,6 +101,7 @@ module.exports = {
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    '@typescript-eslint/no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'warn'
   }
 }
