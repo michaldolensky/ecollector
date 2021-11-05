@@ -3,10 +3,10 @@
     :columns="ItemsTableColumns"
     :filter="filter"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="props.loading"
     :no-data-label="t('tables.notFound.items')"
     :pagination="initialPagination"
-    :rows="items"
+    :rows="props.items"
     row-key="id"
     title="Items"
   >
@@ -18,7 +18,7 @@
             square
           >
             <img
-              :src="process.env.SERVER_URL+props.row.images[0].path"
+              :src="serverUrl+props.row.images[0].path"
             >
           </q-avatar>
           <q-icon
@@ -65,54 +65,44 @@
     </template>
   </q-table>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
-import { defineComponent, PropType, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
 import { Item, useItems } from 'src/module/useItems';
+import { reactive, ref } from 'vue';
 
-export default defineComponent({
-  name: 'ItemsTable',
-  props: {
-    loading: {
-      type: Boolean,
-    },
-    items: {
-      type: Array as PropType<Item[]>,
-      default: () => [],
-    },
-  },
-  setup() {
-    const $q = useQuasar();
-    const { t } = useI18n();
-    const { removeItem } = useItems();
-
-    const confirmDelete = (item: Item) => {
-      $q.dialog({
-        title: 'Confirm',
-        message: t('dialogs.dashboard.delete', [item.name]),
-        cancel: true,
-        persistent: true,
-      }).onOk(() => {
-        if (item.id != null) void removeItem(item.id);
-      });
-    };
-
-    return {
-      t,
-      confirmDelete,
-      router: useRouter(),
-      filter: ref(''),
-      ItemsTableColumns,
-      initialPagination: {
-        sortBy: 'name',
-        descending: false,
-        page: 1,
-        rowsPerPage: 50,
-      },
-    };
-  },
+interface Props {
+  loading: boolean
+  items: Item[]
+}
+const props = withDefaults(defineProps<Props>(), {
+  items: () => [],
 });
+
+const { removeItem } = useItems();
+const { t } = useI18n();
+const serverUrl = process.env.SERVER_URL;
+
+const filter = ref();
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
+});
+
+const confirmDelete = (item: Item) => {
+  const $q = useQuasar();
+
+  $q.dialog({
+    title: 'Confirm',
+    message: t('dialogs.dashboard.delete', [item.name]),
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    if (item.id != null) void removeItem(item.id);
+  });
+};
+
 </script>
