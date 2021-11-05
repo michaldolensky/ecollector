@@ -1,52 +1,21 @@
 {
-  "buttons": {
-    "auth": {
-      "login": "",
-      "logout": "",
-      "reset": "",
-      "Signup": "",
-      "submit": "buttons.auth.submit"
+  "dashboard": {
+    "navigation": {
+      "items": "dashboard.navigation.items"
     },
-    "forms": {
-      "reset": "",
-      "submit": ""
+    "items": {
+      "addItem": "dashboard.items.addItem"
     }
   },
-  "forms": {
-    "password": "",
-    "email": "",
-    "firstName": "",
-    "lastName": "",
-    "verifyPassword": "",
-    "validation": {
-      "required": ""
+  "items": {
+    "filter": "items.filter"
+  },
+  "filters": {
+    "items": "filter.items"
+  },
+  "filter": {
+    "items": {
+      "search": "filter.items.search"
     }
-  },
-  "dialogs": {
-    "dashboard": {
-      "delete": ""
-    }
-  },
-  "navigation": {
-    "categories": "",
-    "home": "",
-    "items": "",
-    "settings": ""
-  },
-  "tables": {
-    "createdAt": "",
-    "notFound": {
-      "items": "",
-      "categories": "tables.notFound.categories",
-      "sites": "tables.notFound.sites"
-    },
-    "name": "",
-    "updatedAt": ""
-  },
-  "pages": {
-    "login": "",
-    "signup": "",
-    "profile": "",
-    "sites": ""
   }
 }

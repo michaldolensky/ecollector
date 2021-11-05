@@ -4,13 +4,13 @@
     padding
   >
     <div>
-      <span class="text-h4 ">Items</span>
+      <span class="text-h4 ">{{ $t('dashboard.navigation.items') }}</span>
       <div class="float-right">
         <q-btn
+          :label="t('dashboard.items.addItem')"
           :to="{name:'DashBoardItemCreate'}"
           color="primary"
           icon="add"
-          label="Add item"
         />
       </div>
     </div>
@@ -18,8 +18,8 @@
     <q-card class="q-pa-md">
       <q-input
         v-model="filter"
+        :placeholder="t('filters.items.search')"
         debounce="300"
-        placeholder="Search"
         stack-label
       >
         <template #append>
@@ -41,11 +41,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'boot/i18n';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 import { useItems } from 'src/module/useItems';
 import { ref } from 'vue';
 
 const { result, loading } = useItems();
+const { t } = useI18n();
+
 const filter = ref('');
 
 </script>
