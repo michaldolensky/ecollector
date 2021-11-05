@@ -1,6 +1,4 @@
-import { Category, useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/module/useSites';
-import { reactive } from 'vue';
+import { Category } from 'src/apollo/composition-functions';
 
 export interface CatalogCategory {
   id:number
@@ -39,12 +37,6 @@ export interface CatalogItemVars {
   siteId: number;
   categoryId: number;
 }
-
-const CatalogStateData = reactive<CatalogState>({
-  categories: null,
-  currentCategory: null,
-  loading: false,
-});
 
 const useCatalog = () => {
   // const { currentSiteId } = useSites();
