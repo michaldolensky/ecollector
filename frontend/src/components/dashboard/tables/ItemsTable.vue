@@ -10,7 +10,7 @@
     row-key="id"
     title="Items"
   >
-    <template #body-cell-Image="props">
+    <template #body-cell-image="props">
       <q-td :props="props">
         <q-item>
           <q-avatar
@@ -31,7 +31,7 @@
       </q-td>
     </template>
 
-    <template #body-cell-Action="props">
+    <template #body-cell-action="props">
       <q-td :props="props">
         <q-btn
           :to="`items/edit/${props.row.id}`"

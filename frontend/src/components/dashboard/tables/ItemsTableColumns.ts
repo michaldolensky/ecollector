@@ -3,7 +3,7 @@ import { toRowDate } from 'src/utils';
 
 export const ItemsTableColumns = [
   {
-    name: 'Image',
+    name: 'image',
     required: true,
     label: 'Name',
     align: 'left',
@@ -12,7 +12,7 @@ export const ItemsTableColumns = [
     sortable: true,
   },
   {
-    name: 'Name',
+    name: 'name',
     required: true,
     label: 'Name',
     align: 'left',
