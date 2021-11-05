@@ -18,8 +18,8 @@
             square
           >
             <img
+              :alt="slotProps.row.name"
               :src="serverUrl+slotProps.row.images[0].path"
-              alt="props.row."
             >
           </q-avatar>
           <q-icon
