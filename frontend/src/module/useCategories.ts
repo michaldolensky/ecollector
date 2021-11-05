@@ -24,7 +24,7 @@ export interface CategoryInput{
 export function useCategories() {
   const { currentSiteId } = useSites();
 
-  const getCategories = useGetCategoriesQuery({
+  const getCategories = () => useGetCategoriesQuery({
     siteId: currentSiteId.value,
   });
 
