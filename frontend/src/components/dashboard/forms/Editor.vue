@@ -53,27 +53,21 @@
     ]"
     min-height="15rem"
     outlined
-    @update:model-value="$emit('update:modelValue',value)"
+    @update:model-value="emit('update:modelValue',value)"
   />
 </template>
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'Editor',
-  props: {
-    modelValue: {
-      type: String,
-      default: '',
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props) {
-    const value = ref(props.modelValue);
-
-    return {
-      value,
-    };
-  },
+interface Props{
+  modelValue: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: '',
 });
+
+const emit = defineEmits(['update:modelValue']);
+
+const value = ref(props.modelValue);
+
 </script>

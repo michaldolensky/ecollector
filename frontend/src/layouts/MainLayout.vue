@@ -10,18 +10,6 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import MainHeader from 'components/index/MainHeader.vue';
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: { MainHeader },
-
-  setup() {
-    return {
-    };
-  },
-});
 </script>

@@ -2,11 +2,6 @@
   <q-page class="row items-center justify-evenly" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  name: 'PageIndex',
-  components: { },
-});
 </script>

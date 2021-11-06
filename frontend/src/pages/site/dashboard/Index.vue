@@ -4,14 +4,6 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  // name: 'PageName'
-  setup() {
-    return {
-    };
-  },
-});
 </script>

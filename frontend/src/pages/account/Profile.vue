@@ -11,14 +11,8 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import {
-  defineComponent,
-} from 'vue';
+<script lang="ts" setup>
+
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 
-export default defineComponent({
-  name: 'Profile',
-  components: { SitesTable },
-});
 </script>

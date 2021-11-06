@@ -12,17 +12,8 @@
   </q-list>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 import { DashboardNavigationItems } from 'src/router/DashboardNavigationItems';
 import NavigationItem from 'components/dashboard/NavigationItem.vue';
 
-export default defineComponent({
-  name: 'DashboardDrawerItemsComponent',
-  components: { NavigationItem },
-  setup() {
-    return { DashboardNavigationItems };
-  },
-});
 </script>

@@ -4,7 +4,7 @@
     :filter="filter"
     :no-data-label="t('tables.notFound.sites')"
     :pagination="initialPagination"
-    :rows="sites"
+    :rows="authStore.sites"
 
     row-key="id"
   >
@@ -49,30 +49,23 @@
     </template>
   </q-table>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { reactive, ref } from 'vue';
 import { useI18n } from 'src/boot/i18n';
 import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
 import { useAuthStore } from 'src/stores/auth';
 
-export default defineComponent({
-  name: 'CategoriesTable',
-  setup() {
-    const { t } = useI18n();
-    const authStore = useAuthStore();
+const authStore = useAuthStore();
 
-    return {
-      t,
-      sites: authStore.sites,
-      filter: ref(''),
-      SitesTableColumns,
-      initialPagination: {
-        sortBy: 'name',
-        descending: false,
-        page: 1,
-        rowsPerPage: 50,
-      },
-    };
-  },
+const { t } = useI18n();
+
+const filter = ref('');
+
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
 });
+
 </script>
