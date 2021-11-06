@@ -8,7 +8,7 @@
     <q-separator />
     <q-card-section>
       <q-uploader
-        :disable="!inEditMode"
+        :disable="!props.inEditMode"
         :factory="uploadImage"
         accept="image/*"
         auto-upload
@@ -66,78 +66,64 @@
     </q-card-section>
   </q-card>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { Image, useImages } from 'src/module/useImages';
-import { defineComponent, PropType, ref } from 'vue';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-export default defineComponent({
-  name: 'EditItemImages',
-  props: {
+interface Props {
+  inEditMode: boolean;
+  modelValue: Image[];
+}
 
-    inEditMode: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: {
-      type: Array as PropType<Image[]>,
-      default: () => [],
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const { removeImage } = useImages();
-
-    const route = useRoute();
-    const { siteId, itemId } = route.params;
-
-    const serverUrl = process.env.SERVER_URL;
-
-    const uploadImage = () => ({
-      url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
-      method: 'POST',
-      fieldName: 'images',
-    });
-    const images = ref(props.modelValue);
-    const updateImages = () => emit('update:modelValue', images);
-
-    const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
-      const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
-
-      responseImages.forEach((value) => {
-        const img:Image = {
-          main: value.main,
-          path: value.path,
-          id: value.id,
-        };
-        images.value = [...images.value, img];
-      });
-      updateImages();
-    };
-
-    const deleteImage = (id: number) => {
-      removeImage(id);
-      images.value = images.value.filter((value) => value.id !== id);
-      updateImages();
-    };
-
-    const setAsMainImage = (id: number) => {
-      images.value = images.value.map((value) => ({
-        path: value.path,
-        id: value.id,
-        main: value.id === id,
-      }));
-      updateImages();
-    };
-
-    return {
-      serverUrl,
-      imagesUploaded,
-      images,
-      uploadImage,
-      deleteImage,
-      setAsMainImage,
-    };
-  },
+const props = withDefaults(defineProps<Props>(), {
+  inEditMode: false,
 });
+
+const emit = defineEmits(['update:modelValue']);
+
+const { removeImage } = useImages();
+
+const route = useRoute();
+const { siteId, itemId } = route.params;
+
+const serverUrl = process.env.SERVER_URL;
+
+const uploadImage = () => ({
+  url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
+  method: 'POST',
+  fieldName: 'images',
+});
+const images = ref(props.modelValue);
+const updateImages = () => emit('update:modelValue', images);
+
+const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
+  const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
+
+  responseImages.forEach((value) => {
+    const img:Image = {
+      main: value.main,
+      path: value.path,
+      id: value.id,
+    };
+    images.value = [...images.value, img];
+  });
+  updateImages();
+};
+
+const deleteImage = (id: number) => {
+  removeImage(id);
+  images.value = images.value.filter((value) => value.id !== id);
+  updateImages();
+};
+
+const setAsMainImage = (id: number) => {
+  images.value = images.value.map((value) => ({
+    path: value.path,
+    id: value.id,
+    main: value.id === id,
+  }));
+  updateImages();
+};
+
 </script>

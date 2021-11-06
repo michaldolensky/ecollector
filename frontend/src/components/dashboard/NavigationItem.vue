@@ -1,46 +1,36 @@
 <template>
   <q-item
     v-ripple
-    :to="{name:routeName}"
+    :to="{name:props.routeName}"
     clickable
     exact
     tag="a"
   >
     <q-item-section
-      v-if="icon"
+      v-if="props.icon"
       avatar
     >
-      <q-icon :name="icon" />
+      <q-icon :name="props.icon" />
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label>{{ props.title }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  name: 'NavigationItem',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    caption: {
-      type: String,
-      default: '',
-    },
-    routeName: {
-      type: String,
-      default: '#',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-  },
+interface Props{
+  title: string;
+  icon?: string;
+  routeName: string;
+  caption?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  icon: '',
+  routeName: '#',
+  caption: '',
 });
 </script>

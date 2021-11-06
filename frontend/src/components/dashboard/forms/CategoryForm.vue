@@ -59,59 +59,46 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Category, CategoryInput } from 'src/module/useCategories';
 import { validationHelper } from 'src/validationHelper';
-import {
-  computed, defineComponent, PropType, reactive, SetupContext,
-} from 'vue';
+import { computed, reactive } from 'vue';
 
-export default defineComponent({
-  name: 'CategoryForm',
-  components: { },
-  props: {
-    editCategory: {
-      type: Object as PropType<Category>,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      default: () => {},
-    },
-  },
-  emits: ['submit'],
-  setup(props, ctx: SetupContext) {
-    const category = reactive<CategoryInput>({
-      id: 0,
-      name: '',
-      perex: '',
-    });
+const { required } = validationHelper;
 
-    const inEditMode = computed(() => (props.editCategory?.id) > 0);
+interface Props {
+  editCategory: Category
+}
 
-    if (inEditMode.value) {
-      Object.assign(category, props.editCategory);
-    }
+const props = defineProps<Props>();
 
-    const handleSave = () => {
-      let modifiedCategory:CategoryInput;
+const emit = defineEmits(['submit']);
 
-      if (inEditMode.value) {
-        modifiedCategory = {
-          ...category,
-          id: props.editCategory?.id,
-        };
-      } else {
-        modifiedCategory = {
-          ...category,
-        };
-      }
-      ctx.emit('submit', modifiedCategory);
-    };
-
-    return {
-      ...validationHelper,
-      category,
-      inEditMode,
-      handleSave,
-    };
-  },
+const category = reactive<CategoryInput>({
+  id: 0,
+  name: '',
+  perex: '',
 });
+
+const inEditMode = computed(() => (props.editCategory?.id) > 0);
+
+if (inEditMode.value) {
+  Object.assign(category, props.editCategory);
+}
+
+const handleSave = () => {
+  let modifiedCategory:CategoryInput;
+
+  if (inEditMode.value) {
+    modifiedCategory = {
+      ...category,
+      id: props.editCategory?.id,
+    };
+  } else {
+    modifiedCategory = {
+      ...category,
+    };
+  }
+  emit('submit', modifiedCategory);
+};
 </script>

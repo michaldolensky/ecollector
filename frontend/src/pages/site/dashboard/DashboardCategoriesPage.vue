@@ -26,20 +26,10 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
 import { useCategories } from 'src/module/useCategories';
 
-export default defineComponent({
-  components: { CategoriesTable },
+const { result, loading } = useCategories();
 
-  setup() {
-    const { result, loading } = useCategories();
-    return {
-      result,
-      loading,
-    };
-  },
-});
 </script>

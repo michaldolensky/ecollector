@@ -8,17 +8,8 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 import AddSiteDialog from 'components/dashboard/forms/AddSiteDialog.vue';
 
-export default defineComponent({
-  name: 'SiteListPage',
-  components: { SitesTable, AddSiteDialog },
-  setup() {
-    return {
-    };
-  },
-});
 </script>
