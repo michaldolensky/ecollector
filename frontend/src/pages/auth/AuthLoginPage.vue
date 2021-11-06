@@ -36,6 +36,7 @@
             v-model.trim="loginData.email"
             :label="$t('forms.email')"
             :rules="[ val => val && val.length > 0 || 'Please type something']"
+            autocomplete="username"
             autofocus
             lazy-rules
             outlined
@@ -47,6 +48,7 @@
             id="password"
             v-model="loginData.password"
             :label="$t('forms.password')"
+            autocomplete="current-password"
             outlined
             required
             square
