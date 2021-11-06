@@ -8,7 +8,6 @@ services:
       dockerfile: Dockerfile
     command: npm run start:debug
     ports:
-      - "3000:3000"
       - "9229:9229"
     env_file:
       - .config/.env.dev
@@ -18,26 +17,6 @@ services:
     volumes:
       - ./api/:/usr/src/api
       - /usr/src/api/node_modules
-    networks:
-      - postgres
-
-#  frontend:
-#    container_name: ecollector-frondend-dev
-#    build:
-#      context: ./frontend
-#      target: development
-#      dockerfile: Dockerfile
-#    command: quasar dev
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - api
-#    env_file:
-#      - .config/.env.dev
-#    restart: unless-stopped
-#    volumes:
-#      - ./frontend:/usr/src/frontend
-#      - /usr/src/frontend/node_modules
 
   postgres:
     container_name: ecollector-postgres-dev
@@ -48,10 +27,6 @@ services:
       - /data/postgres:/data/postgres
     env_file:
       - .config/.env.dev
-    ports:
-      - "5432:5432"
-    networks:
-      - postgres
 
   pgadmin:
     links:
@@ -60,21 +35,27 @@ services:
     image: dpage/pgadmin4
     env_file:
       - .config/.env.dev
-    ports:
-      - "5433:80"
     depends_on:
-      - postgres
-    networks:
       - postgres
     volumes:
       - /data/pgadmin:/root/.pgadmin
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: ecollector-nginx
+    volumes:
+      - ./nginx:/etc/nginx/templates
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    env_file:
+      - .config/.env.dev
 
 #    mailhog:
 #      image: mailhog/mailhog:latest
 #      container_name: ecollector-mailhog-dev
 #      ports:
 #        - "8025:8025"
-
-networks:
-  postgres:
-    driver: bridge

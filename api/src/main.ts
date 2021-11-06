@@ -3,9 +3,8 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
-const HOSTNAME = process.env.HOSTNAME;
-const PORT = process.env.PORT;
-// const NODE_ENV = process.env.NODE_ENV;
+const HOSTNAME = process.env.NGINX_SERVER_NAME;
+const PORT = process.env.API_PORT;
 
 async function bootstrap() {
   const logger = new Logger('bootstrap');
