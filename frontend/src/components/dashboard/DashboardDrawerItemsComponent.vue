@@ -13,7 +13,35 @@
 </template>
 
 <script lang="ts" setup>
-import { DashboardNavigationItems } from 'src/router/DashboardNavigationItems';
 import NavigationItem from 'components/dashboard/NavigationItem.vue';
+
+interface NavigationItemInterface {
+  nameString: string,
+  routeName: string
+  icon: string
+}
+
+const DashboardNavigationItems: NavigationItemInterface[] = [
+  {
+    nameString: 'dashboard.navigation.home',
+    icon: 'home',
+    routeName: 'DashBoardIndex',
+  },
+  {
+    nameString: 'dashboard.navigation.items',
+    icon: 'list',
+    routeName: 'DashBoardItemsList',
+  },
+  {
+    nameString: 'dashboard.navigation.categories',
+    icon: 'category',
+    routeName: 'DashBoardCategoriesList',
+  },
+  {
+    nameString: 'dashboard.navigation.settings',
+    icon: 'settings',
+    routeName: 'DashBoardSettings',
+  },
+];
 
 </script>
