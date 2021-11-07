@@ -3,16 +3,14 @@ import { defineStore } from 'pinia';
 export const useSiteSettingsStore = defineStore({
   id: 'settingsStore',
   state: () => ({
-    drawerState: true,
+    drawer: true,
   }),
   getters: {
-    drawerState: (state) => state.drawerState,
+    drawerState: (state) => state.drawer,
   },
   actions: {
     toggleDrawer() {
-      this.$patch({
-        drawerState: !this.drawerState,
-      });
+      this.drawer = !this.drawer;
     },
   },
 });

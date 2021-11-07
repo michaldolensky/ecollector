@@ -1,8 +1,5 @@
 <template>
-  <q-page
-    class="q-pa-md col items-start q-gutter-md"
-    padding
-  >
+  <q-page>
     <div>
       <span class="text-h4 ">{{ $t('dashboard.navigation.items') }}</span>
       <div class="float-right">

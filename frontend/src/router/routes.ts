@@ -102,7 +102,7 @@ const getRoutes = (): RouteRecordRaw[] => {
         },
         {
           path: 'site/:siteId/dashboard',
-          component: () => import('layouts/DashboardLayout.vue'),
+          component: () => import('pages/site/dashboard/DashboardPage.vue'),
           beforeEnter: [validateSiteId, requireAuth, requireOwner],
           meta: {
             showDrawer: true,
@@ -111,7 +111,7 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'DashBoardIndex',
               path: '',
-              component: () => import('pages/site/dashboard/Index.vue'),
+              component: () => import('pages/site/dashboard/home/Index.vue'),
             },
             {
               name: 'DashBoardItems',
@@ -132,23 +132,23 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'DashBoardCategories',
               path: 'categories',
-              component: () => import('pages/site/dashboard/DashboardCategoriesPage.vue'),
+              component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
             },
             {
               name: 'DashBoardCategoryEdit',
               path: 'categories/edit/:categoryId',
-              component: () => import('pages/site/dashboard/EditCategoryPage.vue'),
+              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
               beforeEnter: [validateCategoryId],
             },
             {
               name: 'DashBoardCategoryCreate',
               path: 'categories/new/',
-              component: () => import('pages/site/dashboard/EditCategoryPage.vue'),
+              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
             },
             {
               name: 'DashBoardSettings',
               path: 'settings',
-              component: () => import('pages/site/dashboard/Settings.vue'),
+              component: () => import('pages/site/dashboard/settings/Settings.vue'),
             },
           ],
         },
