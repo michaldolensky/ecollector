@@ -4,7 +4,7 @@
     :filter="props.filter"
     :grid="q.screen.xs"
     :loading="props.loading"
-    :no-data-label="t('tables.notFound.categories')"
+    :no-data-label="$t('tables.notFound.categories')"
     :pagination="initialPagination"
     :rows="props.categories"
     row-key="id"
@@ -45,7 +45,7 @@ import {
   reactive,
 } from 'vue';
 import { useQuasar } from 'quasar';
-import { useI18n } from 'src/boot/i18n';
+import { useI18n } from 'vue-i18n';
 import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTableColumns';
 import { Category, useCategories } from 'src/module/useCategories';
 
