@@ -119,36 +119,48 @@ const getRoutes = (): RouteRecordRaw[] => {
                   component: () => import('pages/site/dashboard/home/Index.vue'),
                 },
                 {
-                  name: 'DashBoardItems',
                   path: 'items',
-                  component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
+                  component: RouterView,
+                  children: [
+                    {
+                      name: 'DashBoardItems',
+                      path: '',
+                      component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
+                    },
+                    {
+                      name: 'DashBoardItemEdit',
+                      path: 'edit/:itemId',
+                      component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+                      beforeEnter: [validateItemId],
+                    },
+                    {
+                      name: 'DashBoardItemCreate',
+                      path: 'new',
+                      component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+                    },
+                  ],
                 },
                 {
-                  name: 'DashBoardItemEdit',
-                  path: 'items/edit/:itemId',
-                  component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-                  beforeEnter: [validateItemId],
-                },
-                {
-                  name: 'DashBoardItemCreate',
-                  path: 'items/new/',
-                  component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-                },
-                {
-                  name: 'DashBoardCategories',
                   path: 'categories',
-                  component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
-                },
-                {
-                  name: 'DashBoardCategoryEdit',
-                  path: 'categories/edit/:categoryId',
-                  component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-                  beforeEnter: [validateCategoryId],
-                },
-                {
-                  name: 'DashBoardCategoryCreate',
-                  path: 'categories/new/',
-                  component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                  component: RouterView,
+                  children: [
+                    {
+                      name: 'DashBoardCategories',
+                      path: '',
+                      component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
+                    },
+                    {
+                      name: 'DashBoardCategoryEdit',
+                      path: 'edit/:categoryId',
+                      component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                      beforeEnter: [validateCategoryId],
+                    },
+                    {
+                      name: 'DashBoardCategoryCreate',
+                      path: 'new',
+                      component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                    },
+                  ],
                 },
                 {
                   name: 'DashBoardSettings',
