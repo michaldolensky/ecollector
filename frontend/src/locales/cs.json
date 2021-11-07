@@ -1,7 +1,8 @@
 {
   "dashboard": {
     "navigation": {
-      "items": "dashboard.navigation.items"
+      "items": "dashboard.navigation.items",
+      "categories": "dashboard.navigation.categories"
     },
     "items": {
       "addItem": "dashboard.items.addItem"

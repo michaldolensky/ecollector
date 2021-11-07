@@ -1,14 +1,13 @@
 <template>
   <q-table
     :columns="CategoriesTableColumns"
-    :filter="filter"
+    :filter="props.filter"
     :grid="q.screen.xs"
     :loading="props.loading"
     :no-data-label="t('tables.notFound.categories')"
     :pagination="initialPagination"
     :rows="props.categories"
     row-key="id"
-    title="Categories"
   >
     <template #body-cell-Name="prop">
       <q-td :prop="prop">
@@ -39,24 +38,11 @@
         />
       </q-td>
     </template>
-    <template #top-right>
-      <q-input
-        v-model="filter"
-        borderless
-        debounce="300"
-        dense
-        placeholder="Search"
-      >
-        <template #append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-    </template>
   </q-table>
 </template>
 <script lang="ts" setup>
 import {
-  defineProps, reactive, ref, withDefaults,
+  defineProps, reactive, withDefaults,
 } from 'vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
@@ -64,18 +50,19 @@ import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTa
 import { Category, useCategories } from 'src/module/useCategories';
 
 interface Props{
-  categories:Category[]
-  loading: boolean
+  categories?:Category[]
+  loading?: boolean
+  filter?: string
 }
 const props = withDefaults(defineProps<Props>(), {
   categories: () => [],
+  loading: false,
+  filter: '',
 });
 
 const q = useQuasar();
 const { t } = useI18n();
 const { removeCategory } = useCategories();
-
-const filter = ref('');
 
 const initialPagination = reactive({
   sortBy: 'name',

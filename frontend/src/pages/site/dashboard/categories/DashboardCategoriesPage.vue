@@ -1,35 +1,45 @@
 <template>
-  <q-page padding>
-    <div v-if="loading">
-      Loading...
-    </div>
-    <div
-      v-else-if="true"
-      class="q-pa-md"
+  <dashboard-page-header :title="$t('dashboard.navigation.categories')">
+    <q-btn
+      :label="$t('dashboard.items.addItem')"
+      :to="{name:'DashBoardCategoryCreate'}"
+      color="primary"
+      icon="add"
+    />
+  </dashboard-page-header>
+
+  <q-card class="q-pa-md">
+    <q-input
+      v-model="filter"
+      :placeholder="$t('filters.items.search')"
+      debounce="300"
+      stack-label
     >
-      <CategoriesTable
-        :categories="result.categories"
-        :loading="loading"
-      />
-      <q-page-sticky
-        :offset="[18, 18]"
-        position="bottom-right"
-      >
-        <q-btn
-          :to="{name:'DashBoardCategoryCreate'}"
-          color="accent"
-          fab
-          icon="add"
-        />
-      </q-page-sticky>
-    </div>
-  </q-page>
+      <template #append>
+        <q-icon name="search" />
+      </template>
+    </q-input>
+  </q-card>
+
+  <q-card v-if="loading">
+    <CategoriesTable :loading="loading" />
+  </q-card>
+  <q-card v-else>
+    <CategoriesTable
+      :categories="result.categories"
+      :filter="filter"
+    />
+  </q-card>
 </template>
 
 <script lang="ts" setup>
 import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import { useCategories } from 'src/module/useCategories';
+import { ref } from 'vue';
 
 const { result, loading } = useCategories();
+
+const filter = ref('');
 
 </script>
