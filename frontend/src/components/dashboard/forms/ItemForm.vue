@@ -1,25 +1,14 @@
 <template>
-  <q-toolbar>
-    <div
-      v-if="inEditMode"
-      class="text-h6 text-weight-regular"
-    >
-      Edit item
-    </div>
-    <div
-      v-else
-      class="text-h6 text-weight-regular"
-    >
-      Create item
-    </div>
-    <q-space />
+  <dashboard-page-header
+    :title="inEditMode?t('dashboard.headers.editItem'):t('dashboard.headers.createItem')"
+  >
     <q-btn
+      :label="t('buttons.common.save')"
       color="secondary"
+      icon="save"
       @click="handleSave()"
-    >
-      Save
-    </q-btn>
-  </q-toolbar>
+    />
+  </dashboard-page-header>
 
   <div class=" items-start  full-width ">
     <div class="row">
@@ -112,7 +101,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'boot/i18n';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import { Item, ItemInput } from 'src/module/useItems';
@@ -120,6 +111,8 @@ import { validationHelper } from 'src/validationHelper';
 import {
   computed, reactive,
 } from 'vue';
+
+const { t } = useI18n();
 
 interface Props {
   editItem?: Item | Record<string, never>

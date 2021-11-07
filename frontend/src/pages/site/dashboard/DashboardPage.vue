@@ -12,10 +12,12 @@
       <DashboardDrawerItemsComponent />
     </q-drawer>
 
-    <router-view
+    <q-page
       class="bg-grey-3 col items-start q-gutter-md"
       padding
-    />
+    >
+      <router-view />
+    </q-page>
   </q-page>
 </template>
 

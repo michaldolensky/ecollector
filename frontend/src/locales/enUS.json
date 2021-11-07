@@ -10,6 +10,9 @@
     "forms": {
       "reset": "Reset",
       "submit": "Submit"
+    },
+    "common": {
+      "save": "Save"
     }
   },
   "forms": {
@@ -58,6 +61,10 @@
     },
     "items": {
       "addItem": "Add item"
+    },
+    "headers": {
+      "editItem": "Edit item",
+      "createItem": "Create item"
     }
   },
   "filters": {

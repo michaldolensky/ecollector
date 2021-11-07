@@ -1,9 +1,8 @@
 <template>
-  <q-page padding>
-    Index
-  </q-page>
+  <dashboard-page-header title="Index" />
 </template>
 
 <script lang="ts" setup>
 
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 </script>

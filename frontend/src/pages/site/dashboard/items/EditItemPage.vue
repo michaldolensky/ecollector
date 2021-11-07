@@ -1,15 +1,9 @@
 <template>
-  <q-page
-    class="bg-grey-2"
-    padding
-    q-pa-md
-  >
-    <ItemForm
-      v-if="editItem"
-      :edit-item="editItem"
-      @submit="handleSubmit"
-    />
-  </q-page>
+  <ItemForm
+    v-if="editItem"
+    :edit-item="editItem"
+    @submit="handleSubmit"
+  />
 </template>
 
 <script lang="ts" setup>

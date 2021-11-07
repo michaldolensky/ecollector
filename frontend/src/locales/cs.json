@@ -5,6 +5,10 @@
     },
     "items": {
       "addItem": "dashboard.items.addItem"
+    },
+    "headers": {
+      "editItem": "dashboard.headers.editItem",
+      "createItem": "dashboard.headers.createItem"
     }
   },
   "items": {
@@ -16,6 +20,11 @@
   "filter": {
     "items": {
       "search": "filter.items.search"
+    }
+  },
+  "buttons": {
+    "common": {
+      "save": "buttons.common.save"
     }
   }
 }
