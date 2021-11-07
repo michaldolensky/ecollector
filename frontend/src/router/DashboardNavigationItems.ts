@@ -9,12 +9,12 @@ export const DashboardNavigationItems:NavigationItemInterface[] = [
   {
     nameString: 'dashboard.navigation.items',
     icon: 'list',
-    routeName: 'DashBoardItems',
+    routeName: 'DashBoardItemsList',
   },
   {
     nameString: 'dashboard.navigation.categories',
     icon: 'category',
-    routeName: 'DashBoardCategories',
+    routeName: 'DashBoardCategoriesList',
   },
   {
     nameString: 'dashboard.navigation.settings',

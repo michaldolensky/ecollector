@@ -123,9 +123,9 @@ const getRoutes = (): RouteRecordRaw[] => {
                   component: RouterView,
                   children: [
                     {
-                      name: 'DashBoardItems',
+                      name: 'DashBoardItemsList',
                       path: '',
-                      component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
+                      component: () => import('pages/site/dashboard/items/DashboardItemsListPage.vue'),
                     },
                     {
                       name: 'DashBoardItemEdit',
@@ -145,9 +145,9 @@ const getRoutes = (): RouteRecordRaw[] => {
                   component: RouterView,
                   children: [
                     {
-                      name: 'DashBoardCategories',
+                      name: 'DashBoardCategoriesList',
                       path: '',
-                      component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
+                      component: () => import('pages/site/dashboard/categories/DashboardCategoriesListPage.vue'),
                     },
                     {
                       name: 'DashBoardCategoryEdit',
