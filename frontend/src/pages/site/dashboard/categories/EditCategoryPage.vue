@@ -6,7 +6,7 @@
   >
     <CategoryForm
       v-if="editCategory"
-      :edit-item="editCategory"
+      :edit-category="editCategory"
       @submit="handleSubmit"
     />
   </q-page>
