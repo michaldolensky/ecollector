@@ -1,9 +1,9 @@
 <template>
   <dashboard-page-header
-    :title="inEditMode?t('dashboard.headers.editItem'):t('dashboard.headers.createItem')"
+    :title="inEditMode?$t('dashboard.headers.editItem'):$t('dashboard.headers.createItem')"
   >
     <q-btn
-      :label="t('buttons.common.save')"
+      :label="$t('buttons.common.save')"
       color="secondary"
       icon="save"
       @click="handleSave()"
@@ -101,7 +101,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from 'boot/i18n';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
@@ -111,8 +110,6 @@ import { validationHelper } from 'src/validationHelper';
 import {
   computed, reactive,
 } from 'vue';
-
-const { t } = useI18n();
 
 interface Props {
   editItem?: Item | Record<string, never>

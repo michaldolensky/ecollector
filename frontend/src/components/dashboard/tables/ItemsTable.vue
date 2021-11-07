@@ -4,7 +4,7 @@
     :filter="props.filter"
     :grid="$q.screen.xs"
     :loading="props.loading"
-    :no-data-label="t('tables.notFound.items')"
+    :no-data-label="$t('tables.notFound.items')"
     :pagination="initialPagination"
     :rows="props.items"
     row-key="id"

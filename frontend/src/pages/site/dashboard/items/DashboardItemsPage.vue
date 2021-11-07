@@ -1,7 +1,7 @@
 <template>
   <dashboard-page-header :title="$t('dashboard.navigation.items')">
     <q-btn
-      :label="t('dashboard.items.addItem')"
+      :label="$t('dashboard.items.addItem')"
       :to="{name:'DashBoardItemCreate'}"
       color="primary"
       icon="add"
@@ -11,7 +11,7 @@
   <q-card class="q-pa-md">
     <q-input
       v-model="filter"
-      :placeholder="t('filters.items.search')"
+      :placeholder="$t('filters.items.search')"
       debounce="300"
       stack-label
     >
@@ -33,14 +33,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from 'boot/i18n';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 import { useItems } from 'src/module/useItems';
 import { ref } from 'vue';
 
 const { result, loading } = useItems();
-const { t } = useI18n();
 
 const filter = ref('');
 

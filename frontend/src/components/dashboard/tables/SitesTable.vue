@@ -2,7 +2,7 @@
   <q-table
     :columns="SitesTableColumns"
     :filter="filter"
-    :no-data-label="t('tables.notFound.sites')"
+    :no-data-label="$t('tables.notFound.sites')"
     :pagination="initialPagination"
     :rows="authStore.sites"
 
@@ -51,13 +51,10 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { useI18n } from 'src/boot/i18n';
 import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
 import { useAuthStore } from 'src/stores/auth';
 
 const authStore = useAuthStore();
-
-const { t } = useI18n();
 
 const filter = ref('');
 
