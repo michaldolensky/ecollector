@@ -40,7 +40,6 @@
 </template>
 <script lang="ts" setup>
 import { CatalogItem } from 'src/module/useCatalog';
-import { defineProps } from 'vue';
 import { SERVER_URL } from 'src/module/useEnv';
 
 interface Props{

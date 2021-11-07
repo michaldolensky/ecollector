@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 interface Category {
   id:number,
   name:string,

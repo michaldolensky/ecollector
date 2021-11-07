@@ -42,7 +42,7 @@
 </template>
 <script lang="ts" setup>
 import {
-  defineProps, reactive, withDefaults,
+  reactive,
 } from 'vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
