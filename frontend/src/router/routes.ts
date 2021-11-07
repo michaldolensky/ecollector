@@ -1,7 +1,8 @@
 import { getParsedInt } from 'src/utils';
 import { useAuthStore } from 'src/stores/auth';
-
-import { NavigationGuard, RouteRecordRaw, RouteLocationNormalized } from 'vue-router';
+import {
+  RouterView, NavigationGuard, RouteRecordRaw, RouteLocationNormalized,
+} from 'vue-router';
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -74,81 +75,87 @@ const getRoutes = (): RouteRecordRaw[] => {
       children: [
         { path: '', name: 'index', component: () => import('pages/MainPage.vue') },
         {
-          path: '/site/:siteId/',
-          component: () => import('layouts/SiteLayout.vue'),
-          redirect: { name: 'catalog' },
-          meta: {
-            showDrawer: true,
-          },
+          path: 'site/:siteId',
+          component: RouterView,
           children: [
             {
-              path: 'catalog/',
-              name: 'catalog',
-              component: () => import('layouts/CatalogLayout.vue'),
+              path: '',
+              component: () => import('layouts/SiteLayout.vue'),
+              redirect: { name: 'CatalogIndex' },
+              meta: {
+                showDrawer: true,
+              },
               children: [
                 {
-                  name: 'CatalogIndex',
-                  path: '/',
-                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
-                },
-                {
-                  name: 'CatalogCategory',
-                  path: ':categoryId/',
-                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
+                  name: 'catalog',
+                  path: 'catalog',
+                  component: () => import('layouts/CatalogLayout.vue'),
+                  children: [
+                    {
+                      name: 'CatalogIndex',
+                      path: '',
+                      component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
+                    },
+                    {
+                      name: 'CatalogCategory',
+                      path: ':categoryId/',
+                      component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
+                    },
+                  ],
                 },
               ],
             },
-          ],
-        },
-        {
-          path: 'site/:siteId/dashboard',
-          component: () => import('pages/site/dashboard/DashboardPage.vue'),
-          beforeEnter: [validateSiteId, requireAuth, requireOwner],
-          meta: {
-            showDrawer: true,
-          },
-          children: [
             {
-              name: 'DashBoardIndex',
-              path: '',
-              component: () => import('pages/site/dashboard/home/Index.vue'),
-            },
-            {
-              name: 'DashBoardItems',
-              path: 'items',
-              component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
-            },
-            {
-              name: 'DashBoardItemEdit',
-              path: 'items/edit/:itemId',
-              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-              beforeEnter: [validateItemId],
-            },
-            {
-              name: 'DashBoardItemCreate',
-              path: 'items/new/',
-              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-            },
-            {
-              name: 'DashBoardCategories',
-              path: 'categories',
-              component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
-            },
-            {
-              name: 'DashBoardCategoryEdit',
-              path: 'categories/edit/:categoryId',
-              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-              beforeEnter: [validateCategoryId],
-            },
-            {
-              name: 'DashBoardCategoryCreate',
-              path: 'categories/new/',
-              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-            },
-            {
-              name: 'DashBoardSettings',
-              path: 'settings',
-              component: () => import('pages/site/dashboard/settings/Settings.vue'),
+              path: 'dashboard',
+              component: () => import('pages/site/dashboard/DashboardPage.vue'),
+              beforeEnter: [validateSiteId, requireAuth, requireOwner],
+              meta: {
+                showDrawer: true,
+              },
+              children: [
+                {
+                  name: 'DashBoardIndex',
+                  path: '',
+                  component: () => import('pages/site/dashboard/home/Index.vue'),
+                },
+                {
+                  name: 'DashBoardItems',
+                  path: 'items',
+                  component: () => import('pages/site/dashboard/items/DashboardItemsPage.vue'),
+                },
+                {
+                  name: 'DashBoardItemEdit',
+                  path: 'items/edit/:itemId',
+                  component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+                  beforeEnter: [validateItemId],
+                },
+                {
+                  name: 'DashBoardItemCreate',
+                  path: 'items/new/',
+                  component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+                },
+                {
+                  name: 'DashBoardCategories',
+                  path: 'categories',
+                  component: () => import('pages/site/dashboard/categories/DashboardCategoriesPage.vue'),
+                },
+                {
+                  name: 'DashBoardCategoryEdit',
+                  path: 'categories/edit/:categoryId',
+                  component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                  beforeEnter: [validateCategoryId],
+                },
+                {
+                  name: 'DashBoardCategoryCreate',
+                  path: 'categories/new/',
+                  component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                },
+                {
+                  name: 'DashBoardSettings',
+                  path: 'settings',
+                  component: () => import('pages/site/dashboard/settings/Settings.vue'),
+                },
+              ],
             },
           ],
         },
