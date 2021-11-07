@@ -1,15 +1,9 @@
 <template>
-  <q-page
-    class="bg-grey-2"
-    padding
-    q-pa-md
-  >
-    <CategoryForm
-      v-if="editCategory"
-      :edit-category="editCategory"
-      @submit="handleSubmit"
-    />
-  </q-page>
+  <CategoryForm
+    v-if="editCategory"
+    :edit-category="editCategory"
+    @submit="handleSubmit"
+  />
 </template>
 
 <script lang="ts" setup>
