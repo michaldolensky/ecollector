@@ -1,9 +1,7 @@
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
+import { i18n } from 'boot/i18n';
 
 export const validationHelper = {
 
-  required: (val:string) => !!val || t('forms.validation.required'),
+  required: (val:string) => !!val || i18n.global.t('forms.validation.required'),
 
 };
