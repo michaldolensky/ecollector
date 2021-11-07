@@ -6,6 +6,7 @@ declare namespace NodeJS {
     DEV: string;
     GRAPHQL_URL:string
     SERVER_URL:string
+    SERVER_URL_API:string
     MODE:string
   }
 }

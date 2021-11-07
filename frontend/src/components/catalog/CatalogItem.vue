@@ -3,7 +3,7 @@
     class="my-card"
   >
     <q-img
-      :src="serverUrl+props.item.images[0].path"
+      :src="SERVER_URL+props.item.images[0].path"
       fit="scale-down"
       loading="lazy"
       style="max-height: 250px"
@@ -41,13 +41,13 @@
 <script lang="ts" setup>
 import { CatalogItem } from 'src/module/useCatalog';
 import { defineProps } from 'vue';
+import { SERVER_URL } from 'src/module/useEnv';
 
 interface Props{
   item:CatalogItem
 }
 
 const props = defineProps<Props>();
-const serverUrl = process.env.SERVER_URL;
 
 </script>
 <style lang="sass" scoped>

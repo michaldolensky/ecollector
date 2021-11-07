@@ -87,8 +87,6 @@ const { removeImage } = useImages();
 const route = useRoute();
 const { siteId, itemId } = route.params;
 
-const serverUrl = process.env.SERVER_URL;
-
 const uploadImage = () => ({
   url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
   method: 'POST',

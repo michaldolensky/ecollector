@@ -18,7 +18,7 @@
           >
             <img
               :alt="slotProps.row.name"
-              :src="serverUrl+slotProps.row.images[0].path"
+              :src="SERVER_URL+slotProps.row.images[0].path"
             >
           </q-avatar>
           <q-icon
@@ -58,6 +58,7 @@ import { useQuasar } from 'quasar';
 import { useI18n } from 'src/boot/i18n';
 import { Item, useItems } from 'src/module/useItems';
 import { reactive } from 'vue';
+import { SERVER_URL } from 'src/module/useEnv';
 
 interface Props {
   loading?: boolean
@@ -74,7 +75,6 @@ const { removeItem } = useItems();
 const { dialog } = useQuasar();
 
 const { t } = useI18n();
-const serverUrl = process.env.SERVER_URL;
 
 const initialPagination = reactive({
   sortBy: 'name',
