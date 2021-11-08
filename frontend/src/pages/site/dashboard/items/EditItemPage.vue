@@ -106,7 +106,7 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
-import { useQuasar } from 'quasar';
+import { DeepPartial, useQuasar } from 'quasar';
 import { UpdateItemInput } from 'src/apollo/composition-functions';
 import { useItems } from 'src/module/useItems';
 import { validationHelper } from 'src/validationHelper';
@@ -123,7 +123,7 @@ const { required } = validationHelper;
 
 const { notify } = useQuasar();
 
-const resetObject:Partial<UpdateItemInput> = {
+const resetObject:DeepPartial<UpdateItemInput> = {
   id: 0,
   name: '',
   categoryId: undefined,
@@ -132,6 +132,7 @@ const resetObject:Partial<UpdateItemInput> = {
   internalNumber: '',
   numberForExchange: 0,
   numberInCollection: 0,
+  images: [],
 };
 
 const item = reactive(resetObject);
@@ -154,6 +155,7 @@ onMounted(() => {
       item.internalNumber = reqItem.internalNumber;
       item.numberForExchange = reqItem.numberForExchange;
       item.numberInCollection = reqItem.numberInCollection;
+      item.images = reqItem.images;
     });
   }
 });

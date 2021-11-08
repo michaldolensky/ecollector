@@ -8,6 +8,7 @@
     <q-separator />
     <q-card-section>
       <q-uploader
+        ref="uploader"
         :disable="!props.inEditMode"
         :factory="uploadImage"
         accept="image/*"
@@ -38,11 +39,11 @@
     <q-card-section>
       <div class="q-pa-xs row items-start q-gutter-xs">
         <q-card
-          v-for="image in images"
+          v-for="image in props.modelValue"
           :key="image.id"
         >
           <q-img
-            :src="serverUrl+image.path"
+            :src="SERVER_URL+image.path"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">
@@ -67,61 +68,58 @@
   </q-card>
 </template>
 <script lang="ts" setup>
+import { QUploader } from 'quasar';
 import { Image, useImages } from 'src/module/useImages';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { SERVER_URL } from 'src/module/useEnv';
 
 interface Props {
   inEditMode: boolean;
   modelValue: Image[];
 }
-
 const props = withDefaults(defineProps<Props>(), {
   inEditMode: false,
 });
-
 const emit = defineEmits(['update:modelValue']);
 
 const { removeImage } = useImages();
 
+const uploader = ref<QUploader>();
 const route = useRoute();
-const { siteId, itemId } = route.params;
+const { siteId, item } = route.params;
 
-const uploadImage = () => ({
-  url: `${process.env.SERVER_URL}/uploads?siteId=${<string>siteId}siteId&itemId=${<string>itemId}`,
-  method: 'POST',
-  fieldName: 'images',
-});
-const images = ref(props.modelValue);
-const updateImages = () => emit('update:modelValue', images);
+const uploadImage = () => {
+  uploader.value?.reset();
+  return {
+    url: `${process.env.SERVER_URL}uploads?siteId=${<string>siteId}&itemId=${<string>item}`,
+    method: 'POST',
+    fieldName: 'images',
+  };
+};
+const updateImages = (images:Image[]) => emit('update:modelValue', images);
 
 const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
   const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
 
-  responseImages.forEach((value) => {
-    const img:Image = {
-      main: value.main,
-      path: value.path,
-      id: value.id,
-    };
-    images.value = [...images.value, img];
-  });
-  updateImages();
+  updateImages([...responseImages.map((value) => ({
+    main: value.main,
+    path: value.path,
+    id: value.id,
+  })), ...props.modelValue]);
 };
 
 const deleteImage = (id: number) => {
   removeImage(id);
-  images.value = images.value.filter((value) => value.id !== id);
-  updateImages();
+  updateImages(props.modelValue.filter((value) => value.id !== id));
 };
 
 const setAsMainImage = (id: number) => {
-  images.value = images.value.map((value) => ({
+  updateImages(props.modelValue.map((value) => ({
     path: value.path,
     id: value.id,
     main: value.id === id,
-  }));
-  updateImages();
+  })));
 };
 
 </script>
