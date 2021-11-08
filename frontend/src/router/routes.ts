@@ -24,9 +24,11 @@ const validateSiteId:NavigationGuard = (to, from, next) => {
     next();
   } else next({ name: 'Error404' });
 };
-const validateCategoryId:NavigationGuard = (to, from, next) => {
-  const siteId = getParsedInt(to.params.categoryId);
-  if (siteId > 0) {
+const validateCategory:NavigationGuard = (to, from, next) => {
+  const { category } = to.params;
+  const categoryId = getParsedInt(category);
+
+  if (category === 'new' || categoryId > 0) {
     next();
   } else next({ name: 'Error404' });
 };
@@ -147,15 +149,10 @@ const getRoutes = (): RouteRecordRaw[] => {
                       component: () => import('pages/site/dashboard/categories/DashboardCategoriesListPage.vue'),
                     },
                     {
-                      name: 'DashBoardCategoryEdit',
-                      path: 'edit/:categoryId',
+                      name: 'DashBoardCategory',
+                      path: ':category',
                       component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-                      beforeEnter: [validateCategoryId],
-                    },
-                    {
-                      name: 'DashBoardCategoryCreate',
-                      path: 'new',
-                      component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+                      beforeEnter: [validateCategory],
                     },
                   ],
                 },

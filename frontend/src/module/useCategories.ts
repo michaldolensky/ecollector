@@ -2,7 +2,7 @@ import {
   CreateCategoryInput,
   UpdateCategoryInput,
   useCreateCategoryMutation,
-  useGetCategoriesQuery,
+  useGetCategoriesQuery, useGetCategoryQuery,
   useRemoveCategoryMutation, useUpdateCategoryMutation,
 } from 'src/apollo/composition-functions';
 
@@ -32,10 +32,12 @@ export function useCategories() {
     siteId: currentSiteId.value,
   });
 
+  const getCategory = (id:number) => useGetCategoryQuery({
+    id,
+  });
+
   const { mutate: removeCategoryMutation } = useRemoveCategoryMutation({});
-  // eslint-disable-next-line max-len
   const { mutate: createCategoryMutation } = useCreateCategoryMutation({});
-  // eslint-disable-next-line max-len
   const { mutate: updateCategoryMutation } = useUpdateCategoryMutation({});
 
   const removeCategory = (id:number) => {
@@ -59,6 +61,7 @@ export function useCategories() {
   return {
     result,
     loading,
+    getCategory,
     getCategories,
     removeCategory,
     createCategory,

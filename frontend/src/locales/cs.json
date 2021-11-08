@@ -9,7 +9,9 @@
     },
     "headers": {
       "editItem": "dashboard.headers.editItem",
-      "createItem": "dashboard.headers.createItem"
+      "createItem": "dashboard.headers.createItem",
+      "createCategory": "dashboard.headers.createCategory",
+      "editCategory": "dashboard.headers.editCategory"
     }
   },
   "items": {
