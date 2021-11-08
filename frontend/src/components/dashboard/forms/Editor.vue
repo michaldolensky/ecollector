@@ -53,21 +53,16 @@
     ]"
     min-height="15rem"
     outlined
-    @update:model-value="emit('update:modelValue',value)"
   />
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { useVModel } from '@vueuse/core';
 
-interface Props{
-  modelValue: string;
+interface Props {
+  modelValue: string
 }
-const props = withDefaults(defineProps<Props>(), {
-  modelValue: '',
-});
-
+const props = defineProps<Props>();
 const emit = defineEmits(['update:modelValue']);
-
-const value = ref(props.modelValue);
+const value = useVModel(props, 'modelValue', emit);
 
 </script>
