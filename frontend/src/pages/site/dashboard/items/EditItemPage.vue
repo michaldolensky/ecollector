@@ -173,6 +173,7 @@ const save = () => {
     });
   } else {
     delete item.id;
+    delete item.images;
     void createItem(item).then((data) => {
       if (data?.data) {
         notify({
