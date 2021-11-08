@@ -174,15 +174,15 @@ const save = () => {
   } else {
     delete item.id;
     delete item.images;
-    void createItem(item).then((data) => {
-      if (data?.data) {
+    void createItem(item).then((result) => {
+      if (result?.data) {
         notify({
           type: 'positive',
           message: 'Item created',
         });
         void router.push({
           name: 'DashBoardItem',
-          params: { item: data.data.createItem.id },
+          params: { item: result.data.createItem.id },
         });
       }
     });
