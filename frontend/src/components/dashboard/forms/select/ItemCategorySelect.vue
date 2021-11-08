@@ -30,7 +30,7 @@ const { required } = validationHelper;
 const { currentSiteId } = useSites();
 
 interface Props {
-  modelValue: number
+  modelValue: number|null
 }
 
 const props = defineProps<Props>();

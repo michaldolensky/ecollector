@@ -106,10 +106,11 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
-import { DeepPartial, useQuasar } from 'quasar';
+import { useQuasar } from 'quasar';
 import { UpdateItemInput } from 'src/apollo/composition-functions';
 import { useItems } from 'src/module/useItems';
 import { validationHelper } from 'src/validationHelper';
+import { DeepNullable } from 'ts-essentials';
 import {
   computed, onMounted, reactive, ref,
 } from 'vue';
@@ -123,10 +124,10 @@ const { required } = validationHelper;
 
 const { notify } = useQuasar();
 
-const resetObject:DeepPartial<UpdateItemInput> = {
+const resetObject:DeepNullable<UpdateItemInput> = {
   id: 0,
   name: '',
-  categoryId: undefined,
+  categoryId: null,
   shortDesc: '',
   longDesc: '',
   internalNumber: '',
