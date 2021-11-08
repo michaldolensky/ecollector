@@ -26,6 +26,12 @@ query getCategories($siteId:Int!){
     name
   }
 }
+query getCategoriesForSelector($siteId:Int!){
+  categories(siteId:$siteId) {
+    id
+    name
+  }
+}
 query getCategory($id:Int!){
   category(id:$id) {
     id

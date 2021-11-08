@@ -10,10 +10,6 @@ query item($id:Int!){
     categoryId
     updatedAt
     createdAt
-    category{
-      id
-      name
-    }
     images{
       id
       path
@@ -47,10 +43,6 @@ mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
     categoryId
     updatedAt
     createdAt
-    category{
-      id
-      name
-    }
     images{
       id
       path

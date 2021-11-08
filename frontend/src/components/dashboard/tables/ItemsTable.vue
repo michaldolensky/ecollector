@@ -34,7 +34,7 @@
     <template #body-cell-action="slotProps">
       <q-td>
         <q-btn
-          :to="`items/edit/${slotProps.row.id}`"
+          :to="`items/${slotProps.row.id}`"
           dense
           flat
           icon="edit"

@@ -2,7 +2,7 @@
   <dashboard-page-header :title="$t('dashboard.navigation.items')">
     <q-btn
       :label="$t('dashboard.items.addItem')"
-      :to="{name:'DashBoardItemCreate'}"
+      :to="{name:'DashBoardItem',params:{item:'new'}}"
       color="primary"
       icon="add"
     />

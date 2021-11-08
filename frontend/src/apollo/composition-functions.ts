@@ -393,7 +393,7 @@ export type ItemQueryVariables = Exact<{
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, category: { __typename?: 'Category', id: number, name: string }, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
 
 export type CreateItemMutationVariables = Exact<{
   createItemInput: CreateItemInput;
@@ -417,7 +417,7 @@ export type UpdateItemMutationVariables = Exact<{
 }>;
 
 
-export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, category: { __typename?: 'Category', id: number, name: string }, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
+export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
 
 export type GetItemsQueryVariables = Exact<{
   siteId: Scalars['Int'];
@@ -456,6 +456,13 @@ export type GetCategoriesQueryVariables = Exact<{
 
 
 export type GetCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: number, createdAt: any, updatedAt: any, name: string }> };
+
+export type GetCategoriesForSelectorQueryVariables = Exact<{
+  siteId: Scalars['Int'];
+}>;
+
+
+export type GetCategoriesForSelectorQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: number, name: string }> };
 
 export type GetCategoryQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -535,10 +542,6 @@ export const ItemDocument = gql`
     categoryId
     updatedAt
     createdAt
-    category {
-      id
-      name
-    }
     images {
       id
       path
@@ -642,10 +645,6 @@ export const UpdateItemDocument = gql`
     categoryId
     updatedAt
     createdAt
-    category {
-      id
-      name
-    }
     images {
       id
       path
@@ -840,6 +839,34 @@ export function useGetCategoriesQuery(variables: GetCategoriesQueryVariables | V
   return VueApolloComposable.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options);
 }
 export type GetCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesQuery, GetCategoriesQueryVariables>;
+export const GetCategoriesForSelectorDocument = gql`
+    query getCategoriesForSelector($siteId: Int!) {
+  categories(siteId: $siteId) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetCategoriesForSelectorQuery__
+ *
+ * To run a query within a Vue component, call `useGetCategoriesForSelectorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoriesForSelectorQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetCategoriesForSelectorQuery({
+ *   siteId: // value for 'siteId'
+ * });
+ */
+export function useGetCategoriesForSelectorQuery(variables: GetCategoriesForSelectorQueryVariables | VueCompositionApi.Ref<GetCategoriesForSelectorQueryVariables> | ReactiveFunction<GetCategoriesForSelectorQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>(GetCategoriesForSelectorDocument, variables, options);
+}
+export type GetCategoriesForSelectorQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>;
 export const GetCategoryDocument = gql`
     query getCategory($id: Int!) {
   category(id: $id) {

@@ -10,9 +10,11 @@ declare module 'vue-router' {
   }
 }
 
-const validateItemId:NavigationGuard = (to, from, next) => {
-  const siteId = getParsedInt(to.params.siteId);
-  if (siteId > 0) {
+const validateItem:NavigationGuard = (to, from, next) => {
+  const { item } = to.params;
+  const itemId = getParsedInt(item);
+
+  if (item === 'new' || itemId > 0) {
     next();
   } else next({ name: 'Error404' });
 };
@@ -128,15 +130,10 @@ const getRoutes = (): RouteRecordRaw[] => {
                       component: () => import('pages/site/dashboard/items/DashboardItemsListPage.vue'),
                     },
                     {
-                      name: 'DashBoardItemEdit',
-                      path: 'edit/:itemId',
+                      name: 'DashBoardItem',
+                      path: ':item',
                       component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-                      beforeEnter: [validateItemId],
-                    },
-                    {
-                      name: 'DashBoardItemCreate',
-                      path: 'new',
-                      component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+                      beforeEnter: [validateItem],
                     },
                   ],
                 },
