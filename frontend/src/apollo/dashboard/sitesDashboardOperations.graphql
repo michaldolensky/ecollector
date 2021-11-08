@@ -1,3 +1,13 @@
+query site($id:Int!){
+  site(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+
+
 mutation createSite($createSiteInput:CreateSiteInput!){
   createSite(createSiteInput: $createSiteInput) {
     id

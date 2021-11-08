@@ -2,7 +2,8 @@
   "dashboard": {
     "navigation": {
       "items": "dashboard.navigation.items",
-      "categories": "dashboard.navigation.categories"
+      "categories": "dashboard.navigation.categories",
+      "settings": "dashboard.navigation.settings"
     },
     "items": {
       "addItem": "dashboard.items.addItem"

@@ -479,6 +479,13 @@ export type RemoveImageMutationVariables = Exact<{
 
 export type RemoveImageMutation = { __typename?: 'Mutation', removeImage: { __typename?: 'Image', id: number } };
 
+export type SiteQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type SiteQuery = { __typename?: 'Query', site: { __typename?: 'Site', id: number, name: string, createdAt: any, updatedAt: any } };
+
 export type CreateSiteMutationVariables = Exact<{
   createSiteInput: CreateSiteInput;
 }>;
@@ -926,6 +933,36 @@ export function useRemoveImageMutation(options: VueApolloComposable.UseMutationO
   return VueApolloComposable.useMutation<RemoveImageMutation, RemoveImageMutationVariables>(RemoveImageDocument, options);
 }
 export type RemoveImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveImageMutation, RemoveImageMutationVariables>;
+export const SiteDocument = gql`
+    query site($id: Int!) {
+  site(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useSiteQuery__
+ *
+ * To run a query within a Vue component, call `useSiteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSiteQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useSiteQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useSiteQuery(variables: SiteQueryVariables | VueCompositionApi.Ref<SiteQueryVariables> | ReactiveFunction<SiteQueryVariables>, options: VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<SiteQuery, SiteQueryVariables>(SiteDocument, variables, options);
+}
+export type SiteQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<SiteQuery, SiteQueryVariables>;
 export const CreateSiteDocument = gql`
     mutation createSite($createSiteInput: CreateSiteInput!) {
   createSite(createSiteInput: $createSiteInput) {
