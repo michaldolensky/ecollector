@@ -39,7 +39,7 @@
     <q-card-section>
       <div class="q-pa-xs row items-start q-gutter-xs">
         <q-card
-          v-for="image in props.modelValue"
+          v-for="image in images"
           :key="image.id"
         >
           <q-img
@@ -68,11 +68,14 @@
   </q-card>
 </template>
 <script lang="ts" setup>
+import { useVModel } from '@vueuse/core';
 import { QUploader } from 'quasar';
 import { Image, useImages } from 'src/module/useImages';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { SERVER_URL } from 'src/module/useEnv';
+
+const { removeImage } = useImages();
 
 interface Props {
   inEditMode: boolean;
@@ -81,9 +84,9 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   inEditMode: false,
 });
-const emit = defineEmits(['update:modelValue']);
 
-const { removeImage } = useImages();
+const emit = defineEmits(['update:modelValue']);
+const images = useVModel(props, 'modelValue', emit);
 
 const uploader = ref<QUploader>();
 const route = useRoute();
@@ -97,29 +100,28 @@ const uploadImage = () => {
     fieldName: 'images',
   };
 };
-const updateImages = (images:Image[]) => emit('update:modelValue', images);
 
 const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
   const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
 
-  updateImages([...responseImages.map((value) => ({
+  images.value = [...responseImages.map((value) => ({
     main: value.main,
     path: value.path,
     id: value.id,
-  })), ...props.modelValue]);
+  })), ...props.modelValue];
 };
 
 const deleteImage = (id: number) => {
   removeImage(id);
-  updateImages(props.modelValue.filter((value) => value.id !== id));
+  images.value = images.value.filter((value) => value.id !== id);
 };
 
 const setAsMainImage = (id: number) => {
-  updateImages(props.modelValue.map((value) => ({
+  images.value = images.value.map((value) => ({
     path: value.path,
     id: value.id,
     main: value.id === id,
-  })));
+  }));
 };
 
 </script>
