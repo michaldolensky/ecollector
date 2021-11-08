@@ -46,7 +46,7 @@ export function useItems() {
   const getItem = (id:number) => useItemQuery({
     id,
   });
-  const { mutate: removeItemMutation } = useRemoveItemMutation({ });
+  const { mutate: removeItemMutation } = useRemoveItemMutation({});
   const { mutate: createItemMutation } = useCreateItemMutation({});
   const { mutate: updateItemMutation } = useUpdateItemMutation({});
 
