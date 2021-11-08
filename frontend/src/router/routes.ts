@@ -159,7 +159,7 @@ const getRoutes = (): RouteRecordRaw[] => {
                 {
                   name: 'DashBoardSettings',
                   path: 'settings',
-                  component: () => import('pages/site/dashboard/settings/Settings.vue'),
+                  component: () => import('pages/site/dashboard/settings/SettingsPage.vue'),
                 },
               ],
             },
