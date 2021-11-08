@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  api:
+  api_server:
     container_name: ecollector-api-dev
     build:
       context: ./api
@@ -9,6 +9,7 @@ services:
     command: npm run start:debug
     ports:
       - "9229:9229"
+      - "3000:3000"
     env_file:
       - .config/.env.dev
     depends_on:
@@ -52,7 +53,7 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - api
+      - api_server
     env_file:
       - .config/.env.dev
 
