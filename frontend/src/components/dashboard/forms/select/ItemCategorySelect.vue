@@ -1,15 +1,9 @@
 <template>
-  <q-skeleton
-    v-if="loading"
-    type="QInput"
-  />
   <q-select
-    v-else
     v-model="value"
-    :loading="loading"
     :options="options"
     :rules="[required]"
-    clearable
+    emit-value
     input-debounce="0"
     label="Category"
     map-options
@@ -18,68 +12,53 @@
     outlined
     use-input
     @filter="filterFn"
-    @update:model-value="$emit('update:modelValue',value)"
   />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
-import { Category, useCategories } from 'src/module/useCategories';
+import { useVModel } from '@vueuse/core';
+
+import { useGetCategoriesForSelectorQuery } from 'src/apollo/composition-functions';
+import { useSites } from 'src/module/useSites';
+import { FilterFn } from 'src/types/FilterFn.type';
 import { validationHelper } from 'src/validationHelper';
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'ItemCategorySelect',
-  components: {},
-  props: {
-    modelValue: {
-      type: Object,
-      default: null,
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props) {
-    const value = ref(props.modelValue);
-    const { getCategories } = useCategories();
-    const options = ref();
-    const { result, loading } = getCategories();
+const { required } = validationHelper;
 
-    const categories = useResult(result, null, (data) => {
-      if (data !== undefined) {
-        return data.categories;
-      }
-      return [];
-    });
+const { currentSiteId } = useSites();
 
-    return {
-      value,
-      ...validationHelper,
-      result,
-      options,
-      loading,
-      filterFn(val:string, update:unknown) {
-        if (val === '') {
-          // Update nemá type
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          update(() => {
-            if (categories.value !== undefined) {
-              options.value = categories.value;
-            }
-          });
-        }
-        // Update nemá type
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        update(() => {
-          const needle: string = val.toLowerCase();
-          if (categories.value != null) {
-            options.value = categories.value
-              .filter((v: Category) => v.name.toLowerCase().indexOf(needle) > -1);
-          }
-        });
-      },
-    };
-  },
+interface Props {
+  modelValue: number
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits(['update:modelValue']);
+const value = useVModel(props, 'modelValue', emit);
+const options = ref();
+
+const { result, onResult } = useGetCategoriesForSelectorQuery({ siteId: currentSiteId.value });
+const categories = useResult(result, null, (data) => data.categories);
+
+onResult(() => {
+  options.value = categories.value;
 });
+
+const filterFn: FilterFn = (val, update) => {
+  if (val === '') {
+    update(() => {
+      options.value = categories.value;
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    if (categories.value !== null) {
+      options.value = categories.value
+        .filter((v) => v.name.toLowerCase().indexOf(needle) > -1);
+    }
+  });
+};
 </script>
