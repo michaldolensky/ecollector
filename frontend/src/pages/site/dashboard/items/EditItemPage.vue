@@ -182,7 +182,7 @@ const save = () => {
         });
         void router.push({
           name: 'DashBoardItem',
-          params: { itemId: data.data.createItem.id },
+          params: { item: data.data.createItem.id },
         });
       }
     });
