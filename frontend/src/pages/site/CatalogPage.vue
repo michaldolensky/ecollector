@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh LpR fFf">
+  <q-page>
     <q-drawer
       v-model="settings.drawerState"
       :width="300"
@@ -39,7 +39,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-  </q-layout>
+  </q-page>
 </template>
 
 <script lang="ts" setup>
