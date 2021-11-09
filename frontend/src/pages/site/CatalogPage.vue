@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh LpR fFf">
+  <q-page>
     <q-drawer
       v-model="settings.drawerState"
       :width="300"
@@ -10,7 +10,7 @@
     >
       <q-scroll-area
         id="scroll-area-with-virtual-scroll-1"
-        style="height: 80vh"
+        style="height: 100%"
       >
         <q-virtual-scroll
           v-if="!loading"
@@ -39,7 +39,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-  </q-layout>
+  </q-page>
 </template>
 
 <script lang="ts" setup>
