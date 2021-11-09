@@ -10,7 +10,7 @@
     >
       <q-scroll-area
         id="scroll-area-with-virtual-scroll-1"
-        style="height: 80vh"
+        style="height: 100%"
       >
         <q-virtual-scroll
           v-if="!loading"
