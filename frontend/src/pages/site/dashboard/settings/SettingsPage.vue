@@ -16,7 +16,7 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                M description
+                Main description
               </div>
             </q-card-section>
             <q-card-section>
