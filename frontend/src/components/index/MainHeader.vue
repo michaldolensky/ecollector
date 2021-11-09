@@ -28,12 +28,10 @@
 
       <AccountDropdown />
     </q-toolbar>
-    <site-toolbar />
   </q-header>
 </template>
 <script lang="ts" setup>
 import AccountDropdown from 'components/index/AuthDropdown.vue';
-import SiteToolbar from 'components/SiteToolbar.vue';
 import { useSiteSettingsStore } from 'src/stores/settings';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';

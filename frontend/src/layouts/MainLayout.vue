@@ -1,8 +1,41 @@
 <template>
-  <q-layout
-    view="hHh LpR fFf"
-  >
-    <main-header />
+  <q-layout view="hHh LpR fFf">
+    <q-header
+      class="bg-primary text-white"
+      elevated
+      height-hint="98"
+    >
+      <q-toolbar>
+        <q-btn
+          v-if="showDrawer"
+          class="q-mr-sm"
+          dense
+          flat
+          icon="menu"
+          round
+          @click="settings.toggleDrawer"
+        />
+        <q-toolbar-title shrink>
+          <q-item
+            clickable
+            exact
+            tag="a"
+            to="/"
+          >
+            <q-item-section class="text-white">
+              E-collector
+            </q-item-section>
+          </q-item>
+        </q-toolbar-title>
+        <q-space />
+
+        <AccountDropdown />
+      </q-toolbar>
+
+      <router-view name="subToolbar" />
+    </q-header>
+
+    <router-view name="drawer" />
 
     <q-page-container>
       <router-view />
@@ -11,5 +44,15 @@
 </template>
 
 <script lang="ts" setup>
-import MainHeader from 'components/index/MainHeader.vue';
+import { useSiteSettingsStore } from 'src/stores/settings';
+import AccountDropdown from 'components/index/AuthDropdown.vue';
+
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const settings = useSiteSettingsStore();
+
+const route = useRoute();
+const showDrawer = ref(route.meta.showDrawer);
+
 </script>

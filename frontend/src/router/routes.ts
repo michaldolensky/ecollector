@@ -85,7 +85,11 @@ const getRoutes = (): RouteRecordRaw[] => {
         {
           name: 'catalog',
           path: 'site/:siteId/catalog',
-          component: () => import('pages/site/CatalogPage.vue'),
+          components: {
+            default: RouterView,
+            drawer: () => import('components/drawers/CatalogDrawer.vue'),
+            subToolbar: () => import('components/SiteToolbar.vue'),
+          },
           meta: {
             showDrawer: true,
           },
@@ -103,8 +107,12 @@ const getRoutes = (): RouteRecordRaw[] => {
           ],
         },
         {
-          path: 'site/:siteId/dashboard',
-          component: () => import('pages/site/dashboard/DashboardPage.vue'),
+          path: 'site/:siteId/dashboard/',
+          redirect: { name: 'DashBoardIndex' },
+          components: {
+            default: RouterView,
+            drawer: () => import('components/drawers/DashboardDrawer.vue'),
+          },
           beforeEnter: [validateSiteId, requireAuth, requireOwner],
           meta: {
             showDrawer: true,
@@ -117,16 +125,18 @@ const getRoutes = (): RouteRecordRaw[] => {
             },
             {
               path: 'items',
+              redirect: { name: 'DashBoardItemsList' },
               component: RouterView,
+
               children: [
                 {
                   name: 'DashBoardItemsList',
-                  path: '',
+                  path: 'items',
                   component: () => import('pages/site/dashboard/items/DashboardItemsListPage.vue'),
                 },
                 {
                   name: 'DashBoardItem',
-                  path: ':item',
+                  path: 'items/:item',
                   component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
                   beforeEnter: [validateItem],
                 },
@@ -134,6 +144,7 @@ const getRoutes = (): RouteRecordRaw[] => {
             },
             {
               path: 'categories',
+              redirect: { name: 'DashBoardCategoriesList' },
               component: RouterView,
               children: [
                 {

@@ -1,35 +1,37 @@
 <template>
-  <dashboard-page-header :title="$t('dashboard.navigation.categories')">
-    <q-btn
-      :label="$t('dashboard.items.addItem')"
-      :to="{name:'DashBoardCategory',params:{category:'new'}}"
-      color="primary"
-      icon="add"
-    />
-  </dashboard-page-header>
+  <q-page>
+    <dashboard-page-header :title="$t('dashboard.navigation.categories')">
+      <q-btn
+        :label="$t('dashboard.items.addItem')"
+        :to="{name:'DashBoardCategory',params:{category:'new'}}"
+        color="primary"
+        icon="add"
+      />
+    </dashboard-page-header>
 
-  <q-card class="q-pa-md">
-    <q-input
-      v-model="filter"
-      :placeholder="$t('filters.items.search')"
-      debounce="300"
-      stack-label
-    >
-      <template #append>
-        <q-icon name="search" />
-      </template>
-    </q-input>
-  </q-card>
+    <q-card class="q-pa-md">
+      <q-input
+        v-model="filter"
+        :placeholder="$t('filters.items.search')"
+        debounce="300"
+        stack-label
+      >
+        <template #append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+    </q-card>
 
-  <q-card v-if="loading">
-    <CategoriesTable :loading="loading" />
-  </q-card>
-  <q-card v-else>
-    <CategoriesTable
-      :categories="result.categories"
-      :filter="filter"
-    />
-  </q-card>
+    <q-card v-if="loading">
+      <CategoriesTable :loading="loading" />
+    </q-card>
+    <q-card v-else>
+      <CategoriesTable
+        :categories="result.categories"
+        :filter="filter"
+      />
+    </q-card>
+  </q-page>
 </template>
 
 <script lang="ts" setup>
