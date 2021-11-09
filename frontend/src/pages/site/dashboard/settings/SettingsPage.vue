@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.settings')">
       <q-btn
         :label="$t('buttons.common.save')"
@@ -32,11 +32,12 @@
         </div>
       </div>
     </div>
-  </q-page>
+  </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateSiteInput } from 'src/apollo/composition-functions';
 import { useSites } from 'src/module/useSites';

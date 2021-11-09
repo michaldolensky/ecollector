@@ -1,11 +1,9 @@
 <template>
-  <q-page>
-    <q-page
-      class="bg-grey-3 col items-start q-gutter-md"
-      padding
-    >
-      <router-view />
-    </q-page>
+  <q-page
+    class="bg-grey-3 col items-start q-gutter-md"
+    padding
+  >
+    <slot />
   </q-page>
 </template>
 

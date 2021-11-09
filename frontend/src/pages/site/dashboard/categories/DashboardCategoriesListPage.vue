@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.categories')">
       <q-btn
         :label="$t('dashboard.items.addItem')"
@@ -31,12 +31,13 @@
         :filter="filter"
       />
     </q-card>
-  </q-page>
+  </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useCategories } from 'src/module/useCategories';
 import { ref } from 'vue';
 

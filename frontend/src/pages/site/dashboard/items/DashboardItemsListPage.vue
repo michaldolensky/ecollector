@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.items')">
       <q-btn
         :label="$t('dashboard.items.addItem')"
@@ -31,12 +31,13 @@
         :items="result.items"
       />
     </q-card>
-  </q-page>
+  </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useItems } from 'src/module/useItems';
 import { ref } from 'vue';
 

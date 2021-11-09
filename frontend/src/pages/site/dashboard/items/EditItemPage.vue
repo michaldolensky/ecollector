@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <dashboard-page>
     <dashboard-page-header
       :title="inEditMode?$t('dashboard.headers.editItem'):$t('dashboard.headers.createItem')"
     >
@@ -100,7 +100,7 @@
         </div>
       </div>
     </div>
-  </q-page>
+  </dashboard-page>
 </template>
 
 <script lang="ts" setup>
@@ -108,6 +108,7 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateItemInput } from 'src/apollo/composition-functions';
 import { useItems } from 'src/module/useItems';
