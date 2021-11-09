@@ -81,31 +81,25 @@ const getRoutes = (): RouteRecordRaw[] => {
         {
           path: 'site/:siteId',
           component: RouterView,
+          redirect: { name: 'CatalogIndex' },
           children: [
             {
-              path: '',
-              component: () => import('layouts/SiteLayout.vue'),
-              redirect: { name: 'CatalogIndex' },
+              name: 'catalog',
+              path: 'catalog',
+              component: () => import('pages/site/CatalogPage.vue'),
               meta: {
                 showDrawer: true,
               },
               children: [
                 {
-                  name: 'catalog',
-                  path: 'catalog',
-                  component: () => import('layouts/CatalogLayout.vue'),
-                  children: [
-                    {
-                      name: 'CatalogIndex',
-                      path: '',
-                      component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
-                    },
-                    {
-                      name: 'CatalogCategory',
-                      path: ':categoryId/',
-                      component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
-                    },
-                  ],
+                  name: 'CatalogIndex',
+                  path: '',
+                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
+                },
+                {
+                  name: 'CatalogCategory',
+                  path: ':categoryId/',
+                  component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
                 },
               ],
             },
