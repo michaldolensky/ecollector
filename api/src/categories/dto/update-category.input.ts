@@ -12,9 +12,6 @@ export class UpdateCategoryInput extends PartialType(CreateCategoryInput) {
 
   @Field(() => String)
   perex: string;
-
-  @Field(() => Int, { nullable: true })
-  parentId: number;
 }
 
 @ArgsType()

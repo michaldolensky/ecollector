@@ -1,4 +1,4 @@
-import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
+import { ArgsType, Field, InputType } from '@nestjs/graphql';
 import { SiteIdArgs } from '../../common/args/siteId.args';
 
 @InputType()
@@ -8,9 +8,6 @@ export class CreateCategoryInput {
 
   @Field(() => String)
   perex: string;
-
-  @Field(() => Int, { nullable: true })
-  parentId: number;
 }
 
 @ArgsType()
