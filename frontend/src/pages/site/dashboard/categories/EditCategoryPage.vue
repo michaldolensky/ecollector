@@ -7,11 +7,16 @@
         :label="$t('buttons.common.save')"
         color="secondary"
         icon="save"
-        @click="save()"
+        @click="form?.submit()"
       />
     </dashboard-page-header>
 
-    <div class=" items-start  full-width ">
+    <q-form
+      v-if="!loading"
+      ref="form"
+      class="items-start full-width"
+      @submit="onSubmit"
+    >
       <div class="row">
         <div class="col-12 col-md-8 q-pa-md q-gutter-md">
           <q-card>
@@ -46,57 +51,66 @@
           <q-card />
         </div>
       </div>
-    </div>
+    </q-form>
   </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useQuasar } from 'quasar';
-import { UpdateCategoryInput } from 'src/apollo/composition-functions';
+import { QForm, useQuasar } from 'quasar';
+import {
+  UpdateCategoryInput,
+  useGetCategoryQuery,
+} from 'src/apollo/composition-functions';
 import { useCategories } from 'src/composables/useCategories';
 import { validationHelper } from 'src/validationHelper';
-import { DeepNullable } from 'ts-essentials';
 
 import {
-  onMounted, ref, computed, reactive,
+  ref, computed, reactive,
 } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
-const route = useRoute();
 const router = useRouter();
-const editCategory = ref();
-const { updateCategory, createCategory, getCategory } = useCategories();
+const { updateCategory, createCategory } = useCategories();
 const { required } = validationHelper;
 
 const { notify } = useQuasar();
 
-const resetObject: DeepNullable<UpdateCategoryInput> = {
+interface Props {
+  categoryParam: string
+}
+
+const props = defineProps<Props>();
+
+const resetObject: UpdateCategoryInput = {
   id: 0,
   name: '',
   perex: '',
 };
 
 const category = reactive(resetObject);
+const form = ref<QForm>();
 
-const categoryParam = computed(() => route.params.category);
-const inEditMode = computed(() => categoryParam.value !== 'new');
-const categoryId = parseInt(<string>categoryParam.value, 10);
+const inEditMode = computed(() => props.categoryParam !== 'new');
+const categoryId = parseInt(props.categoryParam, 10);
 
-onMounted(() => {
-  if (inEditMode.value) {
-    const { onResult } = getCategory(categoryId);
-    onResult((result) => {
-      const reqCategory = result.data.category;
-      category.id = reqCategory.id;
-      category.name = reqCategory.name;
-      category.perex = reqCategory.perex;
-    });
+const { onResult, restart, loading } = useGetCategoryQuery({
+  id: categoryId,
+}, () => ({
+  enabled: inEditMode.value,
+}));
+
+onResult((result) => {
+  if (!result.loading) {
+    category.id = result.data.category.id;
+    category.name = result.data.category.name;
+    category.perex = result.data.category.perex;
   }
 });
+restart();
 
-const save = () => {
+const onSubmit = () => {
   if (inEditMode.value) {
     void updateCategory(category).then((result) => {
       if (result?.data) {
@@ -104,7 +118,6 @@ const save = () => {
           type: 'positive',
           message: 'Category updated',
         });
-        editCategory.value = result.data.updateCategory;
       }
     });
   } else {

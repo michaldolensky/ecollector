@@ -46,7 +46,6 @@ export type CategoryInput = {
 
 export type CreateCategoryInput = {
   name: Scalars['String'];
-  parentId?: Maybe<Scalars['Int']>;
   perex: Scalars['String'];
 };
 
@@ -322,7 +321,6 @@ export type SiteInput = {
 export type UpdateCategoryInput = {
   id: Scalars['Int'];
   name: Scalars['String'];
-  parentId?: Maybe<Scalars['Int']>;
   perex: Scalars['String'];
 };
 
