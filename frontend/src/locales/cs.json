@@ -13,6 +13,9 @@
       "createItem": "dashboard.headers.createItem",
       "createCategory": "dashboard.headers.createCategory",
       "editCategory": "dashboard.headers.editCategory"
+    },
+    "categories": {
+      "addCategory": "dashboard.categories.addCategory"
     }
   },
   "items": {
