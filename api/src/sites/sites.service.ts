@@ -47,6 +47,7 @@ export class SitesService {
     const site = await this.sitesRepository.findOne({ where: { id } });
     if (!site) throw new NotFoundException('Site not found!');
     await this.sitesRepository.delete(id);
+    return site;
   }
 
   async getSitesWithOwnerId(userId: number): Promise<Site[]> {

@@ -22,10 +22,7 @@ export function useSites() {
   const { mutate: createSiteMutation } = useCreateSiteMutation({});
   const { mutate: updateSiteMutation } = useUpdateSiteMutation({});
 
-  const getSite = (id:number) => {
-    console.log('123');
-    return useSiteQuery({ id });
-  };
+  const getSite = (id:number) => useSiteQuery({ id });
 
   const removeSite = (id:number) => removeSiteMutation({
     id,
