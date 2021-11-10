@@ -40,7 +40,7 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateSiteInput } from 'src/apollo/composition-functions';
-import { useSites } from 'src/module/useSites';
+import { useSites } from 'src/composables/useSites';
 import { validationHelper } from 'src/validationHelper';
 import {
   onMounted, reactive,

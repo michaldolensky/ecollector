@@ -1,4 +1,4 @@
-import { Category } from 'src/module/useCategories';
+import { Category } from 'src/composables/useCategories';
 import { toRowDate } from 'src/utils';
 
 export const CategoriesTableColumns = [

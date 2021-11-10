@@ -39,8 +39,8 @@
   </q-card>
 </template>
 <script lang="ts" setup>
-import { CatalogItem } from 'src/module/useCatalog';
-import { SERVER_URL } from 'src/module/useEnv';
+import { CatalogItem } from 'src/composables/useCatalog';
+import { SERVER_URL } from 'src/composables/useEnv';
 
 interface Props{
   item:CatalogItem

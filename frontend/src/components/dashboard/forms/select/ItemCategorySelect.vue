@@ -20,7 +20,7 @@ import { useResult } from '@vue/apollo-composable';
 import { useVModel } from '@vueuse/core';
 
 import { useGetCategoriesForSelectorQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/module/useSites';
+import { useSites } from 'src/composables/useSites';
 import { FilterFn } from 'src/types/FilterFn.type';
 import { validationHelper } from 'src/validationHelper';
 import { ref } from 'vue';

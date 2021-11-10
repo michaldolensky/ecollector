@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { api } from 'boot/axios';
 import { defineStore } from 'pinia';
-import { Site } from 'src/module/useSites';
+import { Site } from 'src/composables/useSites';
 import { LoginInterface } from 'src/types/auth.interface';
 import { getParsedInt } from 'src/utils';
 import { RouteLocationNormalized } from 'vue-router';

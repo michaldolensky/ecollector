@@ -38,7 +38,7 @@
 import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useCategories } from 'src/module/useCategories';
+import { useCategories } from 'src/composables/useCategories';
 import { ref } from 'vue';
 
 const { result, loading } = useCategories();

@@ -47,7 +47,7 @@ import {
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTableColumns';
-import { Category, useCategories } from 'src/module/useCategories';
+import { Category, useCategories } from 'src/composables/useCategories';
 
 interface Props{
   categories?:Category[]

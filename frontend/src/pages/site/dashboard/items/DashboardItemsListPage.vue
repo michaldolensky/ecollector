@@ -38,7 +38,7 @@
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useItems } from 'src/module/useItems';
+import { useItems } from 'src/composables/useItems';
 import { ref } from 'vue';
 
 const { result, loading } = useItems();

@@ -1,4 +1,4 @@
-import { Item } from 'src/module/useItems';
+import { Item } from 'src/composables/useItems';
 import { toRowDate } from 'src/utils';
 
 export const ItemsTableColumns = [

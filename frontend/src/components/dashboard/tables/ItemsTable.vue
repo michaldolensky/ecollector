@@ -56,9 +56,9 @@
 import { ItemsTableColumns } from 'components/dashboard/tables/ItemsTableColumns';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { Item, useItems } from 'src/module/useItems';
+import { Item, useItems } from 'src/composables/useItems';
 import { reactive } from 'vue';
-import { SERVER_URL } from 'src/module/useEnv';
+import { SERVER_URL } from 'src/composables/useEnv';
 
 interface Props {
   loading?: boolean

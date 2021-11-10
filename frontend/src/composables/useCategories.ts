@@ -6,7 +6,7 @@ import {
   useRemoveCategoryMutation, useUpdateCategoryMutation,
 } from 'src/apollo/composition-functions';
 
-import { useSites } from 'src/module/useSites';
+import { useSites } from 'src/composables/useSites';
 
 export interface Category {
   id:number

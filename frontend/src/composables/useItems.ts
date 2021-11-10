@@ -4,8 +4,8 @@ import {
   useGetItemsQuery, useItemQuery,
   useRemoveItemMutation, useUpdateItemMutation,
 } from 'src/apollo/composition-functions';
-import { Image } from 'src/module/useImages';
-import { useSites } from 'src/module/useSites';
+import { Image } from 'src/composables/useImages';
+import { useSites } from 'src/composables/useSites';
 
 export interface Item {
   id:number

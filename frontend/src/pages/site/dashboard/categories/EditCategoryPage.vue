@@ -55,7 +55,7 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateCategoryInput } from 'src/apollo/composition-functions';
-import { useCategories } from 'src/module/useCategories';
+import { useCategories } from 'src/composables/useCategories';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';
 

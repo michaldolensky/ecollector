@@ -111,7 +111,7 @@ import Editor from 'components/dashboard/forms/Editor.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateItemInput } from 'src/apollo/composition-functions';
-import { useItems } from 'src/module/useItems';
+import { useItems } from 'src/composables/useItems';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';
 import {

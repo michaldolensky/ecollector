@@ -55,7 +55,7 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { useSites } from 'src/module/useSites';
+import { useSites } from 'src/composables/useSites';
 
 const SiteDialogOpen = ref(false);
 const { createSite } = useSites();

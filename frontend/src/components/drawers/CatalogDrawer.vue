@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import { useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/module/useSites';
+import { useSites } from 'src/composables/useSites';
 import { useSiteSettingsStore } from 'src/stores/settings';
 
 const settings = useSiteSettingsStore();

@@ -1,4 +1,4 @@
-import { Site } from 'src/module/useSites';
+import { Site } from 'src/composables/useSites';
 import { toRowDate } from 'src/utils';
 
 export const SitesTableColumns = [

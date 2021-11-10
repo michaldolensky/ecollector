@@ -19,8 +19,8 @@
 <script lang="ts" setup>
 import { useQuery } from '@vue/apollo-composable';
 import { GET_CATALOG_ITEMS } from 'src/apollo/catalog/itemQueries';
-import { CatalogItemVars, ItemData } from 'src/module/useCatalog';
-import { useSites } from 'src/module/useSites';
+import { CatalogItemVars, ItemData } from 'src/composables/useCatalog';
+import { useSites } from 'src/composables/useSites';
 import { getParsedInt } from 'src/utils';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
