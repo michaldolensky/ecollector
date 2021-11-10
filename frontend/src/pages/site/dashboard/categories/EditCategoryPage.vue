@@ -130,7 +130,7 @@ const onSubmit = () => {
         });
         void router.push({
           name: 'DashboardCategory',
-          params: { category: result.data.createCategory.id },
+          params: { categoryParam: result.data.createCategory.id },
         });
       }
     });

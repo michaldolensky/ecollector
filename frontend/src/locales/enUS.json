@@ -67,6 +67,9 @@
       "createItem": "Create item",
       "createCategory": "Create category",
       "editCategory": "Edit category"
+    },
+    "categories": {
+      "addCategory": "Add category"
     }
   },
   "filters": {
