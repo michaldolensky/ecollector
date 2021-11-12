@@ -19,17 +19,10 @@
         separator
       >
         <template #default="{ item, index }">
-          <q-item
+          <catalog-list-category
             :key="index"
-            v-ripple
-            :to="{params:{categoryId:item.id}}"
-            clickable
-          >
-            <q-item-section>
-              <q-item-label>{{ item.name }}</q-item-label>
-              <q-item-label caption />
-            </q-item-section>
-          </q-item>
+            :category="item"
+          />
         </template>
       </q-virtual-scroll>
     </q-scroll-area>
@@ -37,6 +30,7 @@
 </template>
 
 <script lang="ts" setup>
+import CatalogListCategory from 'components/catalog/CatalogListCategory.vue';
 import { useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/composables/useSites';
 import { useSiteSettingsStore } from 'src/stores/settings';
