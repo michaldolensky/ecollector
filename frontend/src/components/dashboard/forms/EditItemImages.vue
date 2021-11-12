@@ -66,7 +66,6 @@
       </div>
     </q-card-section>
   </q-card>
-  {{ props.modelValue }}
 </template>
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
