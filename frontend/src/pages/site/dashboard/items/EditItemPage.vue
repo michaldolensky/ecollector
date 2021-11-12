@@ -57,7 +57,7 @@
           <q-card />
           <editItemImages
             v-model="item.images"
-            :in-edit-mode="inEditMode"
+            :in-edit-mode="props.inEditMode"
           />
         </div>
         <div class="col-12 col-md-4 q-pa-md ">
