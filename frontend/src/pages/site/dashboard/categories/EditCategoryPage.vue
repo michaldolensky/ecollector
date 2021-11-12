@@ -1,7 +1,7 @@
 <template>
   <dashboard-page>
     <dashboard-page-header
-      :title="inEditMode?$t('dashboard.headers.editCategory'):$t('dashboard.headers.createCategory')"
+      :title="props.inEditMode?$t('dashboard.headers.editCategory'):$t('dashboard.headers.createCategory')"
     >
       <q-btn
         :label="$t('buttons.common.save')"
@@ -29,7 +29,7 @@
             <q-separator />
             <q-card-section>
               <q-input
-                v-model="categoryObj.name"
+                v-model="category.name"
                 :rules="[required]"
                 counter
                 label="Item name"
@@ -39,7 +39,7 @@
               />
 
               <q-input
-                v-model="categoryObj.perex"
+                v-model="category.perex"
                 label="Short description"
                 maxlength="250"
                 outlined
@@ -67,7 +67,7 @@ import { useCategories } from 'src/composables/useCategories';
 import { validationHelper } from 'src/validationHelper';
 
 import {
-  ref, computed, reactive,
+  ref, reactive, onMounted,
 } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -78,7 +78,8 @@ const { required } = validationHelper;
 const { notify } = useQuasar();
 
 interface Props {
-  category: string
+  inEditMode?: boolean,
+  categoryId?: number,
 }
 
 const props = defineProps<Props>();
@@ -89,30 +90,31 @@ const resetObject: UpdateCategoryInput = {
   perex: '',
 };
 
-const categoryObj = reactive(resetObject);
+const category = reactive(resetObject);
+const enableQuery = ref(false);
 const form = ref<QForm>();
 
-const inEditMode = computed(() => props.category !== 'new');
-const categoryId = computed(() => parseInt(props.category, 10));
-
 const { onResult, restart, loading } = useGetCategoryQuery({
-  id: categoryId.value,
+  id: props.categoryId,
 }, () => ({
-  enabled: inEditMode.value,
+  enabled: enableQuery.value,
 }));
+onMounted(() => {
+  if (props.inEditMode) enableQuery.value = true;
+});
 
 onResult((result) => {
   if (!result.loading) {
-    categoryObj.id = result.data.category.id;
-    categoryObj.name = result.data.category.name;
-    categoryObj.perex = result.data.category.perex;
+    category.id = result.data.category.id;
+    category.name = result.data.category.name;
+    category.perex = result.data.category.perex;
   }
 });
 restart();
 
 const onSubmit = () => {
-  if (inEditMode.value) {
-    void updateCategory(categoryObj).then((result) => {
+  if (props.inEditMode) {
+    void updateCategory(category).then((result) => {
       if (result?.data) {
         notify({
           type: 'positive',
@@ -121,16 +123,16 @@ const onSubmit = () => {
       }
     });
   } else {
-    delete categoryObj.id;
-    void createCategory(categoryObj).then((result) => {
+    delete category.id;
+    void createCategory(category).then((result) => {
       if (result?.data) {
         notify({
           type: 'positive',
           message: 'Category created',
         });
         void router.push({
-          name: 'DashBoardCategory',
-          params: { category: result.data.createCategory.id },
+          name: 'DashBoardCategoryEdit',
+          params: { categoryId: result.data.createCategory.id },
         });
       }
     });

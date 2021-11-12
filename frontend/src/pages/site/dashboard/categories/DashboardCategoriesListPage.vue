@@ -3,7 +3,7 @@
     <dashboard-page-header :title="$t('dashboard.navigation.categories')">
       <q-btn
         :label="$t('dashboard.categories.addCategory')"
-        :to="{name:'DashBoardCategory',params:{category:'new'}}"
+        :to="{name:'DashBoardCategoryCreate'}"
         color="primary"
         icon="add"
       />

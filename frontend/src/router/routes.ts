@@ -24,10 +24,9 @@ const validateSiteId:NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 const validateCategory:NavigationGuard = (to, from, next) => {
-  const { category } = to.params;
-  const categoryId = getParsedInt(category);
+  const { categoryId } = to.params;
 
-  if (category === 'new' || categoryId > 0) {
+  if (getParsedInt(categoryId) > 0) {
     next();
   } else next({ name: 'Error404' });
 };
@@ -143,23 +142,25 @@ const getRoutes = (): RouteRecordRaw[] => {
               component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
             },
             {
+              name: 'DashBoardCategoriesList',
               path: 'categories',
-              redirect: { name: 'DashBoardCategoriesList' },
-              component: RouterView,
-              children: [
-                {
-                  name: 'DashBoardCategoriesList',
-                  path: '',
-                  component: () => import('pages/site/dashboard/categories/DashboardCategoriesListPage.vue'),
-                },
-                {
-                  name: 'DashBoardCategory',
-                  path: ':category',
-                  props: true,
-                  component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-                  beforeEnter: [validateCategory],
-                },
-              ],
+              component: () => import('pages/site/dashboard/categories/DashboardCategoriesListPage.vue'),
+            },
+            {
+              name: 'DashBoardCategoryEdit',
+              path: 'categories/edit/:categoryId',
+              props: (route) => ({
+                categoryId: parseInt(<string>route.params.categoryId, 10),
+                inEditMode: true,
+              }),
+              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+              beforeEnter: [validateCategory],
+            },
+            {
+              name: 'DashBoardCategoryCreate',
+              path: 'categories/new',
+              props: true,
+              component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
             },
             {
               name: 'DashBoardSettings',
