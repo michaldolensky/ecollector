@@ -92,12 +92,12 @@ const images = useVModel(props, 'modelValue', emit);
 
 const uploader = ref<QUploader>();
 const route = useRoute();
-const { siteId, item } = route.params;
+const { siteId, itemId } = route.params;
 
 const uploadImage = () => {
   uploader.value?.reset();
   return {
-    url: `${process.env.SERVER_URL}uploads?siteId=${<string>siteId}&itemId=${<string>item}`,
+    url: `${process.env.SERVER_URL}uploads?siteId=${<string>siteId}&itemId=${<string>itemId}`,
     method: 'POST',
     fieldName: 'images',
   };
