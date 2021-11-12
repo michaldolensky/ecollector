@@ -1,17 +1,22 @@
 <template>
   <dashboard-page>
     <dashboard-page-header
-      :title="inEditMode?$t('dashboard.headers.editItem'):$t('dashboard.headers.createItem')"
+      :title="props.inEditMode?$t('dashboard.headers.editItem'):$t('dashboard.headers.createItem')"
     >
       <q-btn
         :label="$t('buttons.common.save')"
         color="secondary"
         icon="save"
-        @click="save()"
+        @click="form?.submit()"
       />
     </dashboard-page-header>
 
-    <div class=" items-start  full-width ">
+    <q-form
+      v-if="!loading"
+      ref="form"
+      class="items-start full-width"
+      @submit="onSubmit"
+    >
       <div class="row">
         <div class="col-12 col-md-8 q-pa-md q-gutter-md">
           <q-card>
@@ -99,7 +104,7 @@
           </q-card>
         </div>
       </div>
-    </div>
+    </q-form>
   </dashboard-page>
 </template>
 
@@ -109,30 +114,34 @@ import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySe
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useQuasar } from 'quasar';
-import { UpdateItemInput } from 'src/apollo/composition-functions';
+import { QForm, useQuasar } from 'quasar';
+import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
 import { useItems } from 'src/composables/useItems';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';
 import {
-  computed, onMounted, reactive, ref,
+  reactive, ref, onMounted,
 } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
-const route = useRoute();
 const router = useRouter();
-const editItem = ref();
-const { createItem, updateItem, getItem } = useItems();
+const { createItem, updateItem } = useItems();
 const { required } = validationHelper;
 
 const { notify } = useQuasar();
 
+interface Props {
+  inEditMode?: boolean,
+  itemId?: number,
+}
+const props = defineProps<Props>();
+
 const resetObject:DeepNullable<UpdateItemInput> = {
   id: 0,
-  name: '',
-  categoryId: null,
-  shortDesc: '',
-  longDesc: '',
+  name: 'default name',
+  categoryId: 1,
+  shortDesc: 'default shortDesc',
+  longDesc: 'ASdefault longDesc',
   internalNumber: '',
   numberForExchange: 0,
   numberInCollection: 0,
@@ -140,39 +149,43 @@ const resetObject:DeepNullable<UpdateItemInput> = {
 };
 
 const item = reactive(resetObject);
-
-const itemParam = computed(() => route.params.item);
-const inEditMode = computed(() => itemParam.value !== 'new');
-const itemId = parseInt(<string>itemParam.value, 10);
-
+const enableQuery = ref(false);
 onMounted(() => {
-  if (inEditMode.value) {
-    const { onResult } = getItem(itemId);
-    onResult((result) => {
-      const reqItem = result.data.item;
+  if (props.inEditMode) enableQuery.value = true;
+});
+const form = ref<QForm>();
 
-      item.id = reqItem.id;
-      item.name = reqItem.name;
-      item.categoryId = reqItem.categoryId;
-      item.shortDesc = reqItem.shortDesc;
-      item.longDesc = reqItem.longDesc;
-      item.internalNumber = reqItem.internalNumber;
-      item.numberForExchange = reqItem.numberForExchange;
-      item.numberInCollection = reqItem.numberInCollection;
-      item.images = reqItem.images;
-    });
+const { onResult, restart, loading } = useItemQuery({
+  id: props.itemId,
+}, () => ({
+  enabled: enableQuery.value,
+}));
+
+onResult((result) => {
+  if (!result.loading) {
+    const reqItem = result.data.item;
+
+    item.id = reqItem.id;
+    item.name = reqItem.name;
+    item.categoryId = reqItem.categoryId;
+    item.shortDesc = reqItem.shortDesc;
+    item.longDesc = reqItem.longDesc;
+    item.internalNumber = reqItem.internalNumber;
+    item.numberForExchange = reqItem.numberForExchange;
+    item.numberInCollection = reqItem.numberInCollection;
+    item.images = reqItem.images;
   }
 });
+restart();
 
-const save = () => {
-  if (inEditMode.value) {
+const onSubmit = () => {
+  if (props.inEditMode) {
     void updateItem(item).then((result) => {
       if (result?.data) {
         notify({
           type: 'positive',
           message: 'Item updated',
         });
-        editItem.value = result.data.updateItem;
       }
     });
   } else {
@@ -185,8 +198,8 @@ const save = () => {
           message: 'Item created',
         });
         void router.push({
-          name: 'DashBoardItem',
-          params: { item: result.data.createItem.id },
+          name: 'DashBoardItemEdit',
+          params: { itemId: result.data.createItem.id },
         });
       }
     });

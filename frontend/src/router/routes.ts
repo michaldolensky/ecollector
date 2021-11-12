@@ -11,10 +11,9 @@ declare module 'vue-router' {
 }
 
 const validateItem:NavigationGuard = (to, from, next) => {
-  const { item } = to.params;
-  const itemId = getParsedInt(item);
+  const { itemId } = to.params;
 
-  if (item === 'new' || itemId > 0) {
+  if (getParsedInt(itemId) > 0) {
     next();
   } else next({ name: 'Error404' });
 };
@@ -124,23 +123,24 @@ const getRoutes = (): RouteRecordRaw[] => {
               component: () => import('pages/site/dashboard/home/Index.vue'),
             },
             {
+              name: 'DashBoardItemsList',
               path: 'items',
-              redirect: { name: 'DashBoardItemsList' },
-              component: RouterView,
-
-              children: [
-                {
-                  name: 'DashBoardItemsList',
-                  path: 'items',
-                  component: () => import('pages/site/dashboard/items/DashboardItemsListPage.vue'),
-                },
-                {
-                  name: 'DashBoardItem',
-                  path: 'items/:item',
-                  component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-                  beforeEnter: [validateItem],
-                },
-              ],
+              component: () => import('pages/site/dashboard/items/DashboardItemsListPage.vue'),
+            },
+            {
+              name: 'DashBoardItemEdit',
+              path: 'items/edit/:itemId',
+              props: (route) => ({
+                itemId: parseInt(<string>route.params.itemId, 10),
+                inEditMode: true,
+              }),
+              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
+              beforeEnter: [validateItem],
+            },
+            {
+              name: 'DashBoardItemCreate',
+              path: 'items/new',
+              component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
             },
             {
               path: 'categories',

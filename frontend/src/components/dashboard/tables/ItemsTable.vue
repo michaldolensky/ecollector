@@ -34,12 +34,16 @@
     <template #body-cell-action="slotProps">
       <q-td>
         <q-btn
-          :to="`items/${slotProps.row.id}`"
+          :to="{
+            name: 'DashBoardItemEdit',
+            params: { itemId: slotProps.row.id},
+          }"
           dense
           flat
           icon="edit"
           size="sm"
         />
+
         <q-btn
           class="q-ml-sm"
           dense
