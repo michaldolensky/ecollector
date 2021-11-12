@@ -73,20 +73,28 @@ import { useQuasar } from 'quasar';
 import { UpdateSiteInput, useSiteQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/composables/useSites';
 import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
+import {
+  reactive,
+} from 'vue';
 
 import { useRouter } from 'vue-router';
 
 const {
-  updateSite, currentSiteId, removeSite,
+  updateSite, removeSite,
 } = useSites();
 const { required } = validationHelper;
+
+interface Props {
+  siteId: number,
+}
+const props = defineProps<Props>();
 
 const router = useRouter();
 const { notify, dialog } = useQuasar();
 
-const { loading, onResult, restart } = useSiteQuery({ id: currentSiteId.value });
-restart();
+const {
+  loading, onResult, restart,
+} = useSiteQuery(() => ({ id: props.siteId }));
 
 const currentSettings = reactive<UpdateSiteInput>({
   id: 0,
@@ -94,10 +102,13 @@ const currentSettings = reactive<UpdateSiteInput>({
 });
 
 onResult((result) => {
-  const { id, name } = result.data.site;
-  currentSettings.id = id;
-  currentSettings.name = name;
+  if (!result.loading) {
+    const { id, name } = result.data.site;
+    currentSettings.id = id;
+    currentSettings.name = name;
+  }
 });
+restart();
 
 const onSubmit = () => {
   void updateSite(currentSettings).then((result) => {
@@ -117,7 +128,7 @@ const askForDelete = () => {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    void removeSite(currentSiteId.value);
+    void removeSite(props.siteId);
     void router.push({ name: 'SitesList' });
   });
 };

@@ -165,6 +165,9 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'DashBoardSettings',
               path: 'settings',
+              props: (route) => ({
+                siteId: parseInt(<string>route.params.siteId, 10),
+              }),
               component: () => import('pages/site/dashboard/settings/SettingsPage.vue'),
             },
           ],
