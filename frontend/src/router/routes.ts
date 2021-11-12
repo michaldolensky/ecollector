@@ -25,10 +25,10 @@ const validateSiteId:NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 const validateCategory:NavigationGuard = (to, from, next) => {
-  const { categoryParam } = to.params;
-  const categoryId = getParsedInt(categoryParam);
+  const { category } = to.params;
+  const categoryId = getParsedInt(category);
 
-  if (categoryParam === 'new' || categoryId > 0) {
+  if (category === 'new' || categoryId > 0) {
     next();
   } else next({ name: 'Error404' });
 };
@@ -154,7 +154,7 @@ const getRoutes = (): RouteRecordRaw[] => {
                 },
                 {
                   name: 'DashBoardCategory',
-                  path: ':categoryParam',
+                  path: ':category',
                   props: true,
                   component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
                   beforeEnter: [validateCategory],

@@ -29,7 +29,7 @@
             <q-separator />
             <q-card-section>
               <q-input
-                v-model="category.name"
+                v-model="categoryObj.name"
                 :rules="[required]"
                 counter
                 label="Item name"
@@ -39,7 +39,7 @@
               />
 
               <q-input
-                v-model="category.perex"
+                v-model="categoryObj.perex"
                 label="Short description"
                 maxlength="250"
                 outlined
@@ -78,7 +78,7 @@ const { required } = validationHelper;
 const { notify } = useQuasar();
 
 interface Props {
-  categoryParam: string
+  category: string
 }
 
 const props = defineProps<Props>();
@@ -89,30 +89,30 @@ const resetObject: UpdateCategoryInput = {
   perex: '',
 };
 
-const category = reactive(resetObject);
+const categoryObj = reactive(resetObject);
 const form = ref<QForm>();
 
-const inEditMode = computed(() => props.categoryParam !== 'new');
-const categoryId = parseInt(props.categoryParam, 10);
+const inEditMode = computed(() => props.category !== 'new');
+const categoryId = computed(() => parseInt(props.category, 10));
 
 const { onResult, restart, loading } = useGetCategoryQuery({
-  id: categoryId,
+  id: categoryId.value,
 }, () => ({
   enabled: inEditMode.value,
 }));
 
 onResult((result) => {
   if (!result.loading) {
-    category.id = result.data.category.id;
-    category.name = result.data.category.name;
-    category.perex = result.data.category.perex;
+    categoryObj.id = result.data.category.id;
+    categoryObj.name = result.data.category.name;
+    categoryObj.perex = result.data.category.perex;
   }
 });
 restart();
 
 const onSubmit = () => {
   if (inEditMode.value) {
-    void updateCategory(category).then((result) => {
+    void updateCategory(categoryObj).then((result) => {
       if (result?.data) {
         notify({
           type: 'positive',
@@ -121,16 +121,16 @@ const onSubmit = () => {
       }
     });
   } else {
-    delete category.id;
-    void createCategory(category).then((result) => {
+    delete categoryObj.id;
+    void createCategory(categoryObj).then((result) => {
       if (result?.data) {
         notify({
           type: 'positive',
           message: 'Category created',
         });
         void router.push({
-          name: 'DashboardCategory',
-          params: { categoryParam: result.data.createCategory.id },
+          name: 'DashBoardCategory',
+          params: { category: result.data.createCategory.id },
         });
       }
     });

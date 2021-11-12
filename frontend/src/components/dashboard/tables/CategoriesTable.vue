@@ -22,7 +22,7 @@
     <template #body-cell-Action="prop">
       <q-td :prop="prop">
         <q-btn
-          :to="`categories/${prop.row.id}`"
+          :to="{name:'DashBoardCategory',param:{category:prop.row.id}}"
           dense
           flat
           icon="edit"
