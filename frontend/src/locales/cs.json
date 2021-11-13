@@ -31,7 +31,40 @@
   },
   "buttons": {
     "common": {
-      "save": "buttons.common.save"
+      "save": "buttons.common.save",
+      "reset": "buttons.common.reset",
+      "submit": "buttons.common.submit"
+    },
+    "auth": {
+      "reset": "buttons.auth.reset",
+      "login": "buttons.auth.login",
+      "signup": "buttons.auth.signup",
+      "logout": "buttons.auth.logout"
+    }
+  },
+  "pages": {
+    "auth": {
+      "signup": {
+        "title": "pages.auth.signup.title"
+      },
+      "login": {
+        "title": "pages.auth.login.title"
+      }
+    },
+    "profile": "pages.profile",
+    "sites": "pages.sites"
+  },
+  "forms": {
+    "auth": {
+      "signup": {
+        "first_name": "forms.auth.signup.first_name",
+        "last_name": "forms.auth.signup.last_name"
+      },
+      "confirm_password": "forms.auth.confirm_password",
+      "password": "forms.auth.password",
+      "first_name": "forms.auth.first_name",
+      "last_name": "forms.auth.last_name",
+      "email": "forms.auth.email"
     }
   }
 }

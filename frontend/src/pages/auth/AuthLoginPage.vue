@@ -6,77 +6,51 @@
     <q-card
       class="login-card"
       square
+      tag="form"
+      @submit="onSubmit"
     >
-      <q-form
-        class="q-gutter-md"
-        @reset="onReset"
-        @submit="onSubmit"
-      >
-        <q-card-section>
-          <q-avatar
-            class="absolute-center shadow-10"
-            size="120px"
-          >
-            <q-icon
-              color="grey-4"
-              name="mdi-account-circle"
-              size="120px"
-            />
-          </q-avatar>
-        </q-card-section>
-
-        <q-card-section />
-
-        <q-card-section>
-          <div class="text-h6">
-            {{ $t('pages.login') }}
-          </div>
-          <q-input
-            id="email"
-            v-model.trim="loginData.email"
-            :label="$t('forms.email')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
-            autocomplete="username"
-            autofocus
-            lazy-rules
-            outlined
-            required
-            square
-            type="email"
-          />
-          <q-input
-            id="password"
-            v-model="loginData.password"
-            :label="$t('forms.password')"
-            autocomplete="current-password"
-            outlined
-            required
-            square
-            type="password"
-          />
-          <br>
-          <q-btn
-            :label="$t('buttons.auth.reset')"
-            class="q-ml-sm"
-            color="primary"
-            flat
-            type="reset"
-          />
-        </q-card-section>
-        <q-card-actions align="around">
-          <router-link to="/auth/signup">
-            <q-btn
-              :label="$t('buttons.auth.reset')"
-              color="secondary"
-            />
-          </router-link>
-          <q-btn
-            :label="$t('buttons.auth.submit')"
-            color="primary"
-            type="submit"
-          />
-        </q-card-actions>
-      </q-form>
+      <q-card-section class="text-center text-h2">
+        {{ $t('pages.auth.login.title') }}
+      </q-card-section>
+      <q-card-section>
+        <q-input
+          id="email"
+          v-model.trim="loginData.email"
+          :label="$t('forms.auth.email')"
+          :rules="[required]"
+          autocomplete="username"
+          autofocus
+          lazy-rules
+          outlined
+          required
+          square
+          type="email"
+        />
+        <q-input
+          id="password"
+          v-model="loginData.password"
+          :label="$t('forms.auth.password')"
+          :rules="[required]"
+          autocomplete="current-password"
+          outlined
+          required
+          square
+          type="password"
+        />
+      </q-card-section>
+      <q-card-actions align="around">
+        <q-btn
+          :label="$t('buttons.auth.signup')"
+          :to="{ name: 'signup' }"
+          color="primary"
+          flat
+        />
+        <q-btn
+          :label="$t('buttons.auth.login')"
+          color="primary"
+          type="submit"
+        />
+      </q-card-actions>
     </q-card>
   </q-page>
 </template>
@@ -84,36 +58,28 @@
 <script lang="ts" setup>
 import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
-import { reactive, ref, toRaw } from 'vue';
+import { validationHelper } from 'src/validationHelper';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
+const { required } = validationHelper;
 
 if (authStore.isLoggedIn) void router.push({ name: 'profile' });
 
-const loading = ref<boolean>(false);
 const loginData = reactive<LoginInterface>({
   email: 'admin@example.com',
   password: 'password',
 });
 
 const onSubmit = () => {
-  loading.value = true;
-  authStore.login(toRaw(loginData))
+  void authStore.login(loginData)
     .then(
       () => {
         void router.push({ name: 'profile' });
       },
-      () => {
-        loading.value = false;
-      },
     );
-};
-
-const onReset = () => {
-  loginData.email = '';
-  loginData.password = '';
 };
 
 </script>
