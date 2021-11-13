@@ -23,7 +23,6 @@
             autofocus
             lazy-rules
             outlined
-            required
             square
             type="email"
           />
@@ -34,11 +33,17 @@
             :rules="[required]"
             autocomplete="current-password"
             outlined
-            required
             square
             type="password"
           />
+          <p
+            v-if="showError"
+            class="text-negative"
+          >
+            {{ $t('forms.auth.errors.invalid_credentials') }}
+          </p>
         </q-card-section>
+
         <q-card-actions align="around">
           <q-btn
             :label="$t('buttons.auth.signup')"
@@ -61,13 +66,13 @@
 import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
 import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
 const { required } = validationHelper;
-
+const showError = ref(false);
 if (authStore.isLoggedIn) void router.push({ name: 'profile' });
 
 const loginData = reactive<LoginInterface>({
@@ -75,8 +80,12 @@ const loginData = reactive<LoginInterface>({
   password: 'password',
 });
 
-const onSubmit = () => {
-  void authStore.login(loginData);
+const onSubmit = async () => {
+  showError.value = false;
+  const result = await authStore.login(loginData);
+  if (result?.response?.status === 401) showError.value = true;
+
+  void await router.push({ name: 'profile' });
 };
 
 </script>

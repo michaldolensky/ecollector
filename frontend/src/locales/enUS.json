@@ -17,14 +17,15 @@
       "password": "Password",
       "confirm_password": "Confirm Password",
       "first_name": "First Name",
-      "last_name": "Last Name"
+      "last_name": "Last Name",
+      "errors": {
+        "invalid_credentials": "Invalid credentials"
+      }
     },
     "validation": {
       "required": "Field is required",
       "minLength": "Field must be at least {0} characters long",
-      "maxLength": "Field must be at most {0} characters long",
-      "email": "Email is not valid",
-      "password": "Password is not valid"
+      "maxLength": "Field must be at most {0} characters long"
     }
   },
   "pages": {

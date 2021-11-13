@@ -64,7 +64,10 @@
       "password": "forms.auth.password",
       "first_name": "forms.auth.first_name",
       "last_name": "forms.auth.last_name",
-      "email": "forms.auth.email"
+      "email": "forms.auth.email",
+      "errors": {
+        "invalid_credentials": "forms.auth.errors.invalid_credentials"
+      }
     }
   }
 }

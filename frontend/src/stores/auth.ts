@@ -79,8 +79,9 @@ export const useAuthStore = defineStore('auth', {
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
             void this.me();
           },
-          () => {
+          (error: AxiosError) => {
             this.$reset();
+            return error;
           },
         );
     },

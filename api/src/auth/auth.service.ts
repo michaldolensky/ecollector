@@ -46,8 +46,11 @@ export class AuthService {
       return user;
     } catch (error) {
       throw new HttpException(
-        'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST,
+        {
+          message: 'Invalid credentials',
+          type: 'INVALID_CREDENTIALS',
+        },
+        HttpStatus.UNAUTHORIZED,
       );
     }
   }
