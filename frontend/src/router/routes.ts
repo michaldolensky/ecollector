@@ -10,20 +10,20 @@ declare module 'vue-router' {
   }
 }
 
-const validateItem:NavigationGuard = (to, from, next) => {
+const validateItem: NavigationGuard = (to, from, next) => {
   const { itemId } = to.params;
 
   if (getParsedInt(itemId) > 0) {
     next();
   } else next({ name: 'Error404' });
 };
-const validateSiteId:NavigationGuard = (to, from, next) => {
+const validateSiteId: NavigationGuard = (to, from, next) => {
   const siteId = getParsedInt(to.params.siteId);
   if (siteId > 0) {
     next();
   } else next({ name: 'Error404' });
 };
-const validateCategory:NavigationGuard = (to, from, next) => {
+const validateCategory: NavigationGuard = (to, from, next) => {
   const { categoryId } = to.params;
 
   if (getParsedInt(categoryId) > 0) {
@@ -31,7 +31,7 @@ const validateCategory:NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 
-const redirectToLogin = (to:RouteLocationNormalized, from: RouteLocationNormalized) => {
+const redirectToLogin = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
   console.log(from);
   return {
     name: 'login',
@@ -40,15 +40,26 @@ const redirectToLogin = (to:RouteLocationNormalized, from: RouteLocationNormaliz
 };
 
 const getRoutes = (): RouteRecordRaw[] => {
-  const requireAuth:NavigationGuard = (to, from, next) => {
+  const requireAuth: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isLoggedIn) {
       next();
     } else next(redirectToLogin(to, from));
   };
-  const checkAuth:NavigationGuard = async (to, from, next) => {
+
+  const checkAuth: NavigationGuard = async (to, from, next) => {
     const authStore = useAuthStore();
     await authStore.me();
+    return next();
+  };
+
+  const redirectWhenLoggedIn: NavigationGuard = (to, from, next) => {
+    const authStore = useAuthStore();
+    if (authStore.isLoggedIn) {
+      next({
+        name: 'profile',
+      });
+    }
     next();
   };
 
@@ -60,7 +71,7 @@ const getRoutes = (): RouteRecordRaw[] => {
   //     next(redirectToLogin(to));
   //   }
   // };
-  const requireOwner:NavigationGuard = (to, from, next) => {
+  const requireOwner: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isOwner(to) || authStore.isAdmin) {
       next();
@@ -197,6 +208,7 @@ const getRoutes = (): RouteRecordRaw[] => {
         {
           path: 'auth',
           component: () => import('layouts/MainLayout.vue'),
+          beforeEnter: [redirectWhenLoggedIn],
           children: [
             {
               path: 'login',

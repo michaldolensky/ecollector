@@ -3,27 +3,50 @@
     "auth": {
       "login": "Login",
       "logout": "Logout",
-      "reset": "Reset",
-      "Signup": "Signup",
-      "submit": "Submit"
-    },
-    "forms": {
-      "reset": "Reset",
-      "submit": "Submit"
+      "signup": "Signup"
     },
     "common": {
-      "save": "Save"
+      "submit": "Submit",
+      "save": "Save",
+      "reset": "Reset"
     }
   },
   "forms": {
-    "password": "Password",
-    "email": "Email",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "verifyPassword": "Verify password",
+    "auth": {
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "errors": {
+        "invalid_credentials": "Invalid credentials",
+        "user_exists": "User already exists",
+        "password_mismatch": "Passwords do not match"
+      }
+    },
     "validation": {
-      "required": "Field is required"
+      "required": "Field is required",
+      "minLength": "Field must be at least {0} characters long",
+      "maxLength": "Field must be at most {0} characters long"
     }
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "title": "Login",
+        "subtitle": "Please login to your account"
+      },
+      "signup": {
+        "title": "Signup",
+        "subtitle": "Please signup to your account"
+      },
+      "reset": {
+        "title": "Reset",
+        "subtitle": "Please reset your password"
+      }
+    },
+    "profile": "Profile",
+    "sites": "Sites"
   },
   "dialogs": {
     "dashboard": {
@@ -45,12 +68,6 @@
     },
     "name": "Name",
     "updatedAt": "Updated"
-  },
-  "pages": {
-    "login": "Login",
-    "signup": "Signup",
-    "profile": "Profile",
-    "sites": "Sites"
   },
   "dashboard": {
     "navigation": {

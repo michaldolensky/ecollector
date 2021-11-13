@@ -1,41 +1,23 @@
 <template>
   <q-page
-    class="flex flex-center"
     padding
   >
-    <q-card
-      class="login-card"
-      square
+    <q-form
+      class="flex flex-center"
+      @submit="onSubmit"
     >
-      <q-form
-        class="q-gutter-md"
-        @reset="onReset"
-        @submit="onSubmit"
+      <q-card
+        class="login-card"
+        square
       >
-        <q-card-section>
-          <q-avatar
-            class="absolute-center shadow-10"
-            size="120px"
-          >
-            <q-icon
-              color="grey-4"
-              name="mdi-account-circle"
-              size="120px"
-            />
-          </q-avatar>
+        <q-card-section class="text-center text-h2">
+          {{ $t('pages.auth.signup.title') }}
         </q-card-section>
-
-        <q-card-section />
-
         <q-card-section>
-          <div class="text-h6">
-            {{ $t('pages.signup') }}
-          </div>
           <q-input
-            id="firstName"
-            v-model.trim="registerData.firstName"
-            :label="$t('forms.firstName')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            v-model.trim="signupData.firstName"
+            :label="$t('forms.auth.first_name')"
+            :rules="[ required]"
             autofocus
             lazy-rules
             outlined
@@ -43,20 +25,18 @@
             square
           />
           <q-input
-            id="firstName"
-            v-model.trim="registerData.lastName"
-            :label="$t('forms.lastName')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            v-model.trim="signupData.lastName"
+            :label="$t('forms.auth.last_name')"
+            :rules="[ required]"
             lazy-rules
             outlined
             required
             square
           />
           <q-input
-            id="email"
-            v-model.trim="registerData.email"
-            :label="$t('forms.email')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            v-model.trim="signupData.email"
+            :label="$t('forms.auth.email')"
+            :rules="[ required]"
             lazy-rules
             outlined
             required
@@ -64,97 +44,72 @@
             type="email"
           />
           <q-input
-            id="password"
-            v-model="registerData.password"
-            :label="$t('forms.password')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            v-model="signupData.password"
+            :label="$t('forms.auth.password')"
+            :rules="[ required]"
             outlined
             required
             square
             type="password"
           />
           <q-input
-            id="verifyPassword"
-            v-model="registerData.verifyPassword"
-            :label="$t('forms.verifyPassword')"
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            v-model="signupData.verifyPassword"
+            :label="$t('forms.auth.confirm_password')"
+            :rules="[required]"
             outlined
             required
             square
             type="password"
           />
-          <br>
+          <p
+            v-if="authStore.hasError"
+            class="text-negative"
+          >
+            {{ authStore.getErrorMessage }}
+          </p>
+          <q-separator />
+        </q-card-section>
+        <q-card-actions
+          align="around"
+        >
           <q-btn
-            :label="$t('buttons.auth.reset')"
-            class="q-ml-sm"
+            :label="$t('buttons.auth.login')"
+            :to="{ name: 'login' }"
             color="primary"
             flat
-            type="reset"
           />
-        </q-card-section>
-        <q-card-actions align="around">
-          <router-link to="/auth/login">
-            <q-btn
-              :label="$t('buttons.auth.login')"
-              color="secondary"
-            />
-          </router-link>
           <q-btn
-            :label="$t('buttons.auth.submit')"
+            :label="$t('buttons.auth.signup')"
+            class="q-px-xl q-py-xs"
             color="primary"
             type="submit"
           />
         </q-card-actions>
-      </q-form>
-    </q-card>
+      </q-card>
+    </q-form>
   </q-page>
 </template>
 
 <script lang="ts" setup>
 import { useAuthStore } from 'src/stores/auth';
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { LoginInterface } from 'src/types/auth.interface';
+import { validationHelper } from 'src/validationHelper';
+import { reactive } from 'vue';
+import { SignUpInterface } from 'src/types/auth.interface';
 
 const authStore = useAuthStore();
-const router = useRouter();
 
-if (authStore.isLoggedIn) void router.push('/profile');
+const { required } = validationHelper;
 
-const registerData = reactive({
+const signupData = reactive<SignUpInterface>({
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'user2@example.com',
   password: 'password',
   verifyPassword: 'password',
 });
-const loading = ref<boolean>(false);
 
 const onSubmit = () => {
-  const user: LoginInterface = {
-    email: registerData.email,
-    password: registerData.password,
-  };
-
-  loading.value = true;
-
-  authStore.signup(user)
-    .then(
-      () => {
-        void router.push('/auth/login');
-      },
-      () => {
-        loading.value = false;
-      },
-    );
-};
-
-const onReset = () => {
-  registerData.firstName = '';
-  registerData.lastName = '';
-  registerData.email = '';
-  registerData.password = '';
-  registerData.verifyPassword = '';
+  void authStore.signup(signupData);
 };
 </script>
 

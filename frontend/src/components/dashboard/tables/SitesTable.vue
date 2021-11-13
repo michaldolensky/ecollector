@@ -4,7 +4,7 @@
     :filter="filter"
     :no-data-label="$t('tables.notFound.sites')"
     :pagination="initialPagination"
-    :rows="authStore.sites"
+    :rows="userSites"
 
     row-key="id"
   >
@@ -54,7 +54,7 @@ import { reactive, ref } from 'vue';
 import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
 import { useAuthStore } from 'src/stores/auth';
 
-const authStore = useAuthStore();
+const { userSites } = useAuthStore();
 
 const filter = ref('');
 
