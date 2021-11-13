@@ -20,6 +20,12 @@ export class CreateUserInput {
   @MinLength(8)
   password: string;
 
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  verifyPassword: string;
+
   @IsString()
   @MaxLength(50)
   @IsNotEmpty()
