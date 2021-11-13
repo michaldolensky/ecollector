@@ -36,7 +36,7 @@
           <q-input
             v-model.trim="signupData.email"
             :label="$t('forms.auth.email')"
-            :rules="[ required]"
+            :rules="[ required ]"
             lazy-rules
             outlined
             required
@@ -46,7 +46,8 @@
           <q-input
             v-model="signupData.password"
             :label="$t('forms.auth.password')"
-            :rules="[ required]"
+            :rules="[ required ]"
+            lazy-rules
             outlined
             required
             square
@@ -55,7 +56,8 @@
           <q-input
             v-model="signupData.verifyPassword"
             :label="$t('forms.auth.confirm_password')"
-            :rules="[required]"
+            :rules="[required,checkIfPasswordsMatch]"
+            lazy-rules
             outlined
             required
             square
@@ -67,7 +69,6 @@
           >
             {{ authStore.getErrorMessage }}
           </p>
-          <q-separator />
         </q-card-section>
         <q-card-actions
           align="around"
@@ -95,10 +96,10 @@ import { useAuthStore } from 'src/stores/auth';
 import { validationHelper } from 'src/validationHelper';
 import { reactive } from 'vue';
 import { SignUpInterface } from 'src/types/auth.interface';
+import { useI18n } from 'vue-i18n';
 
 const authStore = useAuthStore();
-
-const { required } = validationHelper;
+const { t } = useI18n();
 
 const signupData = reactive<SignUpInterface>({
   firstName: 'firstName',
@@ -111,6 +112,11 @@ const signupData = reactive<SignUpInterface>({
 const onSubmit = () => {
   void authStore.signup(signupData);
 };
+
+// Validation
+const { required } = validationHelper;
+const checkIfPasswordsMatch = (verifyPassword: string) => (signupData.password === verifyPassword) || t('forms.auth.errors.password_mismatch');
+
 </script>
 
 <style lang="sass" scoped>
