@@ -1,8 +1,10 @@
 <template>
   <q-item
     v-ripple
-    :to="url"
+    :to="{name:'CatalogCategory',params:{categoryId:props.category.id,siteId:route.params.siteId}}"
     clickable
+    exact
+    tag="a"
   >
     <q-item-section avatar>
       <q-icon name="label" />
@@ -18,6 +20,9 @@
 </template>
 
 <script lang="ts" setup>
+
+import { useRoute } from 'vue-router';
+
 interface Category {
   id:number,
   name:string,
@@ -26,11 +31,8 @@ interface Category {
 interface Props{
   category:Category
 }
-
 const props = defineProps<Props>();
 
+const route = useRoute();
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>
