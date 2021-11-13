@@ -4,3 +4,19 @@ query getCatalogueCategories($siteId:Int!){
     name
   }
 }
+
+query getCatalogItems($categoryId:Int,$siteId:Int!){
+  items( categoryId: $categoryId, siteId: $siteId) {
+    id
+    name
+    numberForExchange
+    numberInCollection
+    internalNumber
+    createdAt
+    shortDesc
+    images(main: true){
+      path
+      main
+    }
+  }
+}
