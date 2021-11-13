@@ -85,12 +85,14 @@ export const useAuthStore = defineStore('auth', {
         );
     },
     login(loginData: LoginInterface) {
+      this.authError = '';
       return api
         .post<LoginResponseData>('/auth/login', loginData)
         .then((res) => this.handleSuccess(res))
         .catch((error) => this.handleError(error));
     },
     signup(signupData: SignUpInterface) {
+      this.authError = '';
       return api
         .post<LoginResponseData>('/auth/signup', signupData)
         .then((res) => this.handleSuccess(res))
@@ -105,6 +107,7 @@ export const useAuthStore = defineStore('auth', {
       this.authState = true;
       localStorage.setItem(localStorageTokenKey, response.data.accessToken);
       void this.me();
+      void this.router.push({ name: 'profile' });
     },
     handleError(error: AxiosError<APIErrorInterface>) {
       const message = error?.response?.data.message;
