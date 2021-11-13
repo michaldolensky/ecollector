@@ -40,8 +40,13 @@
           <q-input
             v-model="filter"
             :debounce="500"
+            clearable
             label="Category search"
-          />
+          >
+            <template #prepend>
+              <q-icon name="search" />
+            </template>
+          </q-input>
 
           <q-separator size="5px" />
         </template>
