@@ -99,7 +99,7 @@ const getRoutes = (): RouteRecordRaw[] => {
             },
             {
               name: 'CatalogCategory',
-              path: ':categoryId',
+              path: 'cat/:categoryId',
               props: (route) => ({
                 categoryId: parseInt(<string>route.params.categoryId, 10),
                 siteId: parseInt(<string>route.params.siteId, 10),
