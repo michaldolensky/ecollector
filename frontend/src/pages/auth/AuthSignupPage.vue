@@ -94,15 +94,11 @@
 import { useAuthStore } from 'src/stores/auth';
 import { validationHelper } from 'src/validationHelper';
 import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
 import { SignUpInterface } from 'src/types/auth.interface';
 
 const authStore = useAuthStore();
-const router = useRouter();
 
 const { required } = validationHelper;
-
-if (authStore.isLoggedIn) void router.push('/profile');
 
 const signupData = reactive<SignUpInterface>({
   firstName: 'firstName',

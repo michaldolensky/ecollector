@@ -50,6 +50,16 @@ const getRoutes = (): RouteRecordRaw[] => {
   const checkAuth: NavigationGuard = async (to, from, next) => {
     const authStore = useAuthStore();
     await authStore.me();
+    return next();
+  };
+
+  const redirectWhenLoggedIn: NavigationGuard = (to, from, next) => {
+    const authStore = useAuthStore();
+    if (authStore.isLoggedIn) {
+      next({
+        name: 'profile',
+      });
+    }
     next();
   };
 
@@ -198,6 +208,7 @@ const getRoutes = (): RouteRecordRaw[] => {
         {
           path: 'auth',
           component: () => import('layouts/MainLayout.vue'),
+          beforeEnter: [redirectWhenLoggedIn],
           children: [
             {
               path: 'login',

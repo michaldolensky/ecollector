@@ -67,12 +67,9 @@ import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
 import { validationHelper } from 'src/validationHelper';
 import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
-const router = useRouter();
 const { required } = validationHelper;
-if (authStore.isLoggedIn) void router.push({ name: 'profile' });
 
 const loginData = reactive<LoginInterface>({
   email: 'admin@example.com',
