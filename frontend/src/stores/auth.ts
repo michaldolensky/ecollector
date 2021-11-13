@@ -45,6 +45,7 @@ export const useAuthStore = defineStore({
 
     me() {
       const token = localStorage.getItem(localStorageTokenKey) ?? '';
+      if (token.length === 0) return Promise.resolve();
 
       return api
         .get<UserStateInterface>('/auth/me', {
@@ -62,6 +63,7 @@ export const useAuthStore = defineStore({
               user: {},
               authState: false,
             });
+            localStorage.setItem(localStorageTokenKey, '');
             return error;
           },
         );
