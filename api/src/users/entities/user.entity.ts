@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, HideField, InputType, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { UserRole } from '../../auth/role.enum';
 import {
@@ -22,6 +22,7 @@ export class User extends BaseEntity {
   @Column({ length: 254 })
   email: string;
 
+  @HideField()
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
