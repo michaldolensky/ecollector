@@ -1,7 +1,6 @@
 <template>
   <q-btn-dropdown
     v-if="authStore.isLoggedIn"
-
     :label="authStore.fullName"
     color="white"
     icon="account_circle"
