@@ -58,10 +58,7 @@ export const useAuthStore = defineStore('auth', {
             return response;
           },
           (error: AxiosError) => {
-            this.$patch({
-              user: {},
-              authState: false,
-            });
+            this.$reset();
             localStorage.setItem(localStorageTokenKey, '');
             return error;
           },
@@ -76,10 +73,7 @@ export const useAuthStore = defineStore('auth', {
             void this.me();
           },
           () => {
-            this.$patch({
-              user: {},
-              authState: false,
-            });
+            this.$reset();
           },
         );
     },
@@ -92,16 +86,13 @@ export const useAuthStore = defineStore('auth', {
             void this.me();
           },
           () => {
-            this.$patch({
-              user: {},
-              authState: false,
-            });
+            this.$reset();
           },
         );
     },
     logout() {
       localStorage.setItem(localStorageTokenKey, '');
-      this.authState = false;
+      this.$reset();
     },
   },
 });
