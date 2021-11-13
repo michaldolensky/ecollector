@@ -21,8 +21,7 @@ interface LoginResponseData {
   accessToken: string
 }
 
-export const useAuthStore = defineStore({
-  id: 'authStore',
+export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: {} as UserStateInterface,
     authState: false,
