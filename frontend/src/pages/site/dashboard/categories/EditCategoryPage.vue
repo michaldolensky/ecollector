@@ -85,6 +85,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   header: 'dashboard.headers.createCategory',
+  categoryId: undefined,
 });
 
 const resetObject: UpdateCategoryInput = {
