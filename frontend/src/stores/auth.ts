@@ -23,12 +23,19 @@ interface LoginResponseData {
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: {} as UserStateInterface,
+    user: {
+      role: '',
+      email: '',
+      sitesIds: [],
+      sites: [],
+      firstName: '',
+      lastName: '',
+    } as UserStateInterface,
     authState: false,
   }),
   getters: {
     fullName: (state) => {
-      if (state.user && state) {
+      if (state.authState) {
         return `${state.user.firstName} ${state.user.lastName}`;
       }
       return '';
