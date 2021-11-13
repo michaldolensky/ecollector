@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 import { Site } from 'src/composables/useSites';
 import { LoginInterface, SignUpInterface } from 'src/types/auth.interface';
 import { getParsedInt } from 'src/utils';
-import { RouteLocationNormalized } from 'vue-router';
+import { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
 
 export const localStorageTokenKey = 'token';
 
@@ -103,11 +103,19 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem(localStorageTokenKey, '');
       this.$reset();
     },
-    handleSuccess(response: AxiosResponse<LoginResponseData>) {
+    async handleSuccess(response: AxiosResponse<LoginResponseData>) {
       this.authState = true;
       localStorage.setItem(localStorageTokenKey, response.data.accessToken);
-      void this.me();
-      void this.router.push({ name: 'profile' });
+      await this.me();
+
+      // eslint-disable-next-line max-len
+      const redirect = (<RouteLocationNormalizedLoaded><unknown> this.router.currentRoute).query.redirect as string;
+
+      if (redirect) {
+        void this.router.push(redirect);
+      } else {
+        void this.router.push({ name: 'profile' });
+      }
     },
     handleError(error: AxiosError<APIErrorInterface>) {
       const message = error?.response?.data.message;
