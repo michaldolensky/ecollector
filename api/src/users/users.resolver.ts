@@ -9,7 +9,6 @@ import {
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
-import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { SitesService } from '../sites/sites.service';
 import { Site } from '../sites/entities/site.entity';
@@ -21,11 +20,6 @@ export class UsersResolver {
     private readonly sitesService: SitesService,
   ) {}
   // @UseGuards(GqlAuthGuard)
-
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
-  }
 
   @Query(() => [User], { name: 'users' })
   findAll() {
