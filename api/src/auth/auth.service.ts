@@ -3,7 +3,6 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserInput } from '../users/dto/create-user.input';
 import * as bcrypt from 'bcrypt';
-import { PostgresErrorCode } from '../config/database/enums/postgresErrorCodes';
 import { TokenPayload } from './tokenPayload.interface';
 import { User } from '../users/entities/user.entity';
 
@@ -15,26 +14,18 @@ export class AuthService {
   ) {}
 
   public async register(createUserInput: CreateUserInput) {
-    const hashedPassword = await bcrypt.hash(createUserInput.password, 10);
-    try {
-      const createdUser = await this.userService.create({
-        ...createUserInput,
-        password: hashedPassword,
-      });
-      createdUser.password = undefined;
-      return createdUser;
-    } catch (error) {
-      if (error?.code === PostgresErrorCode.UniqueViolation) {
-        throw new HttpException(
-          'User with that email already exists',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-      throw new HttpException(
-        'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    if (createUserInput.password !== createUserInput.verifyPassword) {
+      throw new HttpException('PASSWORD_MISMATCH', HttpStatus.BAD_REQUEST);
     }
+
+    const hashedPassword = await bcrypt.hash(createUserInput.password, 10);
+
+    const createdUser = await this.userService.create({
+      ...createUserInput,
+      password: hashedPassword,
+    });
+    createdUser.password = undefined;
+    return createdUser;
   }
 
   public async getAuthenticatedUser(email: string, plainPassword: string) {
@@ -45,13 +36,7 @@ export class AuthService {
       user.password = undefined;
       return user;
     } catch (error) {
-      throw new HttpException(
-        {
-          message: 'Invalid credentials',
-          type: 'INVALID_CREDENTIALS',
-        },
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new HttpException('INVALID_CREDENTIALS', HttpStatus.UNAUTHORIZED);
     }
   }
 

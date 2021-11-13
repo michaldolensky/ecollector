@@ -1,11 +1,11 @@
 import {
   BadRequestException,
-  ConflictException,
   HttpException,
   HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { PostgresErrorCode } from '../config/database/enums/postgresErrorCodes';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,7 +25,9 @@ export class UsersService {
       await this.usersRepository.insert(newUser);
       return newUser;
     } catch (error) {
-      throw new ConflictException();
+      if (error?.code === PostgresErrorCode.UniqueViolation) {
+        throw new HttpException('USER_EXISTS', HttpStatus.BAD_REQUEST);
+      }
     }
   }
 

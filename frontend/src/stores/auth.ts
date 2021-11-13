@@ -1,5 +1,6 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { api } from 'boot/axios';
+import { i18n } from 'boot/i18n';
 import { defineStore } from 'pinia';
 import { Site } from 'src/composables/useSites';
 import { LoginInterface, SignUpInterface } from 'src/types/auth.interface';
@@ -21,6 +22,11 @@ interface LoginResponseData {
   accessToken: string
 }
 
+interface APIErrorInterface {
+  message: string
+  status: number
+}
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: {
@@ -32,6 +38,7 @@ export const useAuthStore = defineStore('auth', {
       lastName: '',
     } as UserStateInterface,
     authState: false,
+    authError: '',
   }),
   getters: {
     fullName: (state) => {
@@ -43,12 +50,18 @@ export const useAuthStore = defineStore('auth', {
     isAdmin: (state) => state.user?.role === 'Admin',
     isLoggedIn: (state) => state.authState,
     userSites: (state):Site[] => state.user?.sites,
+    getErrorMessage: (state) => {
+      if (state.authError === 'USER_EXISTS') return i18n.global.t('forms.auth.errors.user_exists');
+      if (state.authError === 'INVALID_CREDENTIALS') return i18n.global.t('forms.auth.errors.invalid_credentials');
+      if (state.authError === 'PASSWORD_MISMATCH') return i18n.global.t('forms.auth.errors.password_mismatch');
+      return 'Unknown Error';
+    },
+    hasError: (state) => state.authError !== '',
   },
   actions: {
     isOwner(to:RouteLocationNormalized) {
       return this.user?.sitesIds.includes(getParsedInt(to.params.siteId));
     },
-
     me() {
       const token = localStorage.getItem(localStorageTokenKey) ?? '';
       if (token.length === 0) return Promise.resolve();
@@ -73,34 +86,31 @@ export const useAuthStore = defineStore('auth', {
     },
     login(loginData: LoginInterface) {
       return api
-        .post<LoginResponseData>('/auth/login', loginData).then(
-          (response) => {
-            this.authState = true;
-            localStorage.setItem(localStorageTokenKey, response.data.accessToken);
-            void this.me();
-          },
-          (error: AxiosError) => {
-            this.$reset();
-            return error;
-          },
-        );
+        .post<LoginResponseData>('/auth/login', loginData)
+        .then((res) => this.handleSuccess(res))
+        .catch((error) => this.handleError(error));
     },
     signup(signupData: SignUpInterface) {
       return api
-        .post<LoginResponseData>('/auth/signup', signupData).then(
-          (response) => {
-            this.authState = true;
-            localStorage.setItem(localStorageTokenKey, response.data.accessToken);
-            void this.me();
-          },
-          () => {
-            this.$reset();
-          },
-        );
+        .post<LoginResponseData>('/auth/signup', signupData)
+        .then((res) => this.handleSuccess(res))
+        .catch((error) => this.handleError(error));
     },
+
     logout() {
       localStorage.setItem(localStorageTokenKey, '');
       this.$reset();
+    },
+    handleSuccess(response: AxiosResponse<LoginResponseData>) {
+      this.authState = true;
+      localStorage.setItem(localStorageTokenKey, response.data.accessToken);
+      void this.me();
+    },
+    handleError(error: AxiosError<APIErrorInterface>) {
+      const message = error?.response?.data.message;
+      if (message !== null && message !== undefined) {
+        this.authError = message;
+      }
     },
   },
 });

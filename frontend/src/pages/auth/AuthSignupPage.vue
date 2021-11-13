@@ -61,6 +61,12 @@
             square
             type="password"
           />
+          <p
+            v-if="authStore.hasError"
+            class="text-negative"
+          >
+            {{ authStore.getErrorMessage }}
+          </p>
           <q-separator />
         </q-card-section>
         <q-card-actions
@@ -107,11 +113,7 @@ const signupData = reactive<SignUpInterface>({
 });
 
 const onSubmit = () => {
-  void authStore.signup(signupData).then(
-    () => {
-      void router.push('/auth/login');
-    },
-  );
+  void authStore.signup(signupData);
 };
 </script>
 

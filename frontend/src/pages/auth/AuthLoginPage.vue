@@ -37,10 +37,10 @@
             type="password"
           />
           <p
-            v-if="showError"
+            v-if="authStore.hasError"
             class="text-negative"
           >
-            {{ $t('forms.auth.errors.invalid_credentials') }}
+            {{ authStore.getErrorMessage }}
           </p>
         </q-card-section>
 
@@ -66,13 +66,12 @@
 import { useAuthStore } from 'src/stores/auth';
 import { LoginInterface } from 'src/types/auth.interface';
 import { validationHelper } from 'src/validationHelper';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
 const { required } = validationHelper;
-const showError = ref(false);
 if (authStore.isLoggedIn) void router.push({ name: 'profile' });
 
 const loginData = reactive<LoginInterface>({
@@ -80,12 +79,8 @@ const loginData = reactive<LoginInterface>({
   password: 'password',
 });
 
-const onSubmit = async () => {
-  showError.value = false;
-  const result = await authStore.login(loginData);
-  if (result?.response?.status === 401) showError.value = true;
-
-  void await router.push({ name: 'profile' });
+const onSubmit = () => {
+  void authStore.login(loginData);
 };
 
 </script>

@@ -66,8 +66,13 @@
       "last_name": "forms.auth.last_name",
       "email": "forms.auth.email",
       "errors": {
-        "invalid_credentials": "forms.auth.errors.invalid_credentials"
+        "invalid_credentials": "forms.auth.errors.invalid_credentials",
+        "user_exists": "forms.auth.errors.user_exists",
+        "password_mismatch": "forms.auth.errors.password_mismatch"
       }
+    },
+    "validation": {
+      "required": "forms.validation.required"
     }
   }
 }
