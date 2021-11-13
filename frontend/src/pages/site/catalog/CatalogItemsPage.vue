@@ -29,10 +29,10 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const { result, loading } = useGetCatalogItemsQuery({
+const { result, loading } = useGetCatalogItemsQuery(() => ({
   siteId: props.siteId,
   categoryId: props.categoryId,
-});
+}));
 
 const items = useResult(result);
 
