@@ -31,20 +31,17 @@ const validateCategory: NavigationGuard = (to, from, next) => {
   } else next({ name: 'Error404' });
 };
 
-const redirectToLogin = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  console.log(from);
-  return {
-    name: 'login',
-    query: { redirect: to.fullPath },
-  };
-};
+const redirectToLogin = (to: RouteLocationNormalized) => ({
+  name: 'login',
+  query: { redirect: to.fullPath },
+});
 
 const getRoutes = (): RouteRecordRaw[] => {
   const requireAuth: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isLoggedIn) {
       next();
-    } else next(redirectToLogin(to, from));
+    } else next(redirectToLogin(to));
   };
 
   const checkAuth: NavigationGuard = async (to, from, next) => {
@@ -76,7 +73,7 @@ const getRoutes = (): RouteRecordRaw[] => {
     if (authStore.isOwner(to) || authStore.isAdmin) {
       next();
     } else {
-      next(redirectToLogin(to, from));
+      next(redirectToLogin(to));
     }
   };
 
