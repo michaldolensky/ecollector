@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { api } from 'boot/axios';
 import { defineStore } from 'pinia';
 import { Site } from 'src/composables/useSites';
-import { LoginInterface } from 'src/types/auth.interface';
+import { LoginInterface, SignUpInterface } from 'src/types/auth.interface';
 import { getParsedInt } from 'src/utils';
 import { RouteLocationNormalized } from 'vue-router';
 
@@ -66,12 +66,9 @@ export const useAuthStore = defineStore({
           },
         );
     },
-    login(loginObject: LoginInterface) {
+    login(loginData: LoginInterface) {
       return api
-        .post<LoginResponseData>('/auth/login', {
-          email: loginObject.email,
-          password: loginObject.password,
-        }).then(
+        .post<LoginResponseData>('/auth/login', loginData).then(
           (response) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
@@ -85,12 +82,9 @@ export const useAuthStore = defineStore({
           },
         );
     },
-    signup(loginObject: LoginInterface) {
+    signup(signupData: SignUpInterface) {
       return api
-        .post<LoginResponseData>('/auth/signup', {
-          email: loginObject.email,
-          password: loginObject.password,
-        }).then(
+        .post<LoginResponseData>('/auth/signup', signupData).then(
           (response) => {
             this.authState = true;
             localStorage.setItem(localStorageTokenKey, response.data.accessToken);
