@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useSiteSettingsStore = defineStore({
-  id: 'settingsStore',
+export const useSiteSettingsStore = defineStore('settings', {
   state: () => ({
     drawer: true,
   }),
