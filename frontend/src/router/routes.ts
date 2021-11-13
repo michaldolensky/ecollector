@@ -152,6 +152,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               props: (route) => ({
                 categoryId: parseInt(<string>route.params.categoryId, 10),
                 inEditMode: true,
+                header: 'dashboard.headers.editCategory',
               }),
               component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
               beforeEnter: [validateCategory],

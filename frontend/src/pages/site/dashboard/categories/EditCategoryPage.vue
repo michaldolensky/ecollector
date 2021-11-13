@@ -1,7 +1,7 @@
 <template>
   <dashboard-page>
     <dashboard-page-header
-      :title="props.inEditMode?$t('dashboard.headers.editCategory'):$t('dashboard.headers.createCategory')"
+      :title="$t(props.header)"
     >
       <q-btn
         :label="$t('buttons.common.save')"
@@ -80,9 +80,12 @@ const { notify } = useQuasar();
 interface Props {
   inEditMode?: boolean,
   categoryId?: number,
+  header:string
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  header: 'dashboard.headers.createCategory',
+});
 
 const resetObject: UpdateCategoryInput = {
   id: 0,
