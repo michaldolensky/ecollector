@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
     },
     isAdmin: (state) => state.user?.role === 'Admin',
     isLoggedIn: (state) => state.authState,
-    sites: (state) => state.user?.sites as Site[],
+    userSites: (state):Site[] => state.user?.sites,
   },
   actions: {
     isOwner(to:RouteLocationNormalized) {
