@@ -71,6 +71,8 @@ import { reactive } from 'vue';
 const authStore = useAuthStore();
 const { required } = validationHelper;
 
+authStore.authError = '';
+
 const loginData = reactive<LoginInterface>({
   email: 'admin@example.com',
   password: 'password',

@@ -99,6 +99,8 @@ import { SignUpInterface } from 'src/types/auth.interface';
 import { useI18n } from 'vue-i18n';
 
 const authStore = useAuthStore();
+authStore.authError = '';
+
 const { t } = useI18n();
 
 const signupData = reactive<SignUpInterface>({
