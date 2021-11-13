@@ -25,7 +25,7 @@ export const useAuthStore = defineStore({
   id: 'authStore',
   state: () => ({
     user: {} as UserStateInterface,
-    authState: true,
+    authState: false,
   }),
   getters: {
     fullName: (state) => {
