@@ -41,13 +41,6 @@ export class UsersResolver {
     return this.usersService.remove(id);
   }
 
-  @Query(() => User)
-  getUserByEmail(
-    @Args('email', { type: () => String }) email: string,
-  ): Promise<User> {
-    return this.usersService.getUserByEmail(email);
-  }
-
   @ResolveField()
   async sites(@Parent() user: User): Promise<Site[]> {
     return this.sitesService.getSitesWithOwnerId(user.id);
