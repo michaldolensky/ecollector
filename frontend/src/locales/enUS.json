@@ -83,7 +83,8 @@
       "home": "Home",
       "items": "Items",
       "categories": "Categories",
-      "settings": "Site settings"
+      "settings": "Site settings",
+      "sites": "Your sites"
     },
     "items": {
       "addItem": "Add item"
@@ -92,7 +93,8 @@
       "editItem": "Edit item",
       "createItem": "Create item",
       "createCategory": "Create category",
-      "editCategory": "Edit category"
+      "editCategory": "Edit category",
+      "user_sites": "Your sites"
     },
     "categories": {
       "addCategory": "Add category"

@@ -1,15 +1,16 @@
 <template>
-  <q-page padding>
-    <q-toolbar>
-      <q-toolbar-title>Your sites</q-toolbar-title>
-      <AddSiteDialog :enable="SiteDialog" />
-    </q-toolbar>
+  <dashboard-page>
+    <dashboard-page-header :title="$t('dashboard.navigation.sites')">
+      <AddSiteDialog />
+    </dashboard-page-header>
     <SitesTable />
-  </q-page>
+  </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import SitesTable from 'components/dashboard/tables/SitesTable.vue';
 import AddSiteDialog from 'components/dashboard/forms/AddSiteDialog.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 
 </script>

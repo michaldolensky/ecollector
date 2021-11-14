@@ -3,7 +3,8 @@
     "navigation": {
       "items": "dashboard.navigation.items",
       "categories": "dashboard.navigation.categories",
-      "settings": "dashboard.navigation.settings"
+      "settings": "dashboard.navigation.settings",
+      "sites": "dashboard.navigation.sites"
     },
     "items": {
       "addItem": "dashboard.items.addItem"
