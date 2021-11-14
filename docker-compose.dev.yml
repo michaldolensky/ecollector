@@ -45,7 +45,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    container_name: ecollector-nginx
+    container_name: ecollector-nginx-dev
     volumes:
       - ./nginx:/etc/nginx/templates
     ports:
