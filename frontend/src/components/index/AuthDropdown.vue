@@ -38,8 +38,9 @@
       </q-item>
     </q-list>
   </q-btn-dropdown>
+
   <div
-    v-else
+    v-else-if="!isOnAuthPage"
     class="q-gutter-md"
   >
     <q-btn
@@ -59,6 +60,12 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from 'src/stores/auth';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const authStore = useAuthStore();
+
+const isOnAuthPage = computed(() => route.path.split('/')[1] === 'auth');
+
 </script>
