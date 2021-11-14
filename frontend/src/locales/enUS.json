@@ -89,6 +89,10 @@
     "items": {
       "addItem": "Add item"
     },
+    "stats": {
+      "item_count": "Item count",
+      "categories_count": "Category count"
+    },
     "headers": {
       "editItem": "Edit item",
       "createItem": "Create item",

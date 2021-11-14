@@ -17,6 +17,10 @@
     },
     "categories": {
       "addCategory": "dashboard.categories.addCategory"
+    },
+    "stats": {
+      "item_count": "dashboard.stats.item_count",
+      "categories_count": "dashboard.stats.categories_count"
     }
   },
   "items": {

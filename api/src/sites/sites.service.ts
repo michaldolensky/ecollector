@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Site } from './entities/site.entity';
 import { User } from '../users/entities/user.entity';
+import { SiteStats } from './entities/siteStats';
 
 @Injectable()
 export class SitesService {
@@ -52,5 +53,18 @@ export class SitesService {
 
   async getSitesWithOwnerId(userId: number): Promise<Site[]> {
     return await this.sitesRepository.find({ where: { ownerId: userId } });
+  }
+
+  async getSiteStats(id: number) {
+    const site = await this.sitesRepository.findOne({
+      where: { id },
+      relations: ['categories', 'items'],
+    });
+
+    const stats: SiteStats = {
+      totalItems: site.items.length,
+      totalCategories: site.categories.length,
+    };
+    return stats;
   }
 }

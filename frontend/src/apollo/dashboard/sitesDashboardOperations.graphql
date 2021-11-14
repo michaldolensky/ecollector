@@ -4,6 +4,10 @@ query site($id:Int!){
     name
     createdAt
     updatedAt
+    stats{
+      totalCategories
+      totalItems
+    }
   }
 }
 

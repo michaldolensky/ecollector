@@ -294,6 +294,7 @@ export type Site = {
   name: Scalars['String'];
   owner: User;
   ownerId: Scalars['Float'];
+  stats: SiteStats;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -303,6 +304,18 @@ export type SiteInput = {
   name: Scalars['String'];
   owner: UserInput;
   ownerId: Scalars['Float'];
+  stats: SiteStatsInput;
+};
+
+export type SiteStats = {
+  __typename?: 'SiteStats';
+  totalCategories: Scalars['Float'];
+  totalItems: Scalars['Float'];
+};
+
+export type SiteStatsInput = {
+  totalCategories: Scalars['Float'];
+  totalItems: Scalars['Float'];
 };
 
 export type UpdateCategoryInput = {
@@ -475,7 +488,7 @@ export type SiteQueryVariables = Exact<{
 }>;
 
 
-export type SiteQuery = { __typename?: 'Query', site: { __typename?: 'Site', id: number, name: string, createdAt: any, updatedAt: any } };
+export type SiteQuery = { __typename?: 'Query', site: { __typename?: 'Site', id: number, name: string, createdAt: any, updatedAt: any, stats: { __typename?: 'SiteStats', totalCategories: number, totalItems: number } } };
 
 export type CreateSiteMutationVariables = Exact<{
   createSiteInput: CreateSiteInput;
@@ -983,6 +996,10 @@ export const SiteDocument = gql`
     name
     createdAt
     updatedAt
+    stats {
+      totalCategories
+      totalItems
+    }
   }
 }
     `;

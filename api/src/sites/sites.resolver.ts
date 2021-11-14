@@ -1,5 +1,6 @@
 import {
   Args,
+  Info,
   Int,
   Mutation,
   Parent,
@@ -7,6 +8,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { SiteStats } from './entities/siteStats';
 import { SitesService } from './sites.service';
 import { Site } from './entities/site.entity';
 import { CreateSiteInput } from './dto/create-site.input';
@@ -64,5 +66,9 @@ export class SitesResolver {
   @ResolveField()
   async categories(@Parent() site: Site): Promise<Category[]> {
     return this.categoriesService.getCategoriesWithSiteId(site.id);
+  }
+  @ResolveField()
+  async stats(@Parent() site: Site): Promise<SiteStats> {
+    return this.sitesService.getSiteStats(site.id);
   }
 }
