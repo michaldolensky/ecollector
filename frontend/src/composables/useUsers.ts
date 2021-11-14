@@ -6,9 +6,7 @@ export function useUsers() {
   const { mutate: deleteUserMutation } = useDeleteUserMutation({});
   const { mutate: updateUserMutation } = useUpdateUserMutation({});
 
-  const removeUser = (id: number) => deleteUserMutation({
-    id,
-  });
+  const removeUser = () => deleteUserMutation();
 
   const updateUser = (updateUserInput: UpdateUserInput) => updateUserMutation({ updateUserInput });
 

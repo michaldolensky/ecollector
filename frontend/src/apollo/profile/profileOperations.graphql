@@ -1,12 +1,11 @@
-mutation deleteUser($id:Int!){
-  removeUser(id: $id) {
+mutation deleteUser{
+  removeUser {
     id
   }
 }
 
 mutation updateUser($updateUserInput:UpdateUserInput!){
   updateUser(updateUserInput: $updateUserInput) {
-    id,
     firstName,
     lastName,
   }

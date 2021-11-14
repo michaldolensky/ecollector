@@ -56,7 +56,6 @@ const authStore = useAuthStore();
 const { updateUser } = useUsers();
 
 const profileData = reactive({
-  id: authStore.user.id,
   firstName: authStore.user.firstName,
   lastName: authStore.user.lastName,
 });

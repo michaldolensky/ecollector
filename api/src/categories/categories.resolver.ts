@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import {
   Args,
   Int,
@@ -7,6 +8,10 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { RoleGuard } from '../auth/guards/role.guard';
+import { Roles } from '../common/decoratos/roles.decorator';
+import { GuardRoles } from '../common/enums/role.enum';
 import { GetItemsArgs } from '../items/dto/getItems.args';
 import { CategoriesService } from './categories.service';
 import { Category } from './entities/category.entity';
@@ -26,7 +31,8 @@ export class CategoriesResolver {
     private readonly siteService: SitesService,
     private readonly itemService: ItemsService,
   ) {}
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Category)
   createCategory(@Args() { siteId, createCategoryInput }: CreateCategoryArgs) {
     return this.categoryService.create(createCategoryInput, siteId);
@@ -44,7 +50,8 @@ export class CategoriesResolver {
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.categoryService.findOne(id);
   }
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Category)
   updateCategory(@Args() { updateCategoryInput }: UpdateCategoryArgs) {
     return this.categoryService.update(
@@ -52,7 +59,8 @@ export class CategoriesResolver {
       updateCategoryInput,
     );
   }
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Category)
   removeCategory(
     @Args() { deleteCategoryInput: { categoryId } }: DeleteCategoryArgs,
