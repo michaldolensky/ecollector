@@ -14,11 +14,13 @@ export class Site extends BaseEntity {
   name: string;
 
   @Field(() => [Category])
-  @OneToMany(() => Category, (category) => category.site)
+  @OneToMany(() => Category, (category) => category.site, {
+    onDelete: 'CASCADE',
+  })
   categories: Category[];
 
   @Field(() => [Item])
-  @OneToMany(() => Item, (item) => item.site)
+  @OneToMany(() => Item, (item) => item.site, { onDelete: 'CASCADE' })
   items: Item[];
 
   @Field(() => User)

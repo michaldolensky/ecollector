@@ -37,7 +37,7 @@ export class User extends BaseEntity {
   role: UserRole;
 
   @Field(() => [Site], { nullable: 'itemsAndList' })
-  @OneToMany(() => Site, (site) => site.owner)
+  @OneToMany(() => Site, (site) => site.owner, { onDelete: 'CASCADE' })
   sites: Site[];
 
   @IsString()

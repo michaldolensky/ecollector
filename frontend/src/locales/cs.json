@@ -83,5 +83,10 @@
     "profile": {
       "updated": "notifications.profile.updated"
     }
+  },
+  "dialogs": {
+    "profile": {
+      "delete": "dialogs.profile.delete"
+    }
   }
 }

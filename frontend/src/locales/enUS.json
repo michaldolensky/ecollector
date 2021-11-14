@@ -54,8 +54,12 @@
     "sites": "Sites"
   },
   "dialogs": {
-    "dashboard": {
-      "delete": "Do you really wish to delete {0}?"
+    "messages": {
+      "dashboard-x-delete": "Do you really wish to delete {0}?",
+      "profile-delete": "Do you want to delete this account?"
+    },
+    "titles": {
+      "confirm": "Confirm"
     }
   },
   "navigation": {
@@ -102,7 +106,8 @@
   "notifications": {
     "profile": {
       "password_changed": "Password was changed",
-      "updated": "Profile was updated"
+      "updated": "Profile was updated",
+      "deleted": "Profile was deleted"
     }
   }
 }

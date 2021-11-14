@@ -187,7 +187,7 @@ const getRoutes = (): RouteRecordRaw[] => {
         },
         {
           path: 'account',
-          component: () => import('layouts/MainLayout.vue'),
+          component: () => RouterView,
           beforeEnter: [requireAuth],
           children: [
             {
