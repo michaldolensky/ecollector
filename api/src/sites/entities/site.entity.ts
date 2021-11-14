@@ -4,6 +4,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
+import { SiteStats } from './siteStats';
 
 @ObjectType('Site')
 @Entity({ name: 'sites' })
@@ -30,4 +31,7 @@ export class Site extends BaseEntity {
 
   @Column()
   ownerId: number;
+
+  @Field(() => SiteStats)
+  stats: SiteStats;
 }
