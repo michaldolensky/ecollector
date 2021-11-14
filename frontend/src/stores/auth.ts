@@ -26,6 +26,11 @@ interface APIErrorInterface {
   message: string
   status: number
 }
+interface ChangePasswordInterface {
+  oldPassword: string
+  newPassword: string
+  verifyPassword: string
+}
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -54,6 +59,9 @@ export const useAuthStore = defineStore('auth', {
       if (state.authError === 'USER_EXISTS') return i18n.global.t('forms.auth.errors.user_exists');
       if (state.authError === 'INVALID_CREDENTIALS') return i18n.global.t('forms.auth.errors.invalid_credentials');
       if (state.authError === 'PASSWORD_MISMATCH') return i18n.global.t('forms.auth.errors.password_mismatch');
+      if (state.authError === 'PASSWORD_CHANGE_MISMATCH') return i18n.global.t('forms.auth.errors.change_password_mismatch');
+      if (state.authError === 'PASSWORD_CHANGE_SAME') return i18n.global.t('forms.auth.errors.change_password_same');
+      if (state.authError === 'PASSWORD_CHANGE_CURRENT') return i18n.global.t('forms.auth.errors.change_current_invalid');
       return 'Unknown Error';
     },
     hasError: (state) => state.authError !== '',
@@ -103,6 +111,20 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem(localStorageTokenKey, '');
       this.$reset();
     },
+
+    changePassword(changePasswordData: ChangePasswordInterface) {
+      const token = localStorage.getItem(localStorageTokenKey) ?? '';
+
+      return api
+        .post('/auth/change-password', changePasswordData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res:AxiosResponse) => res)
+        .catch((error) => this.handleError(error));
+    },
+
     async handleSuccess(response: AxiosResponse<LoginResponseData>) {
       this.authState = true;
       localStorage.setItem(localStorageTokenKey, response.data.accessToken);

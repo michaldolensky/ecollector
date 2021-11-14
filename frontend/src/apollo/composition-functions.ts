@@ -63,13 +63,6 @@ export type CreateSiteInput = {
   name: Scalars['String'];
 };
 
-export type CreateUserInput = {
-  email: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  password: Scalars['String'];
-};
-
 export type DeleteCategoryInput = {
   categoryId: Scalars['Int'];
 };
@@ -147,7 +140,6 @@ export type Mutation = {
   createCategory: Category;
   createItem: Item;
   createSite: Site;
-  createUser: User;
   removeCategory: Category;
   removeImage: Image;
   removeItem: Item;
@@ -174,11 +166,6 @@ export type MutationCreateItemArgs = {
 
 export type MutationCreateSiteArgs = {
   createSiteInput: CreateSiteInput;
-};
-
-
-export type MutationCreateUserArgs = {
-  createUserInput: CreateUserInput;
 };
 
 
@@ -364,7 +351,6 @@ export type User = {
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   lastName?: Maybe<Scalars['String']>;
-  password: Scalars['String'];
   role: Roles;
   sites?: Maybe<Array<Maybe<Site>>>;
   updatedAt: Scalars['DateTime'];
@@ -374,7 +360,6 @@ export type UserInput = {
   email: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
-  password: Scalars['String'];
   role: Roles;
   sites?: Maybe<Array<Maybe<SiteInput>>>;
 };

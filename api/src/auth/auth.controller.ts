@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserInput } from '../users/dto/create-user.input';
+import { ChangePasswordInput } from './dto/change-password.input';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import RequestWithUser from './RequestWithUser';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -28,6 +29,16 @@ export class AuthController {
   async logIn(@Req() request: RequestWithUser) {
     const { user } = request;
     return await this.authService.login(user);
+  }
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  async changePassword(
+    @Req() request: RequestWithUser,
+    @Body() changePasswordInput: ChangePasswordInput,
+  ) {
+    const { user } = request;
+    return await this.authService.changePassword(user, changePasswordInput);
   }
 
   @UseGuards(JwtAuthGuard)
