@@ -10,6 +10,7 @@ import { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-rout
 export const localStorageTokenKey = 'token';
 
 interface UserStateInterface {
+  id: number;
   role: string
   email: string
   sitesIds: number[]
@@ -35,6 +36,7 @@ interface ChangePasswordInterface {
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: {
+      id: 0,
       role: '',
       email: '',
       sitesIds: [],

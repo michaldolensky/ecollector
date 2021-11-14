@@ -77,5 +77,11 @@
     "validation": {
       "required": "forms.validation.required"
     }
+  },
+  "notifications": {
+    "password_changed": "notifications.password_changed",
+    "profile": {
+      "updated": "notifications.profile.updated"
+    }
   }
 }

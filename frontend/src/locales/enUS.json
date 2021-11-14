@@ -101,7 +101,8 @@
   },
   "notifications": {
     "profile": {
-      "password_changed": "Password was changed"
+      "password_changed": "Password was changed",
+      "updated": "Profile was updated"
     }
   }
 }

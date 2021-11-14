@@ -1,0 +1,13 @@
+mutation deleteUser($id:Int!){
+  removeUser(id: $id) {
+    id
+  }
+}
+
+mutation updateUser($updateUserInput:UpdateUserInput!){
+  updateUser(updateUserInput: $updateUserInput) {
+    id,
+    firstName,
+    lastName,
+  }
+}
