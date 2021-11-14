@@ -3,6 +3,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserInput } from '../users/dto/create-user.input';
 import * as bcrypt from 'bcrypt';
+import { ChangePasswordInput } from './dto/change-password.input';
 import { TokenPayload } from './tokenPayload.interface';
 import { User } from '../users/entities/user.entity';
 
@@ -13,12 +14,41 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  private static async hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 10);
+  }
+
+  private static async comparePassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return bcrypt.compare(plainPassword, hashedPassword);
+  }
+
+  private static async verifyPassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ) {
+    const isPasswordMatching = await AuthService.comparePassword(
+      plainPassword,
+      hashedPassword,
+    );
+    if (!isPasswordMatching) {
+      throw new HttpException(
+        'Wrong credentials provided',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   public async register(createUserInput: CreateUserInput) {
     if (createUserInput.password !== createUserInput.verifyPassword) {
       throw new HttpException('PASSWORD_MISMATCH', HttpStatus.BAD_REQUEST);
     }
 
-    const hashedPassword = await bcrypt.hash(createUserInput.password, 10);
+    const hashedPassword = await AuthService.hashPassword(
+      createUserInput.password,
+    );
 
     const createdUser = await this.userService.create({
       ...createUserInput,
@@ -31,7 +61,7 @@ export class AuthService {
   public async getAuthenticatedUser(email: string, plainPassword: string) {
     try {
       const user = await this.userService.getUserByEmail(email);
-      await this.verifyPassword(plainPassword, user.password);
+      await AuthService.verifyPassword(plainPassword, user.password);
 
       user.password = undefined;
       return user;
@@ -49,16 +79,37 @@ export class AuthService {
     return { accessToken: this.jwtService.sign(payload) };
   }
 
-  private async verifyPassword(plainPassword: string, hashedPassword: string) {
-    const isPasswordMatching = await bcrypt.compare(
-      plainPassword,
-      hashedPassword,
+  async changePassword(
+    currentUser: User,
+    changePasswordInput: ChangePasswordInput,
+  ) {
+    if (changePasswordInput.oldPassword === changePasswordInput.newPassword) {
+      throw new HttpException('PASSWORD_CHANGE_SAME', HttpStatus.BAD_REQUEST);
+    }
+
+    const isValid = await AuthService.comparePassword(
+      changePasswordInput.oldPassword,
+      currentUser.password,
     );
-    if (!isPasswordMatching) {
+
+    if (!isValid)
       throw new HttpException(
-        'Wrong credentials provided',
+        'PASSWORD_CHANGE_CURRENT',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    if (
+      changePasswordInput.newPassword !== changePasswordInput.verifyPassword
+    ) {
+      throw new HttpException(
+        'PASSWORD_CHANGE_MISMATCH',
         HttpStatus.BAD_REQUEST,
       );
     }
+    const newPassword = await AuthService.hashPassword(
+      changePasswordInput.newPassword,
+    );
+
+    await this.userService.updatePassword(currentUser.id, newPassword);
   }
 }

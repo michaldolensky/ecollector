@@ -48,6 +48,7 @@ export class UsersService {
     if (!user) throw new BadRequestException('Invalid user');
     Object.assign(user, updateUserInput);
     await this.usersRepository.update(userId, user);
+    delete user.password;
     return user;
   }
 
@@ -55,6 +56,8 @@ export class UsersService {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) throw new Error('User not found!');
     await this.usersRepository.delete(id);
+    delete user.password;
+    return user;
   }
 
   async getById(id: number) {

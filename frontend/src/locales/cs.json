@@ -68,11 +68,25 @@
       "errors": {
         "invalid_credentials": "forms.auth.errors.invalid_credentials",
         "user_exists": "forms.auth.errors.user_exists",
-        "password_mismatch": "forms.auth.errors.password_mismatch"
+        "password_mismatch": "forms.auth.errors.password_mismatch",
+        "change_password_mismatch": "forms.auth.errors.change_password_mismatch",
+        "change_password_same": "forms.auth.errors.change_password_same",
+        "change_current_invalid": "forms.auth.errors.change_current_invalid"
       }
     },
     "validation": {
       "required": "forms.validation.required"
+    }
+  },
+  "notifications": {
+    "password_changed": "notifications.password_changed",
+    "profile": {
+      "updated": "notifications.profile.updated"
+    }
+  },
+  "dialogs": {
+    "profile": {
+      "delete": "dialogs.profile.delete"
     }
   }
 }

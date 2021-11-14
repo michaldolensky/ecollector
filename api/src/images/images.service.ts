@@ -57,12 +57,7 @@ export class ImagesService {
     const image = await this.imagesRepository.findOne({ where: { id } });
     if (!image) throw new NotFoundException('Image not found!');
     await this.imagesRepository.delete(id);
-    fs.unlink(image.path, (err) => {
-      if (err) {
-        this.logger.error(err);
-        return;
-      }
-    });
+    fs.rmSync(image.path, { force: true });
     return image;
   }
 }
