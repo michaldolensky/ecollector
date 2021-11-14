@@ -36,7 +36,7 @@ const deleteAccount = () => {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    void removeUser(authStore.user.id).then((result) => {
+    void removeUser().then((result) => {
       if (result?.data) {
         notify({
           message: t('notifications.profile.deleted'),

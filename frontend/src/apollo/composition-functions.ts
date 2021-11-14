@@ -192,11 +192,6 @@ export type MutationRemoveSiteArgs = {
 };
 
 
-export type MutationRemoveUserArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type MutationUpdateCategoryArgs = {
   siteId: Scalars['Int'];
   updateCategoryInput: UpdateCategoryInput;
@@ -222,7 +217,6 @@ export type Query = {
   __typename?: 'Query';
   categories: Array<Category>;
   category: Category;
-  getUserByEmail: User;
   image: Image;
   images: Array<Image>;
   item: Item;
@@ -241,11 +235,6 @@ export type QueryCategoriesArgs = {
 
 export type QueryCategoryArgs = {
   id: Scalars['Int'];
-};
-
-
-export type QueryGetUserByEmailArgs = {
-  email: Scalars['String'];
 };
 
 
@@ -353,7 +342,6 @@ export type UpdateSiteInput = {
 
 export type UpdateUserInput = {
   firstName: Scalars['String'];
-  id: Scalars['Int'];
   lastName: Scalars['String'];
 };
 
@@ -511,9 +499,7 @@ export type UpdateSiteMutationVariables = Exact<{
 
 export type UpdateSiteMutation = { __typename?: 'Mutation', updateSite: { __typename?: 'Site', id: number, name: string } };
 
-export type DeleteUserMutationVariables = Exact<{
-  id: Scalars['Int'];
-}>;
+export type DeleteUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DeleteUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'User', id: number } };
@@ -523,7 +509,7 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: number, firstName?: string | null | undefined, lastName?: string | null | undefined } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName?: string | null | undefined, lastName?: string | null | undefined } };
 
 
 export const GetCatalogueCategoriesDocument = gql`
@@ -1113,8 +1099,8 @@ export function useUpdateSiteMutation(options: VueApolloComposable.UseMutationOp
 }
 export type UpdateSiteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateSiteMutation, UpdateSiteMutationVariables>;
 export const DeleteUserDocument = gql`
-    mutation deleteUser($id: Int!) {
-  removeUser(id: $id) {
+    mutation deleteUser {
+  removeUser {
     id
   }
 }
@@ -1131,20 +1117,15 @@ export const DeleteUserDocument = gql`
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useDeleteUserMutation({
- *   variables: {
- *     id: // value for 'id'
- *   },
- * });
+ * const { mutate, loading, error, onDone } = useDeleteUserMutation();
  */
-export function useDeleteUserMutation(options: VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>>) {
+export function useDeleteUserMutation(options: VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
 }
 export type DeleteUserMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<DeleteUserMutation, DeleteUserMutationVariables>;
 export const UpdateUserDocument = gql`
     mutation updateUser($updateUserInput: UpdateUserInput!) {
   updateUser(updateUserInput: $updateUserInput) {
-    id
     firstName
     lastName
   }

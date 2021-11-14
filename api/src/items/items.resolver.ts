@@ -12,6 +12,8 @@ import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
+import { Roles } from '../common/decoratos/roles.decorator';
+import { GuardRoles } from '../common/enums/role.enum';
 import { GetImagesArgs } from '../images/dto/get-images.args';
 import { Image } from '../images/entities/image.entity';
 import { ImagesService } from '../images/images.service';
@@ -31,11 +33,12 @@ export class ItemsResolver {
   ) {}
 
   @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Item)
   createItem(@Args() { createItemInput, siteId }: CreateItemArgs) {
     return this.itemsService.create(createItemInput, siteId);
   }
-
+  @UseGuards(GqlAuthGuard)
   @Query(() => [Item], { name: 'items' })
   findAll(@Args() args: GetItemsArgs) {
     return this.itemsService.findAll(args);
@@ -46,11 +49,15 @@ export class ItemsResolver {
     return this.itemsService.findOne(id);
   }
 
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Item)
   updateItem(@Args() { updateItemInput }: UpdateItemArgs) {
     return this.itemsService.update(updateItemInput.id, updateItemInput);
   }
 
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Item)
   removeItem(@Args() { deleteItemInput: { itemId } }: DeleteItemArgs) {
     return this.itemsService.remove(itemId);

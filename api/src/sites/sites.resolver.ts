@@ -1,6 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import {
   Args,
-  Info,
   Int,
   Mutation,
   Parent,
@@ -8,18 +8,21 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { SiteStats } from './entities/siteStats';
-import { SitesService } from './sites.service';
-import { Site } from './entities/site.entity';
-import { CreateSiteInput } from './dto/create-site.input';
-import { UpdateSiteInput } from './dto/update-site.input';
-import { User } from '../users/entities/user.entity';
-import { UsersService } from '../users/users.service';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RoleGuard } from '../auth/guards/role.guard';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
-import { CurrentUser } from '../auth/current-user.decorator';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { Roles } from '../common/decoratos/roles.decorator';
+import { GuardRoles } from '../common/enums/role.enum';
+import { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
+import { CreateSiteInput } from './dto/create-site.input';
+import { UpdateSiteInput } from './dto/update-site.input';
+import { Site } from './entities/site.entity';
+import { SiteStats } from './entities/siteStats';
+import { SitesService } from './sites.service';
 
 @Resolver(() => Site)
 export class SitesResolver {
@@ -47,17 +50,20 @@ export class SitesResolver {
   getSiteById(@Args('id', { type: () => Int }) id: number) {
     return this.sitesService.findOne(id);
   }
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Site)
   updateSite(@Args('updateSiteInput') updateSiteInput: UpdateSiteInput) {
     return this.sitesService.update(updateSiteInput.id, updateSiteInput);
   }
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => Site)
   removeSite(@Args('id', { type: () => Int }) id: number) {
     return this.sitesService.remove(id);
   }
-
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Admin)
   @ResolveField(() => User)
   owner(@Parent() user: User): Promise<User> {
     return this.userService.findOne(user.id);
