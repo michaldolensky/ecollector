@@ -1,3 +1,4 @@
+import { i18n } from 'boot/i18n';
 import { Item } from 'src/composables/useItems';
 import { toRowDate } from 'src/utils';
 
@@ -5,7 +6,7 @@ export const ItemsTableColumns = [
   {
     name: 'image',
     required: true,
-    label: 'Name',
+    label: i18n.global.t('dashboard.items.table.column.label.image'),
     align: 'left',
     field: (item:Item) => item.images,
     format: (val:string) => `${val}`,
@@ -14,7 +15,7 @@ export const ItemsTableColumns = [
   {
     name: 'name',
     required: true,
-    label: 'Name',
+    label: i18n.global.t('dashboard.items.table.column.label.name'),
     align: 'left',
     field: (item:Item) => item.name,
     format: (val:string) => `${val}`,
@@ -23,7 +24,7 @@ export const ItemsTableColumns = [
   {
     name: 'Category',
     required: true,
-    label: 'Category',
+    label: i18n.global.t('dashboard.items.table.column.label.category'),
     align: 'left',
     field: (item:Item) => item.category.name,
     format: (val:string) => `${val}`,
@@ -32,7 +33,7 @@ export const ItemsTableColumns = [
   {
     name: 'availableForExchange',
     required: true,
-    label: 'Available for exchange',
+    label: i18n.global.t('dashboard.items.table.column.label.available_for_exchange'),
     align: 'left',
     field: (item:Item) => item.numberForExchange,
     format: (val:string) => `${val}`,
@@ -41,7 +42,7 @@ export const ItemsTableColumns = [
   {
     name: 'count',
     required: true,
-    label: 'Count',
+    label: i18n.global.t('dashboard.items.table.column.label.count'),
     align: 'left',
     field: (item:Item) => item.numberInCollection,
     format: (val:string) => `${val}`,
@@ -50,14 +51,18 @@ export const ItemsTableColumns = [
   {
     name: 'created',
     required: true,
-    label: 'Created',
+    label: i18n.global.t('dashboard.items.table.column.label.created'),
     align: 'left',
     field: (item:Item) => item.createdAt,
     format: (val:string) => `${toRowDate(val)}`,
     sortable: true,
   },
   {
-    name: 'action', label: 'Actions', field: 'Action', sortable: false, align: 'center',
+    name: 'action',
+    label: i18n.global.t('dashboard.items.table.column.label.action'),
+    field: 'Action',
+    sortable: false,
+    align: 'center',
   },
 
 ];

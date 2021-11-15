@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
-const HOSTNAME = process.env.SERVER_ADDRESS || process.env.SERVER_ADDRESS;
+const HOSTNAME = process.env.SERVER_ADDRESS || process.env.NGINX_SERVER_NAME;
 const PORT = process.env.API_PORT;
 
 async function bootstrap() {

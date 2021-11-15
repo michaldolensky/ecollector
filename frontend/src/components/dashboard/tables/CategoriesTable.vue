@@ -4,7 +4,7 @@
     :filter="props.filter"
     :grid="q.screen.xs"
     :loading="props.loading"
-    :no-data-label="$t('tables.notFound.categories')"
+    :no-data-label="$t('dashboard.categories.table.not_found')"
     :pagination="initialPagination"
     :rows="props.categories"
     row-key="id"
@@ -76,8 +76,8 @@ const initialPagination = reactive({
 
 const confirmDelete = (category: Category) => {
   q.dialog({
-    title: 'Confirm',
-    message: t('dialogs.dashboard.delete', [category.name]),
+    title: t('dialogs.titles.confirm', [category.name]),
+    message: t('dashboard.categories.dialogs.message.delete', [category.name]),
     cancel: true,
     persistent: true,
   }).onOk(() => {

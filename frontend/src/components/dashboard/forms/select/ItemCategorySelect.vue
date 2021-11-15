@@ -1,11 +1,11 @@
 <template>
   <q-select
     v-model="value"
+    :label="$t('dashboard.items.input.label.category')"
     :options="options"
     :rules="[required]"
     emit-value
     input-debounce="0"
-    label="Category"
     map-options
     option-label="name"
     option-value="id"

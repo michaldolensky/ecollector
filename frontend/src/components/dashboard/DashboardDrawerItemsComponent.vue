@@ -42,6 +42,11 @@ const DashboardNavigationItems: NavigationItemInterface[] = [
     icon: 'settings',
     routeName: 'DashBoardSettings',
   },
+  {
+    nameString: 'dashboard.navigation.catalog',
+    icon: 'open_in_new',
+    routeName: 'catalog',
+  },
 ];
 
 </script>

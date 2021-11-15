@@ -1,4 +1,41 @@
 {
+  "account": {
+    "profile": {
+      "card": {
+        "title": {
+          "change_password": "Change password",
+          "delete_account": "Delete account",
+          "description": "Main description"
+        }
+      }
+    },
+    "sites": {
+      "button": {
+        "add_site": "Add new site"
+      },
+      "card": {
+        "add_site": "Add site"
+      },
+      "input": {
+        "placeholder": {
+          "search": "Search"
+        }
+      },
+      "inputs": {
+        "site_name": "Site name:"
+      },
+      "table": {
+        "column": {
+          "label": {
+            "action": "Action",
+            "created": "Created",
+            "name": "Name"
+          }
+        },
+        "not_found": "No sites found."
+      }
+    }
+  },
   "buttons": {
     "auth": {
       "login": "Login",
@@ -6,52 +43,156 @@
       "signup": "Signup"
     },
     "common": {
-      "submit": "Submit",
+      "delete": "Delete",
+      "reset": "Reset",
       "save": "Save",
-      "reset": "Reset"
+      "submit": "Submit"
     }
   },
-  "forms": {
-    "auth": {
-      "email": "Email",
-      "password": "Password",
-      "oldPassword": "Old password",
-      "newPassword": "New password",
-      "confirm_password": "Confirm Password",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "errors": {
-        "invalid_credentials": "Invalid credentials",
-        "user_exists": "User already exists",
-        "password_mismatch": "Passwords do not match",
-        "change_password_mismatch": "New and confirm passwords aren´t the same.",
-        "change_password_same": "New password cannot be same as your old Password",
-        "change_current_invalid": "Your old password is invalid."
+  "catalog": {
+    "input": {
+      "category_search": "Category search"
+    },
+    "navigation": {
+      "item": {
+        "home": "Home"
+      },
+      "tab": {
+        "catalog": "Catalog"
       }
     },
-    "validation": {
-      "required": "Field is required",
-      "minLength": "Field must be at least {0} characters long",
-      "maxLength": "Field must be at most {0} characters long"
+    "item": {
+      "badge": {
+        "available_for_exchange": "Tooltip"
+      }
     }
   },
-  "pages": {
-    "auth": {
-      "login": {
-        "title": "Login",
-        "subtitle": "Please login to your account"
+  "dashboard": {
+    "categories": {
+      "addCategory": "Add category",
+      "card": {
+        "title": {
+          "category_description": "Category description"
+        }
       },
-      "signup": {
-        "title": "Signup",
-        "subtitle": "Please signup to your account"
+      "dialogs": {
+        "message": {
+          "delete": "Do you want to delete"
+        }
       },
-      "reset": {
-        "title": "Reset",
-        "subtitle": "Please reset your password"
+      "input": {
+        "label": {
+          "category_name": "Item name",
+          "short_description": "Short description"
+        }
+      },
+      "notification": {
+        "message": {
+          "category_created": "Category created",
+          "category_updated": "Category updated"
+        }
+      },
+      "table": {
+        "column": {
+          "label": {
+            "action": "Action",
+            "created": "Created",
+            "name": "Name",
+            "updated": "Updated"
+          }
+        },
+        "not_found": "Categories not found"
       }
     },
-    "profile": "Profile",
-    "sites": "Sites"
+    "headers": {
+      "createCategory": "Create category",
+      "createItem": "Create item",
+      "dashboard": "Dashboard",
+      "editCategory": "Edit category",
+      "editItem": "Edit item",
+      "user_sites": "Your sites"
+    },
+    "items": {
+      "addItem": "Add item",
+      "button": {
+        "label": {
+          "item_id": "Item ID"
+        }
+      },
+      "card": {
+        "title": {
+          "item_description": "Item description",
+          "item_details": "Item details",
+          "item_images": "Item images",
+          "item_name": "Item name"
+        }
+      },
+      "dialogs": {
+        "message": {
+          "delete": "Do you want to delete"
+        }
+      },
+      "input": {
+        "label": {
+          "category": "Category",
+          "internal_number": "Internal Number",
+          "item_name": "Item name",
+          "items_for_exchange": "Available number of items for exchange",
+          "items_in_collection": "Number of items in the collection",
+          "long_description": "Long description",
+          "short_description": "Short description",
+          "upload": "Upload"
+        }
+      },
+      "notification": {
+        "message": {
+          "item_created": "Created",
+          "item_updated": "Updated"
+        }
+      },
+      "table": {
+        "column": {
+          "label": {
+            "action": "Action",
+            "available_for_exchange": "Available for exchange",
+            "category": "Category",
+            "count": "Count",
+            "created": "Created",
+            "image": "Image",
+            "name": "Name"
+          }
+        },
+        "notFound": "No items found.",
+        "not_found": "Items not found."
+      }
+    },
+    "navigation": {
+      "catalog": "Catalog",
+      "categories": "Categories",
+      "home": "Home",
+      "items": "Items",
+      "settings": "Site settings",
+      "sites": "Your sites"
+    },
+    "settings": {
+      "button": {
+        "delete_site": "Delete site",
+        "submit": "Submit"
+      },
+      "card": {
+        "title": {
+          "delete_site": "Delete site",
+          "description": "Main description"
+        }
+      },
+      "inputs": {
+        "site_name": "Site name"
+      }
+    },
+    "stats": {
+      "categories_count": "Category count",
+      "item_count": "Item count"
+    }
   },
   "dialogs": {
     "messages": {
@@ -62,46 +203,15 @@
       "confirm": "Confirm"
     }
   },
-  "navigation": {
-    "categories": "Categories",
-    "home": "Home",
-    "items": "Items",
-    "settings": "Settings"
-  },
-  "tables": {
-    "createdAt": "Created",
-    "notFound": {
-      "items": "No items found.",
-      "categories": "No categories found.",
-      "sites": "No sites found."
+  "error": {
+    "401": {
+      "title": "Unauthorized"
     },
-    "name": "Name",
-    "updatedAt": "Updated"
-  },
-  "dashboard": {
-    "navigation": {
-      "home": "Home",
-      "items": "Items",
-      "categories": "Categories",
-      "settings": "Site settings",
-      "sites": "Your sites"
+    "404": {
+      "title": "Page not found"
     },
-    "items": {
-      "addItem": "Add item"
-    },
-    "stats": {
-      "item_count": "Item count",
-      "categories_count": "Category count"
-    },
-    "headers": {
-      "editItem": "Edit item",
-      "createItem": "Create item",
-      "createCategory": "Create category",
-      "editCategory": "Edit category",
-      "user_sites": "Your sites"
-    },
-    "categories": {
-      "addCategory": "Add category"
+    "button": {
+      "go_home": "Go Home"
     }
   },
   "filters": {
@@ -109,11 +219,61 @@
       "search": "Search"
     }
   },
+  "forms": {
+    "auth": {
+      "confirm_password": "Confirm Password",
+      "email": "Email",
+      "errors": {
+        "change_current_invalid": "Your old password is invalid.",
+        "change_password_mismatch": "New and confirm passwords aren´t the same.",
+        "change_password_same": "New password cannot be same as your old Password",
+        "invalid_credentials": "Invalid credentials",
+        "password_mismatch": "Passwords do not match",
+        "user_exists": "User already exists"
+      },
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "newPassword": "New password",
+      "oldPassword": "Old password",
+      "password": "Password"
+    },
+    "button": {
+      "submit": "Submit"
+    },
+    "validation": {
+      "maxLength": "Field must be at most {0} characters long",
+      "minLength": "Field must be at least {0} characters long",
+      "required": "Field is required"
+    }
+  },
   "notifications": {
     "profile": {
+      "deleted": "Profile was deleted",
       "password_changed": "Password was changed",
-      "updated": "Profile was updated",
-      "deleted": "Profile was deleted"
+      "updated": "Profile was updated"
     }
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "subtitle": "Please login to your account",
+        "title": "Login"
+      },
+      "reset": {
+        "subtitle": "Please reset your password",
+        "title": "Reset"
+      },
+      "signup": {
+        "title": "Signup"
+      }
+    },
+    "profile": "Profile",
+    "sites": "Sites"
+  },
+  "site_name": "E-collector",
+  "tables": {
+    "createdAt": "Created",
+    "name": "Name",
+    "updatedAt": "Updated"
   }
 }

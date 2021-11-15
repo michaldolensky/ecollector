@@ -9,13 +9,13 @@
         class="text-h2"
         style="opacity:.4"
       >
-        Oops. Nothing here...
+        {{ $t('error.404.title') }}
       </div>
 
       <q-btn
+        :label="$t('error.button.go_home')"
         class="q-mt-xl"
         color="white"
-        label="Go Home"
         no-caps
         text-color="blue"
         to="/"
