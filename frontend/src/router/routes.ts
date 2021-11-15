@@ -91,7 +91,7 @@ const getRoutes = (): RouteRecordRaw[] => {
           name: 'catalog',
           path: 'site/:siteId/catalog',
           components: {
-            default: import('pages/MainPage.vue'),
+            default: () => import('pages/MainPage.vue'),
             drawer: () => import('components/drawers/CatalogDrawer.vue'),
             subToolbar: () => import('components/SiteToolbar.vue'),
           },
