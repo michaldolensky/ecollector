@@ -60,6 +60,11 @@
       "tab": {
         "catalog": "Catalog"
       }
+    },
+    "item": {
+      "badge": {
+        "available_for_exchange": "Tooltip"
+      }
     }
   },
   "dashboard": {

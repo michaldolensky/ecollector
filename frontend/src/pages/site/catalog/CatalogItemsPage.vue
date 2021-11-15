@@ -3,7 +3,7 @@
     <q-scroll-area style="height: 80vh; width:100%">
       <div
         v-if="!loading"
-        class="q-pa-md row items-start q-gutter-md"
+        class="q-pa-md row items-start q-gutter-md items"
       >
         <template
           v-for="item in items"
@@ -25,7 +25,7 @@ import CatalogItem from 'src/components/catalog/CatalogItem.vue';
 
 interface Props {
   siteId: number
-  categoryId: number
+  categoryId?: number
 }
 const props = defineProps<Props>();
 
@@ -37,3 +37,10 @@ const { result, loading } = useGetCatalogItemsQuery(() => ({
 const items = useResult(result);
 
 </script>
+<style>
+.items{
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+</style>

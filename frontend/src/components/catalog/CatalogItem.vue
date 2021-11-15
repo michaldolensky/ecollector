@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="my-card"
+    style="width: 100%; max-width: 250px"
   >
     <q-img
       :src="SERVER_URL+props.item.images[0].path"
@@ -16,12 +16,9 @@
           color="white"
           name="swap_horiz"
         >
-          <q-tooltip>
-            Tooltip
-          </q-tooltip>
+          <q-tooltip>{{ $t('catalog.item.badge.available_for_exchange') }}</q-tooltip>
         </q-icon>
-
-        3
+        {{ item.numberForExchange }}
       </q-badge>
     </q-img>
     <q-card-section />
@@ -33,24 +30,16 @@
         {{ props.item.shortDesc }}
       </div>
     </q-card-section>
-    <q-card-section class="q-pt-none">
-      {{ props.item.height }}
-    </q-card-section>
   </q-card>
 </template>
 <script lang="ts" setup>
 import { CatalogItem } from 'src/composables/useCatalog';
 import { SERVER_URL } from 'src/composables/useEnv';
 
-interface Props{
-  item:CatalogItem
+interface Props {
+  item: CatalogItem
 }
 
 const props = defineProps<Props>();
 
 </script>
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 250px
-</style>
