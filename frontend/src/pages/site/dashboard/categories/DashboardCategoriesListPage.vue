@@ -41,7 +41,8 @@ import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useCategories } from 'src/composables/useCategories';
 import { ref } from 'vue';
 
-const { result, loading } = useCategories();
+const { result, loading, refetch } = useCategories();
+void refetch();
 
 const filter = ref('');
 

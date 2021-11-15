@@ -61,6 +61,7 @@ export function useCategories() {
   return {
     result,
     loading,
+    refetch,
     getCategory,
     getCategories,
     removeCategory,

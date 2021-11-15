@@ -93,8 +93,9 @@ const router = useRouter();
 const { notify, dialog } = useQuasar();
 
 const {
-  loading, onResult, restart,
+  loading, onResult, restart, refetch,
 } = useSiteQuery(() => ({ id: props.siteId }));
+void refetch();
 
 const currentSettings = reactive<UpdateSiteInput>({
   name: '',

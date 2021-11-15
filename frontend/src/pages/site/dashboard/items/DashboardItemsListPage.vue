@@ -41,7 +41,8 @@ import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { useItems } from 'src/composables/useItems';
 import { ref } from 'vue';
 
-const { result, loading } = useItems();
+const { result, loading, refetch } = useItems();
+void refetch();
 
 const filter = ref('');
 

@@ -69,6 +69,7 @@ export function useItems() {
     getItem,
     result,
     loading,
+    refetch,
     removeItem,
     updateItem,
     createItem,
