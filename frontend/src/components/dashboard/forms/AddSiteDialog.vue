@@ -67,7 +67,8 @@ const site = reactive({
 const dialogOpen = ref(false);
 
 const onSubmit = () => {
-  void createSite(site);
-  void authStore.me();
+  void createSite(site).then(() => {
+    void authStore.me();
+  });
 };
 </script>
