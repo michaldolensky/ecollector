@@ -62,12 +62,6 @@
       "confirm": "Confirm"
     }
   },
-  "navigation": {
-    "categories": "Categories",
-    "home": "Home",
-    "items": "Items",
-    "settings": "Settings"
-  },
   "tables": {
     "createdAt": "Created",
     "notFound": {
@@ -84,7 +78,8 @@
       "items": "Items",
       "categories": "Categories",
       "settings": "Site settings",
-      "sites": "Your sites"
+      "sites": "Your sites",
+      "catalog": "Catalog"
     },
     "items": {
       "addItem": "Add item"

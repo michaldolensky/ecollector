@@ -4,7 +4,8 @@
       "items": "dashboard.navigation.items",
       "categories": "dashboard.navigation.categories",
       "settings": "dashboard.navigation.settings",
-      "sites": "dashboard.navigation.sites"
+      "sites": "dashboard.navigation.sites",
+      "catalog": "dashboard.navigation.catalog"
     },
     "items": {
       "addItem": "dashboard.items.addItem"
