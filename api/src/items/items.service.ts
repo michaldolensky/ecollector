@@ -30,7 +30,6 @@ export class ItemsService {
   }
 
   async findAll({ categoryId, siteId }: GetItemsArgs, parent?: Category) {
-    console.log(parent);
     return await this.itemsRepository.find({
       where: {
         ...(categoryId && { categoryId }),
