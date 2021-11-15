@@ -47,12 +47,12 @@
 import { useSiteSettingsStore } from 'src/stores/settings';
 import AccountDropdown from 'components/index/AuthDropdown.vue';
 
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const settings = useSiteSettingsStore();
 
 const route = useRoute();
-const showDrawer = ref(route.meta.showDrawer);
+const showDrawer = computed(() => route.meta.showDrawer);
 
 </script>
