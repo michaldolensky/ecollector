@@ -56,8 +56,7 @@ const getRoutes = (): RouteRecordRaw[] => {
       next({
         name: 'profile',
       });
-    }
-    next();
+    } else next();
   };
 
   // const requireAdmin:NavigationGuard = (to, from, next) => {
@@ -92,7 +91,7 @@ const getRoutes = (): RouteRecordRaw[] => {
           name: 'catalog',
           path: 'site/:siteId/catalog',
           components: {
-            default: RouterView,
+            default: import('pages/MainPage.vue'),
             drawer: () => import('components/drawers/CatalogDrawer.vue'),
             subToolbar: () => import('components/SiteToolbar.vue'),
           },
@@ -187,7 +186,7 @@ const getRoutes = (): RouteRecordRaw[] => {
         },
         {
           path: 'account',
-          component: () => RouterView,
+          component: RouterView,
           beforeEnter: [requireAuth],
           children: [
             {
