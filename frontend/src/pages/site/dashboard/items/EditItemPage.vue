@@ -139,10 +139,10 @@ const props = defineProps<Props>();
 
 const resetObject:DeepNullable<UpdateItemInput> = {
   id: 0,
-  name: 'default name',
-  categoryId: 1,
-  shortDesc: 'default shortDesc',
-  longDesc: 'ASdefault longDesc',
+  name: '',
+  categoryId: null,
+  shortDesc: '',
+  longDesc: '',
   internalNumber: '',
   numberForExchange: 0,
   numberInCollection: 0,

@@ -104,11 +104,11 @@ authStore.authError = '';
 const { t } = useI18n();
 
 const signupData = reactive<SignUpInterface>({
-  firstName: 'firstName',
-  lastName: 'lastName',
-  email: 'user2@example.com',
-  password: 'password',
-  verifyPassword: 'password',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  verifyPassword: '',
 });
 
 const onSubmit = () => {

@@ -74,8 +74,8 @@ const { required } = validationHelper;
 authStore.authError = '';
 
 const loginData = reactive<LoginInterface>({
-  email: 'admin@example.com',
-  password: 'password',
+  email: '',
+  password: '',
 });
 
 const onSubmit = () => {
