@@ -102,7 +102,10 @@ const getRoutes = (): RouteRecordRaw[] => {
             {
               name: 'CatalogIndex',
               path: '',
-              component: () => import('pages/site/catalog/Index.vue'),
+              props: (route) => ({
+                siteId: parseInt(<string>route.params.siteId, 10),
+              }),
+              component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
             },
             {
               name: 'CatalogCategory',

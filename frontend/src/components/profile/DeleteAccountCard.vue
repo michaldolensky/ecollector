@@ -2,14 +2,14 @@
   <q-card>
     <q-card-section>
       <div class="text-h6 text-weight-regular">
-        Delete account
+        {{ $t('account.profile.card.title.delete_account') }}
       </div>
     </q-card-section>
     <q-separator />
     <q-card-section>
       <q-btn
+        :label="$t('buttons.common.delete')"
         color="negative"
-        label="Delete "
         @click="deleteAccount()"
       />
     </q-card-section>

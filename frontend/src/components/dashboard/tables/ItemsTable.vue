@@ -4,7 +4,7 @@
     :filter="props.filter"
     :grid="$q.screen.xs"
     :loading="props.loading"
-    :no-data-label="$t('tables.notFound.items')"
+    :no-data-label="$t('dashboard.items.table.not_found')"
     :pagination="initialPagination"
     :rows="props.items"
     row-key="id"
@@ -88,8 +88,8 @@ const initialPagination = reactive({
 
 const confirmDelete = (item: Item) => {
   dialog({
-    title: 'Confirm',
-    message: t('dialogs.dashboard.delete', [item.name]),
+    title: t('dialogs.titles.confirm', [item.name]),
+    message: t('dashboard.items.dialogs.message.delete', [item.name]),
     cancel: true,
     persistent: true,
   }).onOk(() => {

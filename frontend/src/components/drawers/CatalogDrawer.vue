@@ -19,17 +19,15 @@
           <q-icon name="home" />
         </q-item-section>
 
-        <q-item-section>
-          Home
-        </q-item-section>
+        <q-item-section>{{ $t('catalog.navigation.item.home') }}</q-item-section>
       </q-item>
       <q-separator />
 
       <q-input
         v-model="filter"
         :debounce="500"
+        :label="$t('catalog.input.category_search')"
         clearable
-        label="Category search"
       >
         <template #prepend>
           <q-icon name="search" />

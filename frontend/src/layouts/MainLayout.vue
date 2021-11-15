@@ -23,7 +23,7 @@
             to="/"
           >
             <q-item-section class="text-white">
-              E-collector
+              {{ $t('site_name') }}
             </q-item-section>
           </q-item>
         </q-toolbar-title>

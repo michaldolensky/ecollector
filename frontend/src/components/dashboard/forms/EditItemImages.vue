@@ -2,7 +2,7 @@
   <q-card>
     <q-card-section>
       <div class="text-h6 text-weight-regular">
-        Item images
+        {{ $t('dashboard.items.card.title.item_images') }}
       </div>
     </q-card-section>
     <q-separator />
@@ -11,10 +11,10 @@
         ref="uploader"
         :disable="!props.inEditMode"
         :factory="uploadImage"
+        :label="$t('dashboard.items.input.label.upload')"
         accept="image/*"
         auto-upload
         batch
-        label="Upload"
         max-files="10"
         multiple
         style="width: 100%"

@@ -6,7 +6,7 @@
     <q-card>
       <q-card-section>
         <div class="text-h6 text-weight-regular">
-          Change password
+          {{ $t('account.profile.card.title.change_password') }}
         </div>
       </q-card-section>
       <q-separator />

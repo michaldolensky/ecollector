@@ -2,7 +2,7 @@
   <q-table
     :columns="SitesTableColumns"
     :filter="filter"
-    :no-data-label="$t('tables.notFound.sites')"
+    :no-data-label="$t('account.sites.table.not_found')"
     :pagination="initialPagination"
     :rows="authStore.userSites"
 
@@ -36,11 +36,11 @@
     <template #top-right>
       <q-input
         v-model="filter"
+        :placeholder="$t('account.sites.input.placeholder.search')"
         borderless
         debounce="300"
         dense
         filled
-        placeholder="Search"
       >
         <template #append>
           <q-icon name="search" />

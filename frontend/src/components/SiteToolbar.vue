@@ -1,6 +1,7 @@
 <template>
   <q-toolbar inset>
     <q-toolbar-title shrink>
+      <!--      todo-->
       SiteName
     </q-toolbar-title>
     <q-separator
@@ -11,8 +12,8 @@
     />
     <q-tabs align="left">
       <q-route-tab
+        :label="$t('catalog.navigation.tab.catalog')"
         :to="{name:'CatalogIndex',params:{siteId:1}}"
-        label="Catalog"
       />
     </q-tabs>
   </q-toolbar>

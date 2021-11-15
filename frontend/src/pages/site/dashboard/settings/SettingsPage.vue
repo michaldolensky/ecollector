@@ -3,7 +3,7 @@
     <dashboard-page-header :title="$t('dashboard.navigation.settings')" />
     <div
       v-if="!loading"
-      class=" items-start  full-width "
+      class="items-start full-width "
     >
       <div class="row">
         <div class="col-12 col-md-8 q-pa-md q-gutter-md">
@@ -13,16 +13,16 @@
             <q-card>
               <q-card-section>
                 <div class="text-h6 text-weight-regular">
-                  Main description
+                  {{ $t('dashboard.settings.card.title.description') }}
                 </div>
               </q-card-section>
               <q-separator />
               <q-card-section>
                 <q-input
                   v-model="currentSettings.name"
+                  :label="$t('dashboard.settings.inputs.site_name')"
                   :loading="loading"
                   :rules="[required]"
-                  label="Site name"
                   lazy-rules
                   outlined
                   stack-label
@@ -31,8 +31,8 @@
               <q-separator />
               <q-card-actions>
                 <q-btn
+                  :label="$t('dashboard.settings.button.submit')"
                   color="primary"
-                  label="Submit"
                   type="submit"
                 />
               </q-card-actions>
@@ -43,14 +43,14 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                Delete site
+                {{ $t('dashboard.settings.card.title.delete_site') }}
               </div>
             </q-card-section>
             <q-separator />
             <q-card-section>
               <q-btn
+                :label="$t('dashboard.settings.button.delete_site')"
                 color="negative"
-                label="Delete site"
                 @click="askForDelete"
               />
             </q-card-section>

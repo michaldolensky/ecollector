@@ -9,7 +9,7 @@
         class="text-h2"
         style="opacity:.4"
       >
-        Unauthorized
+        {{ $t('error.401.title') }}
       </div>
 
       <q-btn

@@ -22,7 +22,7 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                Item description
+                {{ $t('dashboard.items.card.title.item_description') }}
               </div>
             </q-card-section>
 
@@ -30,9 +30,9 @@
             <q-card-section>
               <q-input
                 v-model="item.name"
+                :label="$t('dashboard.items.input.label.item_name')"
                 :rules="[required]"
                 counter
-                label="Item name"
                 maxlength="100"
                 outlined
                 stack-label
@@ -40,7 +40,7 @@
 
               <q-input
                 v-model="item.shortDesc"
-                label="Short description"
+                :label="$t('dashboard.items.input.label.short_description')"
                 maxlength="250"
                 outlined
                 stack-label
@@ -49,7 +49,7 @@
             </q-card-section>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                Long description
+                {{ $t('dashboard.items.input.label.long_description') }}
               </div>
               <Editor v-model="item.longDesc" />
             </q-card-section>
@@ -64,38 +64,36 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                Item details
+                {{ $t('dashboard.items.card.title.item_details') }}
               </div>
             </q-card-section>
             <q-separator />
-
             <q-card-section>
               <ItemCategorySelect v-model="item.categoryId" />
-
               <q-input
                 v-if="item.id"
                 v-model="item.id"
+                :label="$t('dashboard.items.button.label.item_id')"
                 disable
-                label="Item ID"
                 outlined
               />
               <q-input
                 v-model="item.internalNumber"
-                label="Internal Number"
+                :label="$t('dashboard.items.input.label.internal_number')"
                 maxlength="50"
                 outlined
                 stack-label
               />
               <q-input
                 v-model.number="item.numberForExchange"
-                label="Available number of items for exchange"
+                :label="$t('dashboard.items.input.label.items_for_exchange')"
                 outlined
                 stack-label
                 type="number"
               />
               <q-input
                 v-model.number="item.numberInCollection"
-                label="Number of items in the collection"
+                :label="$t('dashboard.items.input.label.items_in_collection')"
                 outlined
                 stack-label
                 type="number"
@@ -122,6 +120,7 @@ import { DeepNullable } from 'ts-essentials';
 import {
   reactive, ref, onMounted,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -129,6 +128,8 @@ const { createItem, updateItem } = useItems();
 const { required } = validationHelper;
 
 const { notify } = useQuasar();
+
+const { t } = useI18n();
 
 interface Props {
   inEditMode?: boolean,
@@ -184,7 +185,7 @@ const onSubmit = () => {
       if (result?.data) {
         notify({
           type: 'positive',
-          message: 'Item updated',
+          message: t('dashboard.items.notification.message.item_updated'),
         });
       }
     });
@@ -195,7 +196,7 @@ const onSubmit = () => {
       if (result?.data) {
         notify({
           type: 'positive',
-          message: 'Item created',
+          message: t('dashboard.items.notification.message.item_created'),
         });
         void router.push({
           name: 'DashBoardItemEdit',

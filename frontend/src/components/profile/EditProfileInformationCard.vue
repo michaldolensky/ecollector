@@ -5,7 +5,7 @@
     <q-card>
       <q-card-section>
         <div class="text-h6 text-weight-regular">
-          Main description
+          {{ $t('account.profile.card.title.description') }}
         </div>
       </q-card-section>
       <q-separator />
@@ -33,8 +33,8 @@
       <q-separator />
       <q-card-actions>
         <q-btn
+          :label="$t('buttons.common.save')"
           color="primary"
-          label="Submit"
           type="submit"
         />
       </q-card-actions>

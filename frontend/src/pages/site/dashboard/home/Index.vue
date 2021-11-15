@@ -1,6 +1,6 @@
 <template>
   <dashboard-page>
-    <dashboard-page-header title="Index" />
+    <dashboard-page-header :title="$t('dashboard.headers.dashboard')" />
     <div
       v-if="!loading"
       class="q-pa-md row items-start q-gutter-md"

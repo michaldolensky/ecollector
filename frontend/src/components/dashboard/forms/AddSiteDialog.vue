@@ -1,6 +1,6 @@
 <template>
   <q-btn
-    label="Add new site"
+    :label="$t('account.sites.button.add_site')"
     @click="dialogOpen=true"
   />
   <q-dialog
@@ -14,7 +14,7 @@
         <q-card>
           <q-card-section class="row items-center q-pb-none">
             <div class="text-h6">
-              Add site
+              {{ $t('account.sites.card.add_site') }}
             </div>
             <q-space />
             <q-btn
@@ -29,18 +29,17 @@
           <q-card-section>
             <q-input
               v-model="site.name"
+              :label="$t('account.sites.inputs.site_name')"
               :rules="[required]"
               autofocus
               filled
-              hint="Enter how your site will be named"
-              label="Site name:"
               lazy-rules
             />
           </q-card-section>
           <q-card-actions align="right">
             <q-btn
+              :label="$t('buttons.common.submit')"
               color="primary"
-              label="Submit"
               type="submit"
             />
           </q-card-actions>

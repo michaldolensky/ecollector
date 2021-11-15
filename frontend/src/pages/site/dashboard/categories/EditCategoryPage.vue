@@ -22,7 +22,7 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                Category description
+                {{ $t('dashboard.categories.card.title.category_description') }}
               </div>
             </q-card-section>
 
@@ -30,9 +30,9 @@
             <q-card-section>
               <q-input
                 v-model="category.name"
+                :label="$t('dashboard.categories.input.label.category_name')"
                 :rules="[required]"
                 counter
-                label="Item name"
                 maxlength="100"
                 outlined
                 stack-label
@@ -40,7 +40,7 @@
 
               <q-input
                 v-model="category.perex"
-                label="Short description"
+                :label="$t('dashboard.categories.input.label.short_description')"
                 maxlength="250"
                 outlined
                 stack-label
@@ -69,6 +69,7 @@ import { validationHelper } from 'src/validationHelper';
 import {
   ref, reactive, onMounted,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -77,10 +78,12 @@ const { required } = validationHelper;
 
 const { notify } = useQuasar();
 
+const { t } = useI18n();
+
 interface Props {
   inEditMode?: boolean,
   categoryId?: number,
-  header:string
+  header?:string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -122,7 +125,7 @@ const onSubmit = () => {
       if (result?.data) {
         notify({
           type: 'positive',
-          message: 'Category updated',
+          message: t('dashboard.categories.notification.message.category_updated'),
         });
       }
     });
@@ -132,7 +135,7 @@ const onSubmit = () => {
       if (result?.data) {
         notify({
           type: 'positive',
-          message: 'Category created',
+          message: t('dashboard.categories.notification.message.category_created'),
         });
         void router.push({
           name: 'DashBoardCategoryEdit',
