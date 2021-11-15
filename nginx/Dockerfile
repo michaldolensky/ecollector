@@ -1,5 +1,5 @@
 FROM nginx:alpine AS development
-COPY ../api/nginx/entrypoint-nginx.sh /
+COPY entrypoint-nginx.sh /
 
 RUN set -ex && \
 	apk add --no-cache bash && \
