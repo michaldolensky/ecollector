@@ -1,13 +1,14 @@
 version: "3.8"
 services:
-  api_server:
-    container_name: ecollector-api-demo
+  server:
+    container_name: ecollector-server-demo
     build:
-      context: ./api
       target: production
-      dockerfile: Dockerfile
+      dockerfile: demo.server.Dockerfile
     env_file:
       - .config/.env.demo
+    ports:
+      - "8080:3000"
     depends_on:
       - postgres
 
@@ -16,20 +17,12 @@ services:
     container_name: ecollector-postgres-demo
     restart: unless-stopped
     working_dir: /application
+    ports:
+      - "5432:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
     env_file:
       - .config/.env.demo
 
-  nginx:
-    build:
-      dockerfile: demo.Dockerfile
-    container_name: ecollector-nginx-demo
-    ports:
-      - "8080:80"
-    depends_on:
-      - api_server
-    env_file:
-      - .config/.env.demo
 volumes:
   postgres:
