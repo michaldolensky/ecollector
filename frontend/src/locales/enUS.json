@@ -149,7 +149,7 @@
         "column": {
           "label": {
             "action": "Action",
-            "availeble_for_exchange": "Availeble for exchange",
+            "available_for_exchange": "Available for exchange",
             "category": "Category",
             "count": "Count",
             "created": "Created",

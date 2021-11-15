@@ -33,7 +33,7 @@ export const ItemsTableColumns = [
   {
     name: 'availableForExchange',
     required: true,
-    label: i18n.global.t('dashboard.items.table.column.label.availeble_for_exchange'),
+    label: i18n.global.t('dashboard.items.table.column.label.available_for_exchange'),
     align: 'left',
     field: (item:Item) => item.numberForExchange,
     format: (val:string) => `${val}`,
