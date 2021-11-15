@@ -205,6 +205,7 @@ export type MutationUpdateItemArgs = {
 
 
 export type MutationUpdateSiteArgs = {
+  siteId: Scalars['Int'];
   updateSiteInput: UpdateSiteInput;
 };
 
@@ -336,7 +337,6 @@ export type UpdateItemInput = {
 };
 
 export type UpdateSiteInput = {
-  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
@@ -494,6 +494,7 @@ export type RemoveSiteMutation = { __typename?: 'Mutation', removeSite: { __type
 
 export type UpdateSiteMutationVariables = Exact<{
   updateSiteInput: UpdateSiteInput;
+  siteId: Scalars['Int'];
 }>;
 
 
@@ -1069,8 +1070,8 @@ export function useRemoveSiteMutation(options: VueApolloComposable.UseMutationOp
 }
 export type RemoveSiteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveSiteMutation, RemoveSiteMutationVariables>;
 export const UpdateSiteDocument = gql`
-    mutation updateSite($updateSiteInput: UpdateSiteInput!) {
-  updateSite(updateSiteInput: $updateSiteInput) {
+    mutation updateSite($updateSiteInput: UpdateSiteInput!, $siteId: Int!) {
+  updateSite(updateSiteInput: $updateSiteInput, siteId: $siteId) {
     id
     name
   }
@@ -1091,6 +1092,7 @@ export const UpdateSiteDocument = gql`
  * const { mutate, loading, error, onDone } = useUpdateSiteMutation({
  *   variables: {
  *     updateSiteInput: // value for 'updateSiteInput'
+ *     siteId: // value for 'siteId'
  *   },
  * });
  */

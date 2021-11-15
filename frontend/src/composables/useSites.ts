@@ -29,7 +29,8 @@ export function useSites() {
   });
 
   const createSite = (createSiteInput:CreateSiteInput) => createSiteMutation({ createSiteInput });
-  const updateSite = (updateSiteInput:UpdateSiteInput) => updateSiteMutation({ updateSiteInput });
+  // eslint-disable-next-line max-len
+  const updateSite = (updateSiteInput:UpdateSiteInput) => updateSiteMutation({ updateSiteInput, siteId: currentSiteId.value });
 
   return {
     currentSiteId, createSite, updateSite, removeSite, getSite,

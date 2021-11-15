@@ -97,14 +97,12 @@ const {
 } = useSiteQuery(() => ({ id: props.siteId }));
 
 const currentSettings = reactive<UpdateSiteInput>({
-  id: 0,
   name: '',
 });
 
 onResult((result) => {
   if (!result.loading) {
-    const { id, name } = result.data.site;
-    currentSettings.id = id;
+    const { name } = result.data.site;
     currentSettings.name = name;
   }
 });

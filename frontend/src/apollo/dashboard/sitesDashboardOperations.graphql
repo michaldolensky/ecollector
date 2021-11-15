@@ -25,8 +25,8 @@ mutation removeSite($id:Int!){
   }
 }
 
-mutation updateSite($updateSiteInput:UpdateSiteInput!){
-  updateSite(updateSiteInput: $updateSiteInput) {
+mutation updateSite($updateSiteInput:UpdateSiteInput!,$siteId:Int!){
+  updateSite(updateSiteInput: $updateSiteInput,siteId: $siteId) {
     id
     name
   }

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/graphql';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { CategoriesService } from '../categories/categories.service';
 import { Category } from '../categories/entities/category.entity';
@@ -19,7 +18,7 @@ import { GuardRoles } from '../common/enums/role.enum';
 import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { CreateSiteInput } from './dto/create-site.input';
-import { UpdateSiteInput } from './dto/update-site.input';
+import { UpdateSiteArgs } from './dto/update-site.input';
 import { Site } from './entities/site.entity';
 import { SiteStats } from './entities/siteStats';
 import { SitesService } from './sites.service';
@@ -53,8 +52,8 @@ export class SitesResolver {
   @UseGuards(GqlAuthGuard, RoleGuard)
   @Roles(GuardRoles.Owner)
   @Mutation(() => Site)
-  updateSite(@Args('updateSiteInput') updateSiteInput: UpdateSiteInput) {
-    return this.sitesService.update(updateSiteInput.id, updateSiteInput);
+  updateSite(@Args() args: UpdateSiteArgs) {
+    return this.sitesService.update(args.siteId, args.updateSiteInput);
   }
   @UseGuards(GqlAuthGuard, RoleGuard)
   @Roles(GuardRoles.Owner)
