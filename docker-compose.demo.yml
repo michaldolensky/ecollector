@@ -3,6 +3,7 @@ services:
   server:
     container_name: ecollector-server-demo
     build:
+      context: .
       target: production
       dockerfile: demo.server.Dockerfile
     env_file:
