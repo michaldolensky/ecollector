@@ -29,8 +29,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.16.3",
     "@graphql-codegen/add": "3.1.0",
-    "@graphql-codegen/cli": "2.2.2",
-    "@graphql-codegen/typescript": "2.3.1",
+    "@graphql-codegen/cli": "2.3.0",
+    "@graphql-codegen/typescript": "2.4.0",
     "@graphql-codegen/typescript-operations": "2.2.0",
     "@graphql-codegen/typescript-vue-apollo": "3.2.0",
     "@quasar/app": "3.2.2",
