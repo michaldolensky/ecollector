@@ -1,17 +1,15 @@
-FROM node:14.18.1-alpine3.14 AS development
+FROM node:14.18.1-alpine3.14 AS production
 
 WORKDIR /usr/src/frontend
 
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn global add @quasar/cli
+RUN npm i -g @quasar/cli
 RUN yarn
 COPY . .
 RUN quasar build
 
-EXPOSE 8080
+EXPOSE 4000
 
-FROM node:14.18.1-alpine3.14 as production
-
-
+CMD [ "quasar", "serve", "dist/spa", "--history" ]
