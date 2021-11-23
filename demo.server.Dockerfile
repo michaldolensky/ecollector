@@ -1,4 +1,4 @@
-FROM node:14.18.1 AS buildclient
+FROM node:16.13.0 AS buildclient
 
 WORKDIR /client
 
@@ -10,7 +10,7 @@ COPY ./.config/.env.demo .env
 
 RUN node node_modules/@quasar/app/bin/quasar-build
 
-FROM node:14.18.1 AS development
+FROM node:16.13.0 AS development
 
 WORKDIR /usr/src/api
 
@@ -25,7 +25,7 @@ RUN npm rebuild bcrypt --build-from-source
 
 RUN npm run build
 
-FROM node:14.18.1-alpine3.14 as production
+FROM node:16.13.0-alpine3.14 as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
