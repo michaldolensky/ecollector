@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
@@ -9,9 +10,13 @@ const PORT = process.env.API_PORT;
 async function bootstrap() {
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create(AppModule);
+  const configService = app.get<ConfigService>(ConfigService);
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
+    origin: [
+      'https://studio.apollographql.com',
+      configService.get<string>('SERVER_URL_ORIGIN'),
+    ],
   });
   app.useGlobalPipes(
     new ValidationPipe({

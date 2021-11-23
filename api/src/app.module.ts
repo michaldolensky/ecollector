@@ -1,5 +1,5 @@
 import { Logger, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -31,21 +31,29 @@ const graphQLLogger = new Logger('GraphQLModule');
         PORT: Joi.number(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        SERVER_URL_ORIGIN: Joi.string().required(),
       }),
     }),
     DatabaseModule,
-    GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
-      path: '/api/graphql',
-      debug: false,
-      formatError: (error) => {
-        graphQLLogger.error('error', error);
-        return error;
-      },
-      cors: {
-        origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
-        credentials: true,
-      },
+    GraphQLModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        autoSchemaFile: 'schema.gql',
+        path: '/api/graphql',
+        debug: false,
+        formatError: (error) => {
+          graphQLLogger.error('error', error);
+          return error;
+        },
+        cors: {
+          origin: [
+            'https://studio.apollographql.com',
+            configService.get<string>('SERVER_URL_ORIGIN'),
+          ],
+          credentials: true,
+        },
+      }),
     }),
     MulterModule.register({
       dest: './files',
