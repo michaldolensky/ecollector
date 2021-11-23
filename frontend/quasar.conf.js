@@ -60,11 +60,7 @@ module.exports = configure((ctx) => ({
     vueRouterMode: 'history', // available values: 'hash', 'history'
     env: ctx.dev
       ? require('dotenv').config({ path: '../.config/.env.dev' }).parsed
-      : {
-        GRAPHQL_URL: JSON.stringify(process.env.GRAPHQL_URL),
-        SERVER_URL: JSON.stringify(process.env.SERVER_URL),
-        SERVER_URL_API: JSON.stringify(process.env.SERVER_URL_API),
-      },
+      : require('dotenv').config({ path: '.env' }).parsed,
     // env: {
     //   GRAPHQL_URI: 'http://localhost:3000/api/graphql',
     // },
