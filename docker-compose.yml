@@ -1,24 +1,43 @@
 version: "3.8"
 services:
-    app:
-      container_name: ecollector-app
-      ports:
-        - "3000:3000"
-      depends_on:
-        - postgres
-    postgres:
-      image: postgres
-      container_name: ecollector-postgres
-      restart: unless-stopped
-      working_dir: /application
-      volumes:
-        - postgres:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_PASSWORD=pass
-        - POSTGRES_DB=ecollector-dev
-        - POSTGRES_USER=user
-      ports:
-        - "5432:5432"
+  client:
+    container_name: ecollector-prod-client
+    build:
+      context: ./frontend
+      target: production
+      dockerfile: Dockerfile
+    env_file:
+      - .config/.env.prod
+    ports:
+      - "4000:4000"
+
+  server:
+    container_name: ecollector-prod-server
+    build:
+      context: ./api
+      target: production
+      dockerfile: Dockerfile
+    env_file:
+      - .config/.env.prod
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./.data/prod/uploads:/usr/src/api/uploads
+
+  postgres:
+    image: postgres:14.1
+    container_name: ecollector-prod-postgres
+    restart: on-failure
+    working_dir: /application
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.data/prod/postgres-data:/var/lib/postgresql/data
+    env_file:
+      - .config/.env.prod
+
 #    pgadmin:
 #      image: dpage/pgadmin4
 #      container_name: ecollector-pgadmin
@@ -32,5 +51,3 @@ services:
 #      container_name: ecollector-mailhog
 #      ports:
 #        - "8025:8025"
-volumes:
-  postgres:
