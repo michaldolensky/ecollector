@@ -59,6 +59,7 @@ jspm_packages/
 .config/.env
 .env.test
 .config/.env.dev
+.config/.env.prod
 
 # yarn v2
 .yarn/cache
