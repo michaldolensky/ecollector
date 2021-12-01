@@ -58,12 +58,11 @@ module.exports = configure((ctx) => ({
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
   build: {
     vueRouterMode: 'history', // available values: 'hash', 'history'
-    env: ctx.dev
-      ? require('dotenv').config({ path: '../.config/.env.dev' }).parsed
-      : require('dotenv').config({ path: '.env' }).parsed,
-    // env: {
-    //   GRAPHQL_URI: 'http://localhost:3000/api/graphql',
-    // },
+    env: {
+      GRAPHQL_URL: process.env.GRAPHQL_URL,
+      SERVER_URL: process.env.SERVER_URL,
+      SERVER_URL_API: process.env.SERVER_URL_API,
+    },
 
     // transpile: false,
     // publicPath: '/',
@@ -87,6 +86,12 @@ module.exports = configure((ctx) => ({
     chainWebpack(/* chain */) {
       //
     },
+    extendWebpack(cfg) {
+      cfg.watchOptions = {
+        aggregateTimeout: 200,
+        poll: 1000,
+      };
+    },
   },
 
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -94,7 +99,6 @@ module.exports = configure((ctx) => ({
     https: false,
     port: 8080,
     open: false, // opens browser window automatically
-
   },
 
   // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
