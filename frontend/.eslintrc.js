@@ -41,6 +41,8 @@ module.exports = {
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
+    'plugin:@intlify/vue-i18n/recommended',
+
     'airbnb-base'
   ],
 
@@ -94,6 +96,10 @@ module.exports = {
     "@typescript-eslint/no-shadow": ["error"],
     "no-unused-vars": "off",
 
+    //i18n
+    '@intlify/vue-i18n/no-unused-keys':'warn',
+    '@intlify/vue-i18n/no-missing-keys-in-other-locales':'warn',
+
     // TypeScript
     quotes: ['warn', 'single', { avoidEscape: true }],
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -104,5 +110,18 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     '@typescript-eslint/no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'max-len': process.env.NODE_ENV === 'production' ? 'error' : 'warn'
+  },
+  "overrides": [
+    {
+      "files": ["./src/pages/Error-401.vue","./src/pages/Error-404.vue"],
+      "rules": {
+        "@intlify/vue-i18n/no-raw-text": "off"
+      }
+    }
+  ],
+  "settings": {
+    "vue-i18n": {
+      "localeDir": "./src/i18n/*.json"
+    }
   }
 }
