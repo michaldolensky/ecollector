@@ -53,17 +53,17 @@
     "input": {
       "category_search": "Category search"
     },
+    "item": {
+      "badge": {
+        "available_for_exchange": "Tooltip"
+      }
+    },
     "navigation": {
       "item": {
         "home": "Home"
       },
       "tab": {
         "catalog": "Catalog"
-      }
-    },
-    "item": {
-      "badge": {
-        "available_for_exchange": "Tooltip"
       }
     }
   },

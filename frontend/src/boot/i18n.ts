@@ -1,14 +1,15 @@
 import { boot } from 'quasar/wrappers';
 import { Locales } from 'src/types/Locales';
 import { createI18n } from 'vue-i18n';
-import enUS from '../i18n/enUS.json';
+import en from '../i18n/en.json';
+import cs from '../i18n/cs.json';
 
-type MessageSchema = typeof enUS
+type MessageSchema = typeof en
 const i18n = createI18n<[MessageSchema], Locales>({
   locale: Locales.EN,
   messages: {
-    [Locales.EN]: enUS,
-    // [Locales.CS]: cs,
+    [Locales.EN]: en,
+    [Locales.CS]: cs,
   },
   fallbackLocale: Locales.EN,
 });
