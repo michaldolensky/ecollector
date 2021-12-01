@@ -1,0 +1,44 @@
+{
+  "version" : "1.1",
+  "profiles" : [ {
+    "id" : "bb0324c9-0c8d-49fa-a1ea-a2aafde68f41",
+    "name" : "Vue-i18n",
+    "keyNamingPattern" : "CAMEL_CASE_PATTERN",
+    "sink" : {
+      "id" : "ecc3361a-4abe-4f8e-831d-5cdc6cd4615d",
+      "type" : "namespaced",
+      "translationsDirectory" : "$PROJECT_DIR$/frontend/src/i18n",
+      "fileType" : "json",
+      "defaultLocale" : "en",
+      "namespaces" : [ "messages" ],
+      "outputFilenameTemplate" : "%locale%.json",
+      "nestingType" : "DOT",
+      "placeholderFormatterName" : "ICU"
+    },
+    "sources" : [ {
+      "id" : "f87a2da0-fa85-4d42-b313-4a4961ba129a",
+      "type" : "js",
+      "scopeName" : "Project Files",
+      "scopePattern" : "",
+      "replacementTemplate" : "$t('%key%', %map%)",
+      "skipDefaultNamespace" : false
+    }, {
+      "id" : "d9ef2958-53b3-48a6-be6b-6589cecd0608",
+      "type" : "htmlvue",
+      "scopeName" : "Project Files",
+      "scopePattern" : "",
+      "replacementTemplate" : "$t('%key%', %map%)",
+      "inlineTagNames" : [ ],
+      "translatableAttributeNames" : [ "title", "alt", "placeholder", "label", "aria-label", "v-text", "v-html" ],
+      "skipDefaultNamespace" : false
+    } ]
+  } ],
+  "ignores" : {
+    "valuesInProject" : [ "use strict", "Bearer ${token}" ],
+    "valuesInFile" : { },
+    "filesInProject" : [ ],
+    "unignoredFunctionNames" : [ ],
+    "unignoredFunctionArguments" : { },
+    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "el", "query", "type", "sql", "layout", "component", "condition", "name", "selector", "id", "class", "key", "middleware" ]
+  }
+}
