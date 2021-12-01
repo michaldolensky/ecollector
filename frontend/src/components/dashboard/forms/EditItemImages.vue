@@ -102,7 +102,10 @@ const uploadImage = () => {
   };
 };
 
-const imagesUploaded = (info: { files: [], xhr: XMLHttpRequest }) => {
+interface UploadResponse extends XMLHttpRequest{
+  response: string
+}
+const imagesUploaded = (info: { files: [], xhr: UploadResponse }) => {
   const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
 
   images.value = [...responseImages.map((value) => ({
