@@ -60,8 +60,8 @@
       </q-card-section>
       <q-card-section>
         <q-btn
+          :label="$t('buttons.common.change')"
           color="secondary"
-          label="Change"
           @click="onSubmit"
         />
       </q-card-section>

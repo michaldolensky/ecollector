@@ -43,6 +43,7 @@
             "signup": "Registrovat"
         },
         "common": {
+            "change": "Změnit",
             "delete": "Smazat",
             "reset": "Reset",
             "save": "Uložit",
@@ -193,7 +194,8 @@
     "dialogs": {
         "messages": {
             "dashboard-x-delete": "Přejete si smazat {0}?",
-            "profile-delete": "Přejete si smazat tento účet?"
+            "profile-delete": "Přejete si smazat tento účet?",
+            "siteDelete": "Chcete tuto stránku smazat? Tato akce je nevratná."
         },
         "titles": {
             "confirm": "Potvrdit"
@@ -236,6 +238,11 @@
         "button": {
             "submit": "Odeslat"
         },
+        "input": {
+            "label": {
+                "sortOrder": "Sort order"
+            }
+        },
         "validation": {
             "maxLength": "Pole musí být dlouhé nejvýše {0} znaků",
             "minLength": "Pole musí mít alespoň {0} znaků",
@@ -247,7 +254,8 @@
             "deleted": "Profil byl vymazán",
             "password_changed": "Heslo bylo změněno",
             "updated": "Profil byl aktualizován"
-        }
+        },
+        "settingsSaved": "Nastavení bylo uloženo"
     },
     "pages": {
         "auth": {

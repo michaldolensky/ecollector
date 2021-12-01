@@ -1,11 +1,11 @@
 <template>
   <q-select
     v-model="sortOrder"
+    :label="$t('forms.input.label.sortOrder')"
     :options="options"
     dense
     emit-value
     filled
-    label="Sort order"
     map-options
     options-dense
   />
