@@ -1,5 +1,20 @@
 version: "3.8"
 services:
+  frontend:
+    container_name: ecollector-frontend-dev
+    build:
+      context: ./frontend
+      target: develop-stage
+      dockerfile: Dockerfile
+    command: /bin/sh -c "yarn && quasar dev"
+    env_file:
+      - .config/.env.dev
+    depends_on:
+      - api_server
+    volumes:
+      - ./frontend/:/usr/src/frontend
+      - /usr/src/frontend/node_modules
+
   api_server:
     container_name: ecollector-api-dev
     build:
@@ -44,6 +59,7 @@ services:
   nginx:
     build:
       context: ./nginx
+      target: development
       dockerfile: Dockerfile
     container_name: ecollector-nginx-dev
     volumes:
@@ -52,6 +68,7 @@ services:
       - "8080:80"
     depends_on:
       - api_server
+      - frontend
     env_file:
       - .config/.env.dev
 
