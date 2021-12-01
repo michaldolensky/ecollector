@@ -27,6 +27,7 @@ interface APIErrorInterface {
   message: string
   status: number
 }
+
 interface ChangePasswordInterface {
   oldPassword: string
   newPassword: string
@@ -56,7 +57,7 @@ export const useAuthStore = defineStore('auth', {
     },
     isAdmin: (state) => state.user?.role === 'Admin',
     isLoggedIn: (state) => state.authState,
-    userSites: (state):Site[] => state.user?.sites,
+    userSites: (state): Site[] => state.user?.sites,
     getErrorMessage: (state) => {
       if (state.authError === 'USER_EXISTS') return i18n.global.t('forms.auth.errors.user_exists');
       if (state.authError === 'INVALID_CREDENTIALS') return i18n.global.t('forms.auth.errors.invalid_credentials');
@@ -69,7 +70,7 @@ export const useAuthStore = defineStore('auth', {
     hasError: (state) => state.authError !== '',
   },
   actions: {
-    isOwner(to:RouteLocationNormalized) {
+    isOwner(to: RouteLocationNormalized) {
       return this.user?.sitesIds.includes(getParsedInt(to.params.siteId));
     },
     me() {
@@ -123,7 +124,7 @@ export const useAuthStore = defineStore('auth', {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res:AxiosResponse) => res)
+        .then((res: AxiosResponse) => res)
         .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
     },
 
