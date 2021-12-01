@@ -229,7 +229,7 @@ const getRoutes = (): RouteRecordRaw[] => {
     {
       path: '/error401',
       name: 'Error401',
-      component: () => import('pages/Error401.vue'),
+      component: () => import('pages/Error-401.vue'),
     },
 
     // Always leave this as last one,
@@ -237,7 +237,7 @@ const getRoutes = (): RouteRecordRaw[] => {
     {
       path: '/:catchAll(.*)*',
       name: 'Error404',
-      component: () => import('pages/Error404.vue'),
+      component: () => import('pages/Error-404.vue'),
     },
   ];
 };
