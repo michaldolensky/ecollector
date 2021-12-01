@@ -1,279 +1,279 @@
 {
-  "account": {
-    "profile": {
-      "card": {
-        "title": {
-          "change_password": "Change password",
-          "delete_account": "Delete account",
-          "description": "Main description"
-        }
-      }
-    },
-    "sites": {
-      "button": {
-        "add_site": "Add new site"
-      },
-      "card": {
-        "add_site": "Add site"
-      },
-      "input": {
-        "placeholder": {
-          "search": "Search"
-        }
-      },
-      "inputs": {
-        "site_name": "Site name:"
-      },
-      "table": {
-        "column": {
-          "label": {
-            "action": "Action",
-            "created": "Created",
-            "name": "Name"
-          }
+    "account": {
+        "profile": {
+            "card": {
+                "title": {
+                    "change_password": "Change password",
+                    "delete_account": "Delete account",
+                    "description": "Main description"
+                }
+            }
         },
-        "not_found": "No sites found."
-      }
-    }
-  },
-  "buttons": {
-    "auth": {
-      "login": "Login",
-      "logout": "Logout",
-      "signup": "Signup"
+        "sites": {
+            "button": {
+                "add_site": "Add new site"
+            },
+            "card": {
+                "add_site": "Add site"
+            },
+            "input": {
+                "placeholder": {
+                    "search": "Search"
+                }
+            },
+            "inputs": {
+                "site_name": "Site name:"
+            },
+            "table": {
+                "column": {
+                    "label": {
+                        "action": "Action",
+                        "created": "Created",
+                        "name": "Name"
+                    }
+                },
+                "not_found": "No sites found."
+            }
+        }
     },
-    "common": {
-      "delete": "Delete",
-      "reset": "Reset",
-      "save": "Save",
-      "submit": "Submit"
-    }
-  },
-  "catalog": {
-    "input": {
-      "category_search": "Category search"
-    },
-    "item": {
-      "badge": {
-        "available_for_exchange": "Tooltip"
-      }
-    },
-    "navigation": {
-      "item": {
-        "home": "Home"
-      },
-      "tab": {
-        "catalog": "Catalog"
-      }
-    }
-  },
-  "dashboard": {
-    "categories": {
-      "addCategory": "Add category",
-      "card": {
-        "title": {
-          "category_description": "Category description"
-        }
-      },
-      "dialogs": {
-        "message": {
-          "delete": "Do you want to delete"
-        }
-      },
-      "input": {
-        "label": {
-          "category_name": "Item name",
-          "short_description": "Short description"
-        }
-      },
-      "notification": {
-        "message": {
-          "category_created": "Category created",
-          "category_updated": "Category updated"
-        }
-      },
-      "table": {
-        "column": {
-          "label": {
-            "action": "Action",
-            "created": "Created",
-            "name": "Name",
-            "updated": "Updated"
-          }
+    "buttons": {
+        "auth": {
+            "login": "Login",
+            "logout": "Logout",
+            "signup": "Signup"
         },
-        "not_found": "Categories not found"
-      }
+        "common": {
+            "delete": "Delete",
+            "reset": "Reset",
+            "save": "Save",
+            "submit": "Submit"
+        }
     },
-    "headers": {
-      "createCategory": "Create category",
-      "createItem": "Create item",
-      "dashboard": "Dashboard",
-      "editCategory": "Edit category",
-      "editItem": "Edit item",
-      "user_sites": "Your sites"
-    },
-    "items": {
-      "addItem": "Add item",
-      "button": {
-        "label": {
-          "item_id": "Item ID"
-        }
-      },
-      "card": {
-        "title": {
-          "item_description": "Item description",
-          "item_details": "Item details",
-          "item_images": "Item images",
-          "item_name": "Item name"
-        }
-      },
-      "dialogs": {
-        "message": {
-          "delete": "Do you want to delete"
-        }
-      },
-      "input": {
-        "label": {
-          "category": "Category",
-          "internal_number": "Internal Number",
-          "item_name": "Item name",
-          "items_for_exchange": "Available number of items for exchange",
-          "items_in_collection": "Number of items in the collection",
-          "long_description": "Long description",
-          "short_description": "Short description",
-          "upload": "Upload"
-        }
-      },
-      "notification": {
-        "message": {
-          "item_created": "Created",
-          "item_updated": "Updated"
-        }
-      },
-      "table": {
-        "column": {
-          "label": {
-            "action": "Action",
-            "available_for_exchange": "Available for exchange",
-            "category": "Category",
-            "count": "Count",
-            "created": "Created",
-            "image": "Image",
-            "name": "Name"
-          }
+    "catalog": {
+        "input": {
+            "category_search": "Category search"
         },
-        "notFound": "No items found.",
-        "not_found": "Items not found."
-      }
-    },
-    "navigation": {
-      "catalog": "Catalog",
-      "categories": "Categories",
-      "home": "Home",
-      "items": "Items",
-      "settings": "Site settings",
-      "sites": "Your sites"
-    },
-    "settings": {
-      "button": {
-        "delete_site": "Delete site",
-        "submit": "Submit"
-      },
-      "card": {
-        "title": {
-          "delete_site": "Delete site",
-          "description": "Main description"
+        "item": {
+            "badge": {
+                "available_for_exchange": "Available for exchange"
+            }
+        },
+        "navigation": {
+            "item": {
+                "home": "Home"
+            },
+            "tab": {
+                "catalog": "Catalog"
+            }
         }
-      },
-      "inputs": {
-        "site_name": "Site name"
-      }
     },
-    "stats": {
-      "categories_count": "Category count",
-      "item_count": "Item count"
+    "dashboard": {
+        "categories": {
+            "addCategory": "Add category",
+            "card": {
+                "title": {
+                    "category_description": "Category description"
+                }
+            },
+            "dialogs": {
+                "message": {
+                    "delete": "Do you want to delete"
+                }
+            },
+            "input": {
+                "label": {
+                    "category_name": "Item name",
+                    "short_description": "Short description"
+                }
+            },
+            "notification": {
+                "message": {
+                    "category_created": "Category created",
+                    "category_updated": "Category updated"
+                }
+            },
+            "table": {
+                "column": {
+                    "label": {
+                        "action": "Action",
+                        "created": "Created",
+                        "name": "Name",
+                        "updated": "Updated"
+                    }
+                },
+                "not_found": "Categories not found"
+            }
+        },
+        "headers": {
+            "createCategory": "Create category",
+            "createItem": "Create item",
+            "dashboard": "Dashboard",
+            "editCategory": "Edit category",
+            "editItem": "Edit item",
+            "user_sites": "Your sites"
+        },
+        "items": {
+            "addItem": "Add item",
+            "button": {
+                "label": {
+                    "item_id": "Item ID"
+                }
+            },
+            "card": {
+                "title": {
+                    "item_description": "Item description",
+                    "item_details": "Item details",
+                    "item_images": "Item images",
+                    "item_name": "Item name"
+                }
+            },
+            "dialogs": {
+                "message": {
+                    "delete": "Do you want to delete"
+                }
+            },
+            "input": {
+                "label": {
+                    "category": "Category",
+                    "internal_number": "Internal Number",
+                    "item_name": "Item name",
+                    "items_for_exchange": "Available number of items for exchange",
+                    "items_in_collection": "Number of items in the collection",
+                    "long_description": "Long description",
+                    "short_description": "Short description",
+                    "upload": "Upload"
+                }
+            },
+            "notification": {
+                "message": {
+                    "item_created": "Created",
+                    "item_updated": "Updated"
+                }
+            },
+            "table": {
+                "column": {
+                    "label": {
+                        "action": "Action",
+                        "available_for_exchange": "Available for exchange",
+                        "category": "Category",
+                        "count": "Count",
+                        "created": "Created",
+                        "image": "Image",
+                        "name": "Name"
+                    }
+                },
+                "notFound": "No items found.",
+                "not_found": "Items not found."
+            }
+        },
+        "navigation": {
+            "catalog": "Catalog",
+            "categories": "Categories",
+            "home": "Home",
+            "items": "Items",
+            "settings": "Site settings",
+            "sites": "Your sites"
+        },
+        "settings": {
+            "button": {
+                "delete_site": "Delete site",
+                "submit": "Submit"
+            },
+            "card": {
+                "title": {
+                    "delete_site": "Delete site",
+                    "description": "Main description"
+                }
+            },
+            "inputs": {
+                "site_name": "Site name"
+            }
+        },
+        "stats": {
+            "categories_count": "Category count",
+            "item_count": "Item count"
+        }
+    },
+    "dialogs": {
+        "messages": {
+            "dashboard-x-delete": "Do you really wish to delete {0}?",
+            "profile-delete": "Do you want to delete this account?"
+        },
+        "titles": {
+            "confirm": "Confirm"
+        }
+    },
+    "error": {
+        "401": {
+            "title": "Unauthorized acess"
+        },
+        "404": {
+            "title": "Page not found"
+        },
+        "button": {
+            "go_home": "Go Home"
+        }
+    },
+    "filters": {
+        "items": {
+            "search": "Search"
+        }
+    },
+    "forms": {
+        "auth": {
+            "confirm_password": "Confirm Password",
+            "email": "Email",
+            "errors": {
+                "change_current_invalid": "Your old password is invalid.",
+                "change_password_mismatch": "New and confirm passwords aren´t the same.",
+                "change_password_same": "New password cannot be same as your old Password",
+                "invalid_credentials": "Invalid credentials",
+                "password_mismatch": "Passwords do not match",
+                "user_exists": "User already exists"
+            },
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "newPassword": "New password",
+            "oldPassword": "Old password",
+            "password": "Password"
+        },
+        "button": {
+            "submit": "Submit"
+        },
+        "validation": {
+            "maxLength": "Field must be at most {0} characters long",
+            "minLength": "Field must be at least {0} characters long",
+            "required": "Field is required"
+        }
+    },
+    "notifications": {
+        "profile": {
+            "deleted": "Profile was deleted",
+            "password_changed": "Password was changed",
+            "updated": "Profile was updated"
+        }
+    },
+    "pages": {
+        "auth": {
+            "login": {
+                "subtitle": "Please login to your account",
+                "title": "Login"
+            },
+            "reset": {
+                "subtitle": "Please reset your password",
+                "title": "Reset"
+            },
+            "signup": {
+                "title": "Signup"
+            }
+        },
+        "profile": "Profile",
+        "sites": "Sites"
+    },
+    "site_name": "E-collector",
+    "tables": {
+        "createdAt": "Created",
+        "name": "Name",
+        "updatedAt": "Updated"
     }
-  },
-  "dialogs": {
-    "messages": {
-      "dashboard-x-delete": "Do you really wish to delete {0}?",
-      "profile-delete": "Do you want to delete this account?"
-    },
-    "titles": {
-      "confirm": "Confirm"
-    }
-  },
-  "error": {
-    "401": {
-      "title": "Unauthorized"
-    },
-    "404": {
-      "title": "Page not found"
-    },
-    "button": {
-      "go_home": "Go Home"
-    }
-  },
-  "filters": {
-    "items": {
-      "search": "Search"
-    }
-  },
-  "forms": {
-    "auth": {
-      "confirm_password": "Confirm Password",
-      "email": "Email",
-      "errors": {
-        "change_current_invalid": "Your old password is invalid.",
-        "change_password_mismatch": "New and confirm passwords aren´t the same.",
-        "change_password_same": "New password cannot be same as your old Password",
-        "invalid_credentials": "Invalid credentials",
-        "password_mismatch": "Passwords do not match",
-        "user_exists": "User already exists"
-      },
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "newPassword": "New password",
-      "oldPassword": "Old password",
-      "password": "Password"
-    },
-    "button": {
-      "submit": "Submit"
-    },
-    "validation": {
-      "maxLength": "Field must be at most {0} characters long",
-      "minLength": "Field must be at least {0} characters long",
-      "required": "Field is required"
-    }
-  },
-  "notifications": {
-    "profile": {
-      "deleted": "Profile was deleted",
-      "password_changed": "Password was changed",
-      "updated": "Profile was updated"
-    }
-  },
-  "pages": {
-    "auth": {
-      "login": {
-        "subtitle": "Please login to your account",
-        "title": "Login"
-      },
-      "reset": {
-        "subtitle": "Please reset your password",
-        "title": "Reset"
-      },
-      "signup": {
-        "title": "Signup"
-      }
-    },
-    "profile": "Profile",
-    "sites": "Sites"
-  },
-  "site_name": "E-collector",
-  "tables": {
-    "createdAt": "Created",
-    "name": "Name",
-    "updatedAt": "Updated"
-  }
 }
