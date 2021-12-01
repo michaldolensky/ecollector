@@ -3,9 +3,9 @@ services:
   client:
     container_name: ecollector-prod-client
     build:
-      context: .
-      target: production
-      dockerfile: ./frontend/Dockerfile
+      context: ./frontend
+      target: production-stage
+      dockerfile: Dockerfile
     env_file:
       - .config/.env.prod
     ports:
