@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers';
 import { Locales } from 'src/types/Locales';
 import { createI18n } from 'vue-i18n';
-import enUS from '../locales/enUS.json';
+import enUS from '../i18n/enUS.json';
 
 type MessageSchema = typeof enUS
 const i18n = createI18n<[MessageSchema], Locales>({

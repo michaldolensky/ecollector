@@ -2,7 +2,7 @@
 <project version="4">
   <component name="EasyI18nSettings">
     <option name="codeAssistance" value="false" />
-    <option name="localesPath" value="$PROJECT_DIR$/frontend/src/locales" />
+    <option name="localesPath" value="$PROJECT_DIR$/frontend/src/i18n" />
     <option name="previewLocale" value="enUS" />
   </component>
 </project>
