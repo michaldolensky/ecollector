@@ -73,7 +73,7 @@
               <q-input
                 v-if="item.id"
                 v-model="item.id"
-                :label="$t('dashboard.items.button.label.item_id')"
+                :label="$t('dashboard.items.input.label.item_id')"
                 disable
                 outlined
               />

@@ -114,11 +114,6 @@
         },
         "items": {
             "addItem": "Přidat předmět",
-            "button": {
-                "label": {
-                    "item_id": "ID předmětu"
-                }
-            },
             "card": {
                 "title": {
                     "item_description": "Popis předmětu",
@@ -136,6 +131,7 @@
                 "label": {
                     "category": "Kategorie",
                     "internal_number": "Interní číslo",
+                    "item_id": "ID předmětu",
                     "item_name": "Název předmětu",
                     "items_for_exchange": "Počet dostupných předmětu na výměnu",
                     "items_in_collection": "Počet předmětů ve sbírce",

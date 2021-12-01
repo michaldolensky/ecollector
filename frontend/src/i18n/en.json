@@ -114,11 +114,6 @@
         },
         "items": {
             "addItem": "Add item",
-            "button": {
-                "label": {
-                    "item_id": "Item ID"
-                }
-            },
             "card": {
                 "title": {
                     "item_description": "Item description",
@@ -136,6 +131,7 @@
                 "label": {
                     "category": "Category",
                     "internal_number": "Internal Number",
+                    "item_id": "Item ID",
                     "item_name": "Item name",
                     "items_for_exchange": "Available number of items for exchange",
                     "items_in_collection": "Number of items in the collection",
