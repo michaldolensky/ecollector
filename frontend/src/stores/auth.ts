@@ -87,7 +87,7 @@ export const useAuthStore = defineStore('auth', {
             this.authState = true;
             return response;
           },
-          (error: AxiosError) => {
+          (error: AxiosError<APIErrorInterface>) => {
             this.$reset();
             localStorage.setItem(localStorageTokenKey, '');
             return error;
@@ -99,14 +99,14 @@ export const useAuthStore = defineStore('auth', {
       return api
         .post<LoginResponseData>('/auth/login', loginData)
         .then((res) => this.handleSuccess(res))
-        .catch((error) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
     },
     signup(signupData: SignUpInterface) {
       this.authError = '';
       return api
         .post<LoginResponseData>('/auth/signup', signupData)
         .then((res) => this.handleSuccess(res))
-        .catch((error) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
     },
 
     logout() {
@@ -124,7 +124,7 @@ export const useAuthStore = defineStore('auth', {
           },
         })
         .then((res:AxiosResponse) => res)
-        .catch((error) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
     },
 
     async handleSuccess(response: AxiosResponse<LoginResponseData>) {
