@@ -201,7 +201,7 @@
     },
     "error": {
         "401": {
-            "title": "Unauthorized acess"
+            "title": "Unauthorized access"
         },
         "404": {
             "title": "Page not found"
