@@ -25,17 +25,6 @@ export interface Item {
   images:Image[]
 }
 
-export interface ItemInput extends Partial<Item>{
-  id?: number
-  name: string;
-  categoryId: number|null;
-  shortDesc:string
-  longDesc:string
-  internalNumber:string
-  numberForExchange:number
-  numberInCollection:number
-}
-
 export function useItems() {
   const { currentSiteId } = useSites();
 
