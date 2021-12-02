@@ -7,8 +7,10 @@ services:
       target: develop-stage
       dockerfile: Dockerfile
     command: /bin/sh -c "yarn && quasar dev"
-    env_file:
-      - .config/.env.dev
+    environment:
+      - GRAPHQL_URL
+      - SERVER_URL
+      - SERVER_URL_API
     depends_on:
       - api_server
     volumes:
@@ -25,8 +27,15 @@ services:
     ports:
       - "9229:9229"
       - "3000:3000"
-    env_file:
-      - .config/.env.dev
+    environment:
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - JWT_SECRET
+      - JWT_EXPIRATION_TIME
+      - SERVER_URL_ORIGIN
     depends_on:
       - postgres
     volumes:
@@ -41,16 +50,23 @@ services:
       - "5432:5432"
     volumes:
       - /data/postgres:/data/postgres
-    env_file:
-      - .config/.env.dev
+    environment:
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
 
   pgadmin:
     links:
       - postgres:postgres
     container_name: ecollector-pgadmin-dev
     image: dpage/pgadmin4
-    env_file:
-      - .config/.env.dev
+    environment:
+      - PGADMIN_HOST
+      - PGADMIN_SUBDOMAIN
+      - PGADMIN_DEFAULT_EMAIL
+      - PGADMIN_DEFAULT_PASSWORD
     depends_on:
       - postgres
     volumes:
@@ -69,8 +85,14 @@ services:
     depends_on:
       - api_server
       - frontend
-    env_file:
-      - .config/.env.dev
+    environment:
+      - NGINX_SERVER_NAME
+      - API_HOST
+      - API_PORT
+      - FRONTEND_HOST
+      - FRONTEND_PORT
+      - API_SUBDOMAIN
+      - NGINX_MAX_BODY
 
 #    mailhog:
 #      image: mailhog/mailhog:latest
