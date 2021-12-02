@@ -44,12 +44,13 @@
   </q-table>
 </template>
 <script lang="ts" setup>
+import { toRowDate } from 'src/utils';
 import {
+  computed,
   reactive,
 } from 'vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { CategoriesTableColumns } from 'components/dashboard/tables/CategoriesTableColumns';
 import { Category, useCategories } from 'src/composables/useCategories';
 
 interface Props{
@@ -84,5 +85,44 @@ const confirmDelete = (category: Category) => {
     void removeCategory(category.id);
   });
 };
+
+const CategoriesTableColumns = computed(() => [
+
+  {
+    name: 'name',
+    required: true,
+    label: t('dashboard.categories.table.column.label.name'),
+    align: 'left',
+    field: (item:Category) => item.name,
+    format: (val:string) => `${val}`,
+    sortable: true,
+  },
+  {
+    name: 'Created',
+    required: true,
+    label: t('dashboard.categories.table.column.label.created'),
+    align: 'left',
+    field: (item:Category) => item.createdAt,
+    format: (val:string) => `${toRowDate(val)}`,
+    sortable: true,
+  },
+  {
+    name: 'Updated',
+    required: true,
+    label: t('dashboard.categories.table.column.label.updated'),
+    align: 'left',
+    field: (item:Category) => item.updatedAt,
+    format: (val:string) => `${toRowDate(val)}`,
+    sortable: true,
+  },
+  {
+    name: 'Action',
+    label: t('dashboard.categories.table.column.label.action'),
+    field: 'Action',
+    sortable: false,
+    align: 'center',
+  },
+
+]);
 
 </script>
