@@ -13,18 +13,18 @@
       </div>
 
       <q-btn
+        :label="$t('error.button.go_home')"
         class="q-mt-xl"
         color="white"
-        label="Go Home"
         no-caps
         text-color="blue"
         to="/"
         unelevated
       />
       <q-btn
+        :label="$t('buttons.auth.login')"
         class="q-mt-xl"
         color="white"
-        label="Login"
         no-caps
         text-color="blue"
         to="/auth/login"

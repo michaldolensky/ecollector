@@ -50,13 +50,17 @@
   </q-table>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-import { SitesTableColumns } from 'components/dashboard/tables/SitesTableColumns';
+import { Site } from 'src/composables/useSites';
+import { toRowDate } from 'src/utils';
+import { computed, reactive, ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
+import { useI18n } from 'vue-i18n';
 
 const authStore = useAuthStore();
 
 const filter = ref('');
+
+const { t } = useI18n();
 
 const initialPagination = reactive({
   sortBy: 'name',
@@ -64,5 +68,34 @@ const initialPagination = reactive({
   page: 1,
   rowsPerPage: 50,
 });
+
+const SitesTableColumns = computed(() => [
+  {
+    name: 'name',
+    required: true,
+    label: t('account.sites.table.column.label.name'),
+    align: 'left',
+    field: (item: Site) => item.name,
+    format: (val: string) => `${val}`,
+    sortable: true,
+  },
+  {
+    name: 'Created',
+    required: true,
+    label: t('account.sites.table.column.label.created'),
+    align: 'left',
+    field: (item: Site) => item.createdAt,
+    format: (val: string) => `${toRowDate(val)}`,
+    sortable: true,
+  },
+
+  {
+    name: 'Action',
+    label: t('account.sites.table.column.label.action'),
+    field: 'Action',
+    sortable: false,
+    align: 'center',
+  },
+]);
 
 </script>

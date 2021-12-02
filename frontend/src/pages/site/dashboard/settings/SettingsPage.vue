@@ -76,8 +76,11 @@ import { validationHelper } from 'src/validationHelper';
 import {
   reactive,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useRouter } from 'vue-router';
+
+const { t } = useI18n();
 
 const {
   updateSite, removeSite,
@@ -114,7 +117,7 @@ const onSubmit = () => {
     if (result?.data) {
       notify({
         type: 'positive',
-        message: 'Settings saved',
+        message: t('notifications.settingsSaved'),
       });
     }
   });
@@ -122,8 +125,8 @@ const onSubmit = () => {
 
 const askForDelete = () => {
   dialog({
-    title: 'Confirm',
-    message: 'Do you want to delete this site? This action is irreversible.',
+    title: t('dialogs.titles.confirm'),
+    message: t('dialogs.messages.siteDelete'),
     cancel: true,
     persistent: true,
   }).onOk(() => {
