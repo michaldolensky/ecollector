@@ -71,7 +71,7 @@
 import { useVModel } from '@vueuse/core';
 import { QUploader } from 'quasar';
 import { Image, useImages } from 'src/composables/useImages';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { SERVER_URL } from 'src/composables/useEnv';
 
@@ -91,12 +91,12 @@ const images = useVModel(props, 'modelValue', emit);
 
 const uploader = ref<QUploader>();
 const route = useRoute();
-const { siteId, itemId } = route.params;
+const params = computed(() => route.params);
 
 const uploadImage = () => {
   uploader.value?.reset();
   return {
-    url: `${process.env.SERVER_URL}uploads?siteId=${<string>siteId}&itemId=${<string>itemId}`,
+    url: `${process.env.SERVER_URL}uploads?siteId=${<string>params.value.siteId}&itemId=${<string>params.value.itemId}`,
     method: 'POST',
     fieldName: 'images',
   };
