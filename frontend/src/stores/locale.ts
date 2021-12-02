@@ -31,7 +31,6 @@ export const useLocaleStore = defineStore({
       ).then((lang: QuasarLanguageModule) => {
         Quasar.lang.set(lang.default);
       });
-      console.log(Quasar.lang.getLocale());
       this.locale = val;
       i18n.global.locale = val;
     },
