@@ -1,6 +1,5 @@
 .dockerignore
-.git
-docker-compose*.yml
+.gitignore
 Dockerfile
 node_modules
 schema.gql
