@@ -7,11 +7,13 @@ services:
       target: production-stage
       dockerfile: Dockerfile
       args:
-        - GRAPHQL_URL=$GRAPHQL_URL
-        - SERVER_URL=$SERVER_URL
-        - SERVER_URL_API=$SERVER_URL_API
+        - GRAPHQL_URL
+        - SERVER_URL
+        - SERVER_URL_API
     ports:
       - "4000:4000"
+    volumes:
+      - /app/node_modules
 
   server:
     container_name: ecollector-prod-server
@@ -19,14 +21,22 @@ services:
       context: ./api
       target: production
       dockerfile: Dockerfile
-    env_file:
-      - .config/.env.prod
+    environment:
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - JWT_SECRET
+      - JWT_EXPIRATION_TIME
+      - SERVER_URL_ORIGIN
     ports:
       - "3000:3000"
     depends_on:
       - postgres
     volumes:
-      - ./.data/prod/uploads:/usr/src/api/uploads
+      - ./.data/prod/uploads:/app/uploads
+      - /app/node_modules
 
   postgres:
     image: postgres:14.1
@@ -37,8 +47,12 @@ services:
       - "5432:5432"
     volumes:
       - ./.data/prod/postgres-data:/var/lib/postgresql/data
-    env_file:
-      - .config/.env.prod
+    environment:
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
 
 #    pgadmin:
 #      image: dpage/pgadmin4
