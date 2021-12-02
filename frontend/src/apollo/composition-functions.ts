@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';
 import * as VueCompositionApi from 'vue';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -32,12 +33,12 @@ export type Category = {
 
 
 export type CategoryItemsArgs = {
-  categoryId?: Maybe<Scalars['Int']>;
+  categoryId?: InputMaybe<Scalars['Int']>;
   siteId: Scalars['Int'];
 };
 
 export type CategoryInput = {
-  items?: Maybe<Array<Maybe<ItemInput>>>;
+  items?: InputMaybe<Array<InputMaybe<ItemInput>>>;
   name: Scalars['String'];
   perex: Scalars['String'];
   site: SiteInput;
@@ -118,14 +119,14 @@ export type Item = {
 
 
 export type ItemImagesArgs = {
-  itemId?: Maybe<Scalars['Int']>;
-  main?: Maybe<Scalars['Boolean']>;
+  itemId?: InputMaybe<Scalars['Int']>;
+  main?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type ItemInput = {
   category: CategoryInput;
   categoryId: Scalars['Int'];
-  images?: Maybe<Array<Maybe<ImageInput>>>;
+  images?: InputMaybe<Array<InputMaybe<ImageInput>>>;
   internalNumber: Scalars['String'];
   longDesc: Scalars['String'];
   name: Scalars['String'];
@@ -245,8 +246,8 @@ export type QueryImageArgs = {
 
 
 export type QueryImagesArgs = {
-  itemId?: Maybe<Scalars['Int']>;
-  main?: Maybe<Scalars['Boolean']>;
+  itemId?: InputMaybe<Scalars['Int']>;
+  main?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -256,7 +257,7 @@ export type QueryItemArgs = {
 
 
 export type QueryItemsArgs = {
-  categoryId?: Maybe<Scalars['Int']>;
+  categoryId?: InputMaybe<Scalars['Int']>;
   siteId: Scalars['Int'];
 };
 
@@ -315,19 +316,19 @@ export type UpdateCategoryInput = {
 };
 
 export type UpdateImageInput = {
-  filename?: Maybe<Scalars['String']>;
+  filename?: InputMaybe<Scalars['String']>;
   id: Scalars['Int'];
-  itemId?: Maybe<Scalars['Int']>;
+  itemId?: InputMaybe<Scalars['Int']>;
   main: Scalars['Boolean'];
-  originalName?: Maybe<Scalars['String']>;
-  path?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
+  originalName?: InputMaybe<Scalars['String']>;
+  path?: InputMaybe<Scalars['String']>;
+  size?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdateItemInput = {
   categoryId: Scalars['Int'];
   id: Scalars['Int'];
-  images?: Maybe<Array<Maybe<UpdateImageInput>>>;
+  images?: InputMaybe<Array<InputMaybe<UpdateImageInput>>>;
   internalNumber: Scalars['String'];
   longDesc: Scalars['String'];
   name: Scalars['String'];
@@ -359,10 +360,10 @@ export type User = {
 
 export type UserInput = {
   email: Scalars['String'];
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
   role: Roles;
-  sites?: Maybe<Array<Maybe<SiteInput>>>;
+  sites?: InputMaybe<Array<InputMaybe<SiteInput>>>;
 };
 
 export type GetCatalogueCategoriesQueryVariables = Exact<{
@@ -373,7 +374,7 @@ export type GetCatalogueCategoriesQueryVariables = Exact<{
 export type GetCatalogueCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: number, name: string }> };
 
 export type GetCatalogItemsQueryVariables = Exact<{
-  categoryId?: Maybe<Scalars['Int']>;
+  categoryId?: InputMaybe<Scalars['Int']>;
   siteId: Scalars['Int'];
 }>;
 
