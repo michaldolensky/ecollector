@@ -21,5 +21,6 @@ COPY --from=build-stage /usr/src/frontend .
 #CMD ["node", "index.js"]
 
 EXPOSE 4000
+RUN npm i -g @quasar/cli
 
 CMD [ "quasar", "serve", "dist/spa", "--history" ]
