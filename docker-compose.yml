@@ -6,8 +6,10 @@ services:
       context: ./frontend
       target: production-stage
       dockerfile: Dockerfile
-    env_file:
-      - .config/.env.prod
+      args:
+        - GRAPHQL_URL=$GRAPHQL_URL
+        - SERVER_URL=$SERVER_URL
+        - SERVER_URL_API=$SERVER_URL_API
     ports:
       - "4000:4000"
 

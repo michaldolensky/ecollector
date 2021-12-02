@@ -10,6 +10,13 @@ FROM develop-stage as local-deps-stage
 RUN yarn
 
 FROM local-deps-stage as build-stage
+ARG GRAPHQL_URL
+ARG SERVER_URL
+ARG SERVER_URL_API
+
+ENV GRAPHQL_URL=$GRAPHQL_URL
+ENV SERVER_URL=$SERVER_URL
+ENV SERVER_URL_API=$SERVER_URL_API
 RUN quasar build
 
 FROM node:16.13.1-alpine3.14 AS production-stage
