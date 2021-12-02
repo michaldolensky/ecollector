@@ -18,4 +18,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the api Docker image
-      run: docker build ./api/ --file Dockerfile --tag ecollector-api:$(date +%s)
+      run: docker build  --file ./api/Dockerfile --tag ecollector-api:$(date +%s)
