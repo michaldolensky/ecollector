@@ -14,8 +14,8 @@ services:
     depends_on:
       - api_server
     volumes:
-      - ./frontend/:/usr/src/frontend
-      - /usr/src/frontend/node_modules
+      - ./frontend/:/app
+      - /app/node_modules
 
   api_server:
     container_name: ecollector-api-dev
