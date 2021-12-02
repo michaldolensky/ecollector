@@ -33,7 +33,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./.data/prod/uploads:/usr/src/api/uploads
+      - ./.data/prod/uploads:/app/uploads
+      - /app/node_modules
 
   postgres:
     image: postgres:14.1

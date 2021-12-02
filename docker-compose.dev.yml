@@ -39,8 +39,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./api/:/usr/src/api
-      - /usr/src/api/node_modules
+      - ./api/:/app
+      - /app/node_modules
 
   postgres:
     container_name: ecollector-postgres-dev

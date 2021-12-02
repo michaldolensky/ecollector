@@ -1,6 +1,6 @@
 FROM node:16.13.1-alpine3.14 AS development
 
-WORKDIR /usr/src/api
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -17,9 +17,9 @@ FROM node:16.13.1-alpine3.14 as production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/api
+WORKDIR /app
 
-COPY --from=development /usr/src/api .
+COPY --from=development /app .
 
 EXPOSE 3000
 
