@@ -30,6 +30,7 @@ services:
       - JWT_SECRET
       - JWT_EXPIRATION_TIME
       - SERVER_URL_ORIGIN
+      - API_PORT
     ports:
       - "3000:3000"
     depends_on:

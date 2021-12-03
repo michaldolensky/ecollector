@@ -36,6 +36,7 @@ services:
       - JWT_SECRET
       - JWT_EXPIRATION_TIME
       - SERVER_URL_ORIGIN
+      - API_PORT
     depends_on:
       - postgres
     volumes:
