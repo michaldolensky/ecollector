@@ -49,7 +49,7 @@
                   {{ $t('catalog.itemDetail.item.created') }}
                 </q-item-label>
                 <q-item-label>
-                  {{ item.createdAt }}
+                  {{ localeStore.getFormatedDate(item.createdAt) }}
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -72,10 +72,12 @@ import { useResult } from '@vue/apollo-composable';
 import BreadCrums from 'components/catalog/BreadCrums.vue';
 import { useGetCatalogItemQuery } from 'src/apollo/composition-functions';
 import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
+import { useLocaleStore } from 'src/stores/locale';
 
 interface Props {
   itemId: number
 }
+const localeStore = useLocaleStore();
 
 const props = defineProps<Props>();
 
