@@ -7,6 +7,7 @@ services:
       target: develop-stage
       dockerfile: Dockerfile
     command: /bin/sh -c "yarn && quasar dev"
+    restart: always
     environment:
       - GRAPHQL_URL
       - SERVER_URL
