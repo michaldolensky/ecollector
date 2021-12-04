@@ -64,6 +64,13 @@
                 "available_for_exchange": "Available for exchange"
             }
         },
+        "itemDetail": {
+            "item": {
+                "created": "Created:",
+                "numberOfItemsForExchange": "Number of items for exchange:",
+                "numberOfItemsInCollection": "Number of items in collection:"
+            }
+        },
         "navigation": {
             "item": {
                 "home": "Home"

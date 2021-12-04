@@ -64,6 +64,13 @@
                 "available_for_exchange": "Dostupné k výměně."
             }
         },
+        "itemDetail": {
+            "item": {
+                "created": "Vytvořeno:",
+                "numberOfItemsForExchange": "Počet kusů k výměně:",
+                "numberOfItemsInCollection": "Počet kusů ve sbírce:"
+            }
+        },
         "navigation": {
             "item": {
                 "home": "Úvod"

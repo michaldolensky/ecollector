@@ -78,11 +78,12 @@ const getRoutes = (): RouteRecordRaw[] => {
 
   return [
     {
-      path: '',
+      name: 'Home',
+      path: '/',
       component: () => import('layouts/MainLayout.vue'),
       beforeEnter: [checkAuth],
       children: [
-        { path: '', name: 'index', component: () => import('pages/MainPage.vue') },
+        { path: '', name: 'CatalogIndex', component: () => import('pages/MainPage.vue') },
         {
           path: 'site/:siteId',
           redirect: { name: 'CatalogIndex' },
@@ -115,6 +116,14 @@ const getRoutes = (): RouteRecordRaw[] => {
                 siteId: parseInt(<string>route.params.siteId, 10),
               }),
               component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
+            },
+            {
+              name: 'CatalogItemDetail',
+              path: 'item/:itemId/',
+              props: (route) => ({
+                itemId: parseInt(<string>route.params.itemId, 10),
+              }),
+              component: () => import('pages/site/catalog/CatalogItemDetail.vue'),
             },
           ],
         },
