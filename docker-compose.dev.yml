@@ -94,6 +94,7 @@ services:
       - FRONTEND_PORT
       - API_SUBDOMAIN
       - NGINX_MAX_BODY
+      - PGADMIN_HOST
 
 #    mailhog:
 #      image: mailhog/mailhog:latest
