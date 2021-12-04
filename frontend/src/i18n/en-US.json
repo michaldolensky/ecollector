@@ -36,6 +36,11 @@
             }
         }
     },
+    "breadcrumbs": {
+        "catalog": {
+            "itemDetail": "Item Detail"
+        }
+    },
     "buttons": {
         "auth": {
             "login": "Login",

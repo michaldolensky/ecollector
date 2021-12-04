@@ -36,6 +36,11 @@
             }
         }
     },
+    "breadcrumbs": {
+        "catalog": {
+            "itemDetail": "Detail předmětu"
+        }
+    },
     "buttons": {
         "auth": {
             "login": "Přihlásit",
