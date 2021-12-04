@@ -67,6 +67,7 @@
         "itemDetail": {
             "item": {
                 "created": "Vytvořeno:",
+                "description": "Popis",
                 "numberOfItemsForExchange": "Počet kusů k výměně:",
                 "numberOfItemsInCollection": "Počet kusů ve sbírce:"
             }

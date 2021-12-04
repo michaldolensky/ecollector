@@ -33,7 +33,8 @@
                   {{ item.numberForExchange }}
                 </q-item-label>
               </q-item-section>
-            </q-item>            <q-item>
+            </q-item>
+            <q-item>
               <q-item-section>
                 <q-item-label overline>
                   {{ $t('catalog.itemDetail.item.numberOfItemsInCollection') }}
@@ -60,6 +61,12 @@
     <div class="row">
       <div class="col-12  q-pa-md q-gutter-md">
         <q-card>
+          <q-card-section>
+            <div class="text-h6">
+              {{ $t('catalog.itemDetail.item.description') }}
+            </div>
+          </q-card-section>
+          <q-separator />
           <q-card-section v-html="item.longDesc" />
         </q-card>
       </div>
@@ -77,6 +84,7 @@ import { useLocaleStore } from 'src/stores/locale';
 interface Props {
   itemId: number
 }
+
 const localeStore = useLocaleStore();
 
 const props = defineProps<Props>();
