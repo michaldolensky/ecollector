@@ -40,25 +40,28 @@
     </template>
   </q-carousel>
   <div class="col-12 q-px-md">
-    <q-virtual-scroll
+    <q-scroll-area
       v-if="moreThanOneImage"
-      :items="images"
-      class="row no-wrap justify-center"
-      style="overflow-x: auto; overflow-y: visible;"
-      virtual-scroll-horizontal
+      id="gallery-thumbnail"
+      style="height: 100px"
     >
-      <template #default="{ item, index }">
-        <q-img
-          :key="index"
-          :src="item.path"
-          fit="contain"
-          height="50px"
-          style="padding-right: 10px; padding-left: 10px"
-          width="50px"
-          @click="slide = index"
-        />
-      </template>
-    </q-virtual-scroll>
+      <q-virtual-scroll
+        :items="images"
+        scroll-target="#gallery-thumbnail > .scroll"
+        separator
+        virtual-scroll-horizontal
+      >
+        <template #default="{ item, index }">
+          <q-img
+            :key="index"
+            :src="item.path"
+            fit="contain"
+            width="100px"
+            @click="slide = index"
+          />
+        </template>
+      </q-virtual-scroll>
+    </q-scroll-area>
   </div>
 </template>
 
