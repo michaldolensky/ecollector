@@ -33,7 +33,7 @@
     "@graphql-codegen/typescript-operations": "2.2.1",
     "@graphql-codegen/typescript-vue-apollo": "3.2.1",
     "@intlify/eslint-plugin-vue-i18n": "1.2.0",
-    "@quasar/app": "3.2.4",
+    "@quasar/app": "3.2.5",
     "@types/node": "16.11.11",
     "@typescript-eslint/eslint-plugin": "5.5.0",
     "@typescript-eslint/parser": "5.5.0",
