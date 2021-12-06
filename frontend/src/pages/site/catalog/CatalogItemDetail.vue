@@ -1,19 +1,22 @@
 <template>
   <q-page
     v-if="!loading"
-    padding
   >
-    <bread-crums />
     <div class="row">
-      <div class="col-12  q-pa-md ">
+      <div class="col-12 q-px-md q-pt-md">
+        <bread-crums />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 q-pt-md q-px-md">
         <span class="text-h4">{{ item.name }}</span>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6 q-pa-md q-gutter-md">
+      <div class="col-12 col-md-6 ">
         <catalog-item-images-browser :images="item.images" />
       </div>
-      <div class="col-12 col-md-6 q-pa-md q-gutter-md">
+      <div class="col-12 col-md-6 q-pa-md">
         <q-card>
           <q-list
             bordered
@@ -58,18 +61,16 @@
         </q-card>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12  q-pa-md q-gutter-md">
-        <q-card>
-          <q-card-section>
-            <div class="text-h6">
-              {{ $t('catalog.itemDetail.item.description') }}
-            </div>
-          </q-card-section>
-          <q-separator />
-          <q-card-section v-html="item.longDesc" />
-        </q-card>
-      </div>
+    <div class="col-12 q-pa-md">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">
+            {{ $t('catalog.itemDetail.item.description') }}
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section v-html="item.longDesc" />
+      </q-card>
     </div>
   </q-page>
 </template>

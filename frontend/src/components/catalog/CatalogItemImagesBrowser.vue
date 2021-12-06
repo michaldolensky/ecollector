@@ -15,10 +15,8 @@
     >
       <q-img
         :src="image.path"
-        class="rounded-borders col-6 full-height"
+        class="full-height"
         fit="contain"
-        max-height="100%"
-        max-width="100%"
         @click="toggleFullscreen"
       />
     </q-carousel-slide>
@@ -41,25 +39,27 @@
       </q-carousel-control>
     </template>
   </q-carousel>
-  <q-virtual-scroll
-    v-if="moreThanOneImage"
-    :items="images"
-    class="row no-wrap q-gutter-x-sm"
-    style="overflow-x: auto; overflow-y: visible;"
-    virtual-scroll-horizontal
-  >
-    <template #default="{ item, index }">
-      <q-img
-        :key="index"
-        :src="item.path"
-        fit="contain"
-        height="50px"
-        style="padding-right: 10px; padding-left: 10px"
-        width="50px"
-        @click="slide = index"
-      />
-    </template>
-  </q-virtual-scroll>
+  <div class="col-12 q-px-md">
+    <q-virtual-scroll
+      v-if="moreThanOneImage"
+      :items="images"
+      class="row no-wrap "
+      style="overflow-x: auto; overflow-y: visible;"
+      virtual-scroll-horizontal
+    >
+      <template #default="{ item, index }">
+        <q-img
+          :key="index"
+          :src="item.path"
+          fit="contain"
+          height="50px"
+          style="padding-right: 10px; padding-left: 10px"
+          width="50px"
+          @click="slide = index"
+        />
+      </template>
+    </q-virtual-scroll>
+  </div>
 </template>
 
 <script lang="ts" setup>
