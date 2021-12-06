@@ -5,7 +5,6 @@
     :fullscreen="fullscreen"
     animated
     control-color="primary"
-    height="250px"
     infinite
     swipeable
   >
