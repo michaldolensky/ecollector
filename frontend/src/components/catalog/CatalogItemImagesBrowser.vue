@@ -20,22 +20,24 @@
         fit="contain"
         max-height="100%"
         max-width="100%"
+        @click="toggleFullscreen"
       />
     </q-carousel-slide>
 
     <template #control>
       <q-carousel-control
+        v-if="fullscreen"
         :offset="[18, 18]"
-        position="bottom-right"
+        position="top-right"
       >
         <q-btn
-          :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
           color="white"
           dense
+          icon="close"
           push
           round
           text-color="primary"
-          @click="fullscreen = !fullscreen"
+          @click="fullscreen = false"
         />
       </q-carousel-control>
     </template>
@@ -63,7 +65,7 @@
 
 <script lang="ts" setup>
 
-import { toRefs } from '@vueuse/core';
+import { toRefs, useToggle } from '@vueuse/core';
 import { Image } from 'src/apollo/composition-functions';
 import { computed, ref } from 'vue';
 
@@ -79,6 +81,7 @@ const { images } = toRefs(props);
 const moreThanOneImage = computed((): boolean => images.length > 1);
 
 const slide = ref(0);
-const fullscreen = ref(false);
+
+const [fullscreen, toggleFullscreen] = useToggle();
 
 </script>
