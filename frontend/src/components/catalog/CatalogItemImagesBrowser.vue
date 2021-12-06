@@ -31,7 +31,7 @@
           color="white"
           dense
           icon="close"
-          push
+
           round
           text-color="primary"
           @click="fullscreen = false"
