@@ -1,7 +1,7 @@
-import { getParsedInt } from 'src/utils';
 import { useAuthStore } from 'src/stores/auth';
+import { getParsedInt } from 'src/utils';
 import {
-  RouterView, NavigationGuard, RouteRecordRaw, RouteLocationNormalized,
+  NavigationGuard, RouteLocationNormalized, RouteRecordRaw, RouterView,
 } from 'vue-router';
 
 declare module 'vue-router' {
@@ -83,7 +83,7 @@ const getRoutes = (): RouteRecordRaw[] => {
       component: () => import('layouts/MainLayout.vue'),
       beforeEnter: [checkAuth],
       children: [
-        { path: '', name: 'CatalogIndex', component: () => import('pages/MainPage.vue') },
+        { path: '', name: 'MainPage', component: () => import('pages/MainPage.vue') },
         {
           path: 'site/:siteId',
           redirect: { name: 'CatalogIndex' },
