@@ -43,7 +43,7 @@
     <q-virtual-scroll
       v-if="moreThanOneImage"
       :items="images"
-      class="row no-wrap "
+      class="row no-wrap justify-center"
       style="overflow-x: auto; overflow-y: visible;"
       virtual-scroll-horizontal
     >
