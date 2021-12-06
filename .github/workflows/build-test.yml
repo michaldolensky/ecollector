@@ -1,4 +1,4 @@
-name: Api test build
+name: Test build
 on:
   push:
     branches:
