@@ -43,7 +43,7 @@
     </template>
   </q-carousel>
   <q-virtual-scroll
-    v-if="images.length > 1"
+    v-if="moreThanOneImage"
     :items="images"
     class="row no-wrap q-gutter-x-sm"
     style="overflow-x: auto; overflow-y: visible;"
@@ -78,7 +78,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const { images } = toRefs(props);
 
-const moreThanOneImage = computed((): boolean => images.length > 1);
+const moreThanOneImage = computed((): boolean => images.value.length > 1);
 
 const slide = ref(0);
 
