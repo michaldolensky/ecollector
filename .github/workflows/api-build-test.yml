@@ -1,0 +1,30 @@
+name: Api test build
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+      - '.github/workflows/api-build-test.yml'
+  pull_request:
+    paths:
+      - 'api/**'
+      - '.github/workflows/api-build-test.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16 # Need for npm >=7.7
+          cache: 'npm'
+          cache-dependency-path: api/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+      - run: npm run build
