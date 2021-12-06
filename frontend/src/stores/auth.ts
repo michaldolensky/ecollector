@@ -34,7 +34,8 @@ interface ChangePasswordInterface {
   verifyPassword: string
 }
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore({
+  id: 'auth',
   state: () => ({
     user: {
       id: 0,
