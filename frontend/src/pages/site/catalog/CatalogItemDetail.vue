@@ -4,7 +4,7 @@
   >
     <div class="row">
       <div class="col-12 q-px-md q-pt-md">
-        <bread-crums />
+        <Breadcrumbs />
       </div>
     </div>
     <div class="row">
@@ -77,7 +77,7 @@
 
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
-import BreadCrums from 'components/catalog/BreadCrums.vue';
+import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
 import { useGetCatalogItemQuery } from 'src/apollo/composition-functions';
 import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
 import { useLocaleStore } from 'src/stores/locale';
