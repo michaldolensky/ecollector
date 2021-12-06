@@ -36,6 +36,11 @@
             }
         }
     },
+    "breadcrumbs": {
+        "catalog": {
+            "itemDetail": "Item Detail"
+        }
+    },
     "buttons": {
         "auth": {
             "login": "Login",
@@ -57,6 +62,14 @@
         "item": {
             "badge": {
                 "available_for_exchange": "Available for exchange"
+            }
+        },
+        "itemDetail": {
+            "item": {
+                "created": "Created:",
+                "description": "Description",
+                "numberOfItemsForExchange": "Number of items for exchange:",
+                "numberOfItemsInCollection": "Number of items in collection:"
             }
         },
         "navigation": {

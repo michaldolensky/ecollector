@@ -117,6 +117,12 @@ module.exports = {
       "rules": {
         "@intlify/vue-i18n/no-raw-text": "off"
       }
+    },
+    {
+      "files": ["./src/pages/site/catalog/CatalogItemDetail.vue"],
+      "rules": {
+        "vue/no-v-html": "off"
+      }
     }
   ],
   "settings": {

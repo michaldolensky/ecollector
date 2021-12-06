@@ -36,6 +36,11 @@
             }
         }
     },
+    "breadcrumbs": {
+        "catalog": {
+            "itemDetail": "Detail předmětu"
+        }
+    },
     "buttons": {
         "auth": {
             "login": "Přihlásit",
@@ -57,6 +62,14 @@
         "item": {
             "badge": {
                 "available_for_exchange": "Dostupné k výměně."
+            }
+        },
+        "itemDetail": {
+            "item": {
+                "created": "Vytvořeno:",
+                "description": "Popis",
+                "numberOfItemsForExchange": "Počet kusů k výměně:",
+                "numberOfItemsInCollection": "Počet kusů ve sbírce:"
             }
         },
         "navigation": {

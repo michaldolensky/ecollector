@@ -1,6 +1,6 @@
 import { appLanguages, i18n } from 'boot/i18n';
 import { defineStore } from 'pinia';
-import { Quasar } from 'quasar';
+import { date, Quasar } from 'quasar';
 
 export interface LocaleState {
     locale: string;
@@ -23,6 +23,9 @@ export const useLocaleStore = defineStore({
   actions: {
     init() {
       this.setLocale(this.locale);
+    },
+    getFormatedDate(dateString: string) {
+      return date.extractDate(dateString, 'YYYY-MM-DD').toLocaleDateString(this.locale);
     },
     setLocale(val: string) {
       void import(

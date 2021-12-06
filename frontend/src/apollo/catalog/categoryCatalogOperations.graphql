@@ -20,3 +20,20 @@ query getCatalogItems($categoryId:Int,$siteId:Int!){
     }
   }
 }
+
+query getCatalogItem($itemId:Int!){
+  item( id: $itemId) {
+    id
+    name
+    numberForExchange
+    numberInCollection
+    internalNumber
+    createdAt
+    shortDesc
+    longDesc
+    images{
+      path
+      main
+    }
+  }
+}

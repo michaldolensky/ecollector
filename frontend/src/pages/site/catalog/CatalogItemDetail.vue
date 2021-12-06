@@ -1,0 +1,103 @@
+<template>
+  <q-page
+    v-if="!loading"
+  >
+    <div class="row">
+      <div class="col-12 q-px-md q-pt-md">
+        <bread-crums />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 q-pt-md q-px-md">
+        <span class="text-h4">{{ item.name }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 ">
+        <catalog-item-images-browser :images="item.images" />
+      </div>
+      <div class="col-12 col-md-6 q-pa-md">
+        <q-card>
+          <q-list
+            bordered
+            separator
+          >
+            <q-item>
+              <q-item-section>
+                <q-item-label>{{ item.shortDesc }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label overline>
+                  {{ $t('catalog.itemDetail.item.numberOfItemsForExchange') }}
+                </q-item-label>
+                <q-item-label>
+                  {{ item.numberForExchange }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label overline>
+                  {{ $t('catalog.itemDetail.item.numberOfItemsInCollection') }}
+                </q-item-label>
+                <q-item-label>
+                  {{ item.numberInCollection }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-item-label overline>
+                  {{ $t('catalog.itemDetail.item.created') }}
+                </q-item-label>
+                <q-item-label>
+                  {{ localeStore.getFormatedDate(item.createdAt) }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-card>
+      </div>
+    </div>
+    <div class="col-12 q-pa-md">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">
+            {{ $t('catalog.itemDetail.item.description') }}
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section v-html="item.longDesc" />
+      </q-card>
+    </div>
+  </q-page>
+</template>
+
+<script lang="ts" setup>
+import { useResult } from '@vue/apollo-composable';
+import BreadCrums from 'components/catalog/BreadCrums.vue';
+import { useGetCatalogItemQuery } from 'src/apollo/composition-functions';
+import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
+import { useLocaleStore } from 'src/stores/locale';
+
+interface Props {
+  itemId: number
+}
+
+const localeStore = useLocaleStore();
+
+const props = defineProps<Props>();
+
+const { result, loading } = useGetCatalogItemQuery(() => ({
+  itemId: props.itemId,
+}));
+
+const item = useResult(result);
+
+</script>
+
+<style scoped>
+
+</style>
