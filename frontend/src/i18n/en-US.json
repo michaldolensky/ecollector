@@ -262,6 +262,14 @@
             "required": "Field is required"
         }
     },
+    "mainPage": {
+        "siteList": {
+            "label": {
+                "owner": "Owner",
+                "siteName": "Site name"
+            }
+        }
+    },
     "notifications": {
         "profile": {
             "deleted": "Profile was deleted",

@@ -1,0 +1,10 @@
+query getPublicSites {
+  sites {
+    id
+    name
+    owner{
+      firstName
+      lastName
+    }
+  }
+}
