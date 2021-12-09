@@ -1,10 +1,10 @@
 {
-  "name": "Ecollector",
-  "schemaPath": "api/schema.qql",
+  "name": "E-collector",
+  "schemaPath": "api/schema.gql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://localhost:3000/api/graphql",
+        "url": "http://api.localhost:8080/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },
