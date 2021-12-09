@@ -1,4 +1,5 @@
 import { useAuthStore } from 'src/stores/auth';
+import { getParsedInt } from 'src/utils';
 import {
   NavigationGuard, RouteLocationNormalized, RouteRecordRaw, RouterView,
 } from 'vue-router';
@@ -75,7 +76,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'CatalogIndex',
               path: '',
               props: (route) => ({
-                siteId: parseInt(<string>route.params.siteId, 10),
+                siteId: getParsedInt(route.params.siteId),
               }),
               component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
             },
@@ -83,8 +84,8 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'CatalogCategory',
               path: 'cat/:categoryId',
               props: (route) => ({
-                categoryId: parseInt(<string>route.params.categoryId, 10),
-                siteId: parseInt(<string>route.params.siteId, 10),
+                categoryId: getParsedInt(route.params.categoryId),
+                siteId: getParsedInt(route.params.siteId),
               }),
               component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
             },
@@ -92,7 +93,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'CatalogItemDetail',
               path: 'item/:itemId/',
               props: (route) => ({
-                itemId: parseInt(<string>route.params.itemId, 10),
+                itemId: getParsedInt(route.params.itemId),
               }),
               component: () => import('pages/site/catalog/CatalogItemDetail.vue'),
             },
@@ -124,7 +125,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'DashBoardItemEdit',
               path: 'items/edit/:itemId',
               props: (route) => ({
-                itemId: parseInt(<string>route.params.itemId, 10),
+                itemId: getParsedInt(route.params.itemId),
                 inEditMode: true,
               }),
               component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
@@ -143,7 +144,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'DashBoardCategoryEdit',
               path: 'categories/edit/:categoryId',
               props: (route) => ({
-                categoryId: parseInt(<string>route.params.categoryId, 10),
+                categoryId: getParsedInt(route.params.categoryId),
                 inEditMode: true,
                 header: 'dashboard.headers.editCategory',
               }),
@@ -159,7 +160,7 @@ const getRoutes = (): RouteRecordRaw[] => {
               name: 'DashBoardSettings',
               path: 'settings',
               props: (route) => ({
-                siteId: parseInt(<string>route.params.siteId, 10),
+                siteId: getParsedInt(route.params.siteId),
               }),
               component: () => import('pages/site/dashboard/settings/SettingsPage.vue'),
             },
