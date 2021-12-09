@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://localhost:3000/api/graphql"
+schema: "http://api.localhost:8080/graphql"
 documents: "src/apollo/**/*.graphql"
 generates:
   src/apollo/composition-functions.ts:
