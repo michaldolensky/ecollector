@@ -27,7 +27,6 @@ services:
     command: npm run start:debug
     ports:
       - "9229:9229"
-      - "3000:3000"
     environment:
       - POSTGRES_HOST
       - POSTGRES_PORT
