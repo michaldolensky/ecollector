@@ -27,7 +27,6 @@ services:
     command: npm run start:debug
     ports:
       - "9229:9229"
-      - "3000:3000"
     environment:
       - POSTGRES_HOST
       - POSTGRES_PORT
@@ -38,6 +37,7 @@ services:
       - JWT_EXPIRATION_TIME
       - SERVER_URL_ORIGIN
       - API_PORT
+      - NGINX_SERVER_NAME
     depends_on:
       - postgres
     volumes:
