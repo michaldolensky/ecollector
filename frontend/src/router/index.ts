@@ -1,5 +1,6 @@
 import { route } from 'quasar/wrappers';
 import { useAuthStore } from 'src/stores/auth';
+import { isParamPositiveInteger } from 'src/utils';
 import {
   createMemoryHistory, createRouter, createWebHashHistory, createWebHistory,
 } from 'vue-router';
@@ -34,6 +35,17 @@ export default route((/* { store, ssrContext } */) => {
   Router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
     await authStore.me();
+
+    const { siteId, itemId, categoryId } = to.params;
+
+    if (Object.keys(to.params).length !== 0) {
+      console.log('coin');
+      let error = false;
+      if (siteId && !isParamPositiveInteger(siteId)) error = true;
+      if (itemId && !isParamPositiveInteger(itemId)) error = true;
+      if (categoryId && !isParamPositiveInteger(categoryId)) error = true;
+      if (error) next({ name: 'Error404' });
+    }
     next();
   });
 

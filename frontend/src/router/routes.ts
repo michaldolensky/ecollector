@@ -1,5 +1,4 @@
 import { useAuthStore } from 'src/stores/auth';
-import { getParsedInt } from 'src/utils';
 import {
   NavigationGuard, RouteLocationNormalized, RouteRecordRaw, RouterView,
 } from 'vue-router';
@@ -9,27 +8,6 @@ declare module 'vue-router' {
     showDrawer?: boolean
   }
 }
-
-const validateItem: NavigationGuard = (to, from, next) => {
-  const { itemId } = to.params;
-
-  if (getParsedInt(itemId) > 0) {
-    next();
-  } else next({ name: 'Error404' });
-};
-const validateSiteId: NavigationGuard = (to, from, next) => {
-  const siteId = getParsedInt(to.params.siteId);
-  if (siteId > 0) {
-    next();
-  } else next({ name: 'Error404' });
-};
-const validateCategory: NavigationGuard = (to, from, next) => {
-  const { categoryId } = to.params;
-
-  if (getParsedInt(categoryId) > 0) {
-    next();
-  } else next({ name: 'Error404' });
-};
 
 const redirectToLogin = (to: RouteLocationNormalized) => ({
   name: 'login',
@@ -127,7 +105,7 @@ const getRoutes = (): RouteRecordRaw[] => {
             default: RouterView,
             drawer: () => import('components/drawers/DashboardDrawer.vue'),
           },
-          beforeEnter: [validateSiteId, requireAuth, requireOwner],
+          beforeEnter: [requireAuth, requireOwner],
           meta: {
             showDrawer: true,
           },
@@ -150,7 +128,6 @@ const getRoutes = (): RouteRecordRaw[] => {
                 inEditMode: true,
               }),
               component: () => import('pages/site/dashboard/items/EditItemPage.vue'),
-              beforeEnter: [validateItem],
             },
             {
               name: 'DashBoardItemCreate',
@@ -171,7 +148,6 @@ const getRoutes = (): RouteRecordRaw[] => {
                 header: 'dashboard.headers.editCategory',
               }),
               component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
-              beforeEnter: [validateCategory],
             },
             {
               name: 'DashBoardCategoryCreate',
