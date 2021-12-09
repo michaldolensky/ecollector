@@ -39,7 +39,6 @@ export default route((/* { store, ssrContext } */) => {
     const { siteId, itemId, categoryId } = to.params;
 
     if (Object.keys(to.params).length !== 0) {
-      console.log('coin');
       let error = false;
       if (siteId && !isParamPositiveInteger(siteId)) error = true;
       if (itemId && !isParamPositiveInteger(itemId)) error = true;
