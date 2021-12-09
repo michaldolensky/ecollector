@@ -262,6 +262,14 @@
             "required": "Pole je vyžadováno"
         }
     },
+    "mainPage": {
+        "siteList": {
+            "label": {
+                "owner": "Vlastník",
+                "siteName": "Název stránky"
+            }
+        }
+    },
     "notifications": {
         "profile": {
             "deleted": "Profil byl vymazán",

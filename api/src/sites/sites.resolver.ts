@@ -61,11 +61,10 @@ export class SitesResolver {
   removeSite(@Args('id', { type: () => Int }) id: number) {
     return this.sitesService.remove(id);
   }
-  @UseGuards(GqlAuthGuard, RoleGuard)
-  @Roles(GuardRoles.Admin)
+
   @ResolveField(() => User)
-  owner(@Parent() user: User): Promise<User> {
-    return this.userService.findOne(user.id);
+  owner(@Parent() site: Site): Promise<User> {
+    return this.userService.findOne(site.ownerId);
   }
 
   @ResolveField()

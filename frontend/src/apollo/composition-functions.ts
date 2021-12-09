@@ -1,7 +1,8 @@
 /* eslint-disable */
-import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';
+import gql from 'graphql-tag';
 import * as VueCompositionApi from 'vue';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -507,6 +508,11 @@ export type UpdateSiteMutationVariables = Exact<{
 
 
 export type UpdateSiteMutation = { __typename?: 'Mutation', updateSite: { __typename?: 'Site', id: number, name: string } };
+
+export type GetPublicSitesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPublicSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: number, name: string, owner: { __typename?: 'User', firstName?: string | null | undefined, lastName?: string | null | undefined } }> };
 
 export type DeleteUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -1146,6 +1152,35 @@ export function useUpdateSiteMutation(options: VueApolloComposable.UseMutationOp
   return VueApolloComposable.useMutation<UpdateSiteMutation, UpdateSiteMutationVariables>(UpdateSiteDocument, options);
 }
 export type UpdateSiteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateSiteMutation, UpdateSiteMutationVariables>;
+export const GetPublicSitesDocument = gql`
+    query getPublicSites {
+  sites {
+    id
+    name
+    owner {
+      firstName
+      lastName
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPublicSitesQuery__
+ *
+ * To run a query within a Vue component, call `useGetPublicSitesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPublicSitesQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetPublicSitesQuery();
+ */
+export function useGetPublicSitesQuery(options: VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetPublicSitesQuery, GetPublicSitesQueryVariables>(GetPublicSitesDocument, {}, options);
+}
+export type GetPublicSitesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetPublicSitesQuery, GetPublicSitesQueryVariables>;
 export const DeleteUserDocument = gql`
     mutation deleteUser {
   removeUser {
