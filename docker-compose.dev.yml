@@ -37,6 +37,7 @@ services:
       - JWT_EXPIRATION_TIME
       - SERVER_URL_ORIGIN
       - API_PORT
+      - NGINX_SERVER_NAME
     depends_on:
       - postgres
     volumes:
