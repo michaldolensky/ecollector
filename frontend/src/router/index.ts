@@ -1,4 +1,5 @@
 import { route } from 'quasar/wrappers';
+import { useAuthStore } from 'src/stores/auth';
 import {
   createMemoryHistory, createRouter, createWebHashHistory, createWebHistory,
 } from 'vue-router';
@@ -13,12 +14,12 @@ import getRoutes from './routes';
  * with the Router instance.
  */
 
-export default route(() => {
+export default route((/* { store, ssrContext } */) => {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
-  return createRouter({
+  const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes: getRoutes(),
 
@@ -29,4 +30,12 @@ export default route(() => {
       process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE,
     ),
   });
+
+  Router.beforeEach(async (to, from, next) => {
+    const authStore = useAuthStore();
+    await authStore.me();
+    next();
+  });
+
+  return Router;
 });
