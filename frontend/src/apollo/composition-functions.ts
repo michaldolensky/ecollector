@@ -1,8 +1,7 @@
 /* eslint-disable */
-import * as VueApolloComposable from '@vue/apollo-composable';
 import gql from 'graphql-tag';
+import * as VueApolloComposable from '@vue/apollo-composable';
 import * as VueCompositionApi from 'vue';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -36,6 +35,10 @@ export type Category = {
 export type CategoryItemsArgs = {
   filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
+};
+
+export type CategoryFilterInput = {
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type CategoryInput = {
@@ -240,6 +243,7 @@ export type Query = {
 
 
 export type QueryCategoriesArgs = {
+  filter?: InputMaybe<CategoryFilterInput>;
   siteId: Scalars['Int'];
 };
 
@@ -461,6 +465,7 @@ export type UpdateCategoryMutationVariables = Exact<{
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: number, name: string, perex: string } };
 
 export type GetCategoriesQueryVariables = Exact<{
+  filter?: InputMaybe<CategoryFilterInput>;
   siteId: Scalars['Int'];
 }>;
 
@@ -922,8 +927,8 @@ export function useUpdateCategoryMutation(options: VueApolloComposable.UseMutati
 }
 export type UpdateCategoryMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
 export const GetCategoriesDocument = gql`
-    query getCategories($siteId: Int!) {
-  categories(siteId: $siteId) {
+    query getCategories($filter: CategoryFilterInput, $siteId: Int!) {
+  categories(filter: $filter, siteId: $siteId) {
     id
     createdAt
     updatedAt
@@ -944,6 +949,7 @@ export const GetCategoriesDocument = gql`
  *
  * @example
  * const { result, loading, error } = useGetCategoriesQuery({
+ *   filter: // value for 'filter'
  *   siteId: // value for 'siteId'
  * });
  */

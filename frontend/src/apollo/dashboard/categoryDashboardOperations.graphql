@@ -18,8 +18,8 @@ mutation updateCategory($updateCategoryInput:UpdateCategoryInput!,$siteId:Int!){
     perex
   }
 }
-query getCategories($siteId:Int!){
-  categories(siteId:$siteId) {
+query getCategories($filter:CategoryFilterInput,$siteId:Int!){
+  categories(filter:$filter,siteId:$siteId) {
     id
     createdAt
     updatedAt

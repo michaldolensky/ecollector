@@ -69,7 +69,7 @@ export class SitesResolver {
 
   @ResolveField()
   async categories(@Parent() site: Site): Promise<Category[]> {
-    return this.categoriesService.getCategoriesWithSiteId(site.id);
+    return this.categoriesService.findAll({ siteId: site.id });
   }
   @ResolveField()
   async stats(@Parent() site: Site): Promise<SiteStats> {

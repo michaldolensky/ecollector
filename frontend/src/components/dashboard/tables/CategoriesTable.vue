@@ -1,12 +1,11 @@
 <template>
   <q-table
     :columns="CategoriesTableColumns"
-    :filter="props.filter"
-    :grid="q.screen.xs"
-    :loading="props.loading"
+    :grid="$q.screen.xs"
+    :loading="loading"
     :no-data-label="$t('dashboard.categories.table.not_found')"
     :pagination="initialPagination"
-    :rows="props.categories"
+    :rows="categories"
     row-key="id"
   >
     <template #body-cell-Name="prop">
@@ -44,29 +43,19 @@
   </q-table>
 </template>
 <script lang="ts" setup>
-import { toRowDate } from 'src/utils';
+import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
 import {
-  computed,
   reactive,
 } from 'vue';
-import { useQuasar } from 'quasar';
-import { useI18n } from 'vue-i18n';
-import { Category, useCategories } from 'src/composables/useCategories';
+import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
 
-interface Props{
-  categories?:Category[]
-  loading?: boolean
-  filter?: string
-}
-const props = withDefaults(defineProps<Props>(), {
-  categories: () => [],
-  loading: false,
-  filter: '',
-});
+const {
+  loading,
+  confirmDelete,
+  categories,
+} = useDashboardCategories();
 
-const q = useQuasar();
-const { t } = useI18n();
-const { removeCategory } = useCategories();
+const { CategoriesTableColumns } = useDashboardTableColumns();
 
 const initialPagination = reactive({
   sortBy: 'name',
@@ -74,55 +63,5 @@ const initialPagination = reactive({
   page: 1,
   rowsPerPage: 50,
 });
-
-const confirmDelete = (category: Category) => {
-  q.dialog({
-    title: t('dialogs.titles.confirm', [category.name]),
-    message: t('dashboard.categories.dialogs.message.delete', [category.name]),
-    cancel: true,
-    persistent: true,
-  }).onOk(() => {
-    void removeCategory(category.id);
-  });
-};
-
-const CategoriesTableColumns = computed(() => [
-
-  {
-    name: 'name',
-    required: true,
-    label: t('dashboard.categories.table.column.label.name'),
-    align: 'left',
-    field: (item:Category) => item.name,
-    format: (val:string) => `${val}`,
-    sortable: true,
-  },
-  {
-    name: 'Created',
-    required: true,
-    label: t('dashboard.categories.table.column.label.created'),
-    align: 'left',
-    field: (item:Category) => item.createdAt,
-    format: (val:string) => `${toRowDate(val)}`,
-    sortable: true,
-  },
-  {
-    name: 'Updated',
-    required: true,
-    label: t('dashboard.categories.table.column.label.updated'),
-    align: 'left',
-    field: (item:Category) => item.updatedAt,
-    format: (val:string) => `${toRowDate(val)}`,
-    sortable: true,
-  },
-  {
-    name: 'Action',
-    label: t('dashboard.categories.table.column.label.action'),
-    field: 'Action',
-    sortable: false,
-    align: 'center',
-  },
-
-]);
 
 </script>

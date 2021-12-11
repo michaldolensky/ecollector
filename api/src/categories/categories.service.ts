@@ -3,9 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { GetItemsArgs } from '../items/dto/getItems.args';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
 import { CreateCategoryInput } from './dto/create-category.input';
 
@@ -26,8 +27,13 @@ export class CategoriesService {
     return await this.categoriesRepository.save(category);
   }
 
-  async findAll() {
-    return await this.categoriesRepository.find();
+  async findAll({ filter, siteId }: GetItemsArgs): Promise<Category[]> {
+    return await this.categoriesRepository.find({
+      where: {
+        siteId,
+        ...(filter?.name && { name: ILike(`%${filter.name}%`) }),
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -50,9 +56,5 @@ export class CategoriesService {
     const category = await this.categoriesRepository.findOne({ where: { id } });
     if (!category) throw new NotFoundException('Category not found!');
     await this.categoriesRepository.delete(id);
-  }
-
-  async getCategoriesWithSiteId(siteId: number): Promise<Category[]> {
-    return await this.categoriesRepository.find({ where: { siteId } });
   }
 }

@@ -13,16 +13,16 @@ import { RoleGuard } from '../auth/guards/role.guard';
 import { Roles } from '../common/decoratos/roles.decorator';
 import { GuardRoles } from '../common/enums/role.enum';
 import { GetItemsArgs } from '../items/dto/getItems.args';
-import { CategoriesService } from './categories.service';
-import { Category } from './entities/category.entity';
-import { CreateCategoryArgs } from './dto/create-category.input';
-import { UpdateCategoryArgs } from './dto/update-category.input';
+import { Item } from '../items/entities/item.entity';
+import { ItemsService } from '../items/items.service';
 import { Site } from '../sites/entities/site.entity';
 import { SitesService } from '../sites/sites.service';
-import { ItemsService } from '../items/items.service';
-import { Item } from '../items/entities/item.entity';
+import { CategoriesService } from './categories.service';
+import { CreateCategoryArgs } from './dto/create-category.input';
 import { DeleteCategoryArgs } from './dto/delete-category.input';
-import { SiteIdArgs } from '../common/args/siteId.args';
+import { GetCategoriesArgs } from './dto/getCategories.args';
+import { UpdateCategoryArgs } from './dto/update-category.input';
+import { Category } from './entities/category.entity';
 
 @Resolver(() => Category)
 export class CategoriesResolver {
@@ -39,11 +39,8 @@ export class CategoriesResolver {
   }
 
   @Query(() => [Category], { name: 'categories' })
-  findAll(@Args() { siteId }: SiteIdArgs) {
-    if (siteId) {
-      return this.categoryService.getCategoriesWithSiteId(siteId);
-    }
-    return this.categoryService.findAll();
+  findAll(@Args() args: GetCategoriesArgs) {
+    return this.categoryService.findAll(args);
   }
 
   @Query(() => Category, { name: 'category' })

@@ -1,3 +1,4 @@
+import { Category } from 'src/composables/useCategories';
 import { Item } from 'src/composables/useItems';
 import { toRowDate } from 'src/utils';
 import { computed } from 'vue';
@@ -76,7 +77,48 @@ export function useDashboardTableColumns() {
 
   ]);
 
+  const CategoriesTableColumns = computed(() => [
+    {
+      name: 'name',
+      required: true,
+      label: t('dashboard.categories.table.column.label.name'),
+      align: 'left',
+      field: (item:Category) => item.name,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      format: (val:string) => `${val}`,
+      sortable: true,
+    },
+    {
+      name: 'Created',
+      required: true,
+      label: t('dashboard.categories.table.column.label.created'),
+      align: 'left',
+      field: (item:Category) => item.createdAt,
+      format: (val:string) => `${toRowDate(val)}`,
+      sortable: true,
+    },
+    {
+      name: 'Updated',
+      required: true,
+      label: t('dashboard.categories.table.column.label.updated'),
+      align: 'left',
+      field: (item:Category) => item.updatedAt,
+      format: (val:string) => `${toRowDate(val)}`,
+      sortable: true,
+    },
+    {
+      name: 'Action',
+      label: t('dashboard.categories.table.column.label.action'),
+      field: 'Action',
+      sortable: false,
+      align: 'center',
+    },
+
+  ]);
+
   return {
     ItemsTableColumns,
+    CategoriesTableColumns,
   };
 }

@@ -9,27 +9,39 @@
       />
     </dashboard-page-header>
 
-    <q-card class="q-pa-md">
-      <q-input
-        v-model="filter"
-        :label="$t('filters.items.name')"
-        debounce="300"
-        stack-label
-      >
-        <template #append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
+    <q-card>
+      <q-card-section>
+        <div class="row">
+          <div class="col">
+            <q-input
+              v-model="filter.name"
+              :label="$t('filters.items.name')"
+              debounce="300"
+              outlined
+              stack-label
+            >
+              <template #append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn @click="resetFilter">
+          {{ $t('buttons.common.reset') }}
+        </q-btn>
+        <q-btn
+          color="secondary"
+          @click="refetch()"
+        >
+          {{ $t('buttons.common.filter') }}
+        </q-btn>
+      </q-card-actions>
     </q-card>
 
-    <q-card v-if="loading">
-      <CategoriesTable :loading="loading" />
-    </q-card>
-    <q-card v-else>
-      <CategoriesTable
-        :categories="result.categories"
-        :filter="filter"
-      />
+    <q-card>
+      <categories-table />
     </q-card>
   </dashboard-page>
 </template>
@@ -38,12 +50,8 @@
 import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useCategories } from 'src/composables/useCategories';
-import { ref } from 'vue';
+import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
 
-const { result, loading, refetch } = useCategories();
-void refetch();
-
-const filter = ref('');
+const { filter, refetch, resetFilter } = useDashboardCategories();
 
 </script>
