@@ -9,6 +9,18 @@
     swipeable
   >
     <q-carousel-slide
+      v-if="images.length===0"
+      :name="0"
+      class="text-center"
+    >
+      <q-img
+        class="full-height"
+        fit="contain"
+        src="~/assets/missing-image.png"
+        width="50%"
+      />
+    </q-carousel-slide>
+    <q-carousel-slide
       v-for="(image, index) in images"
       :key="index"
       :name="index"
