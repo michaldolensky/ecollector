@@ -1,8 +1,9 @@
 import {
-  CreateItemInput, UpdateItemInput,
+  CreateItemInput,
+  UpdateItemInput,
   useCreateItemMutation,
-  useGetItemsQuery, useItemQuery,
-  useRemoveItemMutation, useUpdateItemMutation,
+  useItemQuery,
+  useUpdateItemMutation,
 } from 'src/apollo/composition-functions';
 import { Image } from 'src/composables/useImages';
 import { useSites } from 'src/composables/useSites';
@@ -28,27 +29,12 @@ export interface Item {
 export function useItems() {
   const { currentSiteId } = useSites();
 
-  const { result, loading, refetch } = useGetItemsQuery({
-    siteId: currentSiteId.value,
-  });
-
   const getItem = (id:number) => useItemQuery({
     id,
   });
-  const { mutate: removeItemMutation } = useRemoveItemMutation({});
   const { mutate: createItemMutation } = useCreateItemMutation({});
   const { mutate: updateItemMutation } = useUpdateItemMutation({});
 
-  const removeItem = (id:number) => {
-    void removeItemMutation({
-      deleteItemInput: {
-        itemId: id,
-      },
-      siteId: currentSiteId.value,
-    }).then(() => {
-      void refetch();
-    });
-  };
   // eslint-disable-next-line max-len
   const createItem = (createItemInput:CreateItemInput) => createItemMutation({ createItemInput, siteId: currentSiteId.value });
   // eslint-disable-next-line max-len
@@ -56,10 +42,6 @@ export function useItems() {
 
   return {
     getItem,
-    result,
-    loading,
-    refetch,
-    removeItem,
     updateItem,
     createItem,
   };

@@ -50,6 +50,7 @@
         "common": {
             "change": "Change",
             "delete": "Delete",
+            "filter": "Filter",
             "reset": "Reset",
             "save": "Save",
             "submit": "Submit"
@@ -227,7 +228,7 @@
     },
     "filters": {
         "items": {
-            "search": "Search"
+            "name": "Name"
         }
     },
     "forms": {

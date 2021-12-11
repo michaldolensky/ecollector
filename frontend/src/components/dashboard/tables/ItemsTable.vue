@@ -1,12 +1,11 @@
 <template>
   <q-table
     :columns="ItemsTableColumns"
-    :filter="props.filter"
     :grid="$q.screen.xs"
-    :loading="props.loading"
+    :loading="loading"
     :no-data-label="$t('dashboard.items.table.not_found')"
     :pagination="initialPagination"
-    :rows="props.items"
+    :rows="items"
     row-key="id"
   >
     <template #body-cell-image="slotProps">
@@ -57,28 +56,18 @@
   </q-table>
 </template>
 <script lang="ts" setup>
-import { useQuasar } from 'quasar';
+import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
 import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
 import { SERVER_URL } from 'src/composables/useEnv';
-import { Item, useItems } from 'src/composables/useItems';
 import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
 
-interface Props {
-  loading?: boolean
-  items?: Item[]
-  filter?: string
-}
-const props = withDefaults(defineProps<Props>(), {
-  items: () => [],
-  loading: false,
-  filter: '',
-});
+const {
+  loading,
+  confirmDelete,
+  items,
+} = useDashboardItems();
 
-const { removeItem } = useItems();
-const { dialog } = useQuasar();
 const { ItemsTableColumns } = useDashboardTableColumns();
-const { t } = useI18n();
 
 const initialPagination = reactive({
   sortBy: 'name',
@@ -86,16 +75,5 @@ const initialPagination = reactive({
   page: 1,
   rowsPerPage: 50,
 });
-
-const confirmDelete = (item: Item) => {
-  dialog({
-    title: t('dialogs.titles.confirm', [item.name]),
-    message: t('dashboard.items.dialogs.message.delete', [item.name]),
-    cancel: true,
-    persistent: true,
-  }).onOk(() => {
-    if (item.id != null) void removeItem(item.id);
-  });
-};
 
 </script>

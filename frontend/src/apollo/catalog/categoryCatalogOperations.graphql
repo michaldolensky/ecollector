@@ -5,8 +5,8 @@ query getCatalogueCategories($siteId:Int!){
   }
 }
 
-query getCatalogItems($categoryId:Int,$siteId:Int!){
-  items( categoryId: $categoryId, siteId: $siteId) {
+query getCatalogItems($filter:ItemFilterInput,$siteId:Int!){
+  items( filter:$filter, siteId: $siteId) {
     id
     name
     numberForExchange

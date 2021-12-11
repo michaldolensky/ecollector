@@ -10,40 +10,52 @@
     </dashboard-page-header>
 
     <q-card class="q-pa-md">
-      <q-input
-        v-model="filter"
-        :placeholder="$t('filters.items.search')"
-        debounce="300"
-        stack-label
-      >
-        <template #append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
+      <q-card-section>
+        <div class="row">
+          <div class="col">
+            <q-input
+              v-model="filter.name"
+              :placeholder="$t('filters.items.name')"
+              debounce="300"
+              outlined
+              stack-label
+            >
+              <template #append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+          <div class="col">
+            <item-category-select v-model="filter.categoryId" />
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn @click="resetFilter">
+          {{ $t('buttons.common.reset') }}
+        </q-btn>
+        <q-btn
+          color="secondary"
+          @click="refetch()"
+        >
+          {{ $t('buttons.common.filter') }}
+        </q-btn>
+      </q-card-actions>
     </q-card>
 
-    <q-card v-if="loading">
-      <items-table :loading="loading" />
-    </q-card>
-    <q-card v-else>
-      <items-table
-        :filter="filter"
-        :items="result.items"
-      />
+    <q-card>
+      <items-table />
     </q-card>
   </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useItems } from 'src/composables/useItems';
-import { ref } from 'vue';
+import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
 
-const { result, loading, refetch } = useItems();
-void refetch();
-
-const filter = ref('');
+const { filter, refetch, resetFilter } = useDashboardItems();
 
 </script>

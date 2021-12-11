@@ -3,13 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
 import { sanitizeHtmlUtils } from '../common/utils/sanitize-html.utils';
 import { CreateItemInput } from './dto/create-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Item } from './entities/item.entity';
 
 @Injectable()
@@ -29,10 +29,11 @@ export class ItemsService {
     return await this.itemsRepository.save(item);
   }
 
-  async findAll({ categoryId, siteId }: GetItemsArgs, parent?: Category) {
+  async findAll({ filter, siteId }: GetItemsArgs, parent?: Category) {
     return await this.itemsRepository.find({
       where: {
-        ...(categoryId && { categoryId }),
+        ...(filter?.categoryId && { categoryId: filter.categoryId }),
+        ...(filter?.name && { name: ILike(`%${filter.name}%`) }),
         ...(parent?.id && { categoryId: parent.id }),
         ...(siteId && { siteId }),
       },

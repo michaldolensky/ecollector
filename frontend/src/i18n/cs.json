@@ -50,6 +50,7 @@
         "common": {
             "change": "Změnit",
             "delete": "Smazat",
+            "filter": "Filtrovat",
             "reset": "Reset",
             "save": "Uložit",
             "submit": "Odeslat"
@@ -227,7 +228,7 @@
     },
     "filters": {
         "items": {
-            "search": "Vyhledat"
+            "name": "Název"
         }
     },
     "forms": {

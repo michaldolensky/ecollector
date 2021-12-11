@@ -51,8 +51,8 @@ mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
   }
 }
 
-query getItems($siteId:Int!){
-  items(siteId:$siteId) {
+query getItems($filter:ItemFilterInput,$siteId:Int!){
+  items(filter:$filter,siteId:$siteId) {
     id
     name
     createdAt

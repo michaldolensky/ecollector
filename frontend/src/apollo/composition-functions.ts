@@ -34,7 +34,7 @@ export type Category = {
 
 
 export type CategoryItemsArgs = {
-  categoryId?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
 };
 
@@ -122,6 +122,14 @@ export type Item = {
 export type ItemImagesArgs = {
   itemId?: InputMaybe<Scalars['Int']>;
   main?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ItemFilterInput = {
+  categoryId?: InputMaybe<Scalars['Int']>;
+  internalNumber?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  numberForExchange?: InputMaybe<Scalars['Int']>;
+  numberInCollection?: InputMaybe<Scalars['Int']>;
 };
 
 export type ItemInput = {
@@ -258,7 +266,7 @@ export type QueryItemArgs = {
 
 
 export type QueryItemsArgs = {
-  categoryId?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
 };
 
@@ -375,7 +383,7 @@ export type GetCatalogueCategoriesQueryVariables = Exact<{
 export type GetCatalogueCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: number, name: string }> };
 
 export type GetCatalogItemsQueryVariables = Exact<{
-  categoryId?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
 }>;
 
@@ -421,6 +429,7 @@ export type UpdateItemMutationVariables = Exact<{
 export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
 
 export type GetItemsQueryVariables = Exact<{
+  filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
 }>;
 
@@ -556,8 +565,8 @@ export function useGetCatalogueCategoriesQuery(variables: GetCatalogueCategories
 }
 export type GetCatalogueCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>;
 export const GetCatalogItemsDocument = gql`
-    query getCatalogItems($categoryId: Int, $siteId: Int!) {
-  items(categoryId: $categoryId, siteId: $siteId) {
+    query getCatalogItems($filter: ItemFilterInput, $siteId: Int!) {
+  items(filter: $filter, siteId: $siteId) {
     id
     name
     numberForExchange
@@ -585,7 +594,7 @@ export const GetCatalogItemsDocument = gql`
  *
  * @example
  * const { result, loading, error } = useGetCatalogItemsQuery({
- *   categoryId: // value for 'categoryId'
+ *   filter: // value for 'filter'
  *   siteId: // value for 'siteId'
  * });
  */
@@ -779,8 +788,8 @@ export function useUpdateItemMutation(options: VueApolloComposable.UseMutationOp
 }
 export type UpdateItemMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateItemMutation, UpdateItemMutationVariables>;
 export const GetItemsDocument = gql`
-    query getItems($siteId: Int!) {
-  items(siteId: $siteId) {
+    query getItems($filter: ItemFilterInput, $siteId: Int!) {
+  items(filter: $filter, siteId: $siteId) {
     id
     name
     createdAt
@@ -810,6 +819,7 @@ export const GetItemsDocument = gql`
  *
  * @example
  * const { result, loading, error } = useGetItemsQuery({
+ *   filter: // value for 'filter'
  *   siteId: // value for 'siteId'
  * });
  */
