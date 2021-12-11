@@ -1,9 +1,10 @@
 <template>
   <q-select
     v-model="value"
+    :clearable="props.clearable"
     :label="$t('dashboard.items.input.label.category')"
     :options="options"
-    :rules="[required]"
+    :rules="rules"
     emit-value
     input-debounce="0"
     map-options
@@ -23,14 +24,14 @@ import { useGetCategoriesForSelectorQuery } from 'src/apollo/composition-functio
 import { useSites } from 'src/composables/useSites';
 import { FilterFn } from 'src/types/FilterFn.type';
 import { validationHelper } from 'src/validationHelper';
-import { ref } from 'vue';
-
-const { required } = validationHelper;
+import { computed, ref } from 'vue';
 
 const { currentSiteId } = useSites();
 
 interface Props {
   modelValue: number|null
+  required?: boolean
+  clearable?: boolean
 }
 
 const props = defineProps<Props>();
@@ -61,4 +62,10 @@ const filterFn: FilterFn = (val, update) => {
     }
   });
 };
+
+// Validation
+const { required } = validationHelper;
+
+const rules = computed(() => (props.required ? [required] : []));
+
 </script>

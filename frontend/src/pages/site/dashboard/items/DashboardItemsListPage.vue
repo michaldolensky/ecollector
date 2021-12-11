@@ -26,7 +26,10 @@
             </q-input>
           </div>
           <div class="col">
-            <item-category-select v-model="filter.categoryId" />
+            <item-category-select
+              v-model="filter.categoryId"
+              clearable
+            />
           </div>
         </div>
       </q-card-section>

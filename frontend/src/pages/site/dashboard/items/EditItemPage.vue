@@ -69,7 +69,10 @@
             </q-card-section>
             <q-separator />
             <q-card-section>
-              <ItemCategorySelect v-model="item.categoryId" />
+              <ItemCategorySelect
+                v-model="item.categoryId"
+                required
+              />
               <q-input
                 v-if="item.id"
                 v-model="item.id"
