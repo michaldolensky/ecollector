@@ -12,7 +12,7 @@
     <q-card class="q-pa-md">
       <q-input
         v-model="filter"
-        :placeholder="$t('filters.items.search')"
+        :label="$t('filters.items.name')"
         debounce="300"
         stack-label
       >

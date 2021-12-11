@@ -15,7 +15,7 @@
           <div class="col">
             <q-input
               v-model="filter.name"
-              :placeholder="$t('filters.items.name')"
+              :label="$t('filters.items.name')"
               debounce="300"
               outlined
               stack-label
