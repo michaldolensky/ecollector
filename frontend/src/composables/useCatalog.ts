@@ -11,6 +11,8 @@ export interface CatalogItem {
   id: number
   name: string
   shortDesc: string
+  numberForExchange: number
+  numberInCollection: number
   updatedAt: Date
   createdAt: Date
   images: Image[]

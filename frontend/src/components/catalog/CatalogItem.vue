@@ -25,6 +25,34 @@
           style="max-height: 250px"
         />
       </router-link>
+      <div class="justify-around">
+        <q-badge
+          class="float-left"
+          color="blue"
+        >
+          <q-tooltip>
+            {{ $t('catalog.itemDetail.item.numberOfItemsForExchange') }}
+          </q-tooltip>
+          <q-icon
+            left
+            name="fas fa-exchange-alt"
+          />
+          {{ props.item.numberForExchange }}
+        </q-badge>
+        <q-badge
+          class="float-right q-mr-5"
+          color="green"
+        >
+          <q-tooltip>
+            {{ $t('catalog.itemDetail.item.numberOfItemsInCollection') }}
+          </q-tooltip>
+          {{ props.item.numberInCollection }}
+          <q-icon
+            name="fas fa-layer-group"
+            right
+          />
+        </q-badge>
+      </div>
     </q-card-section>
     <q-card-section>
       <div class="text-h6">
