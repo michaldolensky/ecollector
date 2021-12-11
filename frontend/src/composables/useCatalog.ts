@@ -1,4 +1,4 @@
-import { Category } from 'src/apollo/composition-functions';
+import { Category, Image } from 'src/apollo/composition-functions';
 
 export interface CatalogCategory {
   id:number
@@ -27,6 +27,7 @@ export interface CatalogItem {
   shortDesc:string
   updatedAt:Date
   createdAt:Date
+  images:Image[]
 }
 
 export interface ItemData {
