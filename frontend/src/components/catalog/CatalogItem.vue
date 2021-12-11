@@ -58,7 +58,7 @@
       <div class="text-h6">
         {{ props.item.name }}
       </div>
-      <div class="text-subtitle2 ellipsis-3-lines">
+      <div class="text-subtitle3 ellipsis-3-lines">
         {{ props.item.shortDesc }}
       </div>
     </q-card-section>
