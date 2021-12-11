@@ -36,7 +36,7 @@ const { result, loading } = useGetCatalogItemsQuery(() => ({
   },
 }));
 
-const items = useResult(result);
+const items = useResult(result, []);
 
 </script>
 <style>
