@@ -9,7 +9,7 @@
       />
     </dashboard-page-header>
 
-    <q-card class="q-pa-md">
+    <q-card>
       <q-card-section>
         <div class="row">
           <div class="col">
