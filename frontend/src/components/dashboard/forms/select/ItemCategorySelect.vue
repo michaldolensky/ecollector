@@ -21,12 +21,12 @@ import { useResult } from '@vue/apollo-composable';
 import { useVModel } from '@vueuse/core';
 
 import { useGetCategoriesForSelectorQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/composables/useSites';
+import { useRouteParams } from 'src/composables/useRoute';
 import { FilterFn } from 'src/types/FilterFn.type';
 import { validationHelper } from 'src/validationHelper';
 import { computed, ref } from 'vue';
 
-const { currentSiteId } = useSites();
+const { siteId } = useRouteParams();
 
 interface Props {
   modelValue: number|null
@@ -39,7 +39,7 @@ const emit = defineEmits(['update:modelValue']);
 const value = useVModel(props, 'modelValue', emit);
 const options = ref();
 
-const { result, onResult } = useGetCategoriesForSelectorQuery({ siteId: currentSiteId.value });
+const { result, onResult } = useGetCategoriesForSelectorQuery({ siteId: siteId.value });
 const categories = useResult(result, null, (data) => data.categories);
 
 onResult(() => {
