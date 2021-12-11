@@ -7,26 +7,22 @@
     <q-card
       style="width: 100%; max-width: 250px"
     >
-      <q-img
-        :src="SERVER_URL+props.item.images[0].path"
-        fit="scale-down"
-        loading="lazy"
-        style="max-height: 250px"
-      >
-        <q-badge
-          color="purple"
-          rounded
-        >
-          <q-icon
-            color="white"
-            name="swap_horiz"
-          >
-            <q-tooltip>{{ $t('catalog.item.badge.available_for_exchange') }}</q-tooltip>
-          </q-icon>
-          {{ item.numberForExchange }}
-        </q-badge>
-      </q-img>
-      <q-card-section />
+      <q-card-section>
+        <q-img
+          v-if="props.item.images[0]"
+          :src="SERVER_URL+props.item.images[0].path"
+          fit="scale-down"
+          loading="lazy"
+          style="max-height: 250px"
+        />
+        <q-icon
+          v-else
+          color="grey-4"
+          name="image"
+          size="15rem"
+          style="max-width: 250px"
+        />
+      </q-card-section>
       <q-card-section>
         <div class="text-h6">
           {{ props.item.name }}
