@@ -19,7 +19,7 @@
     "@vueuse/core": "7.1.2",
     "axios": "0.24.0",
     "core-js": "3.19.3",
-    "graphql": "15.7.2",
+    "graphql": "15.8.0",
     "graphql-tag": "2.12.6",
     "pinia": "2.0.6",
     "quasar": "2.3.4",
