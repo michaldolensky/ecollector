@@ -1,9 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
   Post,
-  Query,
   Res,
   UploadedFiles,
   UseInterceptors,
@@ -16,6 +16,7 @@ import {
   editFileName,
   imageFileFilter,
 } from '../common/utils/image-upload.utils';
+import { UploadImageDto } from './dto/upload-image.dto';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
@@ -35,9 +36,10 @@ export class ImagesController {
   )
   async uploadMultipleFiles(
     @UploadedFiles() files: Array<Express.Multer.File>,
-    @Query('itemId') itemId: number,
+    @Body() body: UploadImageDto,
   ) {
     const response: Image[] = [];
+    const { itemId } = body;
 
     for (const file of files) {
       const image = await this.imagesService.create({
