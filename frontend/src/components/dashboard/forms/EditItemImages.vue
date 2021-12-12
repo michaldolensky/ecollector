@@ -94,7 +94,7 @@ const { itemId, siteId } = useRouteParams();
 const uploadImage = () => {
   uploader.value?.reset();
   return {
-    url: `${process.env.SERVER_URL}uploads`,
+    url: `${process.env.SERVER_URL_API}uploads`,
     method: 'POST',
     formFields: [
       { name: 'siteId', value: siteId.value },

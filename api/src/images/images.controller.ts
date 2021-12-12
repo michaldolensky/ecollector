@@ -20,11 +20,11 @@ import { UploadImageDto } from './dto/upload-image.dto';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
-@Controller('uploads')
+@Controller()
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  @Post('')
+  @Post('api/uploads')
   @UseInterceptors(
     FilesInterceptor('images', 10, {
       storage: diskStorage({
@@ -55,7 +55,7 @@ export class ImagesController {
     return response;
   }
 
-  @Get(':imgpath')
+  @Get('uploads/:imgpath')
   seeUploadedFile(
     @Param('imgpath') image: string,
     @Res() res: express.Response,

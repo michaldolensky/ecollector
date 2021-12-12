@@ -60,7 +60,6 @@ module.exports = configure((ctx) => ({
     vueRouterMode: 'history', // available values: 'hash', 'history'
     env: {
       GRAPHQL_URL: process.env.GRAPHQL_URL,
-      SERVER_URL: process.env.SERVER_URL,
       SERVER_URL_API: process.env.SERVER_URL_API,
     },
 

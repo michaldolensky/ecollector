@@ -10,7 +10,6 @@ services:
     restart: always
     environment:
       - GRAPHQL_URL
-      - SERVER_URL
       - SERVER_URL_API
     depends_on:
       - api_server
