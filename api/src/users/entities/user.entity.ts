@@ -1,4 +1,5 @@
 import { Field, HideField, InputType, ObjectType } from '@nestjs/graphql';
+import { Factory } from 'nestjs-seeder';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { UserRole } from '../../auth/role.enum';
 import {
@@ -15,6 +16,7 @@ import { Site } from '../../sites/entities/site.entity';
 @InputType('UserInput')
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
+  @Factory((faker) => faker.internet.exampleEmail())
   @Field()
   @IsEmail()
   @IsNotEmpty()
@@ -22,6 +24,7 @@ export class User extends BaseEntity {
   @Column({ length: 254 })
   email: string;
 
+  @Factory((faker, ctx) => ctx.passwordHash)
   @HideField()
   @IsString()
   @IsNotEmpty()
@@ -40,12 +43,14 @@ export class User extends BaseEntity {
   @OneToMany(() => Site, (site) => site.owner, { onDelete: 'CASCADE' })
   sites: Site[];
 
+  @Factory((faker) => faker.name.firstName())
   @IsString()
   @MaxLength(50)
   @Column({ length: 50, nullable: true })
   @Field({ nullable: true })
   firstName?: string | null;
 
+  @Factory((faker) => faker.name.lastName())
   @IsString()
   @MaxLength(50)
   @Column({ length: 50, nullable: true })
