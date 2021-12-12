@@ -4,6 +4,7 @@ import { Factory } from 'nestjs-seeder';
 import { BaseEntity } from 'src/common/entities/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
+import { HtmlSanitizerTransformer } from '../../common/transformers/html-sanitizer.transformer';
 import { Image } from '../../images/entities/image.entity';
 import { Site } from '../../sites/entities/site.entity';
 
@@ -22,7 +23,10 @@ export class Item extends BaseEntity {
   shortDesc: string;
 
   @Factory((faker) => faker.lorem.lines(10))
-  @Column({ default: '' })
+  @Column({
+    default: '',
+    transformer: new HtmlSanitizerTransformer(),
+  })
   @MaxLength(15000)
   longDesc: string;
 

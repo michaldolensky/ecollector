@@ -1,4 +1,5 @@
 import * as sanitizeHtml from 'sanitize-html';
+import { ValueTransformer } from 'typeorm';
 
 export const sanitizeHtmlUtils = (dirty: string) => {
   return sanitizeHtml(dirty, {
@@ -8,3 +9,13 @@ export const sanitizeHtmlUtils = (dirty: string) => {
     },
   });
 };
+
+export class HtmlSanitizerTransformer implements ValueTransformer {
+  from(value: string): string {
+    return value;
+  }
+
+  to(value: string): string {
+    return sanitizeHtmlUtils(value);
+  }
+}

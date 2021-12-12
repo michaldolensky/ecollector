@@ -6,7 +6,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
-import { sanitizeHtmlUtils } from '../common/utils/sanitize-html.utils';
 import { CreateItemInput } from './dto/create-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
@@ -24,8 +23,6 @@ export class ItemsService {
 
     Object.assign(item, createItemInput);
     item.siteId = siteId;
-    item.longDesc = sanitizeHtmlUtils(createItemInput.longDesc);
-
     return await this.itemsRepository.save(item);
   }
 
@@ -55,7 +52,6 @@ export class ItemsService {
     });
     if (!item) throw new BadRequestException('Invalid item');
 
-    updateItemInput.longDesc = sanitizeHtmlUtils(updateItemInput.longDesc);
     Object.assign(item, updateItemInput);
 
     item.images = item.images.map((image) => {
