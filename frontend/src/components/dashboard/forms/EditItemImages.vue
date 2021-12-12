@@ -43,7 +43,7 @@
           :key="image.id"
         >
           <q-img
-            :src="SERVER_URL+image.path"
+            :src="image.path"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">
@@ -71,9 +71,8 @@
 import { useVModel } from '@vueuse/core';
 import { QUploader } from 'quasar';
 import { Image, useImages } from 'src/composables/useImages';
-import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { SERVER_URL } from 'src/composables/useEnv';
+import { useRouteParams } from 'src/composables/useRoute';
+import { ref } from 'vue';
 
 const { removeImage } = useImages();
 
@@ -90,14 +89,17 @@ const emit = defineEmits(['update:modelValue']);
 const images = useVModel(props, 'modelValue', emit);
 
 const uploader = ref<QUploader>();
-const route = useRoute();
-const params = computed(() => route.params);
+const { itemId, siteId } = useRouteParams();
 
 const uploadImage = () => {
   uploader.value?.reset();
   return {
-    url: `${process.env.SERVER_URL}uploads?siteId=${<string>params.value.siteId}&itemId=${<string>params.value.itemId}`,
+    url: `${process.env.SERVER_URL_API}uploads`,
     method: 'POST',
+    formFields: [
+      { name: 'siteId', value: siteId.value },
+      { name: 'itemId', value: itemId.value },
+    ],
     fieldName: 'images',
   };
 };

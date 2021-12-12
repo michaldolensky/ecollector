@@ -17,7 +17,7 @@
           >
             <img
               :alt="slotProps.row.name"
-              :src="SERVER_URL+slotProps.row.images[0].path"
+              :src="slotProps.row.images[0].path"
             >
           </q-avatar>
           <q-icon
@@ -58,7 +58,6 @@
 <script lang="ts" setup>
 import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
 import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
-import { SERVER_URL } from 'src/composables/useEnv';
 import { reactive } from 'vue';
 
 const {

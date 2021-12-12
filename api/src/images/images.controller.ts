@@ -1,9 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
   Post,
-  Query,
   Res,
   UploadedFiles,
   UseInterceptors,
@@ -16,14 +16,15 @@ import {
   editFileName,
   imageFileFilter,
 } from '../common/utils/image-upload.utils';
+import { UploadImageDto } from './dto/upload-image.dto';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
-@Controller('uploads')
+@Controller()
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  @Post('')
+  @Post('api/uploads')
   @UseInterceptors(
     FilesInterceptor('images', 10, {
       storage: diskStorage({
@@ -35,9 +36,10 @@ export class ImagesController {
   )
   async uploadMultipleFiles(
     @UploadedFiles() files: Array<Express.Multer.File>,
-    @Query('itemId') itemId: number,
+    @Body() body: UploadImageDto,
   ) {
     const response: Image[] = [];
+    const { itemId } = body;
 
     for (const file of files) {
       const image = await this.imagesService.create({
@@ -53,7 +55,7 @@ export class ImagesController {
     return response;
   }
 
-  @Get(':imgpath')
+  @Get('uploads/:imgpath')
   seeUploadedFile(
     @Param('imgpath') image: string,
     @Res() res: express.Response,
