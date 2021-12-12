@@ -1,5 +1,6 @@
+import { ConfigService } from '@nestjs/config';
 import { InputType, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { AfterLoad, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
 
@@ -28,4 +29,11 @@ export class Image extends BaseEntity {
 
   @Column({ default: false, type: 'boolean' })
   main: boolean;
+
+  @AfterLoad()
+  updatePath() {
+    const configService = new ConfigService();
+    if (!this.path.includes('http'))
+      this.path = `${configService.get('SERVER_URL_ORIGIN')}/${this.path}`;
+  }
 }
