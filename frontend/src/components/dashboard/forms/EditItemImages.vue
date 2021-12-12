@@ -43,7 +43,7 @@
           :key="image.id"
         >
           <q-img
-            :src="SERVER_URL+image.path"
+            :src="image.path"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">
@@ -73,7 +73,6 @@ import { QUploader } from 'quasar';
 import { Image, useImages } from 'src/composables/useImages';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { SERVER_URL } from 'src/composables/useEnv';
 
 const { removeImage } = useImages();
 

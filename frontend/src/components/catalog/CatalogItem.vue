@@ -11,7 +11,7 @@
       >
         <q-img
           v-if="props.item.images[0]"
-          :src="SERVER_URL + props.item.images[0].path"
+          :src="props.item.images[0].path"
           fit="scale-down"
           loading="lazy"
           style="max-height: 250px"
@@ -66,7 +66,6 @@
 </template>
 <script lang="ts" setup>
 import { CatalogItem } from 'src/composables/useCatalog';
-import { SERVER_URL } from 'src/composables/useEnv';
 
 interface Props {
   item: CatalogItem
