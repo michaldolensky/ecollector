@@ -26,7 +26,7 @@
     "vue-i18n": "9.2.0-beta.23"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.16.3",
+    "@babel/eslint-parser": "7.16.5",
     "@graphql-codegen/add": "3.1.0",
     "@graphql-codegen/cli": "2.3.0",
     "@graphql-codegen/typescript": "2.4.1",
