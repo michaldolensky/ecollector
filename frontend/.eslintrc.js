@@ -27,8 +27,7 @@ module.exports = {
   extends: [
     // Base ESLint recommended rules
     'eslint:recommended',
-    'airbnb-base',
-    'airbnb-typescript/base',
+
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     // ESLint typescript rules
     'plugin:@typescript-eslint/recommended',
@@ -41,6 +40,9 @@ module.exports = {
     // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+    
+    'airbnb-base',
+    'airbnb-typescript/base',
 
     'plugin:@intlify/vue-i18n/recommended',
   ],
