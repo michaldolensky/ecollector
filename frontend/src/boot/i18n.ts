@@ -8,7 +8,7 @@ import cs from '../i18n/cs.json';
 export const appLanguages = languages
   .filter((lang) => Object.values(Locales).includes(lang.isoName as Locales));
 
-type MessageSchema = typeof en
+type MessageSchema = typeof en;
 const i18n = createI18n<[MessageSchema], Locales>({
   locale: Locales.EN,
   messages: {

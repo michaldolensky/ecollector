@@ -13,7 +13,7 @@ export interface Item {
   name:string
   updatedAt:Date
   createdAt:Date
-  categoryId:number|null
+  categoryId:number | null
   shortDesc:string
   longDesc:string
   internalNumber:string

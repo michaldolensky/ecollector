@@ -14,12 +14,12 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 
-type SortOrder = 'asc' | 'desc'
+type SortOrder = 'asc' | 'desc';
 
 type Options = {
   label: string,
   value: SortOrder
-}
+};
 
 const options: Options[] = [
   { label: 'A-Z', value: 'asc' },

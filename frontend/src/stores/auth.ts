@@ -80,21 +80,21 @@ export const useAuthStore = defineStore({
 
       return api
         .get<UserStateInterface>('/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }).then(
-          (response) => {
-            this.user = response.data;
-            this.authState = true;
-            return response;
-          },
-          (error: AxiosError<APIErrorInterface>) => {
-            this.$reset();
-            localStorage.setItem(localStorageTokenKey, '');
-            return error;
-          },
-        );
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(
+        (response) => {
+          this.user = response.data;
+          this.authState = true;
+          return response;
+        },
+        (error: AxiosError<APIErrorInterface>) => {
+          this.$reset();
+          localStorage.setItem(localStorageTokenKey, '');
+          return error;
+        },
+      );
     },
     login(loginData: LoginInterface) {
       this.authError = '';
