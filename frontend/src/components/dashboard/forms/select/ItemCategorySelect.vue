@@ -29,7 +29,7 @@ import { computed, ref } from 'vue';
 const { siteId } = useRouteParams();
 
 interface Props {
-  modelValue: number|null
+  modelValue: number | null
   required?: boolean
   clearable?: boolean
 }

@@ -21,6 +21,8 @@
       "scopeName" : "Project Files",
       "scopePattern" : "",
       "replacementTemplate" : "$t('%key%', %map%)",
+      "defaultReplacementTemplate" : "$t('%key%', %map%)",
+      "recognizedReplacementTemplates" : [ ],
       "skipDefaultNamespace" : false
     }, {
       "id" : "d9ef2958-53b3-48a6-be6b-6589cecd0608",
@@ -28,6 +30,9 @@
       "scopeName" : "Project Files",
       "scopePattern" : "",
       "replacementTemplate" : "$t('%key%', %map%)",
+      "contentReplacementTemplate" : "$t('%key%', %map%)",
+      "attributeReplacementTemplate" : "",
+      "recognizedReplacementTemplates" : [ ],
       "inlineTagNames" : [ ],
       "translatableAttributeNames" : [ "title", "alt", "placeholder", "label", "aria-label", "v-text", "v-html" ],
       "skipDefaultNamespace" : false
@@ -39,6 +44,6 @@
     "filesInProject" : [ ],
     "unignoredFunctionNames" : [ ],
     "unignoredFunctionArguments" : { },
-    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "el", "query", "impact", "type", "sql", "arial", "layout", "lucida_grande", "component", "condition", "comic_sans", "arial_black", "name", "times_new_roman", "selector", "id", "class", "verdana", "key", "courier_new", "middleware" ]
+    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "el", "query", "impact", "type", "sql", "arial", "layout", "lucida_grande", "component", "condition", "comic_sans", "arial_black", "name", "times_new_roman", "selector", "id", "class", "verdana", "key", "courier_new", "middleware", "Authorization" ]
   }
 }

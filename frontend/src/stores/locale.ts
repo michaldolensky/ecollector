@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { date, Quasar } from 'quasar';
 
 export interface LocaleState {
-    locale: string;
+  locale: string;
 }
 type QuasarLanguageModule = typeof import('quasar/lang/en-US');
 
