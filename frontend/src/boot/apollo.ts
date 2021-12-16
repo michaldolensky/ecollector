@@ -13,7 +13,7 @@ export default boot(
       link: createHttpLink({
         credentials: 'include',
         headers: {
-          authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         uri: process.env.GRAPHQL_URL,
       }),
