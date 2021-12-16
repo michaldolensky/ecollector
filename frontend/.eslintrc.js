@@ -15,7 +15,7 @@ module.exports = {
     parser: require.resolve('@typescript-eslint/parser'),
     project: require.resolve('./tsconfig.json'),
     tsconfigRootDir: __dirname,
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2022, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module' // Allows for the use of imports
   },
 
@@ -27,7 +27,8 @@ module.exports = {
   extends: [
     // Base ESLint recommended rules
     'eslint:recommended',
-
+    'airbnb-base',
+    'airbnb-typescript/base',
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     // ESLint typescript rules
     'plugin:@typescript-eslint/recommended',
@@ -42,8 +43,6 @@ module.exports = {
     'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
     'plugin:@intlify/vue-i18n/recommended',
-
-    'airbnb-base'
   ],
 
   plugins: [
