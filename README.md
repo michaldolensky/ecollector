@@ -1,4 +1,4 @@
-### Spuštění demo projektu:
+### Spuštění projektu:
 ```
-docker-compose -f docker-compose.demo.yml -p ecollector-demo up --remove-orphans --force-recreate --build
+docker-compose --env-file ./.config/.env.dev.example up
 ```
