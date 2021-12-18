@@ -38,6 +38,11 @@ const DashboardNavigationItems: NavigationItemInterface[] = [
     routeName: 'DashBoardCategoriesList',
   },
   {
+    nameString: 'dashboard.navigation.parameters',
+    icon: '',
+    routeName: 'DashBoardParameterList',
+  },
+  {
     nameString: 'dashboard.navigation.settings',
     icon: 'settings',
     routeName: 'DashBoardSettings',

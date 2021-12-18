@@ -1,6 +1,14 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { Factory } from 'nestjs-seeder';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { Parameter } from '../../parameters/entities/parameter.entity';
 import { Site } from '../../sites/entities/site.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
@@ -29,4 +37,7 @@ export class Category extends BaseEntity {
   @Field(() => [Item], { nullable: 'itemsAndList' })
   @OneToMany(() => Item, (item) => item.category)
   items?: Item[];
+
+  @ManyToMany(() => Parameter, (parameter) => parameter.categories)
+  parameters: Parameter[];
 }

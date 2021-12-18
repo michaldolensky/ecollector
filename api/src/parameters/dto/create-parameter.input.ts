@@ -1,7 +1,13 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
+import { ParameterType } from '../parameter-type.enum';
 
 @InputType()
 export class CreateParameterInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => [ParameterType], { nullable: true })
+  type: ParameterType;
+
+  name: string;
+
+  @Field(() => [Int], { nullable: true })
+  categories: number[];
 }

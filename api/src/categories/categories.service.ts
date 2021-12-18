@@ -57,4 +57,8 @@ export class CategoriesService {
     if (!category) throw new NotFoundException('Category not found!');
     await this.categoriesRepository.delete(id);
   }
+
+  async findByIds(categories: number[]) {
+    return await this.categoriesRepository.findByIds(categories);
+  }
 }

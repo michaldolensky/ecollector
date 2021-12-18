@@ -157,6 +157,27 @@ const getRoutes = (): RouteRecordRaw[] => {
               component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
             },
             {
+              name: 'DashBoardParameterList',
+              path: 'parameters',
+              component: () => import('pages/site/dashboard/parameters/DashboardParametersListPage.vue'),
+            },
+            {
+              name: 'DashBoardParameterEdit',
+              path: 'parameters/edit/:paramId',
+              props: (route) => ({
+                paramId: getParsedInt(route.params.paramId),
+                inEditMode: true,
+                header: 'dashboard.headers.editParameter',
+              }),
+              component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
+            },
+            {
+              name: 'DashBoardParameterCreate',
+              path: 'parameters/new',
+              props: true,
+              component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
+            },
+            {
               name: 'DashBoardSettings',
               path: 'settings',
               props: (route) => ({

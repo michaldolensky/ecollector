@@ -122,6 +122,7 @@
         "headers": {
             "createCategory": "Vytvořit kategorii",
             "createItem": "Vytvořit předmět",
+            "createParameter": "Vytvořit parametr",
             "dashboard": "Hlavní nabídka",
             "editCategory": "Vytvořit kategorii",
             "editItem": "Upravit předmět",
@@ -182,8 +183,29 @@
             "categories": "Kategorie",
             "home": "Úvod",
             "items": "Předměty",
+            "parameters": "Parametry",
             "settings": "Nastavení",
             "sites": "Vaše stránky"
+        },
+        "parameters": {
+            "addParameter": "Přidat parametr",
+            "input": {
+                "label": {
+                    "parameterType": "Typ parametru"
+                }
+            },
+            "table": {
+                "column": {
+                    "label": {
+                        "action": "Akce",
+                        "created": "Vytvořeno",
+                        "name": "Název",
+                        "type": "Typ",
+                        "updated": "Aktualizováno"
+                    }
+                },
+                "not_found": "Nebyli nalezeny žádné parametry"
+            }
         },
         "settings": {
             "button": {

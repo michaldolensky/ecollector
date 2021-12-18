@@ -17,6 +17,8 @@ import { GuardRoles } from '../common/enums/role.enum';
 import { GetImagesArgs } from '../images/dto/get-images.args';
 import { Image } from '../images/entities/image.entity';
 import { ImagesService } from '../images/images.service';
+import { Parameter } from '../parameters/entities/parameter.entity';
+import { ParametersService } from '../parameters/parameters.service';
 import { CreateItemArgs } from './dto/create-item.input';
 import { DeleteItemArgs } from './dto/delete-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
@@ -30,6 +32,7 @@ export class ItemsResolver {
     private readonly itemsService: ItemsService,
     private readonly categoriesService: CategoriesService,
     private readonly imagesService: ImagesService,
+    private readonly parametersService: ParametersService,
   ) {}
 
   @UseGuards(GqlAuthGuard, RoleGuard)
@@ -73,5 +76,9 @@ export class ItemsResolver {
     @Args() args: GetImagesArgs,
   ): Promise<Image[]> {
     return this.imagesService.findAll(args, item);
+  }
+  @ResolveField()
+  async parameters(@Parent() item: Item): Promise<Parameter[]> {
+    return this.parametersService.findAllByItemId(item.id);
   }
 }

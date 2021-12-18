@@ -1,20 +1,40 @@
-import { HideField, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import { Field, HideField, InputType, ObjectType } from '@nestjs/graphql';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  RelationId,
+} from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { ParameterType } from '../parameter-type.enum';
 import { ParameterToItem } from './parameter-item.entity';
 
 @ObjectType()
-@Entity({ name: 'parameters' })
+@InputType('ParameterInput')
+@Entity()
 export class Parameter extends BaseEntity {
-  @ManyToMany(() => Category)
+  @ManyToMany(() => Category, {
+    nullable: true,
+    cascade: true,
+  })
   @JoinTable()
-  category: Category[];
+  categories?: Category[];
+
+  @RelationId((parameter: Parameter) => parameter.categories)
+  categoryIds: number[];
 
   @Column()
   name: string;
-  @Column()
+
+  @Column({
+    type: 'enum',
+    enum: ParameterType,
+    default: ParameterType.TEXT,
+  })
+  @Field(() => ParameterType)
   type: ParameterType;
 
   @HideField()

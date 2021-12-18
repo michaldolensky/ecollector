@@ -1,16 +1,17 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, ManyToOne, RelationId } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
 import { Parameter } from './parameter.entity';
 
 @ObjectType()
+@InputType('ParameterToItemInput')
 @Entity()
 export class ParameterToItem extends BaseEntity {
-  @Column()
+  @RelationId((parameterToItem: ParameterToItem) => parameterToItem.item)
   itemId: number;
 
-  @Column()
+  @RelationId((parameterToItem: ParameterToItem) => parameterToItem.parameter)
   parameterId: number;
 
   @Field(() => Item)

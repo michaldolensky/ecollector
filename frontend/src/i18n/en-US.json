@@ -122,6 +122,7 @@
         "headers": {
             "createCategory": "Create category",
             "createItem": "Create item",
+            "createParameter": "Create parameter",
             "dashboard": "Dashboard",
             "editCategory": "Edit category",
             "editItem": "Edit item",
@@ -182,8 +183,29 @@
             "categories": "Categories",
             "home": "Home",
             "items": "Items",
+            "parameters": "Parameters",
             "settings": "Settings",
             "sites": "Your sites"
+        },
+        "parameters": {
+            "addParameter": "Add parameter",
+            "input": {
+                "label": {
+                    "parameterType": "Parameter type"
+                }
+            },
+            "table": {
+                "column": {
+                    "label": {
+                        "action": "Action",
+                        "created": "Created",
+                        "name": "Name",
+                        "type": "Type",
+                        "updated": "Updated"
+                    }
+                },
+                "not_found": "No parameters found"
+            }
         },
         "settings": {
             "button": {

@@ -7,6 +7,7 @@ import { Category } from '../../categories/entities/category.entity';
 import { HtmlSanitizerTransformer } from '../../common/transformers/html-sanitizer.transformer';
 import { Image } from '../../images/entities/image.entity';
 import { ParameterToItem } from '../../parameters/entities/parameter-item.entity';
+import { Parameter } from '../../parameters/entities/parameter.entity';
 import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('Item')
@@ -80,4 +81,7 @@ export class Item extends BaseEntity {
     (parameterToItem) => parameterToItem.parameter,
   )
   parameterToItems: ParameterToItem[];
+
+  @Field(() => [Parameter], { nullable: 'itemsAndList' })
+  parameters: Parameter[];
 }
