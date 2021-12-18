@@ -3,7 +3,7 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="composeProjectName" value="ecollector-dev" />
-        <option name="envFilePath" value="$PROJECT_DIR$\.config\.env.dev" />
+        <option name="envFilePath" value="$PROJECT_DIR$/../ecollector\.env.dev" />
         <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="docker-compose.dev.yml" />
         <option name="upDetach" value="false" />
