@@ -11,8 +11,6 @@ services:
         - SERVER_URL_API
     ports:
       - "4000:4000"
-    volumes:
-      - /app/node_modules
 
   server:
     container_name: ecollector-prod-server
@@ -36,7 +34,6 @@ services:
       - postgres
     volumes:
       - ./.data/prod/uploads:/app/uploads
-      - /app/node_modules
 
   postgres:
     image: postgres:14.1
