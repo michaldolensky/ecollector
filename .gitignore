@@ -56,10 +56,9 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variables file
-.config/.env
 .env.test
-.config/.env.dev
-.config/.env.prod
+.env.dev
+.env.prod
 
 # yarn v2
 .yarn/cache
