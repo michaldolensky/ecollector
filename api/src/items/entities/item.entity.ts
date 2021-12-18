@@ -10,7 +10,7 @@ import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('Item')
 @InputType('ItemInput')
-@Entity({ name: 'items' })
+@Entity()
 export class Item extends BaseEntity {
   @Factory((faker) => faker.lorem.words(5))
   @Column('text')

@@ -8,7 +8,7 @@ import { Item } from '../../items/entities/item.entity';
 import { SiteStats } from './siteStats';
 
 @ObjectType('Site')
-@Entity({ name: 'sites' })
+@Entity()
 @InputType('SiteInput')
 export class Site extends BaseEntity {
   @Factory((faker) => faker.lorem.words(5))

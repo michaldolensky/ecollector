@@ -7,7 +7,7 @@ import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Category')
 @InputType('CategoryInput')
-@Entity({ name: 'categories' })
+@Entity()
 export class Category extends BaseEntity {
   @Factory((faker) => faker.lorem.words(5))
   @Column('text')
