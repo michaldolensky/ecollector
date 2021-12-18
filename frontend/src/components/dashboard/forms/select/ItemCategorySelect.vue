@@ -3,6 +3,7 @@
     v-model="value"
     :clearable="props.clearable"
     :label="$t('dashboard.items.input.label.category')"
+    :multiple="props.multiple"
     :options="options"
     :rules="rules"
     emit-value
@@ -32,6 +33,7 @@ interface Props {
   modelValue: number | null
   required?: boolean
   clearable?: boolean
+  multiple?: boolean
 }
 
 const props = defineProps<Props>();
