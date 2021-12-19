@@ -41,9 +41,9 @@ const emit = defineEmits(['update:modelValue']);
 const value = useVModel(props, 'modelValue', emit);
 const options = ref();
 
-const { result, onResult } = useGetCategoriesForSelectorQuery({ siteId: siteId.value });
+const { result, onResult, refetch } = useGetCategoriesForSelectorQuery({ siteId: siteId.value });
 const categories = useResult(result, null, (data) => data.categories);
-
+void refetch();
 onResult(() => {
   options.value = categories.value;
 });
