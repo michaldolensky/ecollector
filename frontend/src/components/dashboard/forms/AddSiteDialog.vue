@@ -68,6 +68,7 @@ const dialogOpen = ref(false);
 const onSubmit = () => {
   void createSite(site).then(() => {
     void authStore.me();
+    dialogOpen.value = false;
   });
 };
 </script>
