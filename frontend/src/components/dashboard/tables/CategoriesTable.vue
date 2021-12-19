@@ -53,8 +53,9 @@ const {
   loading,
   confirmDelete,
   categories,
+  refetch,
 } = useDashboardCategories();
-
+void refetch();
 const { CategoriesTableColumns } = useDashboardTableColumns();
 
 const initialPagination = reactive({

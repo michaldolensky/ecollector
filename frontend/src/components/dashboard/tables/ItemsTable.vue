@@ -64,7 +64,9 @@ const {
   loading,
   confirmDelete,
   items,
+  refetch,
 } = useDashboardItems();
+void refetch();
 
 const { ItemsTableColumns } = useDashboardTableColumns();
 
