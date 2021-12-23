@@ -21,7 +21,7 @@
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.categories.card.title.category_description') }}
+                {{ $t('dashboard.parameters.card.title.parameterProperties') }}
               </div>
             </q-card-section>
 
@@ -47,7 +47,6 @@
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import ParameterTypeSelect from 'components/dashboard/forms/select/ParameterTypeSelect.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { QForm, useQuasar } from 'quasar';

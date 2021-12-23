@@ -189,6 +189,11 @@
         },
         "parameters": {
             "addParameter": "Přidat parametr",
+            "card": {
+                "title": {
+                    "parameterProperties": "Popis parametru"
+                }
+            },
             "input": {
                 "label": {
                     "parameterType": "Typ parametru"

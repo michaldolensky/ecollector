@@ -189,6 +189,11 @@
         },
         "parameters": {
             "addParameter": "Add parameter",
+            "card": {
+                "title": {
+                    "parameterProperties": "Parameter properties"
+                }
+            },
             "input": {
                 "label": {
                     "parameterType": "Parameter type"
