@@ -37,10 +37,6 @@
                 v-model="parameter.type"
                 required
               />
-              <item-category-select
-                v-model="parameter.categories"
-                multiple
-              />
             </q-card-section>
           </q-card>
         </div>
@@ -86,7 +82,6 @@ const resetObject = {
   id: 0,
   name: '',
   type: ParameterType.Text,
-  categories: [],
 };
 
 const parameter = reactive(resetObject);

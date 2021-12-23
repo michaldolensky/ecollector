@@ -2,10 +2,6 @@ mutation createParameter($createParameterInput:CreateParameterInput!){
   createParameter(createParameterInput: $createParameterInput) {
     id
     createdAt
-    categories {
-      id
-      name
-    }
   }
 }
 
@@ -15,10 +11,6 @@ query getParameters{
     createdAt
     updatedAt
     type
-    categories {
-      perex
-      id
-    }
   }
 }
 

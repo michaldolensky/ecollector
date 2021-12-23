@@ -25,7 +25,6 @@ export type Category = {
   id: Scalars['Int'];
   items?: Maybe<Array<Maybe<Item>>>;
   name: Scalars['String'];
-  parameters: Array<Parameter>;
   perex: Scalars['String'];
   site: Site;
   siteId: Scalars['Float'];
@@ -45,7 +44,6 @@ export type CategoryFilterInput = {
 export type CategoryInput = {
   items?: InputMaybe<Array<InputMaybe<ItemInput>>>;
   name: Scalars['String'];
-  parameters: Array<ParameterInput>;
   perex: Scalars['String'];
   site: SiteInput;
   siteId: Scalars['Float'];
@@ -67,7 +65,6 @@ export type CreateItemInput = {
 };
 
 export type CreateParameterInput = {
-  categories?: InputMaybe<Array<Scalars['Int']>>;
   name: Scalars['String'];
   type?: InputMaybe<Array<ParameterType>>;
 };
@@ -158,20 +155,42 @@ export type ItemInput = {
   site: SiteInput;
 };
 
+export type ItemParameter = {
+  __typename?: 'ItemParameter';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  item: Item;
+  itemId: Scalars['Float'];
+  parameter: Parameter;
+  parameterId: Scalars['Float'];
+  updatedAt: Scalars['DateTime'];
+  value: Scalars['String'];
+};
+
+export type ItemParameterInput = {
+  item: ItemInput;
+  itemId: Scalars['Float'];
+  parameter: ParameterInput;
+  parameterId: Scalars['Float'];
+  value: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createCategory: Category;
   createItem: Item;
-  createParameter: Parameter;
+  createParameter: ItemParameter;
   createSite: Site;
   removeCategory: Category;
   removeImage: Image;
   removeItem: Item;
+  removeItemParameter: ItemParameter;
   removeParameter: Parameter;
   removeSite: Site;
   removeUser: User;
   updateCategory: Category;
   updateItem: Item;
+  updateItemParameter: ItemParameter;
   updateParameter: Parameter;
   updateSite: Site;
   updateUser: User;
@@ -218,6 +237,11 @@ export type MutationRemoveItemArgs = {
 };
 
 
+export type MutationRemoveItemParameterArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationRemoveParameterArgs = {
   id: Scalars['Int'];
 };
@@ -240,6 +264,11 @@ export type MutationUpdateItemArgs = {
 };
 
 
+export type MutationUpdateItemParameterArgs = {
+  updateParameterInput: UpdateParameterInput;
+};
+
+
 export type MutationUpdateParameterArgs = {
   updateParameterInput: UpdateParameterInput;
 };
@@ -257,8 +286,6 @@ export type MutationUpdateUserArgs = {
 
 export type Parameter = {
   __typename?: 'Parameter';
-  categories?: Maybe<Array<Category>>;
-  categoryIds: Array<Scalars['Float']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   name: Scalars['String'];
@@ -267,8 +294,6 @@ export type Parameter = {
 };
 
 export type ParameterInput = {
-  categories?: InputMaybe<Array<CategoryInput>>;
-  categoryIds: Array<Scalars['Float']>;
   name: Scalars['String'];
   type: ParameterType;
 };
@@ -284,6 +309,8 @@ export type Query = {
   image: Image;
   images: Array<Image>;
   item: Item;
+  itemParameter: ItemParameter;
+  itemParameters: Array<ItemParameter>;
   items: Array<Item>;
   parameter: Parameter;
   parameters: Array<Parameter>;
@@ -317,6 +344,11 @@ export type QueryImagesArgs = {
 
 
 export type QueryItemArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryItemParameterArgs = {
   id: Scalars['Int'];
 };
 
@@ -408,7 +440,6 @@ export type UpdateItemInput = {
 };
 
 export type UpdateParameterInput = {
-  categories?: InputMaybe<Array<Scalars['Int']>>;
   id: Scalars['Int'];
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Array<ParameterType>>;
@@ -563,12 +594,12 @@ export type CreateParameterMutationVariables = Exact<{
 }>;
 
 
-export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'Parameter', id: number, createdAt: any, categories?: Array<{ __typename?: 'Category', id: number, name: string }> | null | undefined } };
+export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'ItemParameter', id: number, createdAt: any } };
 
 export type GetParametersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, createdAt: any, updatedAt: any, type: ParameterType, categories?: Array<{ __typename?: 'Category', perex: string, id: number }> | null | undefined }> };
+export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, createdAt: any, updatedAt: any, type: ParameterType }> };
 
 export type SiteQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1125,10 +1156,6 @@ export const CreateParameterDocument = gql`
   createParameter(createParameterInput: $createParameterInput) {
     id
     createdAt
-    categories {
-      id
-      name
-    }
   }
 }
     `;
@@ -1161,10 +1188,6 @@ export const GetParametersDocument = gql`
     createdAt
     updatedAt
     type
-    categories {
-      perex
-      id
-    }
   }
 }
     `;
