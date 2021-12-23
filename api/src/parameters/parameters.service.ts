@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateParameterInput } from './dto/create-parameter.input';
+import { ParameterFilterInput } from './dto/get-parameters.args';
 import { UpdateParameterInput } from './dto/update-parameter.input';
-import { ItemParameter } from './entities/ItemParameter.entity';
 import { Parameter } from './entities/parameter.entity';
 
 @Injectable()
@@ -11,41 +15,44 @@ export class ParametersService {
   constructor(
     @InjectRepository(Parameter)
     private parameterRepository: Repository<Parameter>,
-    @InjectRepository(ItemParameter)
-    private parameterToItemRepository: Repository<ItemParameter>,
   ) {}
 
-  async create(createParameterInput: CreateParameterInput) {
+  async create(createParameterInput: CreateParameterInput, siteId: number) {
     const parameter = new Parameter();
-
     parameter.name = createParameterInput.name;
     parameter.type = createParameterInput.type;
-
+    parameter.siteId = siteId;
     return this.parameterRepository.save(parameter);
   }
 
-  findAll() {
-    return this.parameterRepository.find({ relations: ['categories'] });
-  }
-
-  async findAllByItemId(itemId: number) {
-    const parames = await this.parameterToItemRepository.find({
-      relations: ['parameter', 'item'],
+  findAllBySiteId(filter: ParameterFilterInput, siteId: number) {
+    return this.parameterRepository.find({
+      where: {
+        siteId,
+        ...(filter?.name && { name: ILike(`%${filter.name}%`) }),
+      },
     });
-    console.log(parames);
-
-    return [] as Parameter[];
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} parameter`;
+    const parameter = this.parameterRepository.findOneOrFail({ id });
+    if (parameter) {
+      return parameter;
+    }
+    throw new NotFoundException('Parameter with this id does not exist');
   }
 
-  update(id: number, updateParameterInput: UpdateParameterInput) {
-    return `This action updates a #${id} parameter`;
+  async update(id: number, updateParameterInput: UpdateParameterInput) {
+    const parameter = await this.findOne(id);
+    if (!parameter) throw new BadRequestException('Invalid parameter id');
+    Object.assign(parameter, updateParameterInput);
+    await this.parameterRepository.update(id, parameter);
+    return parameter;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} parameter`;
+  async remove(id: number): Promise<void> {
+    const parameter = await this.parameterRepository.findOne({ where: { id } });
+    if (!parameter) throw new NotFoundException('Parameter not found!');
+    await this.parameterRepository.delete(id);
   }
 }
