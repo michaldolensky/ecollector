@@ -1,24 +1,12 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  Int,
-  ResolveField,
-  Parent,
-} from '@nestjs/graphql';
-import { CategoriesService } from '../categories/categories.service';
-import { ParametersService } from './parameters.service';
-import { Parameter } from './entities/parameter.entity';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateParameterInput } from './dto/create-parameter.input';
 import { UpdateParameterInput } from './dto/update-parameter.input';
+import { Parameter } from './entities/parameter.entity';
+import { ParametersService } from './parameters.service';
 
 @Resolver(() => Parameter)
 export class ParametersResolver {
-  constructor(
-    private readonly categoriesService: CategoriesService,
-    private readonly parametersService: ParametersService,
-  ) {}
+  constructor(private readonly parametersService: ParametersService) {}
 
   @Mutation(() => Parameter)
   createParameter(
@@ -50,10 +38,5 @@ export class ParametersResolver {
   @Mutation(() => Parameter)
   removeParameter(@Args('id', { type: () => Int }) id: number) {
     return this.parametersService.remove(id);
-  }
-
-  @ResolveField()
-  async categories(@Parent() parameter: Parameter) {
-    return await this.categoriesService.findByIds(parameter.categoryIds);
   }
 }

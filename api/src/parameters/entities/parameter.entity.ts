@@ -1,12 +1,5 @@
 import { Field, HideField, InputType, ObjectType } from '@nestjs/graphql';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  RelationId,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { ParameterType } from '../parameter-type.enum';
@@ -20,12 +13,6 @@ export class Parameter extends BaseEntity {
     nullable: true,
     cascade: true,
   })
-  @JoinTable()
-  categories?: Category[];
-
-  @RelationId((parameter: Parameter) => parameter.categories)
-  categoryIds: number[];
-
   @Column()
   name: string;
 

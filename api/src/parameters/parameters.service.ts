@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CategoriesService } from '../categories/categories.service';
 import { CreateParameterInput } from './dto/create-parameter.input';
 import { UpdateParameterInput } from './dto/update-parameter.input';
 import { ItemParameter } from './entities/ItemParameter.entity';
@@ -14,7 +13,6 @@ export class ParametersService {
     private parameterRepository: Repository<Parameter>,
     @InjectRepository(ItemParameter)
     private parameterToItemRepository: Repository<ItemParameter>,
-    private readonly categoriesService: CategoriesService,
   ) {}
 
   async create(createParameterInput: CreateParameterInput) {
@@ -22,9 +20,6 @@ export class ParametersService {
 
     parameter.name = createParameterInput.name;
     parameter.type = createParameterInput.type;
-    parameter.categories = await this.categoriesService.findByIds(
-      createParameterInput.categories,
-    );
 
     return this.parameterRepository.save(parameter);
   }
