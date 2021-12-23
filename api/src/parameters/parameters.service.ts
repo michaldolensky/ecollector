@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CategoriesService } from '../categories/categories.service';
 import { CreateParameterInput } from './dto/create-parameter.input';
 import { UpdateParameterInput } from './dto/update-parameter.input';
-import { ParameterToItem } from './entities/parameter-item.entity';
+import { ItemParameter } from './entities/ItemParameter.entity';
 import { Parameter } from './entities/parameter.entity';
 
 @Injectable()
@@ -12,8 +12,8 @@ export class ParametersService {
   constructor(
     @InjectRepository(Parameter)
     private parameterRepository: Repository<Parameter>,
-    @InjectRepository(ParameterToItem)
-    private parameterToItemRepository: Repository<ParameterToItem>,
+    @InjectRepository(ItemParameter)
+    private parameterToItemRepository: Repository<ItemParameter>,
     private readonly categoriesService: CategoriesService,
   ) {}
 

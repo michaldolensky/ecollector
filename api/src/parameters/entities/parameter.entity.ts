@@ -10,7 +10,7 @@ import {
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { ParameterType } from '../parameter-type.enum';
-import { ParameterToItem } from './parameter-item.entity';
+import { ItemParameter } from './ItemParameter.entity';
 
 @ObjectType()
 @InputType('ParameterInput')
@@ -38,6 +38,6 @@ export class Parameter extends BaseEntity {
   type: ParameterType;
 
   @HideField()
-  @OneToMany(() => ParameterToItem, (parameterToItem) => parameterToItem.item)
-  parameterToItems: ParameterToItem[];
+  @OneToMany(() => ItemParameter, (parameterToItem) => parameterToItem.item)
+  parameterToItems: ItemParameter[];
 }

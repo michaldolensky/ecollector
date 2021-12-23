@@ -5,13 +5,13 @@ import { Item } from '../../items/entities/item.entity';
 import { Parameter } from './parameter.entity';
 
 @ObjectType()
-@InputType('ParameterToItemInput')
+@InputType('ItemParameterInput')
 @Entity()
-export class ParameterToItem extends BaseEntity {
-  @RelationId((parameterToItem: ParameterToItem) => parameterToItem.item)
+export class ItemParameter extends BaseEntity {
+  @RelationId((parameterToItem: ItemParameter) => parameterToItem.item)
   itemId: number;
 
-  @RelationId((parameterToItem: ParameterToItem) => parameterToItem.parameter)
+  @RelationId((parameterToItem: ItemParameter) => parameterToItem.parameter)
   parameterId: number;
 
   @Field(() => Item)
