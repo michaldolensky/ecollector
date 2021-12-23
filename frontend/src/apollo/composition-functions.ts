@@ -66,7 +66,7 @@ export type CreateItemInput = {
 
 export type CreateParameterInput = {
   name: Scalars['String'];
-  type?: InputMaybe<Array<ParameterType>>;
+  type: ParameterType;
 };
 
 export type CreateSiteInput = {
@@ -83,6 +83,10 @@ export type DeleteImageInput = {
 
 export type DeleteItemInput = {
   itemId: Scalars['Int'];
+};
+
+export type DeleteParameterInput = {
+  parameterId: Scalars['Int'];
 };
 
 export type Image = {
@@ -155,42 +159,20 @@ export type ItemInput = {
   site: SiteInput;
 };
 
-export type ItemParameter = {
-  __typename?: 'ItemParameter';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['Int'];
-  item: Item;
-  itemId: Scalars['Float'];
-  parameter: Parameter;
-  parameterId: Scalars['Float'];
-  updatedAt: Scalars['DateTime'];
-  value: Scalars['String'];
-};
-
-export type ItemParameterInput = {
-  item: ItemInput;
-  itemId: Scalars['Float'];
-  parameter: ParameterInput;
-  parameterId: Scalars['Float'];
-  value: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createCategory: Category;
   createItem: Item;
-  createParameter: ItemParameter;
+  createParameter: Parameter;
   createSite: Site;
   removeCategory: Category;
   removeImage: Image;
   removeItem: Item;
-  removeItemParameter: ItemParameter;
   removeParameter: Parameter;
   removeSite: Site;
   removeUser: User;
   updateCategory: Category;
   updateItem: Item;
-  updateItemParameter: ItemParameter;
   updateParameter: Parameter;
   updateSite: Site;
   updateUser: User;
@@ -211,6 +193,7 @@ export type MutationCreateItemArgs = {
 
 export type MutationCreateParameterArgs = {
   createParameterInput: CreateParameterInput;
+  siteId: Scalars['Int'];
 };
 
 
@@ -237,13 +220,9 @@ export type MutationRemoveItemArgs = {
 };
 
 
-export type MutationRemoveItemParameterArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type MutationRemoveParameterArgs = {
-  id: Scalars['Int'];
+  deleteParameterInput: DeleteParameterInput;
+  siteId: Scalars['Int'];
 };
 
 
@@ -264,12 +243,8 @@ export type MutationUpdateItemArgs = {
 };
 
 
-export type MutationUpdateItemParameterArgs = {
-  updateParameterInput: UpdateParameterInput;
-};
-
-
 export type MutationUpdateParameterArgs = {
+  siteId: Scalars['Int'];
   updateParameterInput: UpdateParameterInput;
 };
 
@@ -289,12 +264,20 @@ export type Parameter = {
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  site: Site;
+  siteId: Scalars['Float'];
   type: ParameterType;
   updatedAt: Scalars['DateTime'];
 };
 
+export type ParameterFilterInput = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
 export type ParameterInput = {
   name: Scalars['String'];
+  site: SiteInput;
+  siteId: Scalars['Float'];
   type: ParameterType;
 };
 
@@ -309,8 +292,6 @@ export type Query = {
   image: Image;
   images: Array<Image>;
   item: Item;
-  itemParameter: ItemParameter;
-  itemParameters: Array<ItemParameter>;
   items: Array<Item>;
   parameter: Parameter;
   parameters: Array<Parameter>;
@@ -348,11 +329,6 @@ export type QueryItemArgs = {
 };
 
 
-export type QueryItemParameterArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type QueryItemsArgs = {
   filter?: InputMaybe<ItemFilterInput>;
   siteId: Scalars['Int'];
@@ -361,6 +337,12 @@ export type QueryItemsArgs = {
 
 export type QueryParameterArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryParametersArgs = {
+  filter?: InputMaybe<ParameterFilterInput>;
+  siteId: Scalars['Int'];
 };
 
 
@@ -387,6 +369,7 @@ export type Site = {
   name: Scalars['String'];
   owner: User;
   ownerId: Scalars['Float'];
+  parameters: Array<Parameter>;
   stats: SiteStats;
   updatedAt: Scalars['DateTime'];
 };
@@ -397,6 +380,7 @@ export type SiteInput = {
   name: Scalars['String'];
   owner: UserInput;
   ownerId: Scalars['Float'];
+  parameters: Array<ParameterInput>;
   stats: SiteStatsInput;
 };
 
@@ -441,8 +425,8 @@ export type UpdateItemInput = {
 
 export type UpdateParameterInput = {
   id: Scalars['Int'];
-  name?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Array<ParameterType>>;
+  name: Scalars['String'];
+  type: ParameterType;
 };
 
 export type UpdateSiteInput = {
@@ -591,15 +575,42 @@ export type RemoveImageMutation = { __typename?: 'Mutation', removeImage: { __ty
 
 export type CreateParameterMutationVariables = Exact<{
   createParameterInput: CreateParameterInput;
+  siteId: Scalars['Int'];
 }>;
 
 
-export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'ItemParameter', id: number, createdAt: any } };
+export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'Parameter', id: number, type: ParameterType, name: string } };
 
-export type GetParametersQueryVariables = Exact<{ [key: string]: never; }>;
+export type RemoveParameterMutationVariables = Exact<{
+  deleteParameterInput: DeleteParameterInput;
+  siteId: Scalars['Int'];
+}>;
 
 
-export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, createdAt: any, updatedAt: any, type: ParameterType }> };
+export type RemoveParameterMutation = { __typename?: 'Mutation', removeParameter: { __typename?: 'Parameter', id: number } };
+
+export type UpdateParameterMutationVariables = Exact<{
+  updateParameterInput: UpdateParameterInput;
+  siteId: Scalars['Int'];
+}>;
+
+
+export type UpdateParameterMutation = { __typename?: 'Mutation', updateParameter: { __typename?: 'Parameter', id: number, name: string, type: ParameterType } };
+
+export type GetParametersQueryVariables = Exact<{
+  filter?: InputMaybe<ParameterFilterInput>;
+  siteId: Scalars['Int'];
+}>;
+
+
+export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, createdAt: any, updatedAt: any, name: string, type: ParameterType }> };
+
+export type GetParameterQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetParameterQuery = { __typename?: 'Query', parameter: { __typename?: 'Parameter', id: number, name: string, type: ParameterType } };
 
 export type SiteQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1152,10 +1163,11 @@ export function useRemoveImageMutation(options: VueApolloComposable.UseMutationO
 }
 export type RemoveImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveImageMutation, RemoveImageMutationVariables>;
 export const CreateParameterDocument = gql`
-    mutation createParameter($createParameterInput: CreateParameterInput!) {
-  createParameter(createParameterInput: $createParameterInput) {
+    mutation createParameter($createParameterInput: CreateParameterInput!, $siteId: Int!) {
+  createParameter(createParameterInput: $createParameterInput, siteId: $siteId) {
     id
-    createdAt
+    type
+    name
   }
 }
     `;
@@ -1174,6 +1186,7 @@ export const CreateParameterDocument = gql`
  * const { mutate, loading, error, onDone } = useCreateParameterMutation({
  *   variables: {
  *     createParameterInput: // value for 'createParameterInput'
+ *     siteId: // value for 'siteId'
  *   },
  * });
  */
@@ -1181,12 +1194,75 @@ export function useCreateParameterMutation(options: VueApolloComposable.UseMutat
   return VueApolloComposable.useMutation<CreateParameterMutation, CreateParameterMutationVariables>(CreateParameterDocument, options);
 }
 export type CreateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateParameterMutation, CreateParameterMutationVariables>;
+export const RemoveParameterDocument = gql`
+    mutation removeParameter($deleteParameterInput: DeleteParameterInput!, $siteId: Int!) {
+  removeParameter(deleteParameterInput: $deleteParameterInput, siteId: $siteId) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useRemoveParameterMutation__
+ *
+ * To run a mutation, you first call `useRemoveParameterMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveParameterMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useRemoveParameterMutation({
+ *   variables: {
+ *     deleteParameterInput: // value for 'deleteParameterInput'
+ *     siteId: // value for 'siteId'
+ *   },
+ * });
+ */
+export function useRemoveParameterMutation(options: VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables>>) {
+  return VueApolloComposable.useMutation<RemoveParameterMutation, RemoveParameterMutationVariables>(RemoveParameterDocument, options);
+}
+export type RemoveParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveParameterMutation, RemoveParameterMutationVariables>;
+export const UpdateParameterDocument = gql`
+    mutation updateParameter($updateParameterInput: UpdateParameterInput!, $siteId: Int!) {
+  updateParameter(updateParameterInput: $updateParameterInput, siteId: $siteId) {
+    id
+    name
+    type
+  }
+}
+    `;
+
+/**
+ * __useUpdateParameterMutation__
+ *
+ * To run a mutation, you first call `useUpdateParameterMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateParameterMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateParameterMutation({
+ *   variables: {
+ *     updateParameterInput: // value for 'updateParameterInput'
+ *     siteId: // value for 'siteId'
+ *   },
+ * });
+ */
+export function useUpdateParameterMutation(options: VueApolloComposable.UseMutationOptions<UpdateParameterMutation, UpdateParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateParameterMutation, UpdateParameterMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateParameterMutation, UpdateParameterMutationVariables>(UpdateParameterDocument, options);
+}
+export type UpdateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParameterMutation, UpdateParameterMutationVariables>;
 export const GetParametersDocument = gql`
-    query getParameters {
-  parameters {
+    query getParameters($filter: ParameterFilterInput, $siteId: Int!) {
+  parameters(filter: $filter, siteId: $siteId) {
     id
     createdAt
     updatedAt
+    name
     type
   }
 }
@@ -1199,15 +1275,48 @@ export const GetParametersDocument = gql`
  * When your component renders, `useGetParametersQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
+ * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetParametersQuery();
+ * const { result, loading, error } = useGetParametersQuery({
+ *   filter: // value for 'filter'
+ *   siteId: // value for 'siteId'
+ * });
  */
-export function useGetParametersQuery(options: VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetParametersQuery, GetParametersQueryVariables>(GetParametersDocument, {}, options);
+export function useGetParametersQuery(variables: GetParametersQueryVariables | VueCompositionApi.Ref<GetParametersQueryVariables> | ReactiveFunction<GetParametersQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetParametersQuery, GetParametersQueryVariables>(GetParametersDocument, variables, options);
 }
 export type GetParametersQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParametersQuery, GetParametersQueryVariables>;
+export const GetParameterDocument = gql`
+    query getParameter($id: Int!) {
+  parameter(id: $id) {
+    id
+    name
+    type
+  }
+}
+    `;
+
+/**
+ * __useGetParameterQuery__
+ *
+ * To run a query within a Vue component, call `useGetParameterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetParameterQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetParameterQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useGetParameterQuery(variables: GetParameterQueryVariables | VueCompositionApi.Ref<GetParameterQueryVariables> | ReactiveFunction<GetParameterQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetParameterQuery, GetParameterQueryVariables>(GetParameterDocument, variables, options);
+}
+export type GetParameterQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParameterQuery, GetParameterQueryVariables>;
 export const SiteDocument = gql`
     query site($id: Int!) {
   site(id: $id) {

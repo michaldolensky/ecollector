@@ -199,6 +199,12 @@
                     "parameterType": "Typ parametru"
                 }
             },
+            "notification": {
+                "message": {
+                    "parameter_created": "Parametr vytvořen",
+                    "parameter_updated": "Parametr aktualizován"
+                }
+            },
             "table": {
                 "column": {
                     "label": {
@@ -210,6 +216,11 @@
                     }
                 },
                 "not_found": "Nebyli nalezeny žádné parametry"
+            },
+            "dialogs": {
+                "message": {
+                    "delete": "Přejete si smazat"
+                }
             }
         },
         "settings": {

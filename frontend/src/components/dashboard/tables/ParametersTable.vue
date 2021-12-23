@@ -1,5 +1,4 @@
 <template>
-  {{ parameters }}
   <q-table
     :columns="ParametersTableColumns"
     :grid="$q.screen.xs"
@@ -37,6 +36,7 @@
           flat
           icon="delete"
           size="sm"
+          @click="confirmDelete(prop.row)"
         />
       </q-td>
     </template>
@@ -51,8 +51,11 @@ const { ParametersTableColumns } = useDashboardTableColumns();
 
 const {
   loading,
+  confirmDelete,
   parameters,
+  refetch,
 } = useDashboardParameters();
+void refetch();
 
 const initialPagination = reactive({
   sortBy: 'name',

@@ -1,15 +1,40 @@
-mutation createParameter($createParameterInput:CreateParameterInput!){
-  createParameter(createParameterInput: $createParameterInput) {
+mutation createParameter($createParameterInput:CreateParameterInput!,$siteId:Int!){
+  createParameter(createParameterInput: $createParameterInput,siteId: $siteId){
     id
-    createdAt
+    type
+    name
   }
 }
 
-query getParameters{
-  parameters {
+mutation removeParameter($deleteParameterInput:DeleteParameterInput!,$siteId:Int!){
+  removeParameter(deleteParameterInput: $deleteParameterInput,siteId: $siteId) {
+    id
+  }
+}
+
+mutation updateParameter($updateParameterInput:UpdateParameterInput!,$siteId:Int!){
+  updateParameter(updateParameterInput:  $updateParameterInput,siteId: $siteId) {
+    id
+    name
+    type
+  }
+}
+
+query getParameters($filter:ParameterFilterInput,$siteId:Int!){
+  parameters(filter:$filter,siteId:$siteId) {
     id
     createdAt
     updatedAt
+    name
+    type
+  }
+}
+
+
+query getParameter($id:Int!){
+  parameter(id:$id) {
+    id
+    name
     type
   }
 }

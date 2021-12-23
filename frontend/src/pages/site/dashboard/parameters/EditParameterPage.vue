@@ -12,6 +12,7 @@
     </dashboard-page-header>
 
     <q-form
+      v-if="!loading"
       ref="form"
       class="items-start full-width"
       @submit="onSubmit"
@@ -50,16 +51,16 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ParameterTypeSelect from 'components/dashboard/forms/select/ParameterTypeSelect.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
 import { QForm, useQuasar } from 'quasar';
-import { ParameterType } from 'src/apollo/composition-functions';
+import { ParameterType, useGetParameterQuery } from 'src/apollo/composition-functions';
 import { useParameters } from 'src/composables/useParameters';
 import { validationHelper } from 'src/validationHelper';
 
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const { createParameter } = useParameters();
+const { createParameter, updateParameter } = useParameters();
 const { required } = validationHelper;
 
 const { notify } = useQuasar();
@@ -84,22 +85,52 @@ const resetObject = {
 };
 
 const parameter = reactive(resetObject);
+const enableQuery = ref(false);
 const form = ref<QForm>();
 
+const { onResult, restart, loading } = useGetParameterQuery({
+  id: props.paramId,
+}, () => ({
+  enabled: enableQuery.value,
+}));
+onMounted(() => {
+  if (props.inEditMode) enableQuery.value = true;
+});
+
+onResult((result) => {
+  if (!result.loading) {
+    parameter.id = result.data.parameter.id;
+    parameter.name = result.data.parameter.name;
+    parameter.type = result.data.parameter.type;
+  }
+});
+restart();
+
 const onSubmit = () => {
-  delete parameter.id;
-  void createParameter(parameter).then((result) => {
-    if (result?.data) {
-      notify({
-        type: 'positive',
-        message: t('dashboard.categories.notification.message.category_created'),
-      });
-      void router.push({
-        name: 'DashBoardCategoryEdit',
-        params: { paramId: result.data.createParameter.id },
-      });
-    }
-  });
+  if (props.inEditMode) {
+    void updateParameter(parameter).then((result) => {
+      if (result?.data) {
+        notify({
+          type: 'positive',
+          message: t('dashboard.parameters.notification.message.parameter_updated'),
+        });
+      }
+    });
+  } else {
+    delete parameter.id;
+    void createParameter(parameter).then((result) => {
+      if (result?.data) {
+        notify({
+          type: 'positive',
+          message: t('dashboard.parameters.notification.message.parameter_created'),
+        });
+        void router.push({
+          name: 'DashBoardParameterEdit',
+          params: { paramId: result.data.createParameter.id },
+        });
+      }
+    });
+  }
 };
 
 </script>
