@@ -9598,7 +9598,12 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-essentials@9.0.0, ts-essentials@^9.0.0:
+ts-essentials@9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-9.1.0.tgz#0aa567b6b55d3f72afd7a331f3071aa102c58c38"
+  integrity sha512-L0ggCct1zrW4qoVs3+sVZvT3upDdbPGJTsfIau9kiZxlyRFaMWDZxAI/VsM1HX9fCJWgoNoynxYm2GcxwQtDMg==
+
+ts-essentials@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-9.0.0.tgz#6196b7f390926429256c70951c8edd260e8e5097"
   integrity sha512-pow5YBSknf/PyoDhr8vsb93+hZah/jSzhdHA3GMjSzUuZIDZH+rV7tvN5DCbN4hi7QJXdteDv8D9HdDCSwXBUw==
