@@ -3,7 +3,7 @@ import { ParameterType } from '../parameter-type.enum';
 
 @InputType()
 export class CreateParameterInput {
-  @Field(() => [ParameterType], { nullable: true })
+  @Field(() => ParameterType)
   type: ParameterType;
 
   name: string;
