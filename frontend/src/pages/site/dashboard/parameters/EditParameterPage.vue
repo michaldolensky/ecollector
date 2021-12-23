@@ -1,7 +1,7 @@
 <template>
   <dashboard-page>
     <dashboard-page-header
-      :title="$t(props.header)"
+      :title="props.headerTitle"
     >
       <q-btn
         :label="$t('buttons.common.save')"
@@ -70,11 +70,10 @@ const { t } = useI18n();
 interface Props {
   inEditMode?: boolean,
   paramId?: number,
-  header?:string
+  headerTitle:string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  header: 'dashboard.headers.createParameter',
   paramId: undefined,
 });
 

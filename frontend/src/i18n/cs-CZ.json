@@ -126,7 +126,8 @@
             "dashboard": "Hlavní nabídka",
             "editCategory": "Vytvořit kategorii",
             "editItem": "Upravit předmět",
-            "user_sites": "Vaše stránky"
+            "user_sites": "Vaše stránky",
+            "editParameter": "Přidat parametr"
         },
         "items": {
             "addItem": "Přidat předmět",

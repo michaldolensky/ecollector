@@ -1,3 +1,4 @@
+import { i18n } from 'boot/i18n';
 import { useAuthStore } from 'src/stores/auth';
 import { getParsedInt } from 'src/utils';
 import {
@@ -16,6 +17,8 @@ const redirectToLogin = (to: RouteLocationNormalized) => ({
 });
 
 const getRoutes = (): RouteRecordRaw[] => {
+  const { t } = i18n.global;
+
   const requireAuth: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isLoggedIn) {
@@ -167,14 +170,16 @@ const getRoutes = (): RouteRecordRaw[] => {
               props: (route) => ({
                 paramId: getParsedInt(route.params.paramId),
                 inEditMode: true,
-                header: 'dashboard.headers.editParameter',
+                headerTitle: t('dashboard.headers.editParameter'),
               }),
               component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
             },
             {
               name: 'DashBoardParameterCreate',
               path: 'parameters/new',
-              props: true,
+              props: () => ({
+                headerTitle: t('dashboard.headers.createParameter'),
+              }),
               component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
             },
             {

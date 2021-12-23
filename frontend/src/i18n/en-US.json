@@ -126,7 +126,8 @@
             "dashboard": "Dashboard",
             "editCategory": "Edit category",
             "editItem": "Edit item",
-            "user_sites": "Your sites"
+            "user_sites": "Your sites",
+            "editParameter": "Add parameter"
         },
         "items": {
             "addItem": "Add item",
