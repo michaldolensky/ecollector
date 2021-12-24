@@ -11,7 +11,7 @@ import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Site } from '../../sites/entities/site.entity';
 import { ParameterType } from '../parameter-type.enum';
-import { ItemParameter } from './ItemParameter.entity';
+import { ItemParameter } from './itemParameter.entity';
 
 @ObjectType()
 @InputType('ParameterInput')
