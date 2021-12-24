@@ -15,6 +15,15 @@ query item($id:Int!){
       path
       main
     }
+    itemParameters {
+      id
+      parameter {
+        id
+        name
+        type
+      }
+      value
+    }
   }
 }
 

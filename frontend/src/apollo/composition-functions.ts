@@ -121,11 +121,11 @@ export type Item = {
   id: Scalars['Int'];
   images?: Maybe<Array<Maybe<Image>>>;
   internalNumber: Scalars['String'];
+  itemParameters: Array<ItemParameter>;
   longDesc: Scalars['String'];
   name: Scalars['String'];
   numberForExchange: Scalars['Int'];
   numberInCollection: Scalars['Int'];
-  parameters?: Maybe<Array<Maybe<Parameter>>>;
   shortDesc: Scalars['String'];
   site: Site;
   updatedAt: Scalars['DateTime'];
@@ -150,13 +150,33 @@ export type ItemInput = {
   categoryId: Scalars['Int'];
   images?: InputMaybe<Array<InputMaybe<ImageInput>>>;
   internalNumber: Scalars['String'];
+  itemParameters: Array<ItemParameterInput>;
   longDesc: Scalars['String'];
   name: Scalars['String'];
   numberForExchange: Scalars['Int'];
   numberInCollection: Scalars['Int'];
-  parameters?: InputMaybe<Array<InputMaybe<ParameterInput>>>;
   shortDesc: Scalars['String'];
   site: SiteInput;
+};
+
+export type ItemParameter = {
+  __typename?: 'ItemParameter';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  item: Item;
+  itemId: Scalars['Float'];
+  parameter: Parameter;
+  parameterId: Scalars['Float'];
+  updatedAt: Scalars['DateTime'];
+  value: Scalars['String'];
+};
+
+export type ItemParameterInput = {
+  item: ItemInput;
+  itemId: Scalars['Float'];
+  parameter: ParameterInput;
+  parameterId: Scalars['Float'];
+  value: Scalars['String'];
 };
 
 export type Mutation = {
@@ -485,7 +505,7 @@ export type ItemQueryVariables = Exact<{
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, path: string, main: boolean } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: ParameterType } }> } };
 
 export type CreateItemMutationVariables = Exact<{
   createItemInput: CreateItemInput;
@@ -780,6 +800,15 @@ export const ItemDocument = gql`
       id
       path
       main
+    }
+    itemParameters {
+      id
+      parameter {
+        id
+        name
+        type
+      }
+      value
     }
   }
 }

@@ -136,7 +136,8 @@
                     "item_description": "Popis předmětu",
                     "item_details": "Podrobnosti o předmětu",
                     "item_images": "Obrázky předmětu",
-                    "item_name": "Název předmětu"
+                    "item_name": "Název předmětu",
+                    "parameters": "Parametry"
                 }
             },
             "dialogs": {
@@ -177,6 +178,13 @@
                 },
                 "notFound": "Nebyli nalezeny žádné předměty.",
                 "not_found": "Nebyli nalezeny žádné předměty."
+            },
+            "tabs": {
+                "label": {
+                    "detail": "Detail",
+                    "images": "Obrázky",
+                    "parameters": "Parametry"
+                }
             }
         },
         "navigation": {

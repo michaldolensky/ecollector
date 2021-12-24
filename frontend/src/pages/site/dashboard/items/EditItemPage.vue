@@ -10,119 +10,161 @@
         @click="form?.submit()"
       />
     </dashboard-page-header>
-
     <q-form
       v-if="!loading"
       ref="form"
       class="items-start full-width"
       @submit="onSubmit"
     >
-      <div class="row">
-        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.items.card.title.item_description') }}
-              </div>
-            </q-card-section>
+      <q-tabs
+        v-model="tab"
+        active-color="primary"
+        align="justify"
+        indicator-color="primary"
+        narrow-indicator
+      >
+        <q-tab
+          :label="$t('dashboard.items.tabs.label.detail')"
+          name="detail"
+        />
+        <q-tab
+          :disable="!props.inEditMode"
+          :label="$t('dashboard.items.tabs.label.images')"
+          name="images"
+        />
+        <q-tab
+          :disable="!props.inEditMode"
+          :label="$t('dashboard.items.tabs.label.parameters')"
+          name="parameters"
+        />
+      </q-tabs>
 
-            <q-separator />
-            <q-card-section>
-              <q-input
-                v-model="item.name"
-                :label="$t('dashboard.items.input.label.item_name')"
-                :rules="[required]"
-                counter
-                maxlength="100"
-                outlined
-                stack-label
-              />
+      <q-separator />
 
-              <q-input
-                v-model="item.shortDesc"
-                :label="$t('dashboard.items.input.label.short_description')"
-                maxlength="250"
-                outlined
-                stack-label
-                type="textarea"
-              />
-            </q-card-section>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.items.input.label.long_description') }}
-              </div>
-              <Editor v-model="item.longDesc" />
-            </q-card-section>
-          </q-card>
-          <q-card />
+      <q-tab-panels
+        v-model="tab"
+        animated
+      >
+        <q-tab-panel name="detail">
+          <div class="row">
+            <div class="col-12 col-md-8 q-pa-md q-gutter-md">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6 text-weight-regular">
+                    {{ $t('dashboard.items.card.title.item_description') }}
+                  </div>
+                </q-card-section>
+
+                <q-separator />
+                <q-card-section>
+                  <q-input
+                    v-model="item.name"
+                    :label="$t('dashboard.items.input.label.item_name')"
+                    :rules="[required]"
+                    counter
+                    maxlength="100"
+                    outlined
+                    stack-label
+                  />
+
+                  <q-input
+                    v-model="item.shortDesc"
+                    :label="$t('dashboard.items.input.label.short_description')"
+                    maxlength="250"
+                    outlined
+                    stack-label
+                    type="textarea"
+                  />
+                </q-card-section>
+                <q-card-section>
+                  <div class="text-h6 text-weight-regular">
+                    {{ $t('dashboard.items.input.label.long_description') }}
+                  </div>
+                  <Editor v-model="item.longDesc" />
+                </q-card-section>
+              </q-card>
+            </div>
+            <div class="col-12 col-md-4 q-pa-md ">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6 text-weight-regular">
+                    {{ $t('dashboard.items.card.title.item_details') }}
+                  </div>
+                </q-card-section>
+                <q-separator />
+                <q-card-section>
+                  <ItemCategorySelect
+                    v-model="item.categoryId"
+                    required
+                  />
+                  <q-input
+                    v-if="item.id"
+                    v-model="item.id"
+                    :label="$t('dashboard.items.input.label.item_id')"
+                    disable
+                    outlined
+                  />
+                  <q-input
+                    v-model="item.internalNumber"
+                    :label="$t('dashboard.items.input.label.internal_number')"
+                    maxlength="50"
+                    outlined
+                    stack-label
+                  />
+                  <q-input
+                    v-model.number="item.numberForExchange"
+                    :label="$t('dashboard.items.input.label.items_for_exchange')"
+                    outlined
+                    stack-label
+                    type="number"
+                  />
+                  <q-input
+                    v-model.number="item.numberInCollection"
+                    :label="$t('dashboard.items.input.label.items_in_collection')"
+                    outlined
+                    stack-label
+                    type="number"
+                  />
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </q-tab-panel>
+
+        <q-tab-panel
+          :disable="!props.inEditMode"
+          name="images"
+        >
           <editItemImages
             v-model="item.images"
             :in-edit-mode="props.inEditMode"
           />
-        </div>
-        <div class="col-12 col-md-4 q-pa-md ">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.items.card.title.item_details') }}
-              </div>
-            </q-card-section>
-            <q-separator />
-            <q-card-section>
-              <ItemCategorySelect
-                v-model="item.categoryId"
-                required
-              />
-              <q-input
-                v-if="item.id"
-                v-model="item.id"
-                :label="$t('dashboard.items.input.label.item_id')"
-                disable
-                outlined
-              />
-              <q-input
-                v-model="item.internalNumber"
-                :label="$t('dashboard.items.input.label.internal_number')"
-                maxlength="50"
-                outlined
-                stack-label
-              />
-              <q-input
-                v-model.number="item.numberForExchange"
-                :label="$t('dashboard.items.input.label.items_for_exchange')"
-                outlined
-                stack-label
-                type="number"
-              />
-              <q-input
-                v-model.number="item.numberInCollection"
-                :label="$t('dashboard.items.input.label.items_in_collection')"
-                outlined
-                stack-label
-                type="number"
-              />
-            </q-card-section>
-          </q-card>
-        </div>
-      </div>
+        </q-tab-panel>
+
+        <q-tab-panel
+          :disable="!props.inEditMode"
+          name="parameters"
+        >
+          <Parameters />
+        </q-tab-panel>
+      </q-tab-panels>
     </q-form>
   </dashboard-page>
 </template>
 
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
+import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import Parameters from 'pages/site/dashboard/items/Parameters.vue';
 import { QForm, useQuasar } from 'quasar';
 import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
 import { useItems } from 'src/composables/useItems';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';
-import {
-  reactive, ref, onMounted,
-} from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -154,6 +196,7 @@ const resetObject:DeepNullable<UpdateItemInput> = {
 
 const item = reactive(resetObject);
 const enableQuery = ref(false);
+const tab = ref('detail');
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
