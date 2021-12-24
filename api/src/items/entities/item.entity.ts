@@ -6,8 +6,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { HtmlSanitizerTransformer } from '../../common/transformers/html-sanitizer.transformer';
 import { Image } from '../../images/entities/image.entity';
-import { ItemParameter } from '../../parameters/entities/itemParameter.entity';
-import { Parameter } from '../../parameters/entities/parameter.entity';
+import { ItemParameter } from '../../parameters/entities/item-parameter.entity';
 import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('Item')
@@ -75,13 +74,6 @@ export class Item extends BaseEntity {
   @Field(() => [Image], { nullable: 'itemsAndList' })
   images: Image[];
 
-  @HideField()
-  @OneToMany(
-    () => ItemParameter,
-    (parameterToItem) => parameterToItem.parameter,
-  )
-  parameterToItems: ItemParameter[];
-
-  @Field(() => [Parameter], { nullable: 'itemsAndList' })
-  parameters: Parameter[];
+  @OneToMany(() => ItemParameter, (itemParameter) => itemParameter.parameter)
+  itemParameters: ItemParameter[];
 }

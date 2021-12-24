@@ -15,11 +15,11 @@ export class ItemParameter extends BaseEntity {
   parameterId: number;
 
   @Field(() => Item)
-  @ManyToOne(() => Item, (item) => item.parameterToItems)
+  @ManyToOne(() => Item, (item) => item.itemParameters)
   item: Item;
 
   @Field(() => Parameter)
-  @ManyToOne(() => Parameter, (parameter) => parameter.parameterToItems)
+  @ManyToOne(() => Parameter, (parameter) => parameter.itemParameters)
   parameter: Parameter;
 
   @Column()
