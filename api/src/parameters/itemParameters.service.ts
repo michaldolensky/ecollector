@@ -15,6 +15,7 @@ export class ItemParametersService {
   async findAllParametersForItem(itemId: number) {
     return await this.itemParameterRepository.find({
       relations: ['item', 'parameter'],
+      where: { item: { id: itemId } },
       loadEagerRelations: true,
     });
   }
