@@ -524,7 +524,7 @@ export type GetCatalogItemQueryVariables = Exact<{
 }>;
 
 
-export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', path: string, main: boolean } | null | undefined> | null | undefined } };
+export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', path: string, main: boolean } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', value: string, parameter: { __typename?: 'Parameter', name: string, id: number } }> } };
 
 export type ItemQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -793,6 +793,13 @@ export const GetCatalogItemDocument = gql`
     images {
       path
       main
+    }
+    itemParameters {
+      parameter {
+        name
+        id
+      }
+      value
     }
   }
 }

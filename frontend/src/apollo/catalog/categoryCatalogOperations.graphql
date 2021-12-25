@@ -35,5 +35,12 @@ query getCatalogItem($itemId:Int!){
       path
       main
     }
+    itemParameters {
+      parameter {
+        name
+        id
+      }
+      value
+    }
   }
 }

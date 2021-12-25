@@ -70,7 +70,8 @@
         "created": "Vytvořeno:",
         "description": "Popis",
         "numberOfItemsForExchange": "Počet kusů k výměně:",
-        "numberOfItemsInCollection": "Počet kusů ve sbírce:"
+        "numberOfItemsInCollection": "Počet kusů ve sbírce:",
+        "parameters": "Parametry"
       }
     },
     "navigation": {

@@ -70,7 +70,8 @@
         "created": "Created:",
         "description": "Description",
         "numberOfItemsForExchange": "Number of items for exchange:",
-        "numberOfItemsInCollection": "Number of items in collection:"
+        "numberOfItemsInCollection": "Number of items in collection:",
+        "parameters": "Parameters"
       }
     },
     "navigation": {
