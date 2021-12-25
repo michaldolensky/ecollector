@@ -50,9 +50,10 @@ export class ParametersService {
     return parameter;
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<Parameter> {
     const parameter = await this.parameterRepository.findOne({ where: { id } });
     if (!parameter) throw new NotFoundException('Parameter not found!');
     await this.parameterRepository.delete(id);
+    return parameter;
   }
 }

@@ -29,14 +29,12 @@ export function useDashboardParameters() {
     siteId: siteId.value,
     filter,
   });
-  const removeParameter = (id:number) => {
-    void removeParameterMutation({
-      deleteParameterInput: {
-        parameterId: id,
-      },
-      siteId: siteId.value,
-    });
-  };
+  const removeParameter = (id:number) => removeParameterMutation({
+    deleteParameterInput: {
+      parameterId: id,
+    },
+    siteId: siteId.value,
+  });
   const confirmDelete = (parameter: Parameter) => {
     dialog({
       title: t('dialogs.titles.confirm', [parameter.name]),
@@ -44,7 +42,7 @@ export function useDashboardParameters() {
       cancel: true,
       persistent: true,
     }).onOk(() => {
-      if (parameter.id != null) void removeParameter(parameter.id);
+      if (parameter.id != null) void removeParameter(parameter.id).then(() => void refetch());
     });
   };
 
