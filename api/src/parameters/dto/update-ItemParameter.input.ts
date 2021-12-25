@@ -1,11 +1,16 @@
 import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
 import { SiteIdArgs } from '../../common/args/siteId.args';
-import { CreateItemParameterInput } from './create-ItemParameter.input';
+import { UpdateParameterInput } from './update-parameter.input';
 
 @InputType()
-export class UpdateItemParameterInput extends CreateItemParameterInput {
-  @Field(() => Int)
-  id: number;
+export class UpdateItemParameterInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
+
+  value: string;
+
+  @Field(() => UpdateParameterInput, { nullable: true })
+  parameter: UpdateParameterInput;
 }
 
 @ArgsType()

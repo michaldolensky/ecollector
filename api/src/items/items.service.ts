@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
+import { ItemParametersService } from '../parameters/itemParameters.service';
 import { CreateItemInput } from './dto/create-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
 import { UpdateItemInput } from './dto/update-item.input';
@@ -16,6 +17,7 @@ export class ItemsService {
   constructor(
     @InjectRepository(Item)
     private itemsRepository: Repository<Item>,
+    private readonly itemParametersService: ItemParametersService,
   ) {}
 
   async create(createItemInput: CreateItemInput, siteId: number) {
@@ -48,7 +50,7 @@ export class ItemsService {
   async update(id: number, updateItemInput: Partial<UpdateItemInput>) {
     const item = await this.itemsRepository.findOne({
       where: { id },
-      relations: ['images'],
+      relations: ['images', 'itemParameters'],
     });
     if (!item) throw new BadRequestException('Invalid item');
 
@@ -62,6 +64,20 @@ export class ItemsService {
       image.main = updatingImage.main;
       return image;
     });
+
+    item.itemParameters.forEach((parameter) => {
+      if (parameter.id) {
+        this.itemParametersService.update(parameter);
+      } else {
+        this.itemParametersService.create({
+          value: parameter.value,
+          parameterId: parameter.parameter.id,
+          itemId: item.id,
+        });
+      }
+    });
+    delete item.itemParameters;
+
     await this.itemsRepository.save(item);
     return item;
   }

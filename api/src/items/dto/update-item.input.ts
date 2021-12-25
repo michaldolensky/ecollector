@@ -3,7 +3,7 @@ import { IsNumber, MaxLength } from 'class-validator';
 import { SiteIdArgs } from '../../common/args/siteId.args';
 import { UpdateImageInput } from '../../images/dto/update-image.input';
 import { Image } from '../../images/entities/image.entity';
-import { ItemParameter } from '../../parameters/entities/item-parameter.entity';
+import { UpdateItemParameterInput } from '../../parameters/dto/update-ItemParameter.input';
 import { CreateItemInput } from './create-item.input';
 
 @InputType()
@@ -36,8 +36,8 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @Field(() => [UpdateImageInput], { nullable: 'itemsAndList' })
   images?: Image[];
 
-  @Field(() => [ItemParameter], { nullable: 'itemsAndList' })
-  itemParameters?: ItemParameter[];
+  @Field(() => [UpdateItemParameterInput], { nullable: 'itemsAndList' })
+  itemParameters?: UpdateItemParameterInput[];
 }
 @ArgsType()
 export class UpdateItemArgs extends SiteIdArgs {
