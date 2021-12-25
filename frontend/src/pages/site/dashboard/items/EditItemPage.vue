@@ -202,7 +202,7 @@ const resetObject:DeepNullable<UpdateItemInput> = {
 
 const item = reactive(resetObject);
 const enableQuery = ref(false);
-const tab = ref('parameters');
+const tab = ref('detail');
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
