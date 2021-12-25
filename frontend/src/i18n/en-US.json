@@ -126,8 +126,8 @@
       "dashboard": "Dashboard",
       "editCategory": "Edit category",
       "editItem": "Edit item",
-      "user_sites": "Your sites",
-      "editParameter": "Add parameter"
+      "editParameter": "Edit parameter",
+      "user_sites": "Your sites"
     },
     "items": {
       "addItem": "Add item",
@@ -203,9 +203,20 @@
           "parameterProperties": "Parameter properties"
         }
       },
+      "dialogs": {
+        "message": {
+          "delete": "Do you want to delete"
+        }
+      },
       "input": {
         "label": {
           "parameterType": "Parameter type"
+        }
+      },
+      "notification": {
+        "message": {
+          "parameter_created": "Parameter created",
+          "parameter_updated": "Parameter updated"
         }
       },
       "table": {
@@ -219,17 +230,6 @@
           }
         },
         "not_found": "No parameters found"
-      },
-      "dialogs": {
-        "message": {
-          "delete": "Do you want to delete"
-        }
-      },
-      "notification": {
-        "message": {
-          "parameter_created": "Parameter created",
-          "parameter_updated": "Parameter updated"
-        }
       }
     },
     "settings": {
