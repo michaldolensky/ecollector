@@ -158,7 +158,7 @@ import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
 import Editor from 'components/dashboard/forms/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import Parameters from 'pages/site/dashboard/items/Parameters.vue';
+import Parameters from 'components/dashboard/forms/ParametersPanel.vue';
 import { QForm, useQuasar } from 'quasar';
 import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
 import { useItems } from 'src/composables/useItems';
