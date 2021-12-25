@@ -33,7 +33,10 @@ export class Parameter extends BaseEntity {
   type: ParameterType;
 
   @HideField()
-  @OneToMany(() => ItemParameter, (itemParameters) => itemParameters.item)
+  @OneToMany(() => ItemParameter, (itemParameters) => itemParameters.item, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   itemParameters: ItemParameter[];
 
   @Field(() => Site)

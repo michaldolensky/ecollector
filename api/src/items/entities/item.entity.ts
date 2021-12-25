@@ -74,6 +74,9 @@ export class Item extends BaseEntity {
   @Field(() => [Image], { nullable: 'itemsAndList' })
   images: Image[];
 
-  @OneToMany(() => ItemParameter, (itemParameter) => itemParameter.parameter)
+  @OneToMany(() => ItemParameter, (itemParameter) => itemParameter.parameter, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   itemParameters: ItemParameter[];
 }

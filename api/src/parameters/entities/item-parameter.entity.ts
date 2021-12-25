@@ -25,12 +25,16 @@ export class ItemParameter extends BaseEntity {
   parameterId: number;
 
   @Field(() => Item)
-  @ManyToOne(() => Item, (item) => item.itemParameters)
+  @ManyToOne(() => Item, (item) => item.itemParameters, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   item: Item;
 
   @Field(() => Parameter)
-  @ManyToOne(() => Parameter, (parameter) => parameter.itemParameters)
+  @ManyToOne(() => Parameter, (parameter) => parameter.itemParameters, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   parameter: Parameter;
 

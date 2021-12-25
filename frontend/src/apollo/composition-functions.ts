@@ -91,8 +91,8 @@ export type DeleteItemInput = {
   itemId: Scalars['Int'];
 };
 
-export type DeleteItemParameterInput = {
-  ItemParameterId: Scalars['Int'];
+export type DeleteParameterInput = {
+  parameterId: Scalars['Int'];
 };
 
 export type Image = {
@@ -195,7 +195,7 @@ export type Mutation = {
   removeCategory: Category;
   removeImage: Image;
   removeItem: Item;
-  removeParameter: ItemParameter;
+  removeParameter: Parameter;
   removeSite: Site;
   removeUser: User;
   updateCategory: Category;
@@ -254,7 +254,7 @@ export type MutationRemoveItemArgs = {
 
 
 export type MutationRemoveParameterArgs = {
-  deleteItemParameterInput: DeleteItemParameterInput;
+  deleteParameterInput: DeleteParameterInput;
   siteId: Scalars['Int'];
 };
 
@@ -464,7 +464,7 @@ export type UpdateItemInput = {
 };
 
 export type UpdateItemParameterInput = {
-  id: Scalars['Int'];
+  id?: InputMaybe<Scalars['Int']>;
   parameter?: InputMaybe<UpdateParameterInput>;
   value: Scalars['String'];
 };
@@ -634,6 +634,14 @@ export type CreateParameterMutationVariables = Exact<{
 
 
 export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'Parameter', id: number, type: ParameterType, name: string } };
+
+export type RemoveParameterMutationVariables = Exact<{
+  deleteParameterInput: DeleteParameterInput;
+  siteId: Scalars['Int'];
+}>;
+
+
+export type RemoveParameterMutation = { __typename?: 'Mutation', removeParameter: { __typename?: 'Parameter', id: number } };
 
 export type UpdateParameterMutationVariables = Exact<{
   updateParameterInput: UpdateParameterInput;
@@ -1284,6 +1292,36 @@ export function useCreateParameterMutation(options: VueApolloComposable.UseMutat
   return VueApolloComposable.useMutation<CreateParameterMutation, CreateParameterMutationVariables>(CreateParameterDocument, options);
 }
 export type CreateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateParameterMutation, CreateParameterMutationVariables>;
+export const RemoveParameterDocument = gql`
+    mutation removeParameter($deleteParameterInput: DeleteParameterInput!, $siteId: Int!) {
+  removeParameter(deleteParameterInput: $deleteParameterInput, siteId: $siteId) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useRemoveParameterMutation__
+ *
+ * To run a mutation, you first call `useRemoveParameterMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveParameterMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useRemoveParameterMutation({
+ *   variables: {
+ *     deleteParameterInput: // value for 'deleteParameterInput'
+ *     siteId: // value for 'siteId'
+ *   },
+ * });
+ */
+export function useRemoveParameterMutation(options: VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables>>) {
+  return VueApolloComposable.useMutation<RemoveParameterMutation, RemoveParameterMutationVariables>(RemoveParameterDocument, options);
+}
+export type RemoveParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveParameterMutation, RemoveParameterMutationVariables>;
 export const UpdateParameterDocument = gql`
     mutation updateParameter($updateParameterInput: UpdateParameterInput!, $siteId: Int!) {
   updateParameter(updateParameterInput: $updateParameterInput, siteId: $siteId) {
