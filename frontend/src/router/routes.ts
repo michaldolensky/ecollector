@@ -1,3 +1,4 @@
+import { i18n } from 'boot/i18n';
 import { useAuthStore } from 'src/stores/auth';
 import { getParsedInt } from 'src/utils';
 import {
@@ -16,6 +17,8 @@ const redirectToLogin = (to: RouteLocationNormalized) => ({
 });
 
 const getRoutes = (): RouteRecordRaw[] => {
+  const { t } = i18n.global;
+
   const requireAuth: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isLoggedIn) {
@@ -155,6 +158,29 @@ const getRoutes = (): RouteRecordRaw[] => {
               path: 'categories/new',
               props: true,
               component: () => import('pages/site/dashboard/categories/EditCategoryPage.vue'),
+            },
+            {
+              name: 'DashBoardParameterList',
+              path: 'parameters',
+              component: () => import('pages/site/dashboard/parameters/DashboardParametersListPage.vue'),
+            },
+            {
+              name: 'DashBoardParameterEdit',
+              path: 'parameters/edit/:paramId',
+              props: (route) => ({
+                paramId: getParsedInt(route.params.paramId),
+                inEditMode: true,
+                headerTitle: t('dashboard.headers.editParameter'),
+              }),
+              component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
+            },
+            {
+              name: 'DashBoardParameterCreate',
+              path: 'parameters/new',
+              props: () => ({
+                headerTitle: t('dashboard.headers.createParameter'),
+              }),
+              component: () => import('pages/site/dashboard/parameters/EditParameterPage.vue'),
             },
             {
               name: 'DashBoardSettings',

@@ -6,11 +6,12 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { HtmlSanitizerTransformer } from '../../common/transformers/html-sanitizer.transformer';
 import { Image } from '../../images/entities/image.entity';
+import { ItemParameter } from '../../parameters/entities/item-parameter.entity';
 import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('Item')
 @InputType('ItemInput')
-@Entity({ name: 'items' })
+@Entity()
 export class Item extends BaseEntity {
   @Factory((faker) => faker.lorem.words(5))
   @Column('text')
@@ -72,4 +73,10 @@ export class Item extends BaseEntity {
   })
   @Field(() => [Image], { nullable: 'itemsAndList' })
   images: Image[];
+
+  @OneToMany(() => ItemParameter, (itemParameter) => itemParameter.parameter, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  itemParameters: ItemParameter[];
 }

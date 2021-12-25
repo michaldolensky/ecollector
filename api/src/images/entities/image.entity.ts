@@ -7,7 +7,7 @@ import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Image')
 @InputType('ImageInput')
-@Entity('images')
+@Entity()
 export class Image extends BaseEntity {
   @Factory((faker) => faker.random.word())
   @Column()

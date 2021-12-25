@@ -1,3 +1,4 @@
+import { Parameter } from 'src/apollo/composition-functions';
 import { Category } from 'src/composables/useCategories';
 import { Item } from 'src/composables/useItems';
 import { toRowDate } from 'src/utils';
@@ -116,9 +117,43 @@ export function useDashboardTableColumns() {
     },
 
   ]);
+  const ParametersTableColumns = computed(() => [
+    {
+      name: 'name',
+      required: true,
+      label: t('dashboard.parameters.table.column.label.name'),
+      align: 'left',
+      field: (item:Category) => item.name,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      format: (val:string) => `${val}`,
+      sortable: true,
+    },
+    {
+      name: 'type',
+      required: true,
+      label: t('dashboard.parameters.table.column.label.type'),
+      align: 'left',
+      field: (parameter:Parameter) => parameter.type,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      format: (val:string) => `${val}`,
+      sortable: true,
+    },
+
+    {
+      name: 'Action',
+      label: t('dashboard.parameters.table.column.label.action'),
+      field: 'Action',
+      sortable: false,
+      align: 'center',
+    },
+
+  ]);
 
   return {
     ItemsTableColumns,
     CategoriesTableColumns,
+    ParametersTableColumns,
   };
 }

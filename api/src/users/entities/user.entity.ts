@@ -14,7 +14,7 @@ import { Site } from '../../sites/entities/site.entity';
 
 @ObjectType('User')
 @InputType('UserInput')
-@Entity({ name: 'users' })
+@Entity()
 export class User extends BaseEntity {
   @Factory((faker) => faker.internet.exampleEmail())
   @Field()

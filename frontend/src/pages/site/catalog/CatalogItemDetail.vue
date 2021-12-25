@@ -61,16 +61,29 @@
         </q-card>
       </div>
     </div>
-    <div class="col-12 q-pa-md">
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">
-            {{ $t('catalog.itemDetail.item.description') }}
-          </div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section v-html="item.longDesc" />
-      </q-card>
+    <div class="row">
+      <div class="col-8 q-pa-md">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">
+              {{ $t('catalog.itemDetail.item.description') }}
+            </div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section v-html="item.longDesc" />
+        </q-card>
+      </div>
+      <div class="col-4 q-pa-md">
+        <q-table
+          :columns="columns"
+          :row-key="row => row.parameter.id"
+          :rows="item.itemParameters"
+          :title="$t('catalog.itemDetail.item.parameters')"
+          hide-bottom
+          hide-header
+          separator="horizontal"
+        />
+      </div>
     </div>
   </q-page>
 </template>
@@ -78,7 +91,7 @@
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
 import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
-import { useGetCatalogItemQuery } from 'src/apollo/composition-functions';
+import { ItemParameter, useGetCatalogItemQuery } from 'src/apollo/composition-functions';
 import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
 import { useLocaleStore } from 'src/stores/locale';
 
@@ -94,10 +107,22 @@ const { result, loading } = useGetCatalogItemQuery(() => ({
   itemId: props.itemId,
 }));
 
-const item = useResult(result);
+const item = useResult(result, {});
 
+const columns = [
+  {
+    name: 'name',
+    required: true,
+    align: 'left',
+    field: (row:ItemParameter) => row.parameter.name,
+    sortable: true,
+    classes: 'text-bold',
+  },
+  {
+    name: 'value',
+    align: 'left',
+    field: 'value',
+    sortable: true,
+  },
+];
 </script>
-
-<style scoped>
-
-</style>

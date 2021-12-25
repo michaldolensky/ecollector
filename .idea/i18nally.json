@@ -1,5 +1,5 @@
 {
-  "version" : "1.1",
+  "version" : "1.2",
   "profiles" : [ {
     "id" : "bb0324c9-0c8d-49fa-a1ea-a2aafde68f41",
     "name" : "Vue-i18n",
@@ -20,7 +20,6 @@
       "type" : "js",
       "scopeName" : "Project Files",
       "scopePattern" : "",
-      "replacementTemplate" : "$t('%key%', %map%)",
       "defaultReplacementTemplate" : "$t('%key%', %map%)",
       "recognizedReplacementTemplates" : [ ],
       "skipDefaultNamespace" : false
@@ -29,9 +28,9 @@
       "type" : "htmlvue",
       "scopeName" : "Project Files",
       "scopePattern" : "",
-      "replacementTemplate" : "$t('%key%', %map%)",
-      "contentReplacementTemplate" : "$t('%key%', %map%)",
+      "defaultReplacementTemplate" : "$t('%key%', %map%)",
       "attributeReplacementTemplate" : "",
+      "inlineTagsReplacementTemplate" : "",
       "recognizedReplacementTemplates" : [ ],
       "inlineTagNames" : [ ],
       "translatableAttributeNames" : [ "title", "alt", "placeholder", "label", "aria-label", "v-text", "v-html" ],
@@ -44,6 +43,6 @@
     "filesInProject" : [ ],
     "unignoredFunctionNames" : [ ],
     "unignoredFunctionArguments" : { },
-    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "el", "query", "impact", "type", "sql", "arial", "layout", "lucida_grande", "component", "condition", "comic_sans", "arial_black", "name", "times_new_roman", "selector", "id", "class", "verdana", "key", "courier_new", "middleware", "Authorization" ]
+    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "type", "sql", "arial", "Authorization", "arial_black", "selector", "id", "class", "key", "courier_new", "middleware", "el", "query", "impact", "layout", "lucida_grande", "component", "condition", "comic_sans", "name", "times_new_roman", "verdana" ]
   }
 }

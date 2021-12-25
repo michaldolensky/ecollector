@@ -2,17 +2,17 @@ import { boot } from 'quasar/wrappers';
 import { Locales } from 'src/types/Locales';
 import { createI18n } from 'vue-i18n';
 import languages from 'quasar/lang/index.json';
-import en from '../i18n/en-US.json';
-import cs from '../i18n/cs.json';
+import enUS from '../i18n/en-US.json';
+import cs from '../i18n/cs-CZ.json';
 
 export const appLanguages = languages
   .filter((lang) => Object.values(Locales).includes(lang.isoName as Locales));
 
-type MessageSchema = typeof en;
+type MessageSchema = typeof enUS;
 const i18n = createI18n<[MessageSchema], Locales>({
   locale: Locales.EN,
   messages: {
-    [Locales.EN]: en,
+    [Locales.EN]: enUS,
     [Locales.CS]: cs,
   },
   fallbackLocale: Locales.EN,
