@@ -436,6 +436,7 @@ export type UpdateItemInput = {
   id: Scalars['Int'];
   images?: InputMaybe<Array<InputMaybe<UpdateImageInput>>>;
   internalNumber: Scalars['String'];
+  itemParameters?: InputMaybe<Array<InputMaybe<ItemParameterInput>>>;
   longDesc: Scalars['String'];
   name: Scalars['String'];
   numberForExchange: Scalars['Int'];

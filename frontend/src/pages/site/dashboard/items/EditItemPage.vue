@@ -145,7 +145,7 @@
           :disable="!props.inEditMode"
           name="parameters"
         >
-          <Parameters />
+          <Parameters v-model="item.itemParameters" />
         </q-tab-panel>
       </q-tab-panels>
     </q-form>
@@ -192,11 +192,12 @@ const resetObject:DeepNullable<UpdateItemInput> = {
   numberForExchange: 0,
   numberInCollection: 0,
   images: [],
+  itemParameters: [],
 };
 
 const item = reactive(resetObject);
 const enableQuery = ref(false);
-const tab = ref('detail');
+const tab = ref('parameters');
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
@@ -221,6 +222,7 @@ onResult((result) => {
     item.numberForExchange = reqItem.numberForExchange;
     item.numberInCollection = reqItem.numberInCollection;
     item.images = reqItem.images;
+    item.itemParameters = reqItem.itemParameters;
   }
 });
 restart();
@@ -238,6 +240,7 @@ const onSubmit = () => {
   } else {
     delete item.id;
     delete item.images;
+    delete item.itemParameters;
     void createItem(item).then((result) => {
       if (result?.data) {
         notify({
