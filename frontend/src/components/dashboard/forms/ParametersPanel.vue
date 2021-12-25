@@ -26,8 +26,9 @@ import { useRouteParams } from 'src/composables/useRoute';
 import { computed } from 'vue';
 
 const { siteId } = useRouteParams();
-const { result, loading } = useGetParametersQuery(() => ({ siteId: siteId.value }));
+const { result, loading, refetch } = useGetParametersQuery(() => ({ siteId: siteId.value }));
 const parameters = useResult(result, []);
+void refetch();
 
 interface Props {
   modelValue: ItemParameter[];
