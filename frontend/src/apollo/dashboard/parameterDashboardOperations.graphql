@@ -23,8 +23,6 @@ mutation updateParameter($updateParameterInput:UpdateParameterInput!,$siteId:Int
 query getParameters($filter:ParameterFilterInput,$siteId:Int!){
   parameters(filter:$filter,siteId:$siteId) {
     id
-    createdAt
-    updatedAt
     name
     type
   }

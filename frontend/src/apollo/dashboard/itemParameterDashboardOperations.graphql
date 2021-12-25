@@ -1,0 +1,7 @@
+mutation createItemParameter($createItemParameterInput:CreateItemParameterInput!,$siteId:Int!){
+  createItemParameter(createItemParameterInput: $createItemParameterInput,siteId: $siteId){
+    id
+    value
+    parameterId
+  }
+}

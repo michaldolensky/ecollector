@@ -203,7 +203,9 @@ onMounted(() => {
 });
 const form = ref<QForm>();
 
-const { onResult, restart, loading } = useItemQuery({
+const {
+  onResult, restart, loading, refetch,
+} = useItemQuery({
   id: props.itemId,
 }, () => ({
   enabled: enableQuery.value,
@@ -235,6 +237,7 @@ const onSubmit = () => {
           type: 'positive',
           message: t('dashboard.items.notification.message.item_updated'),
         });
+        void refetch();
       }
     });
   } else {

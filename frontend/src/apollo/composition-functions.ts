@@ -64,6 +64,12 @@ export type CreateItemInput = {
   shortDesc: Scalars['String'];
 };
 
+export type CreateItemParameterInput = {
+  itemId: Scalars['Int'];
+  parameterId: Scalars['Int'];
+  value: Scalars['String'];
+};
+
 export type CreateParameterInput = {
   name: Scalars['String'];
   type: ParameterType;
@@ -85,8 +91,8 @@ export type DeleteItemInput = {
   itemId: Scalars['Int'];
 };
 
-export type DeleteParameterInput = {
-  parameterId: Scalars['Int'];
+export type DeleteItemParameterInput = {
+  ItemParameterId: Scalars['Int'];
 };
 
 export type Image = {
@@ -183,12 +189,13 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCategory: Category;
   createItem: Item;
+  createItemParameter: ItemParameter;
   createParameter: Parameter;
   createSite: Site;
   removeCategory: Category;
   removeImage: Image;
   removeItem: Item;
-  removeParameter: Parameter;
+  removeParameter: ItemParameter;
   removeSite: Site;
   removeUser: User;
   updateCategory: Category;
@@ -207,6 +214,12 @@ export type MutationCreateCategoryArgs = {
 
 export type MutationCreateItemArgs = {
   createItemInput: CreateItemInput;
+  siteId: Scalars['Int'];
+};
+
+
+export type MutationCreateItemParameterArgs = {
+  createItemParameterInput: CreateItemParameterInput;
   siteId: Scalars['Int'];
 };
 
@@ -241,7 +254,7 @@ export type MutationRemoveItemArgs = {
 
 
 export type MutationRemoveParameterArgs = {
-  deleteParameterInput: DeleteParameterInput;
+  deleteItemParameterInput: DeleteItemParameterInput;
   siteId: Scalars['Int'];
 };
 
@@ -312,6 +325,7 @@ export type Query = {
   image: Image;
   images: Array<Image>;
   item: Item;
+  itemParameter: ItemParameter;
   items: Array<Item>;
   parameter: Parameter;
   parameters: Array<Parameter>;
@@ -345,6 +359,11 @@ export type QueryImagesArgs = {
 
 
 export type QueryItemArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryItemParameterArgs = {
   id: Scalars['Int'];
 };
 
@@ -436,12 +455,18 @@ export type UpdateItemInput = {
   id: Scalars['Int'];
   images?: InputMaybe<Array<InputMaybe<UpdateImageInput>>>;
   internalNumber: Scalars['String'];
-  itemParameters?: InputMaybe<Array<InputMaybe<ItemParameterInput>>>;
+  itemParameters?: InputMaybe<Array<InputMaybe<UpdateItemParameterInput>>>;
   longDesc: Scalars['String'];
   name: Scalars['String'];
   numberForExchange: Scalars['Int'];
   numberInCollection: Scalars['Int'];
   shortDesc: Scalars['String'];
+};
+
+export type UpdateItemParameterInput = {
+  id: Scalars['Int'];
+  parameter?: InputMaybe<UpdateParameterInput>;
+  value: Scalars['String'];
 };
 
 export type UpdateParameterInput = {
@@ -594,6 +619,14 @@ export type RemoveImageMutationVariables = Exact<{
 
 export type RemoveImageMutation = { __typename?: 'Mutation', removeImage: { __typename?: 'Image', id: number } };
 
+export type CreateItemParameterMutationVariables = Exact<{
+  createItemParameterInput: CreateItemParameterInput;
+  siteId: Scalars['Int'];
+}>;
+
+
+export type CreateItemParameterMutation = { __typename?: 'Mutation', createItemParameter: { __typename?: 'ItemParameter', id: number, value: string, parameterId: number } };
+
 export type CreateParameterMutationVariables = Exact<{
   createParameterInput: CreateParameterInput;
   siteId: Scalars['Int'];
@@ -601,14 +634,6 @@ export type CreateParameterMutationVariables = Exact<{
 
 
 export type CreateParameterMutation = { __typename?: 'Mutation', createParameter: { __typename?: 'Parameter', id: number, type: ParameterType, name: string } };
-
-export type RemoveParameterMutationVariables = Exact<{
-  deleteParameterInput: DeleteParameterInput;
-  siteId: Scalars['Int'];
-}>;
-
-
-export type RemoveParameterMutation = { __typename?: 'Mutation', removeParameter: { __typename?: 'Parameter', id: number } };
 
 export type UpdateParameterMutationVariables = Exact<{
   updateParameterInput: UpdateParameterInput;
@@ -624,7 +649,7 @@ export type GetParametersQueryVariables = Exact<{
 }>;
 
 
-export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, createdAt: any, updatedAt: any, name: string, type: ParameterType }> };
+export type GetParametersQuery = { __typename?: 'Query', parameters: Array<{ __typename?: 'Parameter', id: number, name: string, type: ParameterType }> };
 
 export type GetParameterQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -1192,6 +1217,41 @@ export function useRemoveImageMutation(options: VueApolloComposable.UseMutationO
   return VueApolloComposable.useMutation<RemoveImageMutation, RemoveImageMutationVariables>(RemoveImageDocument, options);
 }
 export type RemoveImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveImageMutation, RemoveImageMutationVariables>;
+export const CreateItemParameterDocument = gql`
+    mutation createItemParameter($createItemParameterInput: CreateItemParameterInput!, $siteId: Int!) {
+  createItemParameter(
+    createItemParameterInput: $createItemParameterInput
+    siteId: $siteId
+  ) {
+    id
+    value
+    parameterId
+  }
+}
+    `;
+
+/**
+ * __useCreateItemParameterMutation__
+ *
+ * To run a mutation, you first call `useCreateItemParameterMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useCreateItemParameterMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useCreateItemParameterMutation({
+ *   variables: {
+ *     createItemParameterInput: // value for 'createItemParameterInput'
+ *     siteId: // value for 'siteId'
+ *   },
+ * });
+ */
+export function useCreateItemParameterMutation(options: VueApolloComposable.UseMutationOptions<CreateItemParameterMutation, CreateItemParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateItemParameterMutation, CreateItemParameterMutationVariables>>) {
+  return VueApolloComposable.useMutation<CreateItemParameterMutation, CreateItemParameterMutationVariables>(CreateItemParameterDocument, options);
+}
+export type CreateItemParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateItemParameterMutation, CreateItemParameterMutationVariables>;
 export const CreateParameterDocument = gql`
     mutation createParameter($createParameterInput: CreateParameterInput!, $siteId: Int!) {
   createParameter(createParameterInput: $createParameterInput, siteId: $siteId) {
@@ -1224,36 +1284,6 @@ export function useCreateParameterMutation(options: VueApolloComposable.UseMutat
   return VueApolloComposable.useMutation<CreateParameterMutation, CreateParameterMutationVariables>(CreateParameterDocument, options);
 }
 export type CreateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateParameterMutation, CreateParameterMutationVariables>;
-export const RemoveParameterDocument = gql`
-    mutation removeParameter($deleteParameterInput: DeleteParameterInput!, $siteId: Int!) {
-  removeParameter(deleteParameterInput: $deleteParameterInput, siteId: $siteId) {
-    id
-  }
-}
-    `;
-
-/**
- * __useRemoveParameterMutation__
- *
- * To run a mutation, you first call `useRemoveParameterMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useRemoveParameterMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useRemoveParameterMutation({
- *   variables: {
- *     deleteParameterInput: // value for 'deleteParameterInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useRemoveParameterMutation(options: VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables>>) {
-  return VueApolloComposable.useMutation<RemoveParameterMutation, RemoveParameterMutationVariables>(RemoveParameterDocument, options);
-}
-export type RemoveParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveParameterMutation, RemoveParameterMutationVariables>;
 export const UpdateParameterDocument = gql`
     mutation updateParameter($updateParameterInput: UpdateParameterInput!, $siteId: Int!) {
   updateParameter(updateParameterInput: $updateParameterInput, siteId: $siteId) {
@@ -1290,8 +1320,6 @@ export const GetParametersDocument = gql`
     query getParameters($filter: ParameterFilterInput, $siteId: Int!) {
   parameters(filter: $filter, siteId: $siteId) {
     id
-    createdAt
-    updatedAt
     name
     type
   }
