@@ -45,7 +45,10 @@
         v-model="tab"
         animated
       >
-        <q-tab-panel name="detail">
+        <q-tab-panel
+          class="bg-grey-3"
+          name="detail"
+        >
           <div class="row">
             <div class="col-12 col-md-8 q-pa-md q-gutter-md">
               <q-card>
@@ -133,6 +136,7 @@
 
         <q-tab-panel
           :disable="!props.inEditMode"
+          class="bg-grey-3"
           name="images"
         >
           <editItemImages
@@ -143,6 +147,7 @@
 
         <q-tab-panel
           :disable="!props.inEditMode"
+          class="bg-grey-3"
           name="parameters"
         >
           <Parameters v-model="item.itemParameters" />
