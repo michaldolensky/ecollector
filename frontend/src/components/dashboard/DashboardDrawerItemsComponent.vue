@@ -39,7 +39,7 @@ const DashboardNavigationItems: NavigationItemInterface[] = [
   },
   {
     nameString: 'dashboard.navigation.parameters',
-    icon: '',
+    icon: 'code',
     routeName: 'DashBoardParameterList',
   },
   {
