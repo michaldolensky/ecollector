@@ -98,11 +98,11 @@ module.exports = {
     "no-unused-vars": "off",
 
     //i18n
-    '@intlify/vue-i18n/no-unused-keys':'warn',
-    '@intlify/vue-i18n/no-missing-keys-in-other-locales':'warn',
+    '@intlify/vue-i18n/no-unused-keys': 'warn',
+    '@intlify/vue-i18n/no-missing-keys-in-other-locales': 'warn',
 
     // TypeScript
-    quotes: ['warn', 'single', { avoidEscape: true }],
+    quotes: ['warn', 'single', {avoidEscape: true}],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
@@ -114,7 +114,7 @@ module.exports = {
   },
   "overrides": [
     {
-      "files": ["./src/pages/Error-401.vue","./src/pages/Error-404.vue"],
+      "files": ["./src/pages/Error-401.vue", "./src/pages/Error-404.vue"],
       "rules": {
         "@intlify/vue-i18n/no-raw-text": "off"
       }
@@ -124,7 +124,14 @@ module.exports = {
       "rules": {
         "vue/no-v-html": "off"
       }
-    }
+    },
+    {
+      files: ['**/stories/*.*'],
+      rules: {
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+      },
+    },
   ],
   "settings": {
     "vue-i18n": {
