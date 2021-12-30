@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 import { QForm, useQuasar } from 'quasar';
 import {
   UpdateCategoryInput,

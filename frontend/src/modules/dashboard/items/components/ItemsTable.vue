@@ -58,7 +58,7 @@ const initialPagination = reactive({
         <q-btn
           :to="{
             name: 'DashBoardItemEdit',
-            params: { itemId: slotProps.row.id},
+            params: { itemId: slotProps.row.id}
           }"
           dense
           flat

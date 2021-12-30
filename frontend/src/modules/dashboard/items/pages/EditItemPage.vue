@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
-import Editor from 'components/dashboard/forms/Editor.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import Parameters from 'components/dashboard/forms/ParametersPanel.vue';
+import EditItemImages from 'src/modules/dashboard/items/components/EditItemImages.vue';
+import Editor from 'src/modules/dashboard/items/components/Editor.vue';
+import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
+import Parameters from 'src/modules/dashboard/parameters/components/ParametersPanel.vue';
 import { QForm, useQuasar } from 'quasar';
 import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
 import { useItems } from 'src/composables/useItems';

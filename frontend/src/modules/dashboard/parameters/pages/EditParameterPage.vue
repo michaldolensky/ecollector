@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ParameterTypeSelect from 'components/dashboard/forms/select/ParameterTypeSelect.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import ParameterTypeSelect from 'src/modules/dashboard/parameters/components/ParameterTypeSelect.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 import { QForm, useQuasar } from 'quasar';
 import { ParameterType, useGetParameterQuery } from 'src/apollo/composition-functions';
 import { useParameters } from 'src/composables/useParameters';

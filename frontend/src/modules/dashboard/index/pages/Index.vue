@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardWidget from 'components/dashboard/DashboardWidget.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import DashboardWidget from 'src/modules/dashboard/index/components/DashboardWidget.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 import { useSites } from 'src/composables/useSites';
 
 const { getSite, currentSiteId } = useSites();

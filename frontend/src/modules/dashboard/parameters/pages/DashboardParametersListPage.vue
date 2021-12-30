@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
+import ParametersTable from 'src/modules/dashboard/parameters/components/ParametersTable.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
+import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
 
-const { filter, refetch, resetFilter } = useDashboardCategories();
+const { filter, refetch, resetFilter } = useDashboardParameters();
 
 </script>
 
 <template>
   <dashboard-page>
-    <dashboard-page-header :title="$t('dashboard.navigation.categories')">
+    <dashboard-page-header :title="$t('dashboard.navigation.parameters')">
       <q-btn
-        :label="$t('dashboard.categories.addCategory')"
-        :to="{name:'DashBoardCategoryCreate'}"
+        :label="$t('dashboard.parameters.addParameter')"
+        :to="{name:'DashBoardParameterCreate'}"
         color="primary"
         icon="add"
       />
@@ -51,7 +51,7 @@ const { filter, refetch, resetFilter } = useDashboardCategories();
     </q-card>
 
     <q-card>
-      <categories-table />
+      <parameters-table />
     </q-card>
   </dashboard-page>
 </template>

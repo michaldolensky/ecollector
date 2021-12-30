@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 import { useQuasar } from 'quasar';
 import { UpdateSiteInput, useSiteQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/composables/useSites';

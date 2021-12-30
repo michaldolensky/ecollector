@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
-import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
+import ItemsTable from 'src/modules/dashboard/items/components/ItemsTable.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
 
 const { filter, refetch, resetFilter } = useDashboardItems();
