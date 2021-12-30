@@ -1,4 +1,4 @@
-import { DashboardRoutes } from 'src/modules/dashboard/router';
+import { DashboardModuleRoutes } from 'src/modules/dashboard/router';
 import { useAuthStore } from 'src/stores/auth';
 import { getParsedInt } from 'src/utils';
 import {
@@ -8,6 +8,7 @@ import {
 declare module 'vue-router' {
   interface RouteMeta {
     showDrawer?: boolean
+    requireAuth?: boolean
   }
 }
 
@@ -85,7 +86,7 @@ const getRoutes = (): RouteRecordRaw[] => {
             },
           ],
         },
-        ...DashboardRoutes,
+        DashboardModuleRoutes,
         {
           path: 'account',
           component: RouterView,

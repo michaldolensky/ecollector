@@ -5,7 +5,9 @@ import { DashboardParameterRoutes } from 'src/modules/dashboard/modules/paramete
 import { DashboardSettingsRoutes } from 'src/modules/dashboard/modules/settings/router';
 import { redirectToLogin } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/auth';
-import { NavigationGuard, RouteRecordRaw, RouterView } from 'vue-router';
+import {
+  NavigationGuard, RouteRecordRaw, RouterView,
+} from 'vue-router';
 
 const requireOwner: NavigationGuard = (to, from, next) => {
   const authStore = useAuthStore();
@@ -16,29 +18,23 @@ const requireOwner: NavigationGuard = (to, from, next) => {
   }
 };
 
-export const DashboardRoutes:RouteRecordRaw[] = [
-  {
-    path: 'site/:siteId/dashboard/',
-    redirect: { name: 'DashBoardIndex' },
-    components: {
-      default: RouterView,
-      drawer: () => import('src/modules/dashboard/components/DashboardDrawer.vue'),
-    },
-    beforeEnter: [requireOwner],
-    meta: {
-      showDrawer: true,
-      requireAuth: true,
-    },
-    children: [
-      ...DashboardIndexRoutes,
-      ...DashboardItemRoutes,
-      ...DashboardCategoriesRoutes,
-      ...DashboardParameterRoutes,
-      ...DashboardSettingsRoutes,
-    ],
+export const DashboardModuleRoutes:RouteRecordRaw = {
+  path: 'site/:siteId/dashboard/',
+  redirect: { name: 'DashBoardIndex' },
+  components: {
+    default: RouterView,
+    drawer: () => import('src/modules/dashboard/components/DashboardDrawer.vue'),
   },
-];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };
+  beforeEnter: [requireOwner],
+  meta: {
+    showDrawer: true,
+    requireAuth: true,
+  },
+  children: [
+    ...DashboardIndexRoutes,
+    ...DashboardItemRoutes,
+    ...DashboardCategoriesRoutes,
+    ...DashboardParameterRoutes,
+    ...DashboardSettingsRoutes,
+  ],
+};
