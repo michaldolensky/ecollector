@@ -1,6 +1,6 @@
+import { CatalogModuleRoutes } from 'src/modules/catalog/router';
 import { DashboardModuleRoutes } from 'src/modules/dashboard/router';
 import { useAuthStore } from 'src/stores/auth';
-import { getParsedInt } from 'src/utils';
 import {
   NavigationGuard, RouteLocationNormalized, RouteRecordRaw, RouterView,
 } from 'vue-router';
@@ -47,45 +47,7 @@ const getRoutes = (): RouteRecordRaw[] => {
           path: 'site/:siteId',
           redirect: { name: 'CatalogIndex' },
         },
-        {
-          name: 'catalog',
-          path: 'site/:siteId/catalog',
-          components: {
-            default: RouterView,
-            drawer: () => import('components/drawers/CatalogDrawer.vue'),
-            subToolbar: () => import('components/SiteToolbar.vue'),
-          },
-          meta: {
-            showDrawer: true,
-          },
-          children: [
-            {
-              name: 'CatalogIndex',
-              path: '',
-              props: (route) => ({
-                siteId: getParsedInt(route.params.siteId),
-              }),
-              component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
-            },
-            {
-              name: 'CatalogCategory',
-              path: 'cat/:categoryId',
-              props: (route) => ({
-                categoryId: getParsedInt(route.params.categoryId),
-                siteId: getParsedInt(route.params.siteId),
-              }),
-              component: () => import('pages/site/catalog/CatalogItemsPage.vue'),
-            },
-            {
-              name: 'CatalogItemDetail',
-              path: 'item/:itemId/',
-              props: (route) => ({
-                itemId: getParsedInt(route.params.itemId),
-              }),
-              component: () => import('pages/site/catalog/CatalogItemDetail.vue'),
-            },
-          ],
-        },
+        CatalogModuleRoutes,
         DashboardModuleRoutes,
         {
           path: 'account',

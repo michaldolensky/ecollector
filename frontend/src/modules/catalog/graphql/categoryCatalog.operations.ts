@@ -1,6 +1,6 @@
 /* eslint-disable */
 // noinspection ES6UnusedImports
-import * as Types from '../../types/graphql';
+import * as Types from '../../../types/graphql';
 
 import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';

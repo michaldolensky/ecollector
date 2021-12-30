@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 
 import { useResult } from '@vue/apollo-composable';
-import { useGetCatalogItemsQuery } from 'src/apollo/catalog/categoryCatalog.operations';
+import { useGetCatalogItemsQuery } from 'src/modules/catalog/graphql/categoryCatalog.operations';
 
-import CatalogItem from 'src/components/catalog/CatalogItem.vue';
+import CatalogItem from 'src/modules/catalog/components/CatalogItem.vue';
 
 interface Props {
   siteId: number

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
-import { useGetCatalogItemQuery } from 'src/apollo/catalog/categoryCatalog.operations';
-import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
-import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
+import { useGetCatalogItemQuery } from 'src/modules/catalog/graphql/categoryCatalog.operations';
+import Breadcrumbs from 'src/modules/catalog/components/Breadcrumbs.vue';
+import CatalogItemImagesBrowser from 'src/modules/catalog/components/CatalogItemImagesBrowser.vue';
 import { useLocaleStore } from 'src/stores/locale';
 import { ItemParameter } from 'src/types/graphql';
 
