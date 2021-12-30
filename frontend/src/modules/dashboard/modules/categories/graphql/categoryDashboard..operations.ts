@@ -1,6 +1,5 @@
 /* eslint-disable */
-// noinspection ES6UnusedImports JSUnusedGlobalSymbols
-
+// noinspection ES6UnusedImports
 import * as Types from '../../../../../types/graphql';
 
 import gql from 'graphql-tag';
