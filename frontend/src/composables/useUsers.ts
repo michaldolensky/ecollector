@@ -1,4 +1,4 @@
-import { useDeleteUserMutation, useUpdateUserMutation } from 'src/apollo/profile/profile.operations';
+import { useDeleteUserMutation, useUpdateUserMutation } from 'src/modules/account/graphql/profile.operations';
 import { UpdateUserInput } from 'src/types/graphql';
 
 export function useUsers() {

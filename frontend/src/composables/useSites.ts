@@ -2,7 +2,7 @@ import {
   useCreateSiteMutation,
   useRemoveSiteMutation, useSiteQuery,
   useUpdateSiteMutation,
-} from 'src/apollo/dashboard/sitesDashboard.operations';
+} from 'src/modules/account/graphql/sitesDashboard.operations';
 import { CreateSiteInput, UpdateSiteInput } from 'src/types/graphql';
 import { getParsedInt } from 'src/utils';
 import { useRoute } from 'vue-router';

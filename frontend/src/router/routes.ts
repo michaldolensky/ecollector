@@ -1,7 +1,8 @@
+import { AccountModuleRoutes } from 'src/modules/account/router';
 import { AuthModuleRoutes } from 'src/modules/auth/router';
 import { CatalogModuleRoutes } from 'src/modules/catalog/router';
 import { DashboardModuleRoutes } from 'src/modules/dashboard/router';
-import { RouteLocationNormalized, RouteRecordRaw, RouterView } from 'vue-router';
+import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -37,25 +38,7 @@ const getRoutes = (): RouteRecordRaw[] => [
       },
       CatalogModuleRoutes,
       DashboardModuleRoutes,
-      {
-        path: 'account',
-        component: RouterView,
-        meta: {
-          requireAuth: true,
-        },
-        children: [
-          {
-            path: 'profile',
-            name: 'profile',
-            component: () => import('pages/account/Profile.vue'),
-          },
-          {
-            path: 'sites',
-            name: 'SitesList',
-            component: () => import('pages/account/SitesListPage.vue'),
-          },
-        ],
-      },
+      AccountModuleRoutes,
       AuthModuleRoutes,
     ],
   },
