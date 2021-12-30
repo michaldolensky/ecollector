@@ -1,12 +1,12 @@
 import { useResult } from '@vue/apollo-composable';
 import { useQuasar } from 'quasar';
+import { useRouteParams } from 'src/composables/useRoute';
+
 import {
-  Parameter,
-  ParameterFilterInput,
   useGetParametersQuery,
   useRemoveParameterMutation,
-} from 'src/apollo/composition-functions';
-import { useRouteParams } from 'src/composables/useRoute';
+} from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
+import { Parameter, ParameterFilterInput } from 'src/types/graphql';
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 

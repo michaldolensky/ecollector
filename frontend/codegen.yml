@@ -1,12 +1,24 @@
 overwrite: true
 schema: "http://api.localhost:8080/graphql"
-documents: "src/apollo/**/*.graphql"
+documents: 'src/modules/**/**/graphql/*.graphql'
 generates:
-  src/apollo/composition-functions.ts:
+  src/types/graphql.ts:
+    plugins:
+      - add:
+          content: '// noinspection ES6UnusedImports'
+      - add:
+          content: '/* eslint-disable */'
+      - typescript
+  src/modules:
+    preset: near-operation-file
+    presetConfig:
+      extension: .ts
+      baseTypesPath: ../types/graphql.ts
     plugins:
       - add:
           content: '/* eslint-disable */'
-      - "typescript"
+      - add:
+          content: '// noinspection ES6UnusedImports'
       - "typescript-operations"
       - "typescript-vue-apollo"
     config:

@@ -1,9 +1,8 @@
-import {
-  CreateParameterInput, UpdateParameterInput,
-  useCreateParameterMutation,
-  useUpdateParameterMutation,
-} from 'src/apollo/composition-functions';
 import { useRouteParams } from 'src/composables/useRoute';
+import {
+  useCreateParameterMutation, useUpdateParameterMutation,
+} from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
+import { CreateParameterInput, UpdateParameterInput } from 'src/types/graphql';
 
 export function useParameters() {
   const { siteId } = useRouteParams();

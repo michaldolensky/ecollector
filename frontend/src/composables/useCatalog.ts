@@ -1,4 +1,4 @@
-import { Image } from 'src/apollo/composition-functions';
+import { Image } from 'src/types/graphql';
 
 export interface CatalogCategory {
   id: number

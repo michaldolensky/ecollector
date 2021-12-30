@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { useSiteQuery } from 'src/apollo/composition-functions';
+import { useSiteQuery } from 'src/modules/account/graphql/sitesDashboard.operations';
 import { useSites } from 'src/composables/useSites';
 
 const { currentSiteId } = useSites();

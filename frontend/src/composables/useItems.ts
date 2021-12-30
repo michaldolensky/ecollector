@@ -1,12 +1,10 @@
-import {
-  CreateItemInput,
-  UpdateItemInput,
-  useCreateItemMutation,
-  useItemQuery,
-  useUpdateItemMutation,
-} from 'src/apollo/composition-functions';
 import { Image } from 'src/composables/useImages';
 import { useSites } from 'src/composables/useSites';
+import {
+  useCreateItemMutation,
+  useItemQuery, useUpdateItemMutation,
+} from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
+import { CreateItemInput, UpdateItemInput } from 'src/types/graphql';
 
 export interface Item {
   id:number

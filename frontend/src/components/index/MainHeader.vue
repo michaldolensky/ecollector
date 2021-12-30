@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import AccountDropdown from 'components/index/AuthDropdown.vue';
+import AccountDropdown from 'src/modules/account/components/AuthDropdown.vue';
 import { useSiteSettingsStore } from 'src/stores/settings';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
