@@ -3,7 +3,7 @@ import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import ChangePasswordCard from 'components/profile/ChangePasswordCard.vue';
 import DeleteAccountCard from 'components/profile/DeleteAccountCard.vue';
 import EditProfileInformationCard from 'components/profile/EditProfileInformationCard.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import DashboardPage from 'pages/site/DashboardPage.vue';
 
 </script>
 
