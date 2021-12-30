@@ -7,7 +7,3 @@ export const DashboardIndexRoutes:RouteRecordRaw[] = [
     component: () => import('src/modules/dashboard/modules/index/pages/Index.vue'),
   },
 ];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };

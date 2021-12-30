@@ -29,7 +29,3 @@ export const DashboardParameterRoutes:RouteRecordRaw[] = [
     component: () => import('src/modules/dashboard/modules/parameters/pages/EditParameterPage.vue'),
   },
 ];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };

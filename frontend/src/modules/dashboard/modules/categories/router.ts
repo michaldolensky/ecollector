@@ -24,7 +24,3 @@ export const DashboardCategoriesRoutes:RouteRecordRaw[] = [
     component: () => import('src/modules/dashboard/modules/categories/pages/EditCategoryPage.vue'),
   },
 ];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };

@@ -22,7 +22,3 @@ export const DashboardItemRoutes:RouteRecordRaw[] = [
     component: () => import('src/modules/dashboard/modules/items/pages/EditItemPage.vue'),
   },
 ];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };

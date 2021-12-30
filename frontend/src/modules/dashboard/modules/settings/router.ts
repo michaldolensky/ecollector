@@ -11,7 +11,3 @@ export const DashboardSettingsRoutes:RouteRecordRaw[] = [
     component: () => import('src/modules/dashboard/modules/settings/pages/SettingsPage.vue'),
   },
 ];
-//
-// export default (router:Router) => {
-//   router.addRoute([DashboardItemRoutes]);
-// };
