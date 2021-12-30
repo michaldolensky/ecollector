@@ -1,5 +1,5 @@
-import { useRemoveImageMutation } from 'src/apollo/composition-functions';
 import { useSites } from 'src/composables/useSites';
+import { useRemoveImageMutation } from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
 
 export interface Image{
   id: number,

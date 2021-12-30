@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
-import { ItemParameter, ItemParameterInput, useGetParametersQuery } from 'src/apollo/composition-functions';
 import { useRouteParams } from 'src/composables/useRoute';
+import { useGetParametersQuery } from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
+import { ItemParameter, ItemParameterInput } from 'src/types/graphql';
 import { computed } from 'vue';
 
 const { siteId } = useRouteParams();

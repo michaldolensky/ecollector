@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import { useSiteQuery } from 'src/apollo/dashboard/sitesDashboard.operations';
 import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
 import { useQuasar } from 'quasar';
-import { UpdateSiteInput, useSiteQuery } from 'src/apollo/composition-functions';
 import { useSites } from 'src/composables/useSites';
+import { UpdateSiteInput } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
 import {
   reactive,

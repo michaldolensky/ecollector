@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
-import { ParameterType } from 'src/apollo/composition-functions';
+import { ParameterType } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
 import { computed, ref } from 'vue';
 

@@ -2,11 +2,10 @@
 import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
 import { QForm, useQuasar } from 'quasar';
-import {
-  UpdateCategoryInput,
-  useGetCategoryQuery,
-} from 'src/apollo/composition-functions';
+
 import { useCategories } from 'src/composables/useCategories';
+import { useGetCategoryQuery } from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
+import { UpdateCategoryInput } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
 
 import {

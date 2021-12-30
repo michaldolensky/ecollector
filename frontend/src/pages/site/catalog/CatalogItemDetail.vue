@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
+import { useGetCatalogItemQuery } from 'src/apollo/catalog/categoryCatalog.operations';
 import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
-import { ItemParameter, useGetCatalogItemQuery } from 'src/apollo/composition-functions';
 import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
 import { useLocaleStore } from 'src/stores/locale';
+import { ItemParameter } from 'src/types/graphql';
 
 interface Props {
   itemId: number

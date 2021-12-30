@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { toRefs, useToggle } from '@vueuse/core';
-import { Image } from 'src/apollo/composition-functions';
+import { Image } from 'src/types/graphql';
 import { computed, ref } from 'vue';
 
 interface Props {

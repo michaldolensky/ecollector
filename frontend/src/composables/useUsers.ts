@@ -1,6 +1,5 @@
-import {
-  useUpdateUserMutation, useDeleteUserMutation, UpdateUserInput,
-} from 'src/apollo/composition-functions';
+import { useDeleteUserMutation, useUpdateUserMutation } from 'src/apollo/profile/profile.operations';
+import { UpdateUserInput } from 'src/types/graphql';
 
 export function useUsers() {
   const { mutate: deleteUserMutation } = useDeleteUserMutation({});

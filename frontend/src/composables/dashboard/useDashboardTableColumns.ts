@@ -1,6 +1,6 @@
-import { Parameter } from 'src/apollo/composition-functions';
 import { Category } from 'src/composables/useCategories';
 import { Item } from 'src/composables/useItems';
+import { Parameter } from 'src/types/graphql';
 import { toRowDate } from 'src/utils';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';

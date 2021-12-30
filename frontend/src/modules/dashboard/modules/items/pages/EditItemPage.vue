@@ -4,10 +4,11 @@ import EditItemImages from 'src/modules/dashboard/modules/items/components/EditI
 import Editor from 'src/modules/dashboard/modules/items/components/Editor.vue';
 import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
+import { useItemQuery } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
 import Parameters from 'src/modules/dashboard/modules/parameters/components/ParametersPanel.vue';
 import { QForm, useQuasar } from 'quasar';
-import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
 import { useItems } from 'src/composables/useItems';
+import { UpdateItemInput } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';
 import { onMounted, reactive, ref } from 'vue';

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { useResult } from '@vue/apollo-composable';
-import { useGetCatalogItemsQuery } from 'src/apollo/composition-functions';
+import { useGetCatalogItemsQuery } from 'src/apollo/catalog/categoryCatalog.operations';
 
 import CatalogItem from 'src/components/catalog/CatalogItem.vue';
 

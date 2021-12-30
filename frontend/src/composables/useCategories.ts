@@ -1,12 +1,10 @@
-import {
-  CreateCategoryInput,
-  UpdateCategoryInput,
-  useCreateCategoryMutation,
-  useGetCategoriesQuery, useGetCategoryQuery,
-  useRemoveCategoryMutation, useUpdateCategoryMutation,
-} from 'src/apollo/composition-functions';
-
 import { useSites } from 'src/composables/useSites';
+import {
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
+  useGetCategoryQuery, useRemoveCategoryMutation, useUpdateCategoryMutation,
+} from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
+import { CreateCategoryInput, UpdateCategoryInput } from 'src/types/graphql';
 
 export interface Category {
   id:number

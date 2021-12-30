@@ -2,8 +2,10 @@
 import { useResult } from '@vue/apollo-composable';
 import { useVModel } from '@vueuse/core';
 
-import { useGetCategoriesForSelectorQuery } from 'src/apollo/composition-functions';
 import { useRouteParams } from 'src/composables/useRoute';
+import {
+  useGetCategoriesForSelectorQuery,
+} from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
 import { FilterFn } from 'src/types/FilterFn.type';
 import { validationHelper } from 'src/validationHelper';
 import { computed, ref } from 'vue';
