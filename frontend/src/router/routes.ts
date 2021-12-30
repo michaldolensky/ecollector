@@ -2,6 +2,7 @@ import { AccountModuleRoutes } from 'src/modules/account/router';
 import { AuthModuleRoutes } from 'src/modules/auth/router';
 import { CatalogModuleRoutes } from 'src/modules/catalog/router';
 import { DashboardModuleRoutes } from 'src/modules/dashboard/router';
+import { IndexModuleRoutes } from 'src/modules/index/router';
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
 declare module 'vue-router' {
@@ -31,7 +32,7 @@ const getRoutes = (): RouteRecordRaw[] => [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'MainPage', component: () => import('pages/MainPage.vue') },
+      IndexModuleRoutes,
       {
         path: 'site/:siteId',
         redirect: { name: 'CatalogIndex' },

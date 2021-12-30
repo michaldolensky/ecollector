@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { useResult } from '@vue/apollo-composable';
-import { useGetPublicSitesQuery } from 'src/apollo/main';
+import { useGetPublicSitesQuery } from 'src/modules/index/graphql';
 import { Site } from 'src/types/graphql';
 import { useI18n } from 'vue-i18n';
 
