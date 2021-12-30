@@ -4,7 +4,7 @@ export const DashboardIndexRoutes:RouteRecordRaw[] = [
   {
     name: 'DashBoardIndex',
     path: '',
-    component: () => import('src/modules/dashboard/index/pages/Index.vue'),
+    component: () => import('src/modules/dashboard/modules/index/pages/Index.vue'),
   },
 ];
 //

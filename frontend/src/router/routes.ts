@@ -1,8 +1,4 @@
-import { DashboardCategoriesRoutes } from 'src/modules/dashboard/categories/router';
-import { DashboardIndexRoutes } from 'src/modules/dashboard/index/router';
-import { DashboardItemRoutes } from 'src/modules/dashboard/items/router';
-import { DashboardParameterRoutes } from 'src/modules/dashboard/parameters/router';
-import { DashboardSettingsRoutes } from 'src/modules/dashboard/settings/router';
+import { DashboardRoutes } from 'src/modules/dashboard/router';
 import { useAuthStore } from 'src/stores/auth';
 import { getParsedInt } from 'src/utils';
 import {
@@ -15,19 +11,12 @@ declare module 'vue-router' {
   }
 }
 
-const redirectToLogin = (to: RouteLocationNormalized) => ({
+export const redirectToLogin = (to: RouteLocationNormalized) => ({
   name: 'login',
   query: { redirect: to.fullPath },
 });
 
 const getRoutes = (): RouteRecordRaw[] => {
-  const requireAuth: NavigationGuard = (to, from, next) => {
-    const authStore = useAuthStore();
-    if (authStore.isLoggedIn) {
-      next();
-    } else next(redirectToLogin(to));
-  };
-
   const redirectWhenLoggedIn: NavigationGuard = (to, from, next) => {
     const authStore = useAuthStore();
     if (authStore.isLoggedIn) {
@@ -45,14 +34,6 @@ const getRoutes = (): RouteRecordRaw[] => {
   //     next(redirectToLogin(to));
   //   }
   // };
-  const requireOwner: NavigationGuard = (to, from, next) => {
-    const authStore = useAuthStore();
-    if (authStore.isOwner(to) || authStore.isAdmin) {
-      next();
-    } else {
-      next(redirectToLogin(to));
-    }
-  };
 
   return [
     {
@@ -104,29 +85,13 @@ const getRoutes = (): RouteRecordRaw[] => {
             },
           ],
         },
-        {
-          path: 'site/:siteId/dashboard/',
-          redirect: { name: 'DashBoardIndex' },
-          components: {
-            default: RouterView,
-            drawer: () => import('components/drawers/DashboardDrawer.vue'),
-          },
-          beforeEnter: [requireAuth, requireOwner],
-          meta: {
-            showDrawer: true,
-          },
-          children: [
-            ...DashboardIndexRoutes,
-            ...DashboardItemRoutes,
-            ...DashboardCategoriesRoutes,
-            ...DashboardParameterRoutes,
-            ...DashboardSettingsRoutes,
-          ],
-        },
+        ...DashboardRoutes,
         {
           path: 'account',
           component: RouterView,
-          beforeEnter: [requireAuth],
+          meta: {
+            requireAuth: true,
+          },
           children: [
             {
               path: 'profile',

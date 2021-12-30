@@ -8,7 +8,7 @@ export const DashboardSettingsRoutes:RouteRecordRaw[] = [
     props: (route) => ({
       siteId: getParsedInt(route.params.siteId),
     }),
-    component: () => import('src/modules/dashboard/settings/pages/SettingsPage.vue'),
+    component: () => import('src/modules/dashboard/modules/settings/pages/SettingsPage.vue'),
   },
 ];
 //

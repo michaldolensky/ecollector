@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DashboardDrawerItemsComponent from 'components/dashboard/DashboardDrawerItemsComponent.vue';
+import DashboardDrawerItemsComponent from 'src/modules/dashboard/components/DashboardDrawerItemsComponent.vue';
 
 import { useSiteSettingsStore } from 'src/stores/settings';
 

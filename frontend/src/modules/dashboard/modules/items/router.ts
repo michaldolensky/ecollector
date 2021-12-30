@@ -5,7 +5,7 @@ export const DashboardItemRoutes:RouteRecordRaw[] = [
   {
     name: 'DashBoardItemsList',
     path: 'items',
-    component: () => import('src/modules/dashboard/items/pages/DashboardItemsListPage.vue'),
+    component: () => import('src/modules/dashboard/modules/items/pages/DashboardItemsListPage.vue'),
   },
   {
     name: 'DashBoardItemEdit',
@@ -14,12 +14,12 @@ export const DashboardItemRoutes:RouteRecordRaw[] = [
       itemId: getParsedInt(route.params.itemId),
       inEditMode: true,
     }),
-    component: () => import('src/modules/dashboard/items/pages/EditItemPage.vue'),
+    component: () => import('src/modules/dashboard/modules/items/pages/EditItemPage.vue'),
   },
   {
     name: 'DashBoardItemCreate',
     path: 'items/new',
-    component: () => import('src/modules/dashboard/items/pages/EditItemPage.vue'),
+    component: () => import('src/modules/dashboard/modules/items/pages/EditItemPage.vue'),
   },
 ];
 //

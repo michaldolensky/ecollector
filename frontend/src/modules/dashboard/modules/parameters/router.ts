@@ -8,7 +8,7 @@ export const DashboardParameterRoutes:RouteRecordRaw[] = [
   {
     name: 'DashBoardParameterList',
     path: 'parameters',
-    component: () => import('src/modules/dashboard/parameters/pages/DashboardParametersListPage.vue'),
+    component: () => import('src/modules/dashboard/modules/parameters/pages/DashboardParametersListPage.vue'),
   },
   {
     name: 'DashBoardParameterEdit',
@@ -18,7 +18,7 @@ export const DashboardParameterRoutes:RouteRecordRaw[] = [
       inEditMode: true,
       headerTitle: t('dashboard.headers.editParameter'),
     }),
-    component: () => import('src/modules/dashboard/parameters/pages/EditParameterPage.vue'),
+    component: () => import('src/modules/dashboard/modules/parameters/pages/EditParameterPage.vue'),
   },
   {
     name: 'DashBoardParameterCreate',
@@ -26,7 +26,7 @@ export const DashboardParameterRoutes:RouteRecordRaw[] = [
     props: () => ({
       headerTitle: t('dashboard.headers.createParameter'),
     }),
-    component: () => import('src/modules/dashboard/parameters/pages/EditParameterPage.vue'),
+    component: () => import('src/modules/dashboard/modules/parameters/pages/EditParameterPage.vue'),
   },
 ];
 //

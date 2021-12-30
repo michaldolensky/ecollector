@@ -4,7 +4,7 @@ import { isParamPositiveInteger } from 'src/utils';
 import {
   createMemoryHistory, createRouter, createWebHashHistory, createWebHistory,
 } from 'vue-router';
-import getRoutes from './routes';
+import getRoutes, { redirectToLogin } from './routes';
 
 /*
  * If not building with SSR mode, you can
@@ -45,6 +45,9 @@ export default route((/* { store, ssrContext } */) => {
       if (categoryId && !isParamPositiveInteger(categoryId)) error = true;
       if (error) next({ name: 'Error404' });
     }
+
+    if (to.meta.requiresAuth && !authStore.isLoggedIn) next(redirectToLogin(to));
+
     next();
   });
 

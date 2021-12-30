@@ -5,7 +5,7 @@ export const DashboardCategoriesRoutes:RouteRecordRaw[] = [
   {
     name: 'DashBoardCategoriesList',
     path: 'categories',
-    component: () => import('src/modules/dashboard/categories/pages/DashboardCategoriesListPage.vue'),
+    component: () => import('src/modules/dashboard/modules/categories/pages/DashboardCategoriesListPage.vue'),
   },
   {
     name: 'DashBoardCategoryEdit',
@@ -15,13 +15,13 @@ export const DashboardCategoriesRoutes:RouteRecordRaw[] = [
       inEditMode: true,
       header: 'dashboard.headers.editCategory',
     }),
-    component: () => import('src/modules/dashboard/categories/pages/EditCategoryPage.vue'),
+    component: () => import('src/modules/dashboard/modules/categories/pages/EditCategoryPage.vue'),
   },
   {
     name: 'DashBoardCategoryCreate',
     path: 'categories/new',
     props: true,
-    component: () => import('src/modules/dashboard/categories/pages/EditCategoryPage.vue'),
+    component: () => import('src/modules/dashboard/modules/categories/pages/EditCategoryPage.vue'),
   },
 ];
 //

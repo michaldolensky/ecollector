@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import SitesTable from 'components/dashboard/SitesTable.vue';
 import AddSiteDialog from 'components/dashboard/AddSiteDialog.vue';
-import DashboardPage from 'pages/site/DashboardPage.vue';
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
+import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
 
 </script>
 
