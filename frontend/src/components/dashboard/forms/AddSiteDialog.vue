@@ -1,3 +1,27 @@
+<script lang="ts" setup>
+import { useAuthStore } from 'src/stores/auth';
+import { validationHelper } from 'src/validationHelper';
+import { reactive, ref } from 'vue';
+import { useSites } from 'src/composables/useSites';
+
+const { createSite } = useSites();
+const authStore = useAuthStore();
+
+const { required } = validationHelper;
+
+const site = reactive({
+  name: '',
+});
+
+const dialogOpen = ref(false);
+
+const onSubmit = () => {
+  void createSite(site).then(() => {
+    void authStore.me();
+    dialogOpen.value = false;
+  });
+};
+</script>
 <template>
   <q-btn
     :label="$t('account.sites.button.add_site')"
@@ -48,27 +72,3 @@
     </div>
   </q-dialog>
 </template>
-<script lang="ts" setup>
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive, ref } from 'vue';
-import { useSites } from 'src/composables/useSites';
-
-const { createSite } = useSites();
-const authStore = useAuthStore();
-
-const { required } = validationHelper;
-
-const site = reactive({
-  name: '',
-});
-
-const dialogOpen = ref(false);
-
-const onSubmit = () => {
-  void createSite(site).then(() => {
-    void authStore.me();
-    dialogOpen.value = false;
-  });
-};
-</script>

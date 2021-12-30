@@ -1,3 +1,45 @@
+<script lang="ts" setup>
+import { QForm, useQuasar } from 'quasar';
+import { useAuthStore } from 'src/stores/auth';
+import { validationHelper } from 'src/validationHelper';
+import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const authStore = useAuthStore();
+authStore.authError = '';
+
+const { t } = useI18n();
+const { notify } = useQuasar();
+
+const form = ref<QForm>();
+
+const auth = reactive({
+  oldPassword: '',
+  newPassword: '',
+  verifyPassword: '',
+});
+
+const onSubmit = () => {
+  void authStore.changePassword(auth).then((res) => {
+    if (res?.status === 200) {
+      authStore.authError = '';
+      auth.oldPassword = '';
+      auth.newPassword = '';
+      auth.verifyPassword = '';
+      form.value?.resetValidation();
+      notify({
+        message: t('notifications.profile.password_changed'),
+        type: 'positive',
+      });
+    }
+  });
+};
+// Validation
+const { required } = validationHelper;
+const checkIfPasswordsMatch = (verifyPassword: string) => (auth.newPassword === verifyPassword) || t('forms.auth.errors.password_mismatch');
+
+</script>
+
 <template>
   <q-form
     ref="form"
@@ -68,45 +110,3 @@
     </q-card>
   </q-form>
 </template>
-
-<script lang="ts" setup>
-import { QForm, useQuasar } from 'quasar';
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const authStore = useAuthStore();
-authStore.authError = '';
-
-const { t } = useI18n();
-const { notify } = useQuasar();
-
-const form = ref<QForm>();
-
-const auth = reactive({
-  oldPassword: '',
-  newPassword: '',
-  verifyPassword: '',
-});
-
-const onSubmit = () => {
-  void authStore.changePassword(auth).then((res) => {
-    if (res?.status === 200) {
-      authStore.authError = '';
-      auth.oldPassword = '';
-      auth.newPassword = '';
-      auth.verifyPassword = '';
-      form.value?.resetValidation();
-      notify({
-        message: t('notifications.profile.password_changed'),
-        type: 'positive',
-      });
-    }
-  });
-};
-// Validation
-const { required } = validationHelper;
-const checkIfPasswordsMatch = (verifyPassword: string) => (auth.newPassword === verifyPassword) || t('forms.auth.errors.password_mismatch');
-
-</script>

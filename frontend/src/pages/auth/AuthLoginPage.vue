@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import { useAuthStore } from 'src/stores/auth';
+import { LoginInterface } from 'src/types/auth.interface';
+import { validationHelper } from 'src/validationHelper';
+import { reactive } from 'vue';
+
+const authStore = useAuthStore();
+const { required } = validationHelper;
+
+authStore.authError = '';
+
+const loginData = reactive<LoginInterface>({
+  email: '',
+  password: '',
+});
+
+const onSubmit = () => {
+  void authStore.login(loginData);
+};
+
+</script>
+
 <template>
   <q-page
     padding
@@ -61,28 +83,6 @@
     </q-form>
   </q-page>
 </template>
-
-<script lang="ts" setup>
-import { useAuthStore } from 'src/stores/auth';
-import { LoginInterface } from 'src/types/auth.interface';
-import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
-
-const authStore = useAuthStore();
-const { required } = validationHelper;
-
-authStore.authError = '';
-
-const loginData = reactive<LoginInterface>({
-  email: '',
-  password: '',
-});
-
-const onSubmit = () => {
-  void authStore.login(loginData);
-};
-
-</script>
 
 <style lang="sass" scoped>
 .login-card

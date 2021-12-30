@@ -1,22 +1,3 @@
-<template>
-  <q-select
-    v-model="value"
-    :clearable="props.clearable"
-    :label="$t('dashboard.items.input.label.category')"
-    :multiple="props.multiple"
-    :options="options"
-    :rules="rules"
-    emit-value
-    input-debounce="0"
-    map-options
-    option-label="name"
-    option-value="id"
-    outlined
-    use-input
-    @filter="filterFn"
-  />
-</template>
-
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
 import { useVModel } from '@vueuse/core';
@@ -71,3 +52,22 @@ const { required } = validationHelper;
 const rules = computed(() => (props.required ? [required] : []));
 
 </script>
+
+<template>
+  <q-select
+    v-model="value"
+    :clearable="props.clearable"
+    :label="$t('dashboard.items.input.label.category')"
+    :multiple="props.multiple"
+    :options="options"
+    :rules="rules"
+    emit-value
+    input-debounce="0"
+    map-options
+    option-label="name"
+    option-value="id"
+    outlined
+    use-input
+    @filter="filterFn"
+  />
+</template>

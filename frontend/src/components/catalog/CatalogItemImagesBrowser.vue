@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+
+import { toRefs, useToggle } from '@vueuse/core';
+import { Image } from 'src/apollo/composition-functions';
+import { computed, ref } from 'vue';
+
+interface Props {
+  images: Image[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  images: () => [],
+});
+const { images } = toRefs(props);
+
+const moreThanOneImage = computed((): boolean => images.value.length > 1);
+
+const slide = ref(0);
+
+const [fullscreen, toggleFullscreen] = useToggle();
+
+</script>
+
 <template>
   <q-carousel
     v-model="slide"
@@ -76,26 +99,3 @@
     </q-scroll-area>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-import { toRefs, useToggle } from '@vueuse/core';
-import { Image } from 'src/apollo/composition-functions';
-import { computed, ref } from 'vue';
-
-interface Props {
-  images: Image[]
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  images: () => [],
-});
-const { images } = toRefs(props);
-
-const moreThanOneImage = computed((): boolean => images.value.length > 1);
-
-const slide = ref(0);
-
-const [fullscreen, toggleFullscreen] = useToggle();
-
-</script>

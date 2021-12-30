@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const { siteId, itemId } = route.params;
+
+</script>
+
 <template>
   <q-breadcrumbs>
     <q-breadcrumbs-el
@@ -10,12 +19,3 @@
     />
   </q-breadcrumbs>
 </template>
-
-<script lang="ts" setup>
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-
-const { siteId, itemId } = route.params;
-
-</script>

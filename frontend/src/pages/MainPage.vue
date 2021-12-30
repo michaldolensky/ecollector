@@ -1,25 +1,3 @@
-<template>
-  <q-page class="row items-center justify-evenly">
-    <q-table
-      :columns="columns"
-      :loading="loading"
-      :rows="sites"
-      row-key="id"
-    >
-      <template #body-cell-Action="props">
-        <q-td :props="props">
-          <q-btn
-            :to="`/site/${props.row.id}/`"
-            class="q-ml-sm"
-            flat
-            icon="open_in_new"
-          />
-        </q-td>
-      </template>
-    </q-table>
-  </q-page>
-</template>
-
 <script lang="ts" setup>
 
 import { useResult } from '@vue/apollo-composable';
@@ -65,3 +43,25 @@ const columns = [
 ];
 
 </script>
+
+<template>
+  <q-page class="row items-center justify-evenly">
+    <q-table
+      :columns="columns"
+      :loading="loading"
+      :rows="sites"
+      row-key="id"
+    >
+      <template #body-cell-Action="props">
+        <q-td :props="props">
+          <q-btn
+            :to="`/site/${props.row.id}/`"
+            class="q-ml-sm"
+            flat
+            icon="open_in_new"
+          />
+        </q-td>
+      </template>
+    </q-table>
+  </q-page>
+</template>

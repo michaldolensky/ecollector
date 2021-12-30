@@ -1,14 +1,3 @@
-<template>
-  <button
-    type="button"
-    :class="classes"
-    :style="style"
-    @click="onClick"
-  >
-    {{ label }}
-  </button>
-</template>
-
 <script>
 import './button.css';
 import { reactive, computed } from 'vue';
@@ -57,3 +46,14 @@ export default {
   },
 };
 </script>
+
+<template>
+  <button
+    type="button"
+    :class="classes"
+    :style="style"
+    @click="onClick"
+  >
+    {{ label }}
+  </button>
+</template>

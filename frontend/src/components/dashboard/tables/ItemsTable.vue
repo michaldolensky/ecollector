@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
+import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
+import { reactive } from 'vue';
+
+const {
+  loading,
+  confirmDelete,
+  items,
+  refetch,
+} = useDashboardItems();
+void refetch();
+
+const { ItemsTableColumns } = useDashboardTableColumns();
+
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
+});
+
+</script>
 <template>
   <q-table
     :columns="ItemsTableColumns"
@@ -55,26 +78,3 @@
     </template>
   </q-table>
 </template>
-<script lang="ts" setup>
-import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
-import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
-import { reactive } from 'vue';
-
-const {
-  loading,
-  confirmDelete,
-  items,
-  refetch,
-} = useDashboardItems();
-void refetch();
-
-const { ItemsTableColumns } = useDashboardTableColumns();
-
-const initialPagination = reactive({
-  sortBy: 'name',
-  descending: false,
-  page: 1,
-  rowsPerPage: 50,
-});
-
-</script>

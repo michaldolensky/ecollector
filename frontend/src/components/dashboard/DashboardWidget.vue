@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+
+interface Props {
+  count: number
+  title: string
+}
+const props = defineProps<Props>();
+
+</script>
+
 <template>
   <q-card>
     <q-card-section>
@@ -13,16 +23,6 @@
     </q-card-section>
   </q-card>
 </template>
-
-<script lang="ts" setup>
-
-interface Props {
-  count: number
-  title: string
-}
-const props = defineProps<Props>();
-
-</script>
 
 <style scoped>
 

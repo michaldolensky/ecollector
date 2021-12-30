@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <q-page>
     <q-page-container>
@@ -5,7 +9,3 @@
     </q-page-container>
   </q-page>
 </template>
-
-<script lang="ts" setup>
-
-</script>

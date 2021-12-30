@@ -1,3 +1,33 @@
+<script lang="ts" setup>
+import { useAuthStore } from 'src/stores/auth';
+import { validationHelper } from 'src/validationHelper';
+import { reactive } from 'vue';
+import { SignUpInterface } from 'src/types/auth.interface';
+import { useI18n } from 'vue-i18n';
+
+const authStore = useAuthStore();
+authStore.authError = '';
+
+const { t } = useI18n();
+
+const signupData = reactive<SignUpInterface>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  verifyPassword: '',
+});
+
+const onSubmit = () => {
+  void authStore.signup(signupData);
+};
+
+// Validation
+const { required } = validationHelper;
+const checkIfPasswordsMatch = (verifyPassword: string) => (signupData.password === verifyPassword) || t('forms.auth.errors.password_mismatch');
+
+</script>
+
 <template>
   <q-page
     padding
@@ -90,36 +120,6 @@
     </q-form>
   </q-page>
 </template>
-
-<script lang="ts" setup>
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
-import { SignUpInterface } from 'src/types/auth.interface';
-import { useI18n } from 'vue-i18n';
-
-const authStore = useAuthStore();
-authStore.authError = '';
-
-const { t } = useI18n();
-
-const signupData = reactive<SignUpInterface>({
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  verifyPassword: '',
-});
-
-const onSubmit = () => {
-  void authStore.signup(signupData);
-};
-
-// Validation
-const { required } = validationHelper;
-const checkIfPasswordsMatch = (verifyPassword: string) => (signupData.password === verifyPassword) || t('forms.auth.errors.password_mismatch');
-
-</script>
 
 <style lang="sass" scoped>
 .login-card

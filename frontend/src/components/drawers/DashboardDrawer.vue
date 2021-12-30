@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import DashboardDrawerItemsComponent from 'components/dashboard/DashboardDrawerItemsComponent.vue';
+
+import { useSiteSettingsStore } from 'src/stores/settings';
+
+const settings = useSiteSettingsStore();
+</script>
+
 <template>
   <q-drawer
     :mini="settings.drawerState"
@@ -11,11 +19,3 @@
     <DashboardDrawerItemsComponent />
   </q-drawer>
 </template>
-
-<script lang="ts" setup>
-import DashboardDrawerItemsComponent from 'components/dashboard/DashboardDrawerItemsComponent.vue';
-
-import { useSiteSettingsStore } from 'src/stores/settings';
-
-const settings = useSiteSettingsStore();
-</script>

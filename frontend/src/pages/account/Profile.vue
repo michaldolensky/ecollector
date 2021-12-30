@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import ChangePasswordCard from 'components/profile/ChangePasswordCard.vue';
+import DeleteAccountCard from 'components/profile/DeleteAccountCard.vue';
+import EditProfileInformationCard from 'components/profile/EditProfileInformationCard.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('pages.profile')" />
@@ -16,12 +25,3 @@
     </div>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ChangePasswordCard from 'components/profile/ChangePasswordCard.vue';
-import DeleteAccountCard from 'components/profile/DeleteAccountCard.vue';
-import EditProfileInformationCard from 'components/profile/EditProfileInformationCard.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-
-</script>

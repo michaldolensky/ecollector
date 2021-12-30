@@ -1,3 +1,21 @@
+<script lang="ts" setup>
+
+import { useRoute } from 'vue-router';
+
+interface Category {
+  id:number,
+  name:string,
+  description:string
+}
+interface Props{
+  category:Category
+}
+const props = defineProps<Props>();
+
+const route = useRoute();
+
+</script>
+
 <template>
   <q-item
     v-ripple
@@ -18,21 +36,3 @@
     </q-item-section>
   </q-item>
 </template>
-
-<script lang="ts" setup>
-
-import { useRoute } from 'vue-router';
-
-interface Category {
-  id:number,
-  name:string,
-  description:string
-}
-interface Props{
-  category:Category
-}
-const props = defineProps<Props>();
-
-const route = useRoute();
-
-</script>

@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import DashboardWidget from 'components/dashboard/DashboardWidget.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import { useSites } from 'src/composables/useSites';
+
+const { getSite, currentSiteId } = useSites();
+
+const { result, loading, refetch } = getSite(currentSiteId.value);
+void refetch();
+
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.headers.dashboard')" />
@@ -16,16 +29,3 @@
     </div>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardWidget from 'components/dashboard/DashboardWidget.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useSites } from 'src/composables/useSites';
-
-const { getSite, currentSiteId } = useSites();
-
-const { result, loading, refetch } = getSite(currentSiteId.value);
-void refetch();
-
-</script>

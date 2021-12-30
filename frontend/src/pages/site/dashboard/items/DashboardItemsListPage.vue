@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
+import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
+
+const { filter, refetch, resetFilter } = useDashboardItems();
+
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.items')">
@@ -51,14 +62,3 @@
     </q-card>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
-import ItemsTable from 'components/dashboard/tables/ItemsTable.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
-
-const { filter, refetch, resetFilter } = useDashboardItems();
-
-</script>

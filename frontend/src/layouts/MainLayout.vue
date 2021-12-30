@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+import LocaleToggle from 'components/index/LocaleToggle.vue';
+import { useSiteSettingsStore } from 'src/stores/settings';
+import AccountDropdown from 'components/index/AuthDropdown.vue';
+
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const settings = useSiteSettingsStore();
+
+const route = useRoute();
+const showDrawer = computed(() => route.meta.showDrawer);
+
+</script>
+
 <template>
   <q-layout view="hHh LpR fFf">
     <q-header
@@ -44,18 +59,3 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<script lang="ts" setup>
-import LocaleToggle from 'components/index/LocaleToggle.vue';
-import { useSiteSettingsStore } from 'src/stores/settings';
-import AccountDropdown from 'components/index/AuthDropdown.vue';
-
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-
-const settings = useSiteSettingsStore();
-
-const route = useRoute();
-const showDrawer = computed(() => route.meta.showDrawer);
-
-</script>

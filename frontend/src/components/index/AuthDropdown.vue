@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import { useAuthStore } from 'src/stores/auth';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const authStore = useAuthStore();
+
+const isOnAuthPage = computed(() => route.path.split('/')[1] === 'auth');
+
+</script>
+
 <template>
   <q-btn-dropdown
     v-if="authStore.isLoggedIn"
@@ -57,15 +69,3 @@
     />
   </div>
 </template>
-
-<script lang="ts" setup>
-import { useAuthStore } from 'src/stores/auth';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-const authStore = useAuthStore();
-
-const isOnAuthPage = computed(() => route.path.split('/')[1] === 'auth');
-
-</script>

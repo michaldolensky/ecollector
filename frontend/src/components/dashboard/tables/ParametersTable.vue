@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
+import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
+import { reactive } from 'vue';
+
+const { ParametersTableColumns } = useDashboardTableColumns();
+
+const {
+  loading,
+  confirmDelete,
+  parameters,
+  refetch,
+} = useDashboardParameters();
+void refetch();
+
+const initialPagination = reactive({
+  sortBy: 'name',
+  descending: false,
+  page: 1,
+  rowsPerPage: 50,
+});
+
+</script>
 <template>
   <q-table
     :columns="ParametersTableColumns"
@@ -42,26 +65,3 @@
     </template>
   </q-table>
 </template>
-<script lang="ts" setup>
-import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
-import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
-import { reactive } from 'vue';
-
-const { ParametersTableColumns } = useDashboardTableColumns();
-
-const {
-  loading,
-  confirmDelete,
-  parameters,
-  refetch,
-} = useDashboardParameters();
-void refetch();
-
-const initialPagination = reactive({
-  sortBy: 'name',
-  descending: false,
-  page: 1,
-  rowsPerPage: 50,
-});
-
-</script>

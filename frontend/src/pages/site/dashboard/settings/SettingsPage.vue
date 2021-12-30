@@ -1,71 +1,3 @@
-<template>
-  <dashboard-page>
-    <dashboard-page-header :title="$t('dashboard.navigation.settings')" />
-    <div
-      v-if="!loading"
-      class="items-start full-width "
-    >
-      <div class="row">
-        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
-          <q-form
-            @submit="onSubmit"
-          >
-            <q-card>
-              <q-card-section>
-                <div class="text-h6 text-weight-regular">
-                  {{ $t('dashboard.settings.card.title.description') }}
-                </div>
-              </q-card-section>
-              <q-separator />
-              <q-card-section>
-                <q-input
-                  v-model="currentSettings.name"
-                  :label="$t('dashboard.settings.inputs.site_name')"
-                  :loading="loading"
-                  :rules="[required]"
-                  lazy-rules
-                  outlined
-                  stack-label
-                />
-              </q-card-section>
-              <q-separator />
-              <q-card-actions>
-                <q-btn
-                  :label="$t('dashboard.settings.button.submit')"
-                  color="primary"
-                  type="submit"
-                />
-              </q-card-actions>
-            </q-card>
-          </q-form>
-        </div>
-        <div class="col-12 col-md-4 q-pa-md q-gutter-md">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.settings.card.title.delete_site') }}
-              </div>
-            </q-card-section>
-            <q-separator />
-            <q-card-section>
-              <q-btn
-                :label="$t('dashboard.settings.button.delete_site')"
-                color="negative"
-                @click="askForDelete"
-              />
-            </q-card-section>
-          </q-card>
-        </div>
-      </div>
-    </div>
-    <q-inner-loading
-      :showing="loading"
-      color="primary"
-      size="50px"
-    />
-  </dashboard-page>
-</template>
-
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
@@ -136,3 +68,71 @@ const askForDelete = () => {
 };
 
 </script>
+
+<template>
+  <dashboard-page>
+    <dashboard-page-header :title="$t('dashboard.navigation.settings')" />
+    <div
+      v-if="!loading"
+      class="items-start full-width "
+    >
+      <div class="row">
+        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
+          <q-form
+            @submit="onSubmit"
+          >
+            <q-card>
+              <q-card-section>
+                <div class="text-h6 text-weight-regular">
+                  {{ $t('dashboard.settings.card.title.description') }}
+                </div>
+              </q-card-section>
+              <q-separator />
+              <q-card-section>
+                <q-input
+                  v-model="currentSettings.name"
+                  :label="$t('dashboard.settings.inputs.site_name')"
+                  :loading="loading"
+                  :rules="[required]"
+                  lazy-rules
+                  outlined
+                  stack-label
+                />
+              </q-card-section>
+              <q-separator />
+              <q-card-actions>
+                <q-btn
+                  :label="$t('dashboard.settings.button.submit')"
+                  color="primary"
+                  type="submit"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-form>
+        </div>
+        <div class="col-12 col-md-4 q-pa-md q-gutter-md">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6 text-weight-regular">
+                {{ $t('dashboard.settings.card.title.delete_site') }}
+              </div>
+            </q-card-section>
+            <q-separator />
+            <q-card-section>
+              <q-btn
+                :label="$t('dashboard.settings.button.delete_site')"
+                color="negative"
+                @click="askForDelete"
+              />
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
+    </div>
+    <q-inner-loading
+      :showing="loading"
+      color="primary"
+      size="50px"
+    />
+  </dashboard-page>
+</template>

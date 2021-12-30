@@ -1,3 +1,19 @@
+<script lang="ts" setup>
+
+interface Props{
+  title: string;
+  icon?: string;
+  routeName: string;
+  caption?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  icon: '',
+  routeName: '#',
+  caption: '',
+});
+</script>
+
 <template>
   <q-item
     v-ripple
@@ -18,19 +34,3 @@
     </q-item-section>
   </q-item>
 </template>
-
-<script lang="ts" setup>
-
-interface Props{
-  title: string;
-  icon?: string;
-  routeName: string;
-  caption?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  icon: '',
-  routeName: '#',
-  caption: '',
-});
-</script>

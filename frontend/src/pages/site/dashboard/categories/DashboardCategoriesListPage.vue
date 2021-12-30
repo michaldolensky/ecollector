@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
+
+const { filter, refetch, resetFilter } = useDashboardCategories();
+
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.categories')">
@@ -45,13 +55,3 @@
     </q-card>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import CategoriesTable from 'components/dashboard/tables/CategoriesTable.vue';
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
-
-const { filter, refetch, resetFilter } = useDashboardCategories();
-
-</script>

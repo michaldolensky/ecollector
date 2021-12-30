@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <q-page
     class="bg-grey-3 col items-start q-gutter-md"
@@ -6,7 +10,3 @@
     <slot />
   </q-page>
 </template>
-
-<script lang="ts" setup>
-
-</script>

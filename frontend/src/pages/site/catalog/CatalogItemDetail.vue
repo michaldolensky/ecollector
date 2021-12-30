@@ -1,3 +1,42 @@
+<script lang="ts" setup>
+import { useResult } from '@vue/apollo-composable';
+import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
+import { ItemParameter, useGetCatalogItemQuery } from 'src/apollo/composition-functions';
+import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
+import { useLocaleStore } from 'src/stores/locale';
+
+interface Props {
+  itemId: number
+}
+
+const localeStore = useLocaleStore();
+
+const props = defineProps<Props>();
+
+const { result, loading } = useGetCatalogItemQuery(() => ({
+  itemId: props.itemId,
+}));
+
+const item = useResult(result, {});
+
+const columns = [
+  {
+    name: 'name',
+    required: true,
+    align: 'left',
+    field: (row:ItemParameter) => row.parameter.name,
+    sortable: true,
+    classes: 'text-bold',
+  },
+  {
+    name: 'value',
+    align: 'left',
+    field: 'value',
+    sortable: true,
+  },
+];
+</script>
+
 <template>
   <q-page
     v-if="!loading"
@@ -87,42 +126,3 @@
     </div>
   </q-page>
 </template>
-
-<script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import Breadcrumbs from 'src/components/catalog/Breadcrumbs.vue';
-import { ItemParameter, useGetCatalogItemQuery } from 'src/apollo/composition-functions';
-import CatalogItemImagesBrowser from 'src/components/catalog/CatalogItemImagesBrowser.vue';
-import { useLocaleStore } from 'src/stores/locale';
-
-interface Props {
-  itemId: number
-}
-
-const localeStore = useLocaleStore();
-
-const props = defineProps<Props>();
-
-const { result, loading } = useGetCatalogItemQuery(() => ({
-  itemId: props.itemId,
-}));
-
-const item = useResult(result, {});
-
-const columns = [
-  {
-    name: 'name',
-    required: true,
-    align: 'left',
-    field: (row:ItemParameter) => row.parameter.name,
-    sortable: true,
-    classes: 'text-bold',
-  },
-  {
-    name: 'value',
-    align: 'left',
-    field: 'value',
-    sortable: true,
-  },
-];
-</script>

@@ -1,6 +1,3 @@
-<template>
-  <router-view />
-</template>
 <script lang="ts" setup>
 import { LocaleState, useLocaleStore } from 'src/stores/locale';
 import { useSiteSettingsStore } from 'src/stores/settings';
@@ -23,3 +20,6 @@ watch(() => locale.$state, (state) => {
 }, { deep: true });
 locale.init();
 </script>
+<template>
+  <router-view />
+</template>

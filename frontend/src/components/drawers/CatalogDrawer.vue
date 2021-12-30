@@ -1,3 +1,30 @@
+<script lang="ts" setup>
+import { useResult } from '@vue/apollo-composable';
+import CatalogListCategory from 'components/catalog/CatalogListCategory.vue';
+import { useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
+import { useSites } from 'src/composables/useSites';
+import { useSiteSettingsStore } from 'src/stores/settings';
+import { computed, ref } from 'vue';
+
+const settings = useSiteSettingsStore();
+
+const { currentSiteId } = useSites();
+
+const filter = ref('');
+
+const { result, loading } = useGetCatalogueCategoriesQuery({
+  siteId: currentSiteId.value,
+});
+
+const categories = useResult(result, []);
+
+const sortedCategories = computed(() => categories.value
+  .filter((item) => item.name.toLowerCase().includes(filter.value.toLowerCase()))
+  .sort(
+    (a, b) => a.name.localeCompare(b.name),
+  ));
+</script>
+
 <template>
   <q-drawer
     v-model="settings.$state.drawer"
@@ -52,30 +79,3 @@
     </q-virtual-scroll>
   </q-drawer>
 </template>
-
-<script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import CatalogListCategory from 'components/catalog/CatalogListCategory.vue';
-import { useGetCatalogueCategoriesQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/composables/useSites';
-import { useSiteSettingsStore } from 'src/stores/settings';
-import { computed, ref } from 'vue';
-
-const settings = useSiteSettingsStore();
-
-const { currentSiteId } = useSites();
-
-const filter = ref('');
-
-const { result, loading } = useGetCatalogueCategoriesQuery({
-  siteId: currentSiteId.value,
-});
-
-const categories = useResult(result, []);
-
-const sortedCategories = computed(() => categories.value
-  .filter((item) => item.name.toLowerCase().includes(filter.value.toLowerCase()))
-  .sort(
-    (a, b) => a.name.localeCompare(b.name),
-  ));
-</script>

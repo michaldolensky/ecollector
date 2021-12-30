@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+
+interface Props {
+  title?: string
+}
+
+const props = defineProps<Props>();
+
+</script>
+
 <template>
   <header>
     <slot name="title">
@@ -11,13 +21,3 @@
     </div>
   </header>
 </template>
-
-<script lang="ts" setup>
-
-interface Props {
-  title?: string
-}
-
-const props = defineProps<Props>();
-
-</script>

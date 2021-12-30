@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import AccountDropdown from 'components/index/AuthDropdown.vue';
+import { useSiteSettingsStore } from 'src/stores/settings';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const settings = useSiteSettingsStore();
+
+const route = useRoute();
+const showDrawer = ref(route.meta.showDrawer);
+
+</script>
 <template>
   <q-header
     bordered
@@ -30,15 +42,3 @@
     </q-toolbar>
   </q-header>
 </template>
-<script lang="ts" setup>
-import AccountDropdown from 'components/index/AuthDropdown.vue';
-import { useSiteSettingsStore } from 'src/stores/settings';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-
-const settings = useSiteSettingsStore();
-
-const route = useRoute();
-const showDrawer = ref(route.meta.showDrawer);
-
-</script>

@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+import { useVModel } from '@vueuse/core';
+
+interface Props {
+  modelValue: string
+}
+const props = defineProps<Props>();
+const emit = defineEmits(['update:modelValue']);
+const value = useVModel(props, 'modelValue', emit);
+
+</script>
 <template>
   <q-editor
     v-model="value"
@@ -55,14 +66,3 @@
     outlined
   />
 </template>
-<script lang="ts" setup>
-import { useVModel } from '@vueuse/core';
-
-interface Props {
-  modelValue: string
-}
-const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
-const value = useVModel(props, 'modelValue', emit);
-
-</script>

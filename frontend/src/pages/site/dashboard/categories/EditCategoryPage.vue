@@ -1,60 +1,3 @@
-<template>
-  <dashboard-page>
-    <dashboard-page-header
-      :title="$t(props.header)"
-    >
-      <q-btn
-        :label="$t('buttons.common.save')"
-        color="secondary"
-        icon="save"
-        @click="form?.submit()"
-      />
-    </dashboard-page-header>
-
-    <q-form
-      v-if="!loading"
-      ref="form"
-      class="items-start full-width"
-      @submit="onSubmit"
-    >
-      <div class="row">
-        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.categories.card.title.category_description') }}
-              </div>
-            </q-card-section>
-
-            <q-separator />
-            <q-card-section>
-              <q-input
-                v-model="category.name"
-                :label="$t('dashboard.categories.input.label.category_name')"
-                :rules="[required]"
-                counter
-                maxlength="100"
-                outlined
-                stack-label
-              />
-
-              <q-input
-                v-model="category.perex"
-                :label="$t('dashboard.categories.input.label.short_description')"
-                maxlength="250"
-                outlined
-                stack-label
-                type="textarea"
-              />
-            </q-card-section>
-          </q-card>
-          <q-card />
-        </div>
-      </div>
-    </q-form>
-  </dashboard-page>
-</template>
-
 <script lang="ts" setup>
 import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
 import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
@@ -147,3 +90,60 @@ const onSubmit = () => {
 };
 
 </script>
+
+<template>
+  <dashboard-page>
+    <dashboard-page-header
+      :title="$t(props.header)"
+    >
+      <q-btn
+        :label="$t('buttons.common.save')"
+        color="secondary"
+        icon="save"
+        @click="form?.submit()"
+      />
+    </dashboard-page-header>
+
+    <q-form
+      v-if="!loading"
+      ref="form"
+      class="items-start full-width"
+      @submit="onSubmit"
+    >
+      <div class="row">
+        <div class="col-12 col-md-8 q-pa-md q-gutter-md">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6 text-weight-regular">
+                {{ $t('dashboard.categories.card.title.category_description') }}
+              </div>
+            </q-card-section>
+
+            <q-separator />
+            <q-card-section>
+              <q-input
+                v-model="category.name"
+                :label="$t('dashboard.categories.input.label.category_name')"
+                :rules="[required]"
+                counter
+                maxlength="100"
+                outlined
+                stack-label
+              />
+
+              <q-input
+                v-model="category.perex"
+                :label="$t('dashboard.categories.input.label.short_description')"
+                maxlength="250"
+                outlined
+                stack-label
+                type="textarea"
+              />
+            </q-card-section>
+          </q-card>
+          <q-card />
+        </div>
+      </div>
+    </q-form>
+  </dashboard-page>
+</template>

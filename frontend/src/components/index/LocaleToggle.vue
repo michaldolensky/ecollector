@@ -1,15 +1,3 @@
-<template>
-  <q-select
-    v-model="locale"
-    :options="localeStore.getLangOptions"
-    color="secondary"
-    emit-value
-    map-options
-    options-dense
-    style="min-width: 150px"
-  />
-</template>
-
 <script lang="ts" setup>
 import { useLocaleStore } from 'src/stores/locale';
 import { computed } from 'vue';
@@ -25,3 +13,15 @@ const locale = computed({
   },
 });
 </script>
+
+<template>
+  <q-select
+    v-model="locale"
+    :options="localeStore.getLangOptions"
+    color="secondary"
+    emit-value
+    map-options
+    options-dense
+    style="min-width: 150px"
+  />
+</template>

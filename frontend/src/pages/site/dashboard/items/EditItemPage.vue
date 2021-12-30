@@ -1,3 +1,111 @@
+<script lang="ts" setup>
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
+import Editor from 'components/dashboard/forms/Editor.vue';
+import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import Parameters from 'components/dashboard/forms/ParametersPanel.vue';
+import { QForm, useQuasar } from 'quasar';
+import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
+import { useItems } from 'src/composables/useItems';
+import { validationHelper } from 'src/validationHelper';
+import { DeepNullable } from 'ts-essentials';
+import { onMounted, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const { createItem, updateItem } = useItems();
+const { required } = validationHelper;
+
+const { notify } = useQuasar();
+
+const { t } = useI18n();
+
+interface Props {
+  inEditMode?: boolean,
+  itemId?: number,
+}
+const props = defineProps<Props>();
+
+const resetObject:DeepNullable<UpdateItemInput> = {
+  id: 0,
+  name: '',
+  categoryId: null,
+  shortDesc: '',
+  longDesc: '',
+  internalNumber: '',
+  numberForExchange: 0,
+  numberInCollection: 0,
+  images: [],
+  itemParameters: [],
+};
+
+const item = reactive(resetObject);
+const enableQuery = ref(false);
+const tab = ref('detail');
+onMounted(() => {
+  if (props.inEditMode) enableQuery.value = true;
+});
+const form = ref<QForm>();
+
+const {
+  onResult, restart, loading, refetch,
+} = useItemQuery({
+  id: props.itemId,
+}, () => ({
+  enabled: enableQuery.value,
+}));
+
+onResult((result) => {
+  if (!result.loading) {
+    const reqItem = result.data.item;
+
+    item.id = reqItem.id;
+    item.name = reqItem.name;
+    item.categoryId = reqItem.categoryId;
+    item.shortDesc = reqItem.shortDesc;
+    item.longDesc = reqItem.longDesc;
+    item.internalNumber = reqItem.internalNumber;
+    item.numberForExchange = reqItem.numberForExchange;
+    item.numberInCollection = reqItem.numberInCollection;
+    item.images = reqItem.images;
+    item.itemParameters = reqItem.itemParameters;
+  }
+});
+restart();
+
+const onSubmit = () => {
+  if (props.inEditMode) {
+    void updateItem(item).then((result) => {
+      if (result?.data) {
+        notify({
+          type: 'positive',
+          message: t('dashboard.items.notification.message.item_updated'),
+        });
+        void refetch();
+      }
+    });
+  } else {
+    delete item.id;
+    delete item.images;
+    delete item.itemParameters;
+    void createItem(item).then((result) => {
+      if (result?.data) {
+        notify({
+          type: 'positive',
+          message: t('dashboard.items.notification.message.item_created'),
+        });
+        void router.push({
+          name: 'DashBoardItemEdit',
+          params: { itemId: result.data.createItem.id },
+        });
+      }
+    });
+  }
+};
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header
@@ -156,111 +264,3 @@
     </q-form>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import EditItemImages from 'components/dashboard/forms/EditItemImages.vue';
-import Editor from 'components/dashboard/forms/Editor.vue';
-import ItemCategorySelect from 'components/dashboard/forms/select/ItemCategorySelect.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import Parameters from 'components/dashboard/forms/ParametersPanel.vue';
-import { QForm, useQuasar } from 'quasar';
-import { UpdateItemInput, useItemQuery } from 'src/apollo/composition-functions';
-import { useItems } from 'src/composables/useItems';
-import { validationHelper } from 'src/validationHelper';
-import { DeepNullable } from 'ts-essentials';
-import { onMounted, reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const { createItem, updateItem } = useItems();
-const { required } = validationHelper;
-
-const { notify } = useQuasar();
-
-const { t } = useI18n();
-
-interface Props {
-  inEditMode?: boolean,
-  itemId?: number,
-}
-const props = defineProps<Props>();
-
-const resetObject:DeepNullable<UpdateItemInput> = {
-  id: 0,
-  name: '',
-  categoryId: null,
-  shortDesc: '',
-  longDesc: '',
-  internalNumber: '',
-  numberForExchange: 0,
-  numberInCollection: 0,
-  images: [],
-  itemParameters: [],
-};
-
-const item = reactive(resetObject);
-const enableQuery = ref(false);
-const tab = ref('detail');
-onMounted(() => {
-  if (props.inEditMode) enableQuery.value = true;
-});
-const form = ref<QForm>();
-
-const {
-  onResult, restart, loading, refetch,
-} = useItemQuery({
-  id: props.itemId,
-}, () => ({
-  enabled: enableQuery.value,
-}));
-
-onResult((result) => {
-  if (!result.loading) {
-    const reqItem = result.data.item;
-
-    item.id = reqItem.id;
-    item.name = reqItem.name;
-    item.categoryId = reqItem.categoryId;
-    item.shortDesc = reqItem.shortDesc;
-    item.longDesc = reqItem.longDesc;
-    item.internalNumber = reqItem.internalNumber;
-    item.numberForExchange = reqItem.numberForExchange;
-    item.numberInCollection = reqItem.numberInCollection;
-    item.images = reqItem.images;
-    item.itemParameters = reqItem.itemParameters;
-  }
-});
-restart();
-
-const onSubmit = () => {
-  if (props.inEditMode) {
-    void updateItem(item).then((result) => {
-      if (result?.data) {
-        notify({
-          type: 'positive',
-          message: t('dashboard.items.notification.message.item_updated'),
-        });
-        void refetch();
-      }
-    });
-  } else {
-    delete item.id;
-    delete item.images;
-    delete item.itemParameters;
-    void createItem(item).then((result) => {
-      if (result?.data) {
-        notify({
-          type: 'positive',
-          message: t('dashboard.items.notification.message.item_created'),
-        });
-        void router.push({
-          name: 'DashBoardItemEdit',
-          params: { itemId: result.data.createItem.id },
-        });
-      }
-    });
-  }
-};
-</script>

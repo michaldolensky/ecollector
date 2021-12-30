@@ -1,3 +1,67 @@
+<script lang="ts" setup>
+import { useVModel } from '@vueuse/core';
+import { QUploader } from 'quasar';
+import { Image, useImages } from 'src/composables/useImages';
+import { useRouteParams } from 'src/composables/useRoute';
+import { ref } from 'vue';
+
+const { removeImage } = useImages();
+
+interface Props {
+  inEditMode: boolean;
+  modelValue: Image[];
+}
+const props = withDefaults(defineProps<Props>(), {
+  inEditMode: false,
+  modelValue: () => [],
+});
+
+const emit = defineEmits(['update:modelValue']);
+const images = useVModel(props, 'modelValue', emit);
+
+const uploader = ref<QUploader>();
+const { itemId, siteId } = useRouteParams();
+
+const uploadImage = () => {
+  uploader.value?.reset();
+  return {
+    url: `${process.env.SERVER_URL_API}uploads`,
+    method: 'POST',
+    formFields: [
+      { name: 'siteId', value: siteId.value },
+      { name: 'itemId', value: itemId.value },
+    ],
+    fieldName: 'images',
+  };
+};
+
+interface UploadResponse extends XMLHttpRequest{
+  response: string
+}
+const imagesUploaded = (info: { files: [], xhr: UploadResponse }) => {
+  const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
+
+  images.value = [...responseImages.map((value) => ({
+    main: value.main,
+    path: value.path,
+    id: value.id,
+  })), ...props.modelValue];
+};
+
+const deleteImage = (id: number) => {
+  removeImage(id);
+  images.value = images.value.filter((value) => value.id !== id);
+};
+
+const setAsMainImage = (id: number) => {
+  images.value = images.value.map((value) => ({
+    path: value.path,
+    id: value.id,
+    main: value.id === id,
+  }));
+};
+
+</script>
 <template>
   <q-card>
     <q-card-section>
@@ -67,67 +131,3 @@
     </q-card-section>
   </q-card>
 </template>
-<script lang="ts" setup>
-import { useVModel } from '@vueuse/core';
-import { QUploader } from 'quasar';
-import { Image, useImages } from 'src/composables/useImages';
-import { useRouteParams } from 'src/composables/useRoute';
-import { ref } from 'vue';
-
-const { removeImage } = useImages();
-
-interface Props {
-  inEditMode: boolean;
-  modelValue: Image[];
-}
-const props = withDefaults(defineProps<Props>(), {
-  inEditMode: false,
-  modelValue: () => [],
-});
-
-const emit = defineEmits(['update:modelValue']);
-const images = useVModel(props, 'modelValue', emit);
-
-const uploader = ref<QUploader>();
-const { itemId, siteId } = useRouteParams();
-
-const uploadImage = () => {
-  uploader.value?.reset();
-  return {
-    url: `${process.env.SERVER_URL_API}uploads`,
-    method: 'POST',
-    formFields: [
-      { name: 'siteId', value: siteId.value },
-      { name: 'itemId', value: itemId.value },
-    ],
-    fieldName: 'images',
-  };
-};
-
-interface UploadResponse extends XMLHttpRequest{
-  response: string
-}
-const imagesUploaded = (info: { files: [], xhr: UploadResponse }) => {
-  const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
-
-  images.value = [...responseImages.map((value) => ({
-    main: value.main,
-    path: value.path,
-    id: value.id,
-  })), ...props.modelValue];
-};
-
-const deleteImage = (id: number) => {
-  removeImage(id);
-  images.value = images.value.filter((value) => value.id !== id);
-};
-
-const setAsMainImage = (id: number) => {
-  images.value = images.value.map((value) => ({
-    path: value.path,
-    id: value.id,
-    main: value.id === id,
-  }));
-};
-
-</script>

@@ -1,3 +1,38 @@
+<script lang="ts" setup>
+import { useQuasar } from 'quasar';
+import { useUsers } from 'src/composables/useUsers';
+import { useAuthStore } from 'src/stores/auth';
+import { validationHelper } from 'src/validationHelper';
+import { reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+const { notify } = useQuasar();
+const authStore = useAuthStore();
+const { updateUser } = useUsers();
+
+const profileData = reactive({
+  firstName: authStore.user.firstName,
+  lastName: authStore.user.lastName,
+});
+
+const onSubmit = () => {
+  void updateUser(profileData).then((result) => {
+    if (result?.data) {
+      notify({
+        message: t('notifications.profile.updated'),
+        type: 'positive',
+      });
+      void authStore.me();
+    }
+  });
+};
+
+// Validation
+const { required } = validationHelper;
+
+</script>
+
 <template>
   <q-form
     @submit="onSubmit"
@@ -41,41 +76,6 @@
     </q-card>
   </q-form>
 </template>
-
-<script lang="ts" setup>
-import { useQuasar } from 'quasar';
-import { useUsers } from 'src/composables/useUsers';
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
-const { notify } = useQuasar();
-const authStore = useAuthStore();
-const { updateUser } = useUsers();
-
-const profileData = reactive({
-  firstName: authStore.user.firstName,
-  lastName: authStore.user.lastName,
-});
-
-const onSubmit = () => {
-  void updateUser(profileData).then((result) => {
-    if (result?.data) {
-      notify({
-        message: t('notifications.profile.updated'),
-        type: 'positive',
-      });
-      void authStore.me();
-    }
-  });
-};
-
-// Validation
-const { required } = validationHelper;
-
-</script>
 
 <style scoped>
 

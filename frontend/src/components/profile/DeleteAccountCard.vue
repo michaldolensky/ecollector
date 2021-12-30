@@ -1,21 +1,3 @@
-<template>
-  <q-card>
-    <q-card-section>
-      <div class="text-h6 text-weight-regular">
-        {{ $t('account.profile.card.title.delete_account') }}
-      </div>
-    </q-card-section>
-    <q-separator />
-    <q-card-section>
-      <q-btn
-        :label="$t('buttons.common.delete')"
-        color="negative"
-        @click="deleteAccount()"
-      />
-    </q-card-section>
-  </q-card>
-</template>
-
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
 import { useUsers } from 'src/composables/useUsers';
@@ -49,3 +31,21 @@ const deleteAccount = () => {
   });
 };
 </script>
+
+<template>
+  <q-card>
+    <q-card-section>
+      <div class="text-h6 text-weight-regular">
+        {{ $t('account.profile.card.title.delete_account') }}
+      </div>
+    </q-card-section>
+    <q-separator />
+    <q-card-section>
+      <q-btn
+        :label="$t('buttons.common.delete')"
+        color="negative"
+        @click="deleteAccount()"
+      />
+    </q-card-section>
+  </q-card>
+</template>

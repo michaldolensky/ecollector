@@ -1,17 +1,3 @@
-<template>
-  <q-select
-    v-model="value"
-    :clearable="props.clearable"
-    :label="$t('dashboard.parameters.input.label.parameterType')"
-    :options="options"
-    :rules="rules"
-    emit-value
-    input-debounce="0"
-    map-options
-    outlined
-  />
-</template>
-
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 import { ParameterType } from 'src/apollo/composition-functions';
@@ -37,3 +23,17 @@ const { required } = validationHelper;
 const rules = computed(() => (props.required ? [required] : []));
 
 </script>
+
+<template>
+  <q-select
+    v-model="value"
+    :clearable="props.clearable"
+    :label="$t('dashboard.parameters.input.label.parameterType')"
+    :options="options"
+    :rules="rules"
+    emit-value
+    input-debounce="0"
+    map-options
+    outlined
+  />
+</template>

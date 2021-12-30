@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
+import ParametersTable from 'components/dashboard/tables/ParametersTable.vue';
+import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
+import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
+
+const { filter, refetch, resetFilter } = useDashboardParameters();
+
+</script>
+
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.parameters')">
@@ -45,13 +55,3 @@
     </q-card>
   </dashboard-page>
 </template>
-
-<script lang="ts" setup>
-import DashboardPageHeader from 'components/dashboard/DashboardPageHeader.vue';
-import ParametersTable from 'components/dashboard/tables/ParametersTable.vue';
-import DashboardPage from 'pages/site/dashboard/DashboardPage.vue';
-import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
-
-const { filter, refetch, resetFilter } = useDashboardParameters();
-
-</script>

@@ -1,24 +1,3 @@
-<template>
-  <q-card v-if="!loading">
-    <q-card-section>
-      <div class="text-h6 text-weight-regular">
-        {{ $t('dashboard.items.card.title.parameters') }}
-      </div>
-    </q-card-section>
-    <q-separator />
-    <q-card-section>
-      <q-input
-        v-for="itemParameter in itemParameters"
-        :key="itemParameter.parameter.id"
-        v-model="itemParameter.value"
-        :label="itemParameter.parameter.name"
-        outlined
-        @update:model-value="(val) => updateFunction(itemParameter.parameter.id, val)"
-      />
-    </q-card-section>
-  </q-card>
-</template>
-
 <script lang="ts" setup>
 import { useResult } from '@vue/apollo-composable';
 import { ItemParameter, ItemParameterInput, useGetParametersQuery } from 'src/apollo/composition-functions';
@@ -69,3 +48,24 @@ const updateFunction = (inputId:number, value:string) => {
   });
 };
 </script>
+
+<template>
+  <q-card v-if="!loading">
+    <q-card-section>
+      <div class="text-h6 text-weight-regular">
+        {{ $t('dashboard.items.card.title.parameters') }}
+      </div>
+    </q-card-section>
+    <q-separator />
+    <q-card-section>
+      <q-input
+        v-for="itemParameter in itemParameters"
+        :key="itemParameter.parameter.id"
+        v-model="itemParameter.value"
+        :label="itemParameter.parameter.name"
+        outlined
+        @update:model-value="(val) => updateFunction(itemParameter.parameter.id, val)"
+      />
+    </q-card-section>
+  </q-card>
+</template>

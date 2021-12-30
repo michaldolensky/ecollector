@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import { CatalogItem } from 'src/composables/useCatalog';
+
+interface Props {
+  item: CatalogItem
+}
+
+const props = defineProps<Props>();
+
+</script>
 <template>
   <q-card
     style="width: 100%; max-width: 250px"
@@ -64,16 +74,6 @@
     </q-card-section>
   </q-card>
 </template>
-<script lang="ts" setup>
-import { CatalogItem } from 'src/composables/useCatalog';
-
-interface Props {
-  item: CatalogItem
-}
-
-const props = defineProps<Props>();
-
-</script>
 
 <style scoped>
 .no-decoration{

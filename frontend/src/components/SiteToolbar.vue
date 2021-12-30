@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+
+import { useSiteQuery } from 'src/apollo/composition-functions';
+import { useSites } from 'src/composables/useSites';
+
+const { currentSiteId } = useSites();
+const { result } = useSiteQuery({ id: currentSiteId.value });
+
+</script>
 <template>
   <q-toolbar inset>
     <q-toolbar-title
@@ -20,12 +29,3 @@
     </q-tabs>
   </q-toolbar>
 </template>
-<script lang="ts" setup>
-
-import { useSiteQuery } from 'src/apollo/composition-functions';
-import { useSites } from 'src/composables/useSites';
-
-const { currentSiteId } = useSites();
-const { result } = useSiteQuery({ id: currentSiteId.value });
-
-</script>

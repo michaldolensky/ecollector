@@ -1,21 +1,3 @@
-<template>
-  <q-page>
-    <q-scroll-area style="height: 80vh; width:100%">
-      <div
-        v-if="!loading"
-        class="q-pa-md row items-start q-gutter-md items"
-      >
-        <template
-          v-for="item in items"
-          :key="item.id"
-        >
-          <CatalogItem :item="item" />
-        </template>
-      </div>
-    </q-scroll-area>
-  </q-page>
-</template>
-
 <script lang="ts" setup>
 
 import { useResult } from '@vue/apollo-composable';
@@ -39,6 +21,24 @@ const { result, loading } = useGetCatalogItemsQuery(() => ({
 const items = useResult(result, []);
 
 </script>
+
+<template>
+  <q-page>
+    <q-scroll-area style="height: 80vh; width:100%">
+      <div
+        v-if="!loading"
+        class="q-pa-md row items-start q-gutter-md items"
+      >
+        <template
+          v-for="item in items"
+          :key="item.id"
+        >
+          <CatalogItem :item="item" />
+        </template>
+      </div>
+    </q-scroll-area>
+  </q-page>
+</template>
 <style>
 .items{
   width: 100%;

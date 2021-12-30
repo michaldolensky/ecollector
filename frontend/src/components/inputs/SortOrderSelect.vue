@@ -1,16 +1,3 @@
-<template>
-  <q-select
-    v-model="sortOrder"
-    :label="$t('forms.input.label.sortOrder')"
-    :options="options"
-    dense
-    emit-value
-    filled
-    map-options
-    options-dense
-  />
-</template>
-
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 
@@ -39,3 +26,16 @@ const props = withDefaults(defineProps<Props>(), {
 const sortOrder = useVModel(props, 'modelValue', emit);
 
 </script>
+
+<template>
+  <q-select
+    v-model="sortOrder"
+    :label="$t('forms.input.label.sortOrder')"
+    :options="options"
+    dense
+    emit-value
+    filled
+    map-options
+    options-dense
+  />
+</template>
