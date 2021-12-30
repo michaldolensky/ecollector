@@ -47,6 +47,7 @@ const graphQLLogger = new Logger('GraphQLModule');
           graphQLLogger.error('error', error);
           return error;
         },
+        introspection: process.env.NODE_ENV !== 'PRODUCTION',
         cors: {
           origin: [
             'https://studio.apollographql.com',
