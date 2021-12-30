@@ -2496,7 +2496,7 @@
     "@graphql-tools/utils" "^8.1.1"
     tslib "~2.3.0"
 
-"@graphql-codegen/near-operation-file-preset@^2.2.3":
+"@graphql-codegen/near-operation-file-preset@2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/near-operation-file-preset/-/near-operation-file-preset-2.2.3.tgz#1b3521c55579d287f200f3ceea454f8020766f51"
   integrity sha512-aPV4FuQCSIefuSYt4Z9GPIi+qlLqR+C8p3iX6C+3MJRvg+xmzwMw5QcewS0+XF9Jba48c6uICjerXzxMnWvnSw==
