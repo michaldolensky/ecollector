@@ -10,12 +10,12 @@ export const AccountModuleRoutes:RouteRecordRaw = {
     {
       path: 'profile',
       name: 'profile',
-      component: () => import('../modules/account/pages/Profile.vue'),
+      component: () => import('src/modules/account/pages/Profile.vue'),
     },
     {
       path: 'sites',
       name: 'SitesList',
-      component: () => import('../modules/account/pages/SitesListPage.vue'),
+      component: () => import('src/modules/account/pages/SitesListPage.vue'),
     },
   ],
 };

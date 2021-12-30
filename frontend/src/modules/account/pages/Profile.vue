@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import ChangePasswordCard from 'components/../components/profile/ChangePasswordCard.vue';
-import DeleteAccountCard from 'components/../components/profile/DeleteAccountCard.vue';
-import EditProfileInformationCard from 'components/../components/profile/EditProfileInformationCard.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
+import ChangePasswordCard from '../components/profile/ChangePasswordCard.vue';
+import DeleteAccountCard from '../components/profile/DeleteAccountCard.vue';
+import EditProfileInformationCard from '../components/profile/EditProfileInformationCard.vue';
 
 </script>
 
