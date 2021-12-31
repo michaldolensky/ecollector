@@ -1,14 +1,12 @@
 <script lang="ts" setup>
+import { QInput } from 'quasar';
 import { useAuthStore } from 'src/stores/auth';
 import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { SignUpInterface } from 'src/types/auth.interface';
-import { useI18n } from 'vue-i18n';
 
 const authStore = useAuthStore();
 authStore.authError = '';
-
-const { t } = useI18n();
 
 const signupData = reactive<SignUpInterface>({
   firstName: '',
@@ -23,8 +21,9 @@ const onSubmit = () => {
 };
 
 // Validation
-const { required } = validationHelper;
-const checkIfPasswordsMatch = (verifyPassword: string) => (signupData.password === verifyPassword) || t('forms.auth.errors.password_mismatch');
+const { required, minLength, passportMismatch } = validationHelper;
+const passportInput = ref<QInput>();
+const verifyPassportInput = ref<QInput>();
 
 </script>
 
@@ -74,24 +73,28 @@ const checkIfPasswordsMatch = (verifyPassword: string) => (signupData.password =
             type="email"
           />
           <q-input
+            ref="passportInput"
             v-model="signupData.password"
             :label="$t('forms.auth.password')"
-            :rules="[ required ]"
+            :rules="[ required,passportMismatch(signupData.verifyPassword),minLength(8) ]"
             lazy-rules
             outlined
             required
             square
             type="password"
+            @change="verifyPassportInput.validate()"
           />
           <q-input
+            ref="verifyPassportInput"
             v-model="signupData.verifyPassword"
             :label="$t('forms.auth.confirm_password')"
-            :rules="[required,checkIfPasswordsMatch]"
+            :rules="[required,passportMismatch(signupData.password),minLength(8) ]"
             lazy-rules
             outlined
             required
             square
             type="password"
+            @change="passportInput.validate()"
           />
           <p
             v-if="authStore.hasError"

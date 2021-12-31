@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { QForm, useQuasar } from 'quasar';
+import { QForm, QInput, useQuasar } from 'quasar';
 import { useAuthStore } from 'src/stores/auth';
 import { validationHelper } from 'src/validationHelper';
 import { reactive, ref } from 'vue';
@@ -35,9 +35,9 @@ const onSubmit = () => {
   });
 };
 // Validation
-const { required } = validationHelper;
-const checkIfPasswordsMatch = (verifyPassword: string) => (auth.newPassword === verifyPassword) || t('forms.auth.errors.password_mismatch');
-
+const { required, minLength, passportMismatch } = validationHelper;
+const newPassportInput = ref<QInput>();
+const verifyPassportInput = ref<QInput>();
 </script>
 
 <template>
@@ -71,27 +71,28 @@ const checkIfPasswordsMatch = (verifyPassword: string) => (auth.newPassword === 
           type="password"
         />
         <q-input
+          ref="newPassportInput"
           v-model="auth.newPassword"
           :label="$t('forms.auth.newPassword')"
-          :rules="[ required ]"
+          :rules="[ required,passportMismatch(auth.newPassword),minLength(8) ]"
           autocomplete="new-password"
           lazy-rules
-
           outlined
-          required
           square
           type="password"
+          @change="verifyPassportInput.validate()"
         />
         <q-input
+          ref="verifyPassportInput"
           v-model="auth.verifyPassword"
           :label="$t('forms.auth.confirm_password')"
-          :rules="[required,checkIfPasswordsMatch]"
+          :rules="[required,passportMismatch(auth.verifyPassword),minLength(8)]"
           autocomplete="new-password"
           lazy-rules
           outlined
-          required
           square
           type="password"
+          @change="newPassportInput.validate()"
         />
         <p
           v-if="authStore.hasError"
@@ -104,7 +105,7 @@ const checkIfPasswordsMatch = (verifyPassword: string) => (auth.newPassword === 
         <q-btn
           :label="$t('buttons.common.change')"
           color="secondary"
-          @click="onSubmit"
+          type="submit"
         />
       </q-card-section>
     </q-card>
