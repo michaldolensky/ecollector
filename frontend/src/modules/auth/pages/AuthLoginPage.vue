@@ -37,7 +37,6 @@ const onSubmit = () => {
         </q-card-section>
         <q-card-section>
           <q-input
-            id="email"
             v-model.trim="loginData.email"
             :label="$t('forms.auth.email')"
             :rules="[required]"
@@ -49,7 +48,6 @@ const onSubmit = () => {
             type="email"
           />
           <q-input
-            id="password"
             v-model="loginData.password"
             :label="$t('forms.auth.password')"
             :rules="[required]"
