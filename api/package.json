@@ -38,7 +38,7 @@
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
     "cookie-parser": "1.4.6",
-    "faker": "5.5.3",
+    "faker": "6.6.6",
     "nestjs-seeder": "0.2.0",
     "graphql": "15.8.0",
     "joi": "17.5.0",
