@@ -14016,10 +14016,10 @@ qs@^6.10.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar@2.4.10:
-  version "2.4.10"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.10.tgz#d04ea753b0100ad2932a2dbaeb4d893154c717b8"
-  integrity sha512-fYd3VwUqtAyRBAbL+4CnadjFjyFJtMIeIOjeQzvycSdPqsv30WtVjz6SYIN53mZ7lFY0xfvnvHCfeVRPEl1FYw==
+quasar@2.4.11:
+  version "2.4.11"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.4.11.tgz#b8e590de3a5e0d164f5d89c02e805e7a28e66e06"
+  integrity sha512-qwtjgw1R4pNkBQp5vP/YXmROEzPUGylTB93sJ8nmTQjiETr98XBJ+up7BIwoso330X9PzOwNWanTuSwsZz7M7Q==
 
 query-string@^5.0.1:
   version "5.1.1"
