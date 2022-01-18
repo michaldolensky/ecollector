@@ -19,7 +19,7 @@
     "@quasar/extras": "1.12.4",
     "@vue/apollo-composable": "4.0.0-alpha.16",
     "@vueuse/core": "7.5.3",
-    "axios": "0.24.0",
+    "axios": "0.25.0",
     "core-js": "3.20.3",
     "graphql": "15.8.0",
     "graphql-tag": "2.12.6",
