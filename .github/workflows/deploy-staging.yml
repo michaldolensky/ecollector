@@ -83,16 +83,6 @@ jobs:
         run: npm run build
         env:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRATION_TIME: ${{ secrets.JWT_EXPIRATION_TIME }}
-          SERVER_URL_ORIGIN: ${{ secrets.SERVER_URL_ORIGIN }}
-          API_PORT: ${{ secrets.API_PORT }}
 
       # This creates docker tags
       # https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
