@@ -1,0 +1,254 @@
+#source: https://github.com/streamlux/pulsebanner/blob/main/.github/workflows/deploy-staging.yml
+
+name: Deploy to staging
+# This workflow builds Docker images for each app, then pushes the images to GitHub Container Registry
+# After all images are built and pushed successfully, it deploys each image to Caprover (staging)
+
+on:
+  # Trigger the workflow on push
+  # but only for the main branch
+  push:
+    branches:
+      - master
+  # Allow this workflow to be triggered manually (ex: in GitHub UI)
+  workflow_dispatch:
+
+jobs:
+  build_api:
+    name: Build api
+    runs-on: ubuntu-latest
+    environment: Staging
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      # output the image tag that was built and pushed so we can deploy this image tag in the deploy job
+      image-tag: ${{ steps.set-image-tag.outputs.image-tag }}
+    defaults:
+      run:
+        working-directory: ./api
+    steps:
+      #
+      # ------------------ Setup -----------------------
+      #
+
+      # checkout GitHub repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # If merge event triggered this, get the name of the branch
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      # If PR create event triggered this, get the name of the branch
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
+      # install QEMU, a utility for building docker images
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Install and setup Node.JS
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      # Install npm dependencies
+      - name: Install and cache dependencies
+        uses: bahmutov/npm-install@v1
+
+      #
+      #
+      # ------------------  Build NextJS (frontend + API) -----------------------
+      #
+      #
+
+      - name: Lint API
+        run: npm run lint
+
+      - name: 'npm run build'
+        run: npm run build
+        env:
+          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION_TIME: ${{ secrets.JWT_EXPIRATION_TIME }}
+          SERVER_URL_ORIGIN: ${{ secrets.SERVER_URL_ORIGIN }}
+          API_PORT: ${{ secrets.API_PORT }}
+
+      # This creates docker tags
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
+      - name: Docker meta
+        id: next-meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/michaldolensky/ecollector-next
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha,prefix=${{ env.BRANCH_NAME }}-,priority=1000
+            type=semver,priority=900,pattern={{version}},prefix=staging-
+      - name: 'Build and push NextJS image'
+        uses: docker/build-push-action@v2
+        with:
+          file: 'apps/next/Dockerfile'
+          context: '.'
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.next-meta.outputs.tags }}
+          labels: ${{ steps.next-meta.outputs.labels }}
+
+#      - name: 'prisma migrate deploy'
+#        run: npx prisma migrate deploy
+#        env:
+#          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - id: set-image-tag
+        run: echo "::set-output name=image-tag::${{ fromJson(steps.next-meta.outputs.json).tags[0] }}"
+
+#  build_remotion:
+#    name: Build remotion
+#    runs-on: ubuntu-latest
+#    environment: Staging
+#    permissions:
+#      contents: read
+#      packages: write
+#    outputs:
+#      # output the image tag that was built and pushed so we can deploy this image tag in the deploy job
+#      image-tag: ${{ steps.set-image-tag.outputs.image-tag }}
+#    steps:
+#      #
+#      # ------------------ Setup -----------------------
+#      #
+#
+#      # checkout GitHub repository
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      # If merge event triggered this, get the name of the branch
+#      - name: Get branch name (merge)
+#        if: github.event_name != 'pull_request'
+#        shell: bash
+#        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+#
+#      # If PR create event triggered this, get the name of the branch
+#      - name: Get branch name (pull request)
+#        if: github.event_name == 'pull_request'
+#        shell: bash
+#        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+#
+#      # install QEMU, a utility for building docker images
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v1
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v1
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.repository_owner }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+#      # Install and setup Node.JS
+#      - name: Setup node
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '16'
+#
+#      # Install npm dependencies
+#      - name: Install and cache dependencies
+#        uses: bahmutov/npm-install@v1
+#
+#      #
+#      #
+#      # ------------------ Build Remotion (API) -----------------------
+#      #
+#      #
+#
+#      # https://github.com/docker/build-push-action/blob/master/docs/advanced/tags-labels.md
+#      - name: Docker meta
+#        id: remotion-meta
+#        uses: docker/metadata-action@v3
+#        with:
+#          # list of Docker images to use as base name for tags
+#          images: |
+#            ghcr.io/streamlux/pulsebanner-remotion
+#          # generate Docker tags based on the following events/attributes
+#          tags: |
+#            type=sha,prefix=${{ env.BRANCH_NAME }}-,priority=1000
+#            type=semver,priority=900,pattern={{version}},prefix=staging-
+#      - name: Lint Remotion server
+#        run: npx nx run remotion:lint
+#
+#      - name: 'Install ts-node'
+#        run: npm i -g ts-node
+#
+#      - name: 'Build remotion app'
+#        run: npx ts-node apps/remotion/scripts/build.ts
+#
+#      - name: Build and push
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: 'dist/apps/remotion'
+#          platforms: linux/amd64
+#          push: true
+#          tags: ${{ steps.remotion-meta.outputs.tags }}
+#          labels: ${{ steps.remotion-meta.outputs.labels }}
+#
+#      - id: set-image-tag
+#        run: echo "::set-output name=image-tag::${{ fromJson(steps.remotion-meta.outputs.json).tags[0] }}"
+#
+#  deploy_staging:
+#    name: Deploy to Staging
+#    runs-on: ubuntu-latest
+#    needs: [build_next, build_remotion]
+#    environment: Staging
+#    concurrency: Staging
+#
+#    env:
+#      CAPROVER_URL: ${{ secrets.CAPROVER_URL }}
+#      NEXT_CAPROVER_APP_TOKEN: ${{ secrets.NEXT_CAPROVER_APP_TOKEN }}
+#      REMOTION_CAPROVER_APP_TOKEN: ${{ secrets.REMOTION_CAPROVER_APP_TOKEN }}
+#
+#    strategy:
+#      matrix:
+#        include:
+#          - app: next # name of the app in Caprover
+#            token-key: NEXT_CAPROVER_APP_TOKEN # key used to get CAPROVER_APP_TOKEN from env
+#            image: ${{ needs.build_next.outputs.image-tag }} # image to deploy
+#          - app: remotion
+#            token-key: REMOTION_CAPROVER_APP_TOKEN
+#            image: ${{ needs.build_remotion.outputs.image-tag }}
+#
+#    steps:
+#      # Install Caprover CLI, which we use to deploy images to Caprover
+#      - name: 'Install caprover-cli'
+#        run: npm install -g caprover
+#
+#      # Deploy each app by iterating over matrix values
+#      - name: 'Deploy ${{ matrix.app }}'
+#        env:
+#          APP_NAME: ${{ matrix.app }}
+#          APP_URL: ${{ env.CAPROVER_URL }}
+#          CAPROVER_APP_TOKEN: ${{ env[matrix.token-key] }}
+#          IMAGE_NAME: ${{ matrix.image }}
+#        run: 'caprover deploy --caproverUrl=$APP_URL --imageName=$IMAGE_NAME --appName=$APP_NAME'
