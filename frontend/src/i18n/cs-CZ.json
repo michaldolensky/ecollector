@@ -62,7 +62,7 @@
     },
     "item": {
       "badge": {
-        "available_for_exchange": "Dostupné k výměně."
+        "available_for_exchange": "Dostupné k výměně"
       }
     },
     "itemDetail": {
@@ -302,7 +302,7 @@
     },
     "input": {
       "label": {
-        "sortOrder": "Sort order"
+        "sortOrder": "Seřadit"
       }
     },
     "validation": {
