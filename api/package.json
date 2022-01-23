@@ -22,6 +22,7 @@
     "seed:refresh": "node dist/seeder --refresh"
   },
   "dependencies": {
+    "@nest-toolbox/http-logger-middleware": "^1.4.4",
     "@nestjs/common": "8.2.6",
     "@nestjs/config": "1.1.6",
     "@nestjs/core": "8.2.6",
@@ -37,9 +38,9 @@
     "class-validator": "0.13.2",
     "cookie-parser": "1.4.6",
     "faker": "5.5.3",
-    "nestjs-seeder": "0.2.0",
     "graphql": "15.8.0",
     "joi": "17.5.0",
+    "nestjs-seeder": "0.2.0",
     "passport": "0.5.2",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
