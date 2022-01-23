@@ -42,6 +42,6 @@ export class Image extends BaseEntity {
   updatePath() {
     const configService = new ConfigService();
     if (!this.path.includes('http'))
-      this.path = `${configService.get('SERVER_URL_ORIGIN')}/${this.path}`;
+      this.path = `${configService.get('SERVER_UPLOADS_URL')}/${this.path}`;
   }
 }

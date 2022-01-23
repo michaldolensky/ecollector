@@ -2,5 +2,4 @@
 .gitignore
 Dockerfile
 node_modules
-schema.gql
 README.md
