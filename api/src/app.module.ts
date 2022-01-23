@@ -4,7 +4,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MulterModule } from '@nestjs/platform-express';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 import * as Joi from 'joi';
-// import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { DatabaseModule } from './config/database/database.module';
@@ -40,7 +39,7 @@ const graphQLLogger = new Logger('GraphQLModule');
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        autoSchemaFile: 'schema.gql',
+        autoSchemaFile: true,
         path: '/api/graphql',
         debug: false,
         formatError: (error) => {
