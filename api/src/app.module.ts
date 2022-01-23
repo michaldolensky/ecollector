@@ -38,6 +38,7 @@ const graphQLLogger = new Logger('GraphQLModule');
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
         SERVER_URL_ORIGIN: Joi.string().required(),
+        SERVER_UPLOADS_URL: Joi.string().required(),
       }),
     }),
     DatabaseModule,
