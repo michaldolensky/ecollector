@@ -1,10 +1,4 @@
-import { HttpLoggerMiddleware } from '@nest-toolbox/http-logger-middleware';
-import {
-  Logger,
-  MiddlewareConsumer,
-  Module,
-  RequestMethod,
-} from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MulterModule } from '@nestjs/platform-express';
@@ -75,11 +69,4 @@ const graphQLLogger = new Logger('GraphQLModule');
     ParametersModule,
   ],
 })
-export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HttpLoggerMiddleware).forRoutes({
-      path: '*',
-      method: RequestMethod.ALL,
-    });
-  }
-}
+export class AppModule {}
