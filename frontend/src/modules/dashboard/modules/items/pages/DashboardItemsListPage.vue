@@ -3,7 +3,7 @@ import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageH
 import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
 import ItemsTable from 'src/modules/dashboard/modules/items/components/ItemsTable.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardItems } from 'src/composables/dashboard/useDashboardItems';
+import { useDashboardItems } from 'src/modules/dashboard/modules/items/composables/useDashboardItems';
 
 const { filter, refetch, resetFilter } = useDashboardItems();
 

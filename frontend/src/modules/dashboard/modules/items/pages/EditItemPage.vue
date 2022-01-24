@@ -7,7 +7,7 @@ import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
 import { useItemQuery } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
 import Parameters from 'src/modules/dashboard/modules/parameters/components/ParametersPanel.vue';
 import { QForm, useQuasar } from 'quasar';
-import { useItems } from 'src/composables/useItems';
+import { useItems } from 'src/modules/dashboard/modules/items/composables/useItems';
 import { UpdateItemInput } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
 import { DeepNullable } from 'ts-essentials';

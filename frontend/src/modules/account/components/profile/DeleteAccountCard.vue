@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { useUsers } from 'src/composables/useUsers';
+import { useUsers } from 'src/modules/account/composables/useUsers';
 import { useAuthStore } from 'src/stores/auth';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';

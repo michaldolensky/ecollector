@@ -2,7 +2,7 @@
 import CategoriesTable from 'src/modules/dashboard/modules/categories/components/CategoriesTable.vue';
 import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardCategories } from 'src/composables/dashboard/useDashboardCategories';
+import { useDashboardCategories } from 'src/modules/dashboard/modules/categories/composables/useDashboardCategories';
 
 const { filter, refetch, resetFilter } = useDashboardCategories();
 

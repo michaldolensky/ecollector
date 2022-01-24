@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 import { QUploader } from 'quasar';
-import { Image, useImages } from 'src/composables/useImages';
+import { Image, useImages } from 'src/modules/dashboard/modules/items/composables/useImages';
 import { useRouteParams } from 'src/composables/useRoute';
 import { ref } from 'vue';
 
