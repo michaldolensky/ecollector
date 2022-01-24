@@ -37,6 +37,7 @@ services:
       - SERVER_URL_ORIGIN
       - API_PORT
       - NGINX_SERVER_NAME
+      - SERVER_UPLOADS_URL
     depends_on:
       - postgres
     volumes:

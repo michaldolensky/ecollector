@@ -28,6 +28,7 @@ services:
       - JWT_EXPIRATION_TIME
       - SERVER_URL_ORIGIN
       - API_PORT
+      - SERVER_UPLOADS_URL
     ports:
       - "3000:3000"
     depends_on:
