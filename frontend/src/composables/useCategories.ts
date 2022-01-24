@@ -6,19 +6,6 @@ import {
 } from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
 import { CreateCategoryInput, UpdateCategoryInput } from 'src/types/graphql';
 
-export interface Category {
-  id:number
-  name:string
-  updatedAt:Date
-  createdAt:Date
-}
-
-export interface CategoryInput{
-  id:number
-  name:string
-  perex:string
-}
-
 export function useCategories() {
   const { currentSiteId } = useSites();
 

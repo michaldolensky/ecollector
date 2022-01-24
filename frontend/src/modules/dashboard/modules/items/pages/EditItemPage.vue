@@ -27,7 +27,10 @@ interface Props {
   inEditMode?: boolean,
   itemId?: number,
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  inEditMode: false,
+  itemId: undefined,
+});
 
 const resetObject:DeepNullable<UpdateItemInput> = {
   id: 0,

@@ -1,12 +1,11 @@
 import { useResult } from '@vue/apollo-composable';
 import { useQuasar } from 'quasar';
-import { Item } from 'src/composables/useItems';
 import { useRouteParams } from 'src/composables/useRoute';
 import {
   useGetItemsQuery,
   useRemoveItemMutation,
 } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
-import { ItemFilterInput } from 'src/types/graphql';
+import { Item, ItemFilterInput } from 'src/types/graphql';
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 

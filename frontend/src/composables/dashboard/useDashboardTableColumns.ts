@@ -1,6 +1,4 @@
-import { Category } from 'src/composables/useCategories';
-import { Item } from 'src/composables/useItems';
-import { Parameter } from 'src/types/graphql';
+import { Category, Item, Parameter } from 'src/types/graphql';
 import { toRowDate } from 'src/utils';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -15,9 +13,6 @@ export function useDashboardTableColumns() {
       label: t('dashboard.items.table.column.label.image'),
       align: 'left',
       field: (item:Item) => item.images,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      format: (val:string) => val,
       sortable: true,
     },
     {
@@ -26,7 +21,6 @@ export function useDashboardTableColumns() {
       label: t('dashboard.items.table.column.label.name'),
       align: 'left',
       field: (item:Item) => item.name,
-      format: (val:string) => `${val}`,
       sortable: true,
     },
     {
@@ -35,7 +29,6 @@ export function useDashboardTableColumns() {
       label: t('dashboard.items.table.column.label.category'),
       align: 'left',
       field: (item:Item) => item.category.name,
-      format: (val:string) => `${val}`,
       sortable: true,
     },
     {
@@ -62,10 +55,7 @@ export function useDashboardTableColumns() {
       label: t('dashboard.items.table.column.label.created'),
       align: 'left',
       field: (item:Item) => item.createdAt,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-
-      format: (val:string) => `${toRowDate(val)}`,
+      format: (row:string):string => `${toRowDate(row)}`,
       sortable: true,
     },
     {
@@ -85,9 +75,7 @@ export function useDashboardTableColumns() {
       label: t('dashboard.categories.table.column.label.name'),
       align: 'left',
       field: (item:Category) => item.name,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      format: (val:string) => `${val}`,
+      format: (val:string):string => `${val}`,
       sortable: true,
     },
     {
@@ -105,7 +93,7 @@ export function useDashboardTableColumns() {
       label: t('dashboard.categories.table.column.label.updated'),
       align: 'left',
       field: (item:Category) => item.updatedAt,
-      format: (val:string) => `${toRowDate(val)}`,
+      format: (row:string):string => `${toRowDate(row)}`,
       sortable: true,
     },
     {
@@ -123,10 +111,7 @@ export function useDashboardTableColumns() {
       required: true,
       label: t('dashboard.parameters.table.column.label.name'),
       align: 'left',
-      field: (item:Category) => item.name,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      format: (val:string) => `${val}`,
+      field: (row:Category) => row.name,
       sortable: true,
     },
     {
@@ -135,9 +120,6 @@ export function useDashboardTableColumns() {
       label: t('dashboard.parameters.table.column.label.type'),
       align: 'left',
       field: (parameter:Parameter) => parameter.type,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      format: (val:string) => `${val}`,
       sortable: true,
     },
 

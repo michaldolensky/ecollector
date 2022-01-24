@@ -1,28 +1,9 @@
-import { Image } from 'src/composables/useImages';
 import { useSites } from 'src/composables/useSites';
 import {
   useCreateItemMutation,
   useItemQuery, useUpdateItemMutation,
 } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
 import { CreateItemInput, UpdateItemInput } from 'src/types/graphql';
-
-export interface Item {
-  id:number
-  name:string
-  updatedAt:Date
-  createdAt:Date
-  categoryId:number | null
-  shortDesc:string
-  longDesc:string
-  internalNumber:string
-  numberForExchange:number
-  numberInCollection:number
-  category:{
-    id:number
-    name:string
-  }
-  images:Image[]
-}
 
 export function useItems() {
   const { currentSiteId } = useSites();

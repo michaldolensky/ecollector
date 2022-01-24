@@ -1,13 +1,12 @@
 import { useResult } from '@vue/apollo-composable';
 import { useQuasar } from 'quasar';
 
-import { Category } from 'src/composables/useCategories';
 import { useRouteParams } from 'src/composables/useRoute';
 import {
   useGetCategoriesQuery,
   useRemoveCategoryMutation,
 } from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
-import { CategoryFilterInput } from 'src/types/graphql';
+import { Category, CategoryFilterInput } from 'src/types/graphql';
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 

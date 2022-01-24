@@ -4,8 +4,8 @@ import { apolloClient } from 'boot/apollo';
 import { api } from 'boot/axios';
 import { i18n } from 'boot/i18n';
 import { defineStore } from 'pinia';
-import { Site } from 'src/composables/useSites';
 import { LoginInterface, SignUpInterface } from 'src/types/auth.interface';
+import { Site } from 'src/types/graphql';
 import { getParsedInt } from 'src/utils';
 import { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
 

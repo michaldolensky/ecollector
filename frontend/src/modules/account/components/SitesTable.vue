@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Site } from 'src/composables/useSites';
+import { Site } from 'src/types/graphql';
 import { toRowDate } from 'src/utils';
 import { computed, reactive, ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
@@ -25,21 +25,21 @@ const SitesTableColumns = computed(() => [
     label: t('account.sites.table.column.label.name'),
     align: 'left',
     field: (item: Site) => item.name,
-    format: (val: string) => `${val}`,
+    format: (val: string):string => `${val}`,
     sortable: true,
   },
   {
-    name: 'Created',
+    name: 'created',
     required: true,
     label: t('account.sites.table.column.label.created'),
     align: 'left',
     field: (item: Site) => item.createdAt,
-    format: (val: string) => `${toRowDate(val)}`,
+    format: (val: string):string => `${toRowDate(val)}`,
     sortable: true,
   },
 
   {
-    name: 'Action',
+    name: 'action',
     label: t('account.sites.table.column.label.action'),
     field: 'Action',
     sortable: false,
