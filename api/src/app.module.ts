@@ -12,6 +12,7 @@ import { ItemsModule } from './items/items.module';
 import { SitesModule } from './sites/sites.module';
 import { UsersModule } from './users/users.module';
 import { ParametersModule } from './parameters/parameters.module';
+import { CommonModule } from './common/common.module';
 
 const graphQLLogger = new Logger('GraphQLModule');
 
@@ -67,6 +68,7 @@ const graphQLLogger = new Logger('GraphQLModule');
     ItemsModule,
     ImagesModule,
     ParametersModule,
+    CommonModule,
   ],
 })
 export class AppModule {}
