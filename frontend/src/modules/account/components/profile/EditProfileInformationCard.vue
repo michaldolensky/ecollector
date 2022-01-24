@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useQuasar } from 'quasar';
-import { useUsers } from 'src/composables/useUsers';
+import { useUsers } from 'src/modules/account/composables/useUsers';
 import { useAuthStore } from 'src/stores/auth';
 import { validationHelper } from 'src/validationHelper';
 import { reactive } from 'vue';

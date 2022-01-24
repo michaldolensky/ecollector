@@ -1,10 +1,38 @@
 <script lang="ts" setup>
-import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
-import { useDashboardTableColumns } from 'src/composables/dashboard/useDashboardTableColumns';
-import { reactive } from 'vue';
+import { useDashboardParameters } from 'src/modules/dashboard/modules/parameters/composables/useDashboardParameters';
+import { Category, Parameter } from 'src/types/graphql';
+import { computed, reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
 
-const { ParametersTableColumns } = useDashboardTableColumns();
+const { t } = useI18n();
 
+const ParametersTableColumns = computed(() => [
+  {
+    name: 'name',
+    required: true,
+    label: t('dashboard.parameters.table.column.label.name'),
+    align: 'left',
+    field: (row:Category) => row.name,
+    sortable: true,
+  },
+  {
+    name: 'type',
+    required: true,
+    label: t('dashboard.parameters.table.column.label.type'),
+    align: 'left',
+    field: (parameter:Parameter) => parameter.type,
+    sortable: true,
+  },
+
+  {
+    name: 'Action',
+    label: t('dashboard.parameters.table.column.label.action'),
+    field: 'Action',
+    sortable: false,
+    align: 'center',
+  },
+
+]);
 const {
   loading,
   confirmDelete,

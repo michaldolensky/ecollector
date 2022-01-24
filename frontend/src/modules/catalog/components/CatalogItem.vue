@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { CatalogItem } from 'src/composables/useCatalog';
+
+import { Item } from 'src/types/graphql';
 
 interface Props {
-  item: CatalogItem
+  item: Item
 }
 
 const props = defineProps<Props>();

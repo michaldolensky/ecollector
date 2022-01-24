@@ -43,6 +43,6 @@
     "filesInProject" : [ ],
     "unignoredFunctionNames" : [ ],
     "unignoredFunctionArguments" : { },
-    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "type", "sql", "arial", "Authorization", "arial_black", "selector", "id", "class", "key", "courier_new", "middleware", "el", "query", "impact", "layout", "lucida_grande", "component", "condition", "comic_sans", "name", "times_new_roman", "verdana" ]
+    "ignoredArrayKeys" : [ "template", "date", "dateFormat", "type", "sql", "arial", "Authorization", "arial_black", "selector", "id", "class", "key", "courier_new", "middleware", "el", "query", "impact", "layout", "lucida_grande", "component", "condition", "comic_sans", "name", "times_new_roman", "verdana", "field" ]
   }
 }

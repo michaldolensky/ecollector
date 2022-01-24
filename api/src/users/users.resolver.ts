@@ -1,23 +1,23 @@
 import { UseGuards } from '@nestjs/common';
 import {
-  Resolver,
-  Query,
-  Mutation,
   Args,
   Int,
-  ResolveField,
+  Mutation,
   Parent,
+  Query,
+  ResolveField,
+  Resolver,
 } from '@nestjs/graphql';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { Roles } from '../common/decoratos/roles.decorator';
 import { GuardRoles } from '../common/enums/role.enum';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-import { UpdateUserInput } from './dto/update-user.input';
-import { SitesService } from '../sites/sites.service';
 import { Site } from '../sites/entities/site.entity';
+import { SitesService } from '../sites/sites.service';
+import { UpdateUserInput } from './dto/update-user.input';
+import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UsersResolver {

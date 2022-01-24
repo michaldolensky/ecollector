@@ -1,11 +1,11 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { Factory } from 'nestjs-seeder';
-import { Parameter } from '../../parameters/entities/parameter.entity';
-import { User } from '../../users/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
+import { Parameter } from '../../parameters/entities/parameter.entity';
+import { User } from '../../users/entities/user.entity';
 import { SiteStats } from './siteStats';
 
 @ObjectType('Site')

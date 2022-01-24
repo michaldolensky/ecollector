@@ -3,7 +3,7 @@ import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageH
 import ParameterTypeSelect from 'src/modules/dashboard/modules/parameters/components/ParameterTypeSelect.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
 import { QForm, useQuasar } from 'quasar';
-import { useParameters } from 'src/composables/useParameters';
+import { useParameters } from 'src/modules/dashboard/modules/parameters/composables/useParameters';
 import { useGetParameterQuery } from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
 import { ParameterType } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';

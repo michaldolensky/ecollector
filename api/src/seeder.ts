@@ -1,16 +1,13 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { seeder } from 'nestjs-seeder';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
+import { DataFactory, Seeder, seeder } from 'nestjs-seeder';
+import { InsertResult, Repository } from 'typeorm';
 import { Category } from './categories/entities/category.entity';
 import { DatabaseModule } from './config/database/database.module';
 import { Image } from './images/entities/image.entity';
 import { Item } from './items/entities/item.entity';
 import { Site } from './sites/entities/site.entity';
 import { User } from './users/entities/user.entity';
-
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Seeder, DataFactory } from 'nestjs-seeder';
-import { InsertResult, Repository } from 'typeorm';
 
 // FILTHY SOLUTION FOR SEEDER
 

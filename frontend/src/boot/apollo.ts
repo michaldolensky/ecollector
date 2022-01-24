@@ -1,6 +1,4 @@
-import {
-  ApolloClient, createHttpLink, InMemoryCache,
-} from '@apollo/client/core';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { DefaultApolloClient } from '@vue/apollo-composable';
 import { boot } from 'quasar/wrappers';

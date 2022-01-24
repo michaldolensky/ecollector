@@ -2,7 +2,7 @@
 import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
 import ParametersTable from 'src/modules/dashboard/modules/parameters/components/ParametersTable.vue';
 import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardParameters } from 'src/composables/dashboard/useDashboardParameters';
+import { useDashboardParameters } from 'src/modules/dashboard/modules/parameters/composables/useDashboardParameters';
 
 const { filter, refetch, resetFilter } = useDashboardParameters();
 

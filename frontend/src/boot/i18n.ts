@@ -1,9 +1,9 @@
+import languages from 'quasar/lang/index.json';
 import { boot } from 'quasar/wrappers';
 import { Locales } from 'src/types/Locales';
 import { createI18n } from 'vue-i18n';
-import languages from 'quasar/lang/index.json';
-import enUS from '../i18n/en-US.json';
 import cs from '../i18n/cs-CZ.json';
+import enUS from '../i18n/en-US.json';
 
 export const appLanguages = languages
   .filter((lang) => Object.values(Locales).includes(lang.isoName as Locales));
