@@ -1,20 +1,18 @@
-import { Logger, Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
+import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './config/database/database.module';
+import { GraphqlModule } from './config/graphql/graphql.module';
 import { ImagesModule } from './images/images.module';
 import { ItemsModule } from './items/items.module';
+import { ParametersModule } from './parameters/parameters.module';
 import { SitesModule } from './sites/sites.module';
 import { UsersModule } from './users/users.module';
-import { ParametersModule } from './parameters/parameters.module';
-import { CommonModule } from './common/common.module';
-
-const graphQLLogger = new Logger('GraphQLModule');
 
 @Module({
   imports: [
@@ -34,30 +32,11 @@ const graphQLLogger = new Logger('GraphQLModule');
         JWT_EXPIRATION_TIME: Joi.string().required(),
         SERVER_URL_ORIGIN: Joi.string().required(),
         SERVER_UPLOADS_URL: Joi.string().required(),
+        NODE_ENV: Joi.string().default('production'),
       }),
     }),
     DatabaseModule,
-    GraphQLModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        autoSchemaFile: true,
-        path: '/api/graphql',
-        debug: false,
-        formatError: (error) => {
-          graphQLLogger.error('error', error);
-          return error;
-        },
-        introspection: process.env.NODE_ENV !== 'PRODUCTION',
-        cors: {
-          origin: [
-            'https://studio.apollographql.com',
-            configService.get<string>('SERVER_URL_ORIGIN'),
-          ],
-          credentials: true,
-        },
-      }),
-    }),
+    GraphqlModule,
     MulterModule.register({
       dest: './files',
     }),
@@ -69,6 +48,7 @@ const graphQLLogger = new Logger('GraphQLModule');
     ImagesModule,
     ParametersModule,
     CommonModule,
+    GraphqlModule,
   ],
 })
 export class AppModule {}

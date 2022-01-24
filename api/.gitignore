@@ -36,3 +36,4 @@ lerna-debug.log*
 /uploads/*
 !/uploads/.gitkeep
 
+src/schema.gql
