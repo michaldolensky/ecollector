@@ -37,11 +37,9 @@ const SitesTableColumns = computed(() => [
     format: (val: string):string => `${toRowDate(val)}`,
     sortable: true,
   },
-
   {
     name: 'action',
     label: t('account.sites.table.column.label.action'),
-    field: 'Action',
     sortable: false,
     align: 'center',
   },
@@ -55,10 +53,9 @@ const SitesTableColumns = computed(() => [
     :no-data-label="$t('account.sites.table.not_found')"
     :pagination="initialPagination"
     :rows="authStore.userSites"
-
     row-key="id"
   >
-    <template #body-cell-Name="props">
+    <template #body-cell-name="props">
       <q-td :props="props">
         <q-item style="max-width: 420px">
           <q-item-section>
@@ -68,7 +65,7 @@ const SitesTableColumns = computed(() => [
       </q-td>
     </template>
 
-    <template #body-cell-Action="props">
+    <template #body-cell-action="props">
       <q-td :props="props">
         <q-btn
           :to="`/site/${props.row.id}/dashboard`"
