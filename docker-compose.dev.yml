@@ -11,6 +11,7 @@ services:
     environment:
       - GRAPHQL_URL
       - SERVER_URL_API
+      - NODE_ENV
     depends_on:
       - api_server
     volumes:
@@ -38,6 +39,7 @@ services:
       - API_PORT
       - NGINX_SERVER_NAME
       - SERVER_UPLOADS_URL
+      - NODE_ENV=development
     depends_on:
       - postgres
     volumes:
@@ -58,7 +60,6 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
-
   pgadmin:
     links:
       - postgres:postgres
