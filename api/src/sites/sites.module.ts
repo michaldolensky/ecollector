@@ -1,10 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { SitesService } from './sites.service';
-import { SitesResolver } from './sites.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Site } from './entities/site.entity';
-import { UsersModule } from '../users/users.module';
 import { CategoriesModule } from '../categories/categories.module';
+import { UsersModule } from '../users/users.module';
+import { Site } from './entities/site.entity';
+import { SitesResolver } from './sites.resolver';
+import { SitesService } from './sites.service';
 
 @Module({
   imports: [

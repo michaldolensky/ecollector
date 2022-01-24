@@ -7,12 +7,12 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { CreateUserInput } from '../users/dto/create-user.input';
+import { AuthService } from './auth.service';
 import { ChangePasswordInput } from './dto/change-password.input';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import RequestWithUser from './RequestWithUser';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('api/auth')
 export class AuthController {

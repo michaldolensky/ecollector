@@ -3,12 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateSiteInput } from './dto/create-site.input';
-import { UpdateSiteInput } from './dto/update-site.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Site } from './entities/site.entity';
 import { User } from '../users/entities/user.entity';
+import { CreateSiteInput } from './dto/create-site.input';
+import { UpdateSiteInput } from './dto/update-site.input';
+import { Site } from './entities/site.entity';
 import { SiteStats } from './entities/siteStats';
 
 @Injectable()

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import LocaleToggle from 'components/index/LocaleToggle.vue';
-import { useSiteSettingsStore } from 'src/stores/settings';
 import AccountDropdown from 'src/modules/account/components/AuthDropdown.vue';
+import { useSiteSettingsStore } from 'src/stores/settings';
 
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';

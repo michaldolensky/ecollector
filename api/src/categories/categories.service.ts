@@ -3,12 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { GetItemsArgs } from '../items/dto/getItems.args';
-import { UpdateCategoryInput } from './dto/update-category.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
-import { Category } from './entities/category.entity';
+import { GetItemsArgs } from '../items/dto/getItems.args';
 import { CreateCategoryInput } from './dto/create-category.input';
+import { UpdateCategoryInput } from './dto/update-category.input';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoriesService {

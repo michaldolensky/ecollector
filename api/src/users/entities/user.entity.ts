@@ -1,7 +1,4 @@
 import { Field, HideField, InputType, ObjectType } from '@nestjs/graphql';
-import { Factory } from 'nestjs-seeder';
-import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { UserRole } from '../../auth/role.enum';
 import {
   IsEmail,
   IsNotEmpty,
@@ -9,6 +6,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Factory } from 'nestjs-seeder';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { UserRole } from '../../auth/role.enum';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Site } from '../../sites/entities/site.entity';
 

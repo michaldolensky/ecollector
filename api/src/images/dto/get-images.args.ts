@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { IsBoolean, IsInt, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsBoolean, IsInt, IsOptional, Min } from 'class-validator';
 
 @ArgsType()
 export class GetImagesArgs {
