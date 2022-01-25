@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { config } from 'aws-sdk';
+import { graphqlUploadExpress } from 'graphql-upload';
 import { AppModule } from './app.module';
 
 const HOSTNAME = process.env.SERVER_ADDRESS || process.env.NGINX_SERVER_NAME;
@@ -25,6 +26,8 @@ async function bootstrap() {
       disableErrorMessages: process.env.NODE_ENV === 'PRODUCTION',
     }),
   );
+  app.use(graphqlUploadExpress({ maxFileSize: 2 * 1000 * 1000 }));
+
   app.use(cookieParser());
   await app.listen(PORT);
 

@@ -8,6 +8,9 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import * as fs from 'fs';
+import { FileUpload, GraphQLUpload } from 'graphql-upload';
+import * as path from 'path';
 import { getRepository } from 'typeorm';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
@@ -29,6 +32,7 @@ export class ImagesResolver {
   findAll(@Args() args: GetImagesArgs) {
     return this.imagesService.findAll(args);
   }
+
   @UseGuards(GqlAuthGuard, RoleGuard)
   @Roles(GuardRoles.Admin)
   @Query(() => Image, { name: 'image' })
@@ -46,5 +50,24 @@ export class ImagesResolver {
   async item(@Parent() image: Image): Promise<Item[]> {
     console.log(await getRepository(Item).find({ where: { id: image.id } }));
     return await getRepository(Item).find({ where: { id: image.id } });
+  }
+
+  // @UseGuards(GqlAuthGuard, RoleGuard)
+  // @Roles(GuardRoles.Owner)
+  @Mutation(() => Boolean)
+  async uploadFile(
+    @Args({ name: 'files', type: () => [GraphQLUpload] })
+    files: FileUpload[],
+  ) {
+    for (const value of files) {
+      const val = await value;
+      const { filename, createReadStream } = val;
+
+      const stream = createReadStream();
+      const filePath = path.join('uploads', filename);
+      const file = fs.createWriteStream(filePath);
+      stream.pipe(file);
+    }
+    return true;
   }
 }
