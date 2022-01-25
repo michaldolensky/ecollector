@@ -35,10 +35,8 @@ const getImageSrc = (file:File) => URL.createObjectURL(file);
     accept="image/*"
     counter
     hint="test"
-    max-file-size="5mb"
     multiple
     outlined
-    stack-label="Upload"
     style="width: 100%;"
     @update:model-value="upload"
   >
