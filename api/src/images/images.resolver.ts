@@ -9,7 +9,6 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as fs from 'fs';
-import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import * as path from 'path';
 import { getRepository } from 'typeorm';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
@@ -19,6 +18,7 @@ import { GuardRoles } from '../common/enums/role.enum';
 import { Item } from '../items/entities/item.entity';
 import { DeleteImageArgs } from './dto/delete-image.input';
 import { GetImagesArgs } from './dto/get-images.args';
+import { UploadImageArgs } from './dto/upload-image.dto';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
@@ -46,19 +46,10 @@ export class ImagesResolver {
     return this.imagesService.remove(id);
   }
 
-  @ResolveField()
-  async item(@Parent() image: Image): Promise<Item[]> {
-    console.log(await getRepository(Item).find({ where: { id: image.id } }));
-    return await getRepository(Item).find({ where: { id: image.id } });
-  }
-
   // @UseGuards(GqlAuthGuard, RoleGuard)
   // @Roles(GuardRoles.Owner)
   @Mutation(() => Boolean)
-  async uploadFile(
-    @Args({ name: 'files', type: () => [GraphQLUpload] })
-    files: FileUpload[],
-  ) {
+  async uploadFile(@Args() { uploadImageInput: { files } }: UploadImageArgs) {
     for (const value of files) {
       const val = await value;
       const { filename, createReadStream } = val;
@@ -69,5 +60,11 @@ export class ImagesResolver {
       stream.pipe(file);
     }
     return true;
+  }
+
+  @ResolveField()
+  async item(@Parent() image: Image): Promise<Item[]> {
+    console.log(await getRepository(Item).find({ where: { id: image.id } }));
+    return await getRepository(Item).find({ where: { id: image.id } });
   }
 }

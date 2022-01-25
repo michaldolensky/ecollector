@@ -16,6 +16,8 @@ export type RemoveImageMutation = { __typename?: 'Mutation', removeImage: { __ty
 
 export type UploadFileMutationVariables = Types.Exact<{
   files: Array<Types.Scalars['Upload']> | Types.Scalars['Upload'];
+  itemId: Types.Scalars['Int'];
+  siteId: Types.Scalars['Int'];
 }>;
 
 
@@ -53,8 +55,8 @@ export function useRemoveImageMutation(options: VueApolloComposable.UseMutationO
 }
 export type RemoveImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveImageMutation, RemoveImageMutationVariables>;
 export const UploadFileDocument = gql`
-    mutation UploadFile($files: [Upload!]!) {
-  uploadFile(files: $files)
+    mutation UploadFile($files: [Upload!]!, $itemId: Int!, $siteId: Int!) {
+  uploadFile(uploadImageInput: {files: $files, itemId: $itemId}, siteId: $siteId)
 }
     `;
 
@@ -72,6 +74,8 @@ export const UploadFileDocument = gql`
  * const { mutate, loading, error, onDone } = useUploadFileMutation({
  *   variables: {
  *     files: // value for 'files'
+ *     itemId: // value for 'itemId'
+ *     siteId: // value for 'siteId'
  *   },
  * });
  */
