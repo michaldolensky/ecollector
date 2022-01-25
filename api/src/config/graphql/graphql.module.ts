@@ -16,6 +16,9 @@ const graphQLLogger = new Logger('GraphQLModule');
           path: '/api/graphql',
           debug: false,
           autoSchemaFile: true,
+          buildSchemaOptions: {
+            numberScalarMode: 'integer',
+          },
           formatError: (error) => {
             graphQLLogger.error('error', error);
             return error;
