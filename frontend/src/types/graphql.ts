@@ -14,6 +14,8 @@ export type Scalars = {
   Float: number;
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: Date;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: File;
 };
 
 export type Category = {
@@ -193,6 +195,7 @@ export type Mutation = {
   updateParameter: Parameter;
   updateSite: Site;
   updateUser: User;
+  uploadFile: Scalars['Boolean'];
 };
 
 
@@ -274,6 +277,11 @@ export type MutationUpdateSiteArgs = {
 
 export type MutationUpdateUserArgs = {
   updateUserInput: UpdateUserInput;
+};
+
+
+export type MutationUploadFileArgs = {
+  files: Array<Scalars['Upload']>;
 };
 
 export type Parameter = {

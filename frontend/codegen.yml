@@ -12,6 +12,7 @@ generates:
     config:
       scalars:
         DateTime: Date
+        Upload: File
   src/modules:
     preset: near-operation-file
     presetConfig:

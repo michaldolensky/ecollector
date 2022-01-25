@@ -4,3 +4,6 @@ mutation removeImage($deleteImageInput:DeleteImageInput!,$siteId:Int!){
   }
 }
 
+mutation UploadFile($files: [Upload!]!) {
+  uploadFile(files: $files)
+}

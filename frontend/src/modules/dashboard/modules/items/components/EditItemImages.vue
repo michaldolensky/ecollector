@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
 import { QUploader } from 'quasar';
-import { Image, useImages } from 'src/modules/dashboard/modules/items/composables/useImages';
 import { useRouteParams } from 'src/composables/useRoute';
+import ImageUpload from 'src/modules/dashboard/modules/items/components/ImageUpload.vue';
+import { Image, useImages } from 'src/modules/dashboard/modules/items/composables/useImages';
 import { ref } from 'vue';
 
 const { removeImage } = useImages();
@@ -71,6 +72,7 @@ const setAsMainImage = (id: number) => {
     </q-card-section>
     <q-separator />
     <q-card-section>
+      <ImageUpload />
       <q-uploader
         ref="uploader"
         :disable="!props.inEditMode"
