@@ -64,7 +64,7 @@ export class ImagesService {
   ): Promise<Image[]> {
     const images: Image[] = [];
     for (const file of files) {
-      const image = await this.create(file, itemId, siteId);
+      const image = await this.create(await file, itemId, siteId);
       images.push(image);
     }
     return images;
