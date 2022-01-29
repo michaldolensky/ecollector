@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MulterModule } from '@nestjs/platform-express';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
@@ -43,9 +42,6 @@ import { FilesModule } from './files/files.module';
     }),
     DatabaseModule,
     GraphqlModule,
-    MulterModule.register({
-      dest: './files',
-    }),
     AuthModule,
     UsersModule,
     SitesModule,
