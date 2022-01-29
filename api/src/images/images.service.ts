@@ -44,8 +44,9 @@ export class ImagesService {
         id: savedFile.id,
       },
     });
-    await this.imagesRepository.save(newImage);
-    return newImage;
+    const saved = await this.imagesRepository.save(newImage);
+    saved.file.url = savedFile.url;
+    return saved;
   }
 
   async getCountOfImagesOfItem(itemId: number) {
