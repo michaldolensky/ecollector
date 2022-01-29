@@ -56,6 +56,19 @@ export class ImagesService {
     });
   }
 
+  async createMultiple(
+    files: FileUpload[],
+    itemId: number,
+    siteId: number,
+  ): Promise<Image[]> {
+    const images: Image[] = [];
+    for (const file of files) {
+      const image = await this.create(file, itemId, siteId);
+      images.push(image);
+    }
+    return images;
+  }
+
   async findAll({ itemId, main }: GetImagesArgs, parent?: Item) {
     return await this.imagesRepository.find({
       relations: ['file'],
