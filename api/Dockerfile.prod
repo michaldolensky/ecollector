@@ -15,9 +15,6 @@ ENV NODE_ENV production
 #RUN addgroup -g 1001 -S nodejs
 #RUN adduser -S nestjs -u 1001
 
-#chown -R nestjs:nodejs /uploads \
-#exec runuser -u appuser "$@"
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/package.json ./package.json
 ADD dist dist
