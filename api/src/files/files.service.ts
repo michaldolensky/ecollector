@@ -40,7 +40,9 @@ export class FilesService {
 
   async deleteFile(fileId: number) {
     const file = await this.filesRepository.findOne({ id: fileId });
-    const s3 = new S3();
+    const s3 = new S3({
+      endpoint: this.configService.get('AWS_S3_ENDPOINT'),
+    });
     await s3
       .deleteObject({
         Bucket: this.configService.get('AWS_BUCKET_NAME'),
