@@ -44,8 +44,8 @@ export class ImagesResolver {
     return this.imagesService.remove(id);
   }
 
-  // @UseGuards(GqlAuthGuard, RoleGuard)
-  // @Roles(GuardRoles.Owner)
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
   @Mutation(() => [Image])
   async uploadImage(
     @Args() { uploadImageInput: { files, itemId }, siteId }: UploadImageArgs,
