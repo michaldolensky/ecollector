@@ -36,6 +36,8 @@ async function bootstrap() {
     accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
     secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
     region: configService.get('AWS_REGION'),
+    s3ForcePathStyle: true,
+    signatureVersion: 'v4',
   });
 
   logger.log(`Server running at http://${HOSTNAME}:${PORT}/`);
