@@ -1,4 +1,4 @@
-import { InputType, ObjectType } from '@nestjs/graphql';
+import { HideField, InputType, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType('File')
@@ -11,6 +11,7 @@ export class S3File {
   @Column()
   public url: string;
 
+  @HideField()
   @Column()
   public key: string;
 }
