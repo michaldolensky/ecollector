@@ -13,6 +13,7 @@ import { ItemsModule } from './items/items.module';
 import { ParametersModule } from './parameters/parameters.module';
 import { SitesModule } from './sites/sites.module';
 import { UsersModule } from './users/users.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { UsersModule } from './users/users.module';
     ParametersModule,
     CommonModule,
     GraphqlModule,
+    FilesModule,
   ],
 })
 export class AppModule {}
