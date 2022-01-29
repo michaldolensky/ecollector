@@ -14,14 +14,14 @@ export type RemoveImageMutationVariables = Types.Exact<{
 
 export type RemoveImageMutation = { __typename?: 'Mutation', removeImage: { __typename?: 'Image', id: number } };
 
-export type UploadFileMutationVariables = Types.Exact<{
+export type UploadImageMutationVariables = Types.Exact<{
   files: Array<Types.Scalars['Upload']> | Types.Scalars['Upload'];
   itemId: Types.Scalars['Int'];
   siteId: Types.Scalars['Int'];
 }>;
 
 
-export type UploadFileMutation = { __typename?: 'Mutation', uploadFile: boolean };
+export type UploadImageMutation = { __typename?: 'Mutation', uploadImage: Array<{ __typename?: 'Image', id: number, itemId: number, updatedAt: any, file: { __typename?: 'S3File', id: number, url: string } }> };
 
 
 export const RemoveImageDocument = gql`
@@ -54,24 +54,33 @@ export function useRemoveImageMutation(options: VueApolloComposable.UseMutationO
   return VueApolloComposable.useMutation<RemoveImageMutation, RemoveImageMutationVariables>(RemoveImageDocument, options);
 }
 export type RemoveImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveImageMutation, RemoveImageMutationVariables>;
-export const UploadFileDocument = gql`
-    mutation UploadFile($files: [Upload!]!, $itemId: Int!, $siteId: Int!) {
-  uploadFile(uploadImageInput: {files: $files, itemId: $itemId}, siteId: $siteId)
+export const UploadImageDocument = gql`
+    mutation uploadImage($files: [Upload!]!, $itemId: Int!, $siteId: Int!) {
+  uploadImage(uploadImageInput: {files: $files, itemId: $itemId}, siteId: $siteId) {
+    id
+    file {
+      id
+      url
+    }
+    itemId
+    updatedAt
+    updatedAt
+  }
 }
     `;
 
 /**
- * __useUploadFileMutation__
+ * __useUploadImageMutation__
  *
- * To run a mutation, you first call `useUploadFileMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useUploadFileMutation` returns an object that includes:
+ * To run a mutation, you first call `useUploadImageMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUploadImageMutation` returns an object that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
  *
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useUploadFileMutation({
+ * const { mutate, loading, error, onDone } = useUploadImageMutation({
  *   variables: {
  *     files: // value for 'files'
  *     itemId: // value for 'itemId'
@@ -79,7 +88,7 @@ export const UploadFileDocument = gql`
  *   },
  * });
  */
-export function useUploadFileMutation(options: VueApolloComposable.UseMutationOptions<UploadFileMutation, UploadFileMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UploadFileMutation, UploadFileMutationVariables>>) {
-  return VueApolloComposable.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, options);
+export function useUploadImageMutation(options: VueApolloComposable.UseMutationOptions<UploadImageMutation, UploadImageMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UploadImageMutation, UploadImageMutationVariables>>) {
+  return VueApolloComposable.useMutation<UploadImageMutation, UploadImageMutationVariables>(UploadImageDocument, options);
 }
-export type UploadFileMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UploadFileMutation, UploadFileMutationVariables>;
+export type UploadImageMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UploadImageMutation, UploadImageMutationVariables>;

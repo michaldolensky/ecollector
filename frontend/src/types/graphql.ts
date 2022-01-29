@@ -88,12 +88,6 @@ export type DeleteParameterInput = {
   parameterId: Scalars['Int'];
 };
 
-export type File = {
-  __typename?: 'File';
-  id: Scalars['Int'];
-  url: Scalars['String'];
-};
-
 export type FileInput = {
   id: Scalars['Int'];
   url: Scalars['String'];
@@ -102,7 +96,7 @@ export type FileInput = {
 export type Image = {
   __typename?: 'Image';
   createdAt: Scalars['DateTime'];
-  file: File;
+  file: S3File;
   id: Scalars['Int'];
   item: Item;
   itemId: Scalars['Int'];
@@ -202,7 +196,7 @@ export type Mutation = {
   updateParameter: Parameter;
   updateSite: Site;
   updateUser: User;
-  uploadFile: Scalars['Boolean'];
+  uploadImage: Array<Image>;
 };
 
 
@@ -287,7 +281,7 @@ export type MutationUpdateUserArgs = {
 };
 
 
-export type MutationUploadFileArgs = {
+export type MutationUploadImageArgs = {
   siteId: Scalars['Int'];
   uploadImageInput: UploadImageDto;
 };
@@ -393,6 +387,12 @@ export enum Roles {
   User = 'USER'
 }
 
+export type S3File = {
+  __typename?: 'S3File';
+  id: Scalars['Int'];
+  url: Scalars['String'];
+};
+
 export type Site = {
   __typename?: 'Site';
   categories: Array<Category>;
@@ -435,11 +435,8 @@ export type UpdateCategoryInput = {
 };
 
 export type UpdateImageInput = {
-  file?: InputMaybe<FileInput>;
   id: Scalars['Int'];
-  itemId?: InputMaybe<Scalars['Int']>;
   main: Scalars['Boolean'];
-  originalName?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateItemInput = {

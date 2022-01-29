@@ -47,7 +47,7 @@ export class ImagesResolver {
   // @UseGuards(GqlAuthGuard, RoleGuard)
   // @Roles(GuardRoles.Owner)
   @Mutation(() => [Image])
-  async uploadFile(
+  async uploadImage(
     @Args() { uploadImageInput: { files, itemId }, siteId }: UploadImageArgs,
   ): Promise<Image[]> {
     return this.imagesService.createMultiple(files, itemId, siteId);

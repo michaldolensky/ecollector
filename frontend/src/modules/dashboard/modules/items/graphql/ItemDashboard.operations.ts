@@ -11,7 +11,7 @@ export type ItemQueryVariables = Types.Exact<{
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'File', id: number, url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: Types.ParameterType } }> } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: Types.ParameterType } }> } };
 
 export type CreateItemMutationVariables = Types.Exact<{
   createItemInput: Types.CreateItemInput;
@@ -35,7 +35,7 @@ export type UpdateItemMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'File', id: number, url: string } } | null | undefined> | null | undefined } };
+export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined } };
 
 export type GetItemsQueryVariables = Types.Exact<{
   filter?: Types.InputMaybe<Types.ItemFilterInput>;
@@ -43,7 +43,7 @@ export type GetItemsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'File', id: number, url: string } } | null | undefined> | null | undefined }> };
+export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined }> };
 
 
 export const ItemDocument = gql`

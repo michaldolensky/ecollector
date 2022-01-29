@@ -19,14 +19,14 @@ export type GetCatalogItemsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetCatalogItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'File', url: string } } | null | undefined> | null | undefined }> };
+export type GetCatalogItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null | undefined> | null | undefined }> };
 
 export type GetCatalogItemQueryVariables = Types.Exact<{
   itemId: Types.Scalars['Int'];
 }>;
 
 
-export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'File', url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', value: string, parameter: { __typename?: 'Parameter', name: string, id: number } }> } };
+export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', value: string, parameter: { __typename?: 'Parameter', name: string, id: number } }> } };
 
 
 export const GetCatalogueCategoriesDocument = gql`

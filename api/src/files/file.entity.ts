@@ -1,7 +1,7 @@
 import { HideField, InputType, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@ObjectType('File')
+@ObjectType('S3File')
 @InputType('FileInput')
 @Entity()
 export class S3File {
