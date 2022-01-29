@@ -94,10 +94,12 @@ export class ImagesService {
   }
 
   async remove(id: number) {
-    const image = await this.imagesRepository.findOne({ where: { id } });
+    const image = await this.imagesRepository.findOne({
+      where: { id },
+      relations: ['file'],
+    });
     if (!image) throw new NotFoundException('Image not found!');
     await this.filesService.deleteFile(image.file.id);
-    await this.imagesRepository.delete(id);
     return image;
   }
 }

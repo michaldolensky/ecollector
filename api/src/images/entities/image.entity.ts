@@ -28,7 +28,9 @@ export class Image extends BaseEntity {
   @Column({ default: false, type: 'boolean' })
   main: boolean;
 
-  @OneToOne(() => S3File)
+  @OneToOne(() => S3File, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   file: S3File;
 }
