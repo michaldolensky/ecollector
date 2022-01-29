@@ -60,7 +60,6 @@ export class ItemsService {
       const updatingImage = updateItemInput.images.find(
         (x) => image.id === x.id,
       );
-      image.path = updatingImage.path;
       image.main = updatingImage.main;
       return image;
     });

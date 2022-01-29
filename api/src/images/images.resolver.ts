@@ -8,8 +8,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import * as fs from 'fs';
-import * as path from 'path';
 import { getRepository } from 'typeorm';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
@@ -49,15 +47,13 @@ export class ImagesResolver {
   // @UseGuards(GqlAuthGuard, RoleGuard)
   // @Roles(GuardRoles.Owner)
   @Mutation(() => Boolean)
-  async uploadFile(@Args() { uploadImageInput: { files } }: UploadImageArgs) {
-    for (const value of files) {
-      const val = await value;
-      const { filename, createReadStream } = val;
+  async uploadFile(
+    @Args() { uploadImageInput: { files, itemId }, siteId }: UploadImageArgs,
+  ) {
+    for (const file of files) {
+      const val = await file;
 
-      const stream = createReadStream();
-      const filePath = path.join('uploads', filename);
-      const file = fs.createWriteStream(filePath);
-      stream.pipe(file);
+      await this.imagesService.create(val, itemId, siteId);
     }
     return true;
   }
