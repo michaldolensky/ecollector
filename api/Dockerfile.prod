@@ -12,14 +12,14 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-#RUN addgroup -g 1001 -S nodejs
-#RUN adduser -S nestjs -u 1001
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nestjs -u 1001
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/package.json ./package.json
 ADD dist dist
 
-#USER nestjs
+USER nestjs
 
 EXPOSE 3000
 
