@@ -12,8 +12,11 @@ query item($id:Int!){
     createdAt
     images{
       id
-      path
       main
+      file {
+        id
+        url
+      }
     }
     itemParameters {
       id
@@ -54,7 +57,10 @@ mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
     createdAt
     images{
       id
-      path
+      file {
+        id
+        url
+      }
       main
     }
   }
@@ -72,7 +78,10 @@ query getItems($filter:ItemFilterInput,$siteId:Int!){
       name
     }
     images(main:true){
-      path
+      file {
+        id
+        url
+      }
       main
     }
   }

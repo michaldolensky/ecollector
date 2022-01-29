@@ -49,7 +49,7 @@ const [fullscreen, toggleFullscreen] = useToggle();
       :name="index"
     >
       <q-img
-        :src="image.path"
+        :src="image.file.url"
         class="full-height"
         fit="contain"
         @click="toggleFullscreen"
@@ -89,7 +89,7 @@ const [fullscreen, toggleFullscreen] = useToggle();
         <template #default="{ item, index }">
           <q-img
             :key="index"
-            :src="item.path"
+            :src="item.file.url"
             fit="contain"
             width="100px"
             @click="slide = index"

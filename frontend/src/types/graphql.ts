@@ -88,28 +88,35 @@ export type DeleteParameterInput = {
   parameterId: Scalars['Int'];
 };
 
+export type File = {
+  __typename?: 'File';
+  id: Scalars['Int'];
+  url: Scalars['String'];
+};
+
+export type FileInput = {
+  id: Scalars['Int'];
+  url: Scalars['String'];
+};
+
 export type Image = {
   __typename?: 'Image';
   createdAt: Scalars['DateTime'];
-  filename: Scalars['String'];
+  file: File;
   id: Scalars['Int'];
   item: Item;
   itemId: Scalars['Int'];
   main: Scalars['Boolean'];
   originalName: Scalars['String'];
-  path: Scalars['String'];
-  size: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type ImageInput = {
-  filename: Scalars['String'];
+  file: FileInput;
   item: ItemInput;
   itemId: Scalars['Int'];
   main: Scalars['Boolean'];
   originalName: Scalars['String'];
-  path: Scalars['String'];
-  size: Scalars['Int'];
 };
 
 export type Item = {
@@ -428,13 +435,11 @@ export type UpdateCategoryInput = {
 };
 
 export type UpdateImageInput = {
-  filename?: InputMaybe<Scalars['String']>;
+  file?: InputMaybe<FileInput>;
   id: Scalars['Int'];
   itemId?: InputMaybe<Scalars['Int']>;
   main: Scalars['Boolean'];
   originalName?: InputMaybe<Scalars['String']>;
-  path?: InputMaybe<Scalars['String']>;
-  size?: InputMaybe<Scalars['Int']>;
 };
 
 export type UpdateItemInput = {

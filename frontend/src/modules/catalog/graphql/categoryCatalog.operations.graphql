@@ -15,7 +15,9 @@ query getCatalogItems($filter:ItemFilterInput,$siteId:Int!){
     createdAt
     shortDesc
     images(main: true){
-      path
+      file {
+        url
+      }
       main
     }
   }
@@ -32,7 +34,9 @@ query getCatalogItem($itemId:Int!){
     shortDesc
     longDesc
     images{
-      path
+      file {
+        url
+      }
       main
     }
     itemParameters {
