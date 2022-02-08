@@ -7,8 +7,7 @@ export interface LocaleState {
 }
 type QuasarLanguageModule = typeof import('quasar/lang/en-US');
 
-export const useLocaleStore = defineStore({
-  id: 'locale',
+export const useLocaleStore = defineStore('locale', {
   state: () => ({
     locale: 'en-US',
 
