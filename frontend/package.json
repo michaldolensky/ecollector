@@ -37,7 +37,7 @@
     "@graphql-codegen/typescript-operations": "2.2.2",
     "@graphql-codegen/typescript-vue-apollo": "3.2.2",
     "@intlify/eslint-plugin-vue-i18n": "1.2.0",
-    "@quasar/app": "3.2.9",
+    "@quasar/app": "3.3.3",
     "@storybook/addon-actions": "6.4.14",
     "@storybook/addon-essentials": "6.4.14",
     "@storybook/addon-links": "6.4.14",
