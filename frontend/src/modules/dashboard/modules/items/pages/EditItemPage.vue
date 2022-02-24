@@ -89,12 +89,11 @@ const onSubmit = () => {
         type: 'positive',
       });
     })
-      .catch((err) => {
+      .catch(() => {
         notify({
           message: t('dashboard.items.notification.message.item_updated_error'),
           type: 'negative',
         });
-        console.error(err);
       });
   } else {
     void createItem({
@@ -117,12 +116,11 @@ const onSubmit = () => {
         });
         formItemData.id = result?.data.createItem.id;
       }
-    }).catch((err) => {
+    }).catch(() => {
       notify({
         message: t('dashboard.items.notification.message.item_created_error'),
         type: 'negative',
       });
-      console.error(err);
     });
   }
 };
