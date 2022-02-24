@@ -1,13 +1,15 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
+import {
+  ApolloClient, ApolloLink, InMemoryCache,
+} from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { DefaultApolloClient } from '@vue/apollo-composable';
+import { createUploadLink } from 'apollo-upload-client';
 import { boot } from 'quasar/wrappers';
 import { localStorageTokenKey } from 'src/stores/auth';
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: process.env.GRAPHQL_URL,
 });
-
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(localStorageTokenKey);
   return {
@@ -20,7 +22,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 export const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat((httpLink as unknown) as ApolloLink),
   cache: new InMemoryCache({
     addTypename: false,
   }),

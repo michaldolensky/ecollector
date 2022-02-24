@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 import { useVModel } from '@vueuse/core';
-import { QUploader } from 'quasar';
-import { Image, useImages } from 'src/modules/dashboard/modules/items/composables/useImages';
 import { useRouteParams } from 'src/composables/useRoute';
-import { ref } from 'vue';
+import ImageUpload from 'src/modules/dashboard/modules/items/components/ImageUpload.vue';
+import {
+  useRemoveImageMutation,
+} from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
+import { Image } from 'src/types/graphql';
 
-const { removeImage } = useImages();
+const { siteId } = useRouteParams();
+
+const { mutate: removeImageMutation } = useRemoveImageMutation({});
 
 interface Props {
   inEditMode: boolean;
@@ -19,46 +23,31 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits(['update:modelValue']);
 const images = useVModel(props, 'modelValue', emit);
 
-const uploader = ref<QUploader>();
-const { itemId, siteId } = useRouteParams();
-
-const uploadImage = () => {
-  uploader.value?.reset();
-  return {
-    url: `${process.env.SERVER_URL_API}uploads`,
-    method: 'POST',
-    formFields: [
-      { name: 'siteId', value: siteId.value },
-      { name: 'itemId', value: itemId.value },
-    ],
-    fieldName: 'images',
-  };
-};
-
-interface UploadResponse extends XMLHttpRequest{
-  response: string
-}
-const imagesUploaded = (info: { files: [], xhr: UploadResponse }) => {
-  const responseImages:Image[] = JSON.parse(info.xhr.response) as Image[];
-
-  images.value = [...responseImages.map((value) => ({
-    main: value.main,
-    path: value.path,
-    id: value.id,
-  })), ...props.modelValue];
+const removeImage = (id: number) => {
+  void removeImageMutation({ deleteImageInput: { id }, siteId: siteId.value }).then(() => {
+    images.value = images.value.filter((image: Image) => image.id !== id);
+  });
 };
 
 const deleteImage = (id: number) => {
   removeImage(id);
-  images.value = images.value.filter((value) => value.id !== id);
 };
 
 const setAsMainImage = (id: number) => {
   images.value = images.value.map((value) => ({
-    path: value.path,
+    file: value.file,
     id: value.id,
     main: value.id === id,
+    createdAt: value.createdAt,
+    updatedAt: value.updatedAt,
+    itemId: value.itemId,
+    originalName: value.originalName,
+    item: value.item,
   }));
+};
+
+const addImages = (imag:Image[]) => {
+  images.value = [...images.value, ...imag];
 };
 
 </script>
@@ -71,34 +60,10 @@ const setAsMainImage = (id: number) => {
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <q-uploader
-        ref="uploader"
-        :disable="!props.inEditMode"
-        :factory="uploadImage"
-        :label="$t('dashboard.items.input.label.upload')"
-        accept="image/*"
-        auto-upload
-        batch
-        max-files="10"
-        multiple
-        style="width: 100%"
-        @uploaded="imagesUploaded"
-      >
-        <template #list="scope">
-          <div class="row">
-            <q-item
-              v-for="file in scope.files"
-              :key="file.name"
-              class="q-pa-xs"
-            >
-              <img
-                :src="file.__img.src"
-                style="width: 125px"
-              >
-            </q-item>
-          </div>
-        </template>
-      </q-uploader>
+      <image-upload
+        :disabled="!props.inEditMode"
+        @add-images="addImages"
+      />
     </q-card-section>
     <q-card-section>
       <div class="q-pa-xs row items-start q-gutter-xs">
@@ -107,7 +72,7 @@ const setAsMainImage = (id: number) => {
           :key="image.id"
         >
           <q-img
-            :src="image.path"
+            :src="image.file.url"
             style="width: 125px;max-height: 125px"
           />
           <q-card-actions align="center">

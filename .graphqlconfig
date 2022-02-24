@@ -1,6 +1,6 @@
 {
   "name": "E-collector",
-  "schemaPath": "api/schema.gql",
+  "schemaPath": "api/src/schema.gql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {

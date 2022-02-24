@@ -1,11 +1,12 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as fs from 'fs';
+import { FileUpload } from 'graphql-upload';
 import { Repository } from 'typeorm';
+import { FilesService } from '../files/files.service';
 import { Item } from '../items/entities/item.entity';
-import { CreateImageInput } from './dto/create-image.input';
 import { GetImagesArgs } from './dto/get-images.args';
 import { Image } from './entities/image.entity';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class ImagesService {
@@ -14,13 +15,38 @@ export class ImagesService {
   constructor(
     @InjectRepository(Image)
     private imagesRepository: Repository<Image>,
+    private filesService: FilesService,
   ) {}
 
-  async create(createImageInput: CreateImageInput) {
-    let image = new Image();
-    image = Object.assign(image, createImageInput);
+  private generateS3Key(
+    itemId: number,
+    siteId: number,
+    filename: string,
+  ): string {
+    return `${siteId}/${itemId}/${uuid()}-${filename}`;
+  }
 
-    return await this.imagesRepository.save(image);
+  async create(
+    file: FileUpload,
+    itemId: number,
+    siteId: number,
+  ): Promise<Image> {
+    const key = this.generateS3Key(itemId, siteId, file.filename);
+    const savedFile = await this.filesService.uploadFile(file, key);
+
+    const main = (await this.getCountOfImagesOfItem(itemId)) === 0;
+
+    const newImage = this.imagesRepository.create({
+      itemId,
+      originalName: file.filename,
+      main: main,
+      file: {
+        id: savedFile.id,
+      },
+    });
+    const saved = await this.imagesRepository.save(newImage);
+    saved.file.url = savedFile.url;
+    return saved;
   }
 
   async getCountOfImagesOfItem(itemId: number) {
@@ -31,8 +57,22 @@ export class ImagesService {
     });
   }
 
+  async createMultiple(
+    files: FileUpload[],
+    itemId: number,
+    siteId: number,
+  ): Promise<Image[]> {
+    const images: Image[] = [];
+    for (const file of files) {
+      const image = await this.create(await file, itemId, siteId);
+      images.push(image);
+    }
+    return images;
+  }
+
   async findAll({ itemId, main }: GetImagesArgs, parent?: Item) {
     return await this.imagesRepository.find({
+      relations: ['file'],
       where: {
         ...(itemId && { itemId }),
         ...(parent?.id && { itemId: parent.id }),
@@ -54,10 +94,12 @@ export class ImagesService {
   }
 
   async remove(id: number) {
-    const image = await this.imagesRepository.findOne({ where: { id } });
+    const image = await this.imagesRepository.findOne({
+      where: { id },
+      relations: ['file'],
+    });
     if (!image) throw new NotFoundException('Image not found!');
-    await this.imagesRepository.delete(id);
-    fs.rmSync(image.path, { force: true });
+    await this.filesService.deleteFile(image.file.id);
     return image;
   }
 }

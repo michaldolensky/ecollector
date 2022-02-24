@@ -39,6 +39,11 @@ services:
       - API_PORT
       - NGINX_SERVER_NAME
       - SERVER_UPLOADS_URL
+      - AWS_REGION
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_BUCKET_NAME
+      - AWS_S3_ENDPOINT
       - NODE_ENV=development
     depends_on:
       - postgres

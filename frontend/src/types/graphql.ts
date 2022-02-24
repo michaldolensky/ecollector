@@ -14,6 +14,8 @@ export type Scalars = {
   Float: number;
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: Date;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: File;
 };
 
 export type Category = {
@@ -24,7 +26,7 @@ export type Category = {
   name: Scalars['String'];
   perex: Scalars['String'];
   site: Site;
-  siteId: Scalars['Float'];
+  siteId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -43,7 +45,7 @@ export type CategoryInput = {
   name: Scalars['String'];
   perex: Scalars['String'];
   site: SiteInput;
-  siteId: Scalars['Float'];
+  siteId: Scalars['Int'];
 };
 
 export type CreateCategoryInput = {
@@ -86,28 +88,29 @@ export type DeleteParameterInput = {
   parameterId: Scalars['Int'];
 };
 
+export type FileInput = {
+  id: Scalars['Int'];
+  url: Scalars['String'];
+};
+
 export type Image = {
   __typename?: 'Image';
   createdAt: Scalars['DateTime'];
-  filename: Scalars['String'];
+  file: S3File;
   id: Scalars['Int'];
   item: Item;
-  itemId: Scalars['Float'];
+  itemId: Scalars['Int'];
   main: Scalars['Boolean'];
   originalName: Scalars['String'];
-  path: Scalars['String'];
-  size: Scalars['Float'];
   updatedAt: Scalars['DateTime'];
 };
 
 export type ImageInput = {
-  filename: Scalars['String'];
+  file: FileInput;
   item: ItemInput;
-  itemId: Scalars['Float'];
+  itemId: Scalars['Int'];
   main: Scalars['Boolean'];
   originalName: Scalars['String'];
-  path: Scalars['String'];
-  size: Scalars['Float'];
 };
 
 export type Item = {
@@ -161,18 +164,18 @@ export type ItemParameter = {
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   item: Item;
-  itemId: Scalars['Float'];
+  itemId: Scalars['Int'];
   parameter: Parameter;
-  parameterId: Scalars['Float'];
+  parameterId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
   value: Scalars['String'];
 };
 
 export type ItemParameterInput = {
   item: ItemInput;
-  itemId: Scalars['Float'];
+  itemId: Scalars['Int'];
   parameter: ParameterInput;
-  parameterId: Scalars['Float'];
+  parameterId: Scalars['Int'];
   value: Scalars['String'];
 };
 
@@ -193,6 +196,7 @@ export type Mutation = {
   updateParameter: Parameter;
   updateSite: Site;
   updateUser: User;
+  uploadImage: Array<Image>;
 };
 
 
@@ -276,13 +280,19 @@ export type MutationUpdateUserArgs = {
   updateUserInput: UpdateUserInput;
 };
 
+
+export type MutationUploadImageArgs = {
+  siteId: Scalars['Int'];
+  uploadImageInput: UploadImageDto;
+};
+
 export type Parameter = {
   __typename?: 'Parameter';
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   name: Scalars['String'];
   site: Site;
-  siteId: Scalars['Float'];
+  siteId: Scalars['Int'];
   type: ParameterType;
   updatedAt: Scalars['DateTime'];
 };
@@ -294,7 +304,7 @@ export type ParameterFilterInput = {
 export type ParameterInput = {
   name: Scalars['String'];
   site: SiteInput;
-  siteId: Scalars['Float'];
+  siteId: Scalars['Int'];
   type: ParameterType;
 };
 
@@ -377,6 +387,12 @@ export enum Roles {
   User = 'USER'
 }
 
+export type S3File = {
+  __typename?: 'S3File';
+  id: Scalars['Int'];
+  url: Scalars['String'];
+};
+
 export type Site = {
   __typename?: 'Site';
   categories: Array<Category>;
@@ -385,7 +401,7 @@ export type Site = {
   items: Array<Item>;
   name: Scalars['String'];
   owner: User;
-  ownerId: Scalars['Float'];
+  ownerId: Scalars['Int'];
   parameters: Array<Parameter>;
   stats: SiteStats;
   updatedAt: Scalars['DateTime'];
@@ -396,20 +412,20 @@ export type SiteInput = {
   items: Array<ItemInput>;
   name: Scalars['String'];
   owner: UserInput;
-  ownerId: Scalars['Float'];
+  ownerId: Scalars['Int'];
   parameters: Array<ParameterInput>;
   stats: SiteStatsInput;
 };
 
 export type SiteStats = {
   __typename?: 'SiteStats';
-  totalCategories: Scalars['Float'];
-  totalItems: Scalars['Float'];
+  totalCategories: Scalars['Int'];
+  totalItems: Scalars['Int'];
 };
 
 export type SiteStatsInput = {
-  totalCategories: Scalars['Float'];
-  totalItems: Scalars['Float'];
+  totalCategories: Scalars['Int'];
+  totalItems: Scalars['Int'];
 };
 
 export type UpdateCategoryInput = {
@@ -419,19 +435,14 @@ export type UpdateCategoryInput = {
 };
 
 export type UpdateImageInput = {
-  filename?: InputMaybe<Scalars['String']>;
   id: Scalars['Int'];
-  itemId?: InputMaybe<Scalars['Int']>;
   main: Scalars['Boolean'];
-  originalName?: InputMaybe<Scalars['String']>;
-  path?: InputMaybe<Scalars['String']>;
-  size?: InputMaybe<Scalars['Float']>;
 };
 
 export type UpdateItemInput = {
   categoryId: Scalars['Int'];
   id: Scalars['Int'];
-  images?: InputMaybe<Array<InputMaybe<UpdateImageInput>>>;
+  images?: InputMaybe<Array<UpdateImageInput>>;
   internalNumber: Scalars['String'];
   itemParameters?: InputMaybe<Array<InputMaybe<UpdateItemParameterInput>>>;
   longDesc: Scalars['String'];
@@ -460,6 +471,11 @@ export type UpdateSiteInput = {
 export type UpdateUserInput = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+};
+
+export type UploadImageDto = {
+  files: Array<Scalars['Upload']>;
+  itemId: Scalars['Int'];
 };
 
 export type User = {

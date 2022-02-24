@@ -1,19 +1,24 @@
 <script lang="ts" setup>
-import { useDashboardItems } from 'src/modules/dashboard/modules/items/composables/useDashboardItems';
 import { Item } from 'src/types/graphql';
 import { toRowDate } from 'src/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const {
-  loading,
-  confirmDelete,
-  items,
-  refetch,
-} = useDashboardItems();
-void refetch();
-
 const { t } = useI18n();
+
+interface Props {
+  items: Item[]
+  loading: boolean
+}
+// eslint-disable-next-line
+const emit = defineEmits<{
+  (e: 'deleteRow', item: Item): void
+}>();
+
+const props = withDefaults(defineProps<Props>(), {
+  items: () => [],
+  loading: true,
+});
 
 const ItemsTableColumns = computed(() => [
   {
@@ -89,10 +94,10 @@ const initialPagination = reactive({
   <q-table
     :columns="ItemsTableColumns"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="props.loading"
     :no-data-label="$t('dashboard.items.table.not_found')"
     :pagination="initialPagination"
-    :rows="items"
+    :rows="props.items"
     row-key="id"
   >
     <template #body-cell-image="slotProps">
@@ -104,7 +109,7 @@ const initialPagination = reactive({
           >
             <img
               :alt="slotProps.row.name"
-              :src="slotProps.row.images[0].path"
+              :src="slotProps.row.images[0].file.url"
             >
           </q-avatar>
           <q-icon
@@ -136,7 +141,7 @@ const initialPagination = reactive({
           flat
           icon="delete"
           size="sm"
-          @click="confirmDelete(slotProps.row)"
+          @click="emit('deleteRow',slotProps.row)"
         />
       </q-td>
     </template>

@@ -162,7 +162,9 @@
       "notification": {
         "message": {
           "item_created": "Created",
-          "item_updated": "Updated"
+          "item_updated": "Updated",
+          "item_created_error": "Error creating item",
+          "item_updated_error": "Error updating item"
         }
       },
       "table": {

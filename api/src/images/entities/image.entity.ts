@@ -1,8 +1,8 @@
-import { ConfigService } from '@nestjs/config';
 import { InputType, ObjectType } from '@nestjs/graphql';
 import { Factory } from 'nestjs-seeder';
-import { AfterLoad, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
+import { S3File } from '../../files/file.entity';
 import { Item } from '../../items/entities/item.entity';
 
 @ObjectType('Image')
@@ -11,17 +11,7 @@ import { Item } from '../../items/entities/item.entity';
 export class Image extends BaseEntity {
   @Factory((faker) => faker.random.word())
   @Column()
-  filename: string;
-  @Factory((faker) => faker.random.word())
-  @Column()
   originalName: string;
-  @Factory(() => 'https://picsum.photos/500/500')
-  @Column()
-  path: string;
-
-  @Factory((faker) => faker.random.number({ min: 0, max: 100 }))
-  @Column()
-  size: number;
 
   @ManyToOne(() => Item, (item) => item.images, {
     onUpdate: 'CASCADE',
@@ -38,10 +28,9 @@ export class Image extends BaseEntity {
   @Column({ default: false, type: 'boolean' })
   main: boolean;
 
-  @AfterLoad()
-  updatePath() {
-    const configService = new ConfigService();
-    if (!this.path.includes('http'))
-      this.path = `${configService.get('SERVER_UPLOADS_URL')}/${this.path}`;
-  }
+  @OneToOne(() => S3File, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  file: S3File;
 }

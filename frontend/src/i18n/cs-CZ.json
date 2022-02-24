@@ -162,7 +162,9 @@
       "notification": {
         "message": {
           "item_created": "Vytvořeno",
-          "item_updated": "Aktualizováno"
+          "item_updated": "Aktualizováno",
+          "item_created_error": "Chyba při vytváření",
+          "item_updated_error": "Chyba při aktualizaci"
         }
       },
       "table": {

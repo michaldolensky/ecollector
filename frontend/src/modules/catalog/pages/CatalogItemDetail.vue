@@ -14,9 +14,10 @@ const localeStore = useLocaleStore();
 
 const props = defineProps<Props>();
 
-const { result, loading } = useGetCatalogItemQuery(() => ({
+const { result, loading, refetch } = useGetCatalogItemQuery(() => ({
   itemId: props.itemId,
 }));
+void refetch();
 
 const item = useResult(result, {});
 

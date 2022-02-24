@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MulterModule } from '@nestjs/platform-express';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
@@ -13,6 +12,7 @@ import { ItemsModule } from './items/items.module';
 import { ParametersModule } from './parameters/parameters.module';
 import { SitesModule } from './sites/sites.module';
 import { UsersModule } from './users/users.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -33,13 +33,15 @@ import { UsersModule } from './users/users.module';
         SERVER_URL_ORIGIN: Joi.string().required(),
         SERVER_UPLOADS_URL: Joi.string().required(),
         NODE_ENV: Joi.string().default('production'),
+        AWS_REGION: Joi.string().required(),
+        AWS_ACCESS_KEY_ID: Joi.string().required(),
+        AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+        AWS_BUCKET_NAME: Joi.string().required(),
+        AWS_S3_ENDPOINT: Joi.string().required(),
       }),
     }),
     DatabaseModule,
     GraphqlModule,
-    MulterModule.register({
-      dest: './files',
-    }),
     AuthModule,
     UsersModule,
     SitesModule,
@@ -49,6 +51,7 @@ import { UsersModule } from './users/users.module';
     ParametersModule,
     CommonModule,
     GraphqlModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

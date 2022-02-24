@@ -11,12 +11,13 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const { result, loading } = useGetCatalogItemsQuery(() => ({
+const { result, loading, refetch } = useGetCatalogItemsQuery(() => ({
   siteId: props.siteId,
   filter: {
     categoryId: props.categoryId,
   },
 }));
+void refetch();
 
 const items = useResult(result, []);
 

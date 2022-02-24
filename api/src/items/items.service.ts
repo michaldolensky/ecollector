@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
+import { FilesService } from '../files/files.service';
 import { ItemParametersService } from '../parameters/itemParameters.service';
 import { CreateItemInput } from './dto/create-item.input';
 import { GetItemsArgs } from './dto/getItems.args';
@@ -18,6 +19,7 @@ export class ItemsService {
     @InjectRepository(Item)
     private itemsRepository: Repository<Item>,
     private readonly itemParametersService: ItemParametersService,
+    private readonly filesService: FilesService,
   ) {}
 
   async create(createItemInput: CreateItemInput, siteId: number) {
@@ -56,14 +58,13 @@ export class ItemsService {
 
     Object.assign(item, updateItemInput);
 
-    item.images = item.images.map((image) => {
-      const updatingImage = updateItemInput.images.find(
-        (x) => image.id === x.id,
-      );
-      image.path = updatingImage.path;
-      image.main = updatingImage.main;
-      return image;
-    });
+    // item.images = item.images.map((image) => {
+    //   const updatingImage = updateItemInput.images.find(
+    //     (x) => image.id === x.id,
+    //   );
+    //   image.main = updatingImage.main;
+    //   return image;
+    // });
 
     item.itemParameters.forEach((parameter) => {
       if (parameter.id) {
@@ -83,9 +84,20 @@ export class ItemsService {
   }
 
   async remove(itemId: number) {
-    const item = await this.itemsRepository.findOne({ where: { id: itemId } });
+    const item = await this.itemsRepository.findOne({
+      where: { id: itemId },
+      relations: ['images', 'images.file'],
+    });
     if (!item) throw new NotFoundException('Item not found!');
+
+    //fixme: find better way to delete files in s3
+    item.images.forEach((image) => {
+      if (image.file) {
+        this.filesService.deleteFile(image.file.id);
+      }
+    });
     await this.itemsRepository.delete(itemId);
+
     return item;
   }
 }

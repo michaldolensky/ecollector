@@ -16,6 +16,7 @@ import { GuardRoles } from '../common/enums/role.enum';
 import { Item } from '../items/entities/item.entity';
 import { DeleteImageArgs } from './dto/delete-image.input';
 import { GetImagesArgs } from './dto/get-images.args';
+import { UploadImageArgs } from './dto/upload-image.dto';
 import { Image } from './entities/image.entity';
 import { ImagesService } from './images.service';
 
@@ -29,6 +30,7 @@ export class ImagesResolver {
   findAll(@Args() args: GetImagesArgs) {
     return this.imagesService.findAll(args);
   }
+
   @UseGuards(GqlAuthGuard, RoleGuard)
   @Roles(GuardRoles.Admin)
   @Query(() => Image, { name: 'image' })
@@ -40,6 +42,15 @@ export class ImagesResolver {
   @Mutation(() => Image)
   removeImage(@Args() { deleteImageInput: { id } }: DeleteImageArgs) {
     return this.imagesService.remove(id);
+  }
+
+  @UseGuards(GqlAuthGuard, RoleGuard)
+  @Roles(GuardRoles.Owner)
+  @Mutation(() => [Image])
+  async uploadImage(
+    @Args() { uploadImageInput: { files, itemId }, siteId }: UploadImageArgs,
+  ): Promise<Image[]> {
+    return this.imagesService.createMultiple(files, itemId, siteId);
   }
 
   @ResolveField()

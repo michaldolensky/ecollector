@@ -10,7 +10,6 @@ import { QForm, useQuasar } from 'quasar';
 import { useItems } from 'src/modules/dashboard/modules/items/composables/useItems';
 import { UpdateItemInput } from 'src/types/graphql';
 import { validationHelper } from 'src/validationHelper';
-import { DeepNullable } from 'ts-essentials';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -32,30 +31,29 @@ const props = withDefaults(defineProps<Props>(), {
   itemId: undefined,
 });
 
-const resetObject:DeepNullable<UpdateItemInput> = {
+const resetObject:UpdateItemInput = {
   id: 0,
   name: '',
-  categoryId: null,
+  categoryId: 0,
   shortDesc: '',
   longDesc: '',
   internalNumber: '',
   numberForExchange: 0,
   numberInCollection: 0,
-  images: [],
   itemParameters: [],
+  images: [],
 };
 
-const item = reactive(resetObject);
-const enableQuery = ref(false);
+const formItemData = reactive({ ...resetObject });
 const tab = ref('detail');
+const form = ref<QForm>();
+
+const enableQuery = ref(false);
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
-const form = ref<QForm>();
 
-const {
-  onResult, restart, loading, refetch,
-} = useItemQuery({
+const { onResult, loading } = useItemQuery({
   id: props.itemId,
 }, () => ({
   enabled: enableQuery.value,
@@ -65,46 +63,66 @@ onResult((result) => {
   if (!result.loading) {
     const reqItem = result.data.item;
 
-    item.id = reqItem.id;
-    item.name = reqItem.name;
-    item.categoryId = reqItem.categoryId;
-    item.shortDesc = reqItem.shortDesc;
-    item.longDesc = reqItem.longDesc;
-    item.internalNumber = reqItem.internalNumber;
-    item.numberForExchange = reqItem.numberForExchange;
-    item.numberInCollection = reqItem.numberInCollection;
-    item.images = reqItem.images;
-    item.itemParameters = reqItem.itemParameters;
+    Object.assign(formItemData, reqItem);
   }
 });
-restart();
 
 const onSubmit = () => {
   if (props.inEditMode) {
-    void updateItem(item).then((result) => {
-      if (result?.data) {
+    void updateItem({
+      id: formItemData.id,
+      name: formItemData.name,
+      categoryId: formItemData.categoryId,
+      shortDesc: formItemData.shortDesc,
+      longDesc: formItemData.longDesc,
+      internalNumber: formItemData.internalNumber,
+      numberForExchange: formItemData.numberForExchange,
+      numberInCollection: formItemData.numberInCollection,
+      images: (formItemData.images ?? []).map((image) => ({
+        id: image.id,
+        main: image.main,
+      })),
+      itemParameters: formItemData.itemParameters,
+    }).then(() => {
+      notify({
+        message: t('dashboard.items.notification.message.item_updated'),
+        type: 'positive',
+      });
+    })
+      .catch((err) => {
         notify({
-          type: 'positive',
-          message: t('dashboard.items.notification.message.item_updated'),
+          message: t('dashboard.items.notification.message.item_updated_error'),
+          type: 'negative',
         });
-        void refetch();
-      }
-    });
+        console.error(err);
+      });
   } else {
-    delete item.id;
-    delete item.images;
-    delete item.itemParameters;
-    void createItem(item).then((result) => {
-      if (result?.data) {
+    void createItem({
+      name: formItemData.name,
+      categoryId: formItemData.categoryId,
+      shortDesc: formItemData.shortDesc,
+      longDesc: formItemData.longDesc,
+      internalNumber: formItemData.internalNumber,
+      numberForExchange: formItemData.numberForExchange,
+      numberInCollection: formItemData.numberInCollection,
+    }).then((result) => {
+      if (result?.data?.createItem.id) {
         notify({
-          type: 'positive',
           message: t('dashboard.items.notification.message.item_created'),
+          type: 'positive',
         });
         void router.push({
           name: 'DashBoardItemEdit',
-          params: { itemId: result.data.createItem.id },
+          params: { itemId: result?.data.createItem.id },
         });
+        formItemData.id = result?.data.createItem.id;
       }
+    }).catch((err) => {
+      notify({
+        message: t('dashboard.items.notification.message.item_created_error'),
+        type: 'negative',
+      });
+      console.error(err);
     });
   }
 };
@@ -173,7 +191,7 @@ const onSubmit = () => {
                 <q-separator />
                 <q-card-section>
                   <q-input
-                    v-model="item.name"
+                    v-model="formItemData.name"
                     :label="$t('dashboard.items.input.label.item_name')"
                     :rules="[required]"
                     counter
@@ -183,7 +201,7 @@ const onSubmit = () => {
                   />
 
                   <q-input
-                    v-model="item.shortDesc"
+                    v-model="formItemData.shortDesc"
                     :label="$t('dashboard.items.input.label.short_description')"
                     maxlength="250"
                     outlined
@@ -195,7 +213,7 @@ const onSubmit = () => {
                   <div class="text-h6 text-weight-regular">
                     {{ $t('dashboard.items.input.label.long_description') }}
                   </div>
-                  <Editor v-model="item.longDesc" />
+                  <Editor v-model="formItemData.longDesc" />
                 </q-card-section>
               </q-card>
             </div>
@@ -209,32 +227,32 @@ const onSubmit = () => {
                 <q-separator />
                 <q-card-section>
                   <ItemCategorySelect
-                    v-model="item.categoryId"
+                    v-model="formItemData.categoryId"
                     required
                   />
                   <q-input
-                    v-if="item.id"
-                    v-model="item.id"
+                    v-if="formItemData.id"
+                    v-model="formItemData.id"
                     :label="$t('dashboard.items.input.label.item_id')"
                     disable
                     outlined
                   />
                   <q-input
-                    v-model="item.internalNumber"
+                    v-model="formItemData.internalNumber"
                     :label="$t('dashboard.items.input.label.internal_number')"
                     maxlength="50"
                     outlined
                     stack-label
                   />
                   <q-input
-                    v-model.number="item.numberForExchange"
+                    v-model.number="formItemData.numberForExchange"
                     :label="$t('dashboard.items.input.label.items_for_exchange')"
                     outlined
                     stack-label
                     type="number"
                   />
                   <q-input
-                    v-model.number="item.numberInCollection"
+                    v-model.number="formItemData.numberInCollection"
                     :label="$t('dashboard.items.input.label.items_in_collection')"
                     outlined
                     stack-label
@@ -252,7 +270,7 @@ const onSubmit = () => {
           name="images"
         >
           <editItemImages
-            v-model="item.images"
+            v-model="formItemData.images"
             :in-edit-mode="props.inEditMode"
           />
         </q-tab-panel>
@@ -262,7 +280,7 @@ const onSubmit = () => {
           class="bg-grey-3"
           name="parameters"
         >
-          <Parameters v-model="item.itemParameters" />
+          <Parameters v-model="formItemData.itemParameters" />
         </q-tab-panel>
       </q-tab-panels>
     </q-form>
