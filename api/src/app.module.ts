@@ -31,7 +31,6 @@ import { FilesModule } from './files/files.module';
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
         SERVER_URL_ORIGIN: Joi.string().required(),
-        SERVER_UPLOADS_URL: Joi.string().required(),
         NODE_ENV: Joi.string().default('production'),
         AWS_REGION: Joi.string().required(),
         AWS_ACCESS_KEY_ID: Joi.string().required(),
