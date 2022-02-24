@@ -109,7 +109,7 @@ const initialPagination = reactive({
           >
             <img
               :alt="slotProps.row.name"
-              :src="slotProps.row.images[0].path"
+              :src="slotProps.row.images[0].file.url"
             >
           </q-avatar>
           <q-icon
