@@ -2,16 +2,14 @@
 import { useVModel } from '@vueuse/core';
 import { useRouteParams } from 'src/composables/useRoute';
 import ImageUpload from 'src/modules/dashboard/modules/items/components/ImageUpload.vue';
-import { useRemoveImageMutation } from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
+import {
+  useRemoveImageMutation,
+} from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
 import { Image } from 'src/types/graphql';
 
 const { siteId } = useRouteParams();
 
 const { mutate: removeImageMutation } = useRemoveImageMutation({});
-
-const removeImage = (id: number) => {
-  void removeImageMutation({ deleteImageInput: { id }, siteId: siteId.value });
-};
 
 interface Props {
   inEditMode: boolean;
@@ -24,6 +22,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(['update:modelValue']);
 const images = useVModel(props, 'modelValue', emit);
+
+const removeImage = (id: number) => {
+  void removeImageMutation({ deleteImageInput: { id }, siteId: siteId.value }).then(() => {
+    images.value = images.value.filter((image: Image) => image.id !== id);
+  });
+};
 
 const deleteImage = (id: number) => {
   removeImage(id);
@@ -42,6 +46,10 @@ const setAsMainImage = (id: number) => {
   }));
 };
 
+const addImages = (imag:Image[]) => {
+  images.value = [...images.value, ...imag];
+};
+
 </script>
 <template>
   <q-card>
@@ -52,7 +60,10 @@ const setAsMainImage = (id: number) => {
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <ImageUpload :disabled="!props.inEditMode" />
+      <image-upload
+        :disabled="!props.inEditMode"
+        @add-images="addImages"
+      />
     </q-card-section>
     <q-card-section>
       <div class="q-pa-xs row items-start q-gutter-xs">

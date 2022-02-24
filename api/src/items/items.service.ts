@@ -58,13 +58,13 @@ export class ItemsService {
 
     Object.assign(item, updateItemInput);
 
-    item.images = item.images.map((image) => {
-      const updatingImage = updateItemInput.images.find(
-        (x) => image.id === x.id,
-      );
-      image.main = updatingImage.main;
-      return image;
-    });
+    // item.images = item.images.map((image) => {
+    //   const updatingImage = updateItemInput.images.find(
+    //     (x) => image.id === x.id,
+    //   );
+    //   image.main = updatingImage.main;
+    //   return image;
+    // });
 
     item.itemParameters.forEach((parameter) => {
       if (parameter.id) {

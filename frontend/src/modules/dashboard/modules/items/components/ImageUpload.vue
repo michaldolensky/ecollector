@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { QFile } from 'quasar';
 import { useRouteParams } from 'src/composables/useRoute';
-import { useUploadImageMutation } from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
+import {
+  UploadImageMutation,
+  useUploadImageMutation,
+} from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
 import { ref } from 'vue';
 
 const { itemId, siteId } = useRouteParams();
@@ -10,20 +13,29 @@ interface Props{
   disabled: boolean;
 }
 const props = defineProps<Props>();
+// eslint-disable-next-line
+const emit = defineEmits<{ (e: 'addImages', images: UploadImageMutation): void
+}>();
+
 const files = ref<File[]>([]);
 
 const { mutate: uploadImage } = useUploadImageMutation({});
 
-const upload = () => {
+const upload = async () => {
   if (files.value.length > 0) {
-    void uploadImage({
+    const uploadResult = await uploadImage({
       files: files.value,
       siteId: siteId.value,
       itemId: itemId.value,
 
-    }).finally(() => {
-      files.value = [];
     });
+    files.value = [];
+
+    if (uploadResult) {
+      const images = uploadResult.data?.uploadImage;
+
+      emit('addImages', images);
+    }
   }
 };
 const getImageSrc = (file:File) => URL.createObjectURL(file);
@@ -36,7 +48,7 @@ const getImageSrc = (file:File) => URL.createObjectURL(file);
     :disabled="props.disabled"
     accept="image/*"
     counter
-    hint="test"
+    hint="Click or drag and drop image here"
     multiple
     outlined
     style="width: 100%;"

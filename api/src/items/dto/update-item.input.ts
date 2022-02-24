@@ -33,7 +33,7 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @Field(() => Int)
   categoryId: number;
 
-  @Field(() => [UpdateImageInput], { nullable: 'itemsAndList' })
+  @Field(() => [UpdateImageInput])
   images?: Image[];
 
   @Field(() => [UpdateItemParameterInput], { nullable: 'itemsAndList' })
