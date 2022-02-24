@@ -20,15 +20,39 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
-const value = useVModel(props, 'modelValue', emit);
-const options = ref();
+// eslint-disable-next-line
+const emit = defineEmits<{ (e: 'update:modelValue', id: number|null): void }>();
+const model = useVModel(props, 'modelValue', emit);
 
-const { result, onResult, refetch } = useGetCategoriesForSelectorQuery({ siteId: siteId.value });
-const categories = useResult(result, null, (data) => data.categories);
-void refetch();
-onResult(() => {
-  options.value = categories.value;
+const { result, onResult } = useGetCategoriesForSelectorQuery(() => ({ siteId: siteId.value }));
+const categories = useResult(result, [], (data) => data.categories.map((category) => ({
+  value: category.id,
+  label: category.name,
+})));
+
+const options = ref(categories.value);
+
+onResult(({ data }) => {
+  if (data) {
+    options.value = data.categories.map((category) => ({
+      value: category.id,
+      label: category.name,
+    }));
+  }
+});
+
+const computedModel = computed({
+  get() {
+    const rs = options.value.filter((row) => row.value === model.value);
+    return rs.length === 1 ? rs[0] : rs;
+  },
+  set(v: { value: number, label: string } | null) {
+    if (v === null) {
+      model.value = null;
+      return;
+    }
+    model.value = v.value;
+  },
 });
 
 const filterFn: FilterFn = (val, update) => {
@@ -41,10 +65,8 @@ const filterFn: FilterFn = (val, update) => {
 
   update(() => {
     const needle = val.toLowerCase();
-    if (categories.value !== null) {
-      options.value = categories.value
-        .filter((v) => v.name.toLowerCase().indexOf(needle) > -1);
-    }
+    options.value = categories.value
+      .filter((v) => v.label.toLowerCase().indexOf(needle) > -1);
   });
 };
 
@@ -57,17 +79,13 @@ const rules = computed(() => (props.required ? [required] : []));
 
 <template>
   <q-select
-    v-model="value"
+    v-model="computedModel"
     :clearable="props.clearable"
     :label="$t('dashboard.items.input.label.category')"
     :multiple="props.multiple"
     :options="options"
     :rules="rules"
-    emit-value
     input-debounce="0"
-    map-options
-    option-label="name"
-    option-value="id"
     outlined
     use-input
     @filter="filterFn"
