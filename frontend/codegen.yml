@@ -28,3 +28,15 @@ generates:
     config:
       withCompositionFunctions: true
       vueCompositionApiImportFrom: vue
+  src:
+    preset: near-operation-file
+    presetConfig:
+      extension: .urql.ts
+      baseTypesPath: /types/graphql.ts
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - add:
+          content: '// noinspection ES6UnusedImports'
+      - "typescript-operations"
+      - "typescript-vue-urql"
