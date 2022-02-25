@@ -46,7 +46,7 @@
     "@storybook/manager-webpack5": "6.4.19",
     "@storybook/vue3": "6.4.19",
     "@types/apollo-upload-client": "^17.0.0",
-    "@types/node": "16.11.21",
+    "@types/node": "16.11.26",
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "5.12.1",
     "babel-loader": "8.2.3",
