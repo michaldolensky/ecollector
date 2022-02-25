@@ -53,7 +53,7 @@ services:
 
   postgres:
     container_name: ecollector-postgres-dev
-    image: postgres:14.1
+    image: postgres:14.2
     working_dir: /application
     ports:
       - "5432:5432"
