@@ -8,7 +8,7 @@ const getToken = () => {
 };
 
 const client = createClient({
-  url: "http://localhost:3000/graphql",
+  url: process.env.GRAPHQL_URL,
   exchanges: [devtoolsExchange, ...defaultExchanges],
   fetchOptions: () => {
     const token = getToken();
