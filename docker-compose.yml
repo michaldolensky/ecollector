@@ -33,8 +33,6 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
-    volumes:
-      - ./.data/prod/uploads:/app/uploads
 
   postgres:
     image: postgres:14.2
