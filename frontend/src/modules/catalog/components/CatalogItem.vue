@@ -20,7 +20,7 @@ const props = defineProps<Props>();
         class="no-decoration justify-center"
       >
         <q-img
-          v-if="props.item.images[0].file.url"
+          v-if="props.item.images[0]?.file?.url"
           :src="props.item.images[0].file.url"
           fit="scale-down"
           loading="lazy"
