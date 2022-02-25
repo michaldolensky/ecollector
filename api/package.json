@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "8.2.0",
-    "@nestjs/schematics": "8.0.5",
+    "@nestjs/schematics": "8.0.7",
     "@nestjs/testing": "8.2.6",
     "@types/aws-sdk": "^2.7.0",
     "@types/bcrypt": "5.0.0",
