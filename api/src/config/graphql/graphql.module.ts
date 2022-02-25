@@ -1,18 +1,20 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { GqlModuleOptions } from '@nestjs/graphql/dist/interfaces/gql-module-options.interface';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+
 import { join } from 'path';
 
 const graphQLLogger = new Logger('GraphQLModule');
 
 @Module({
   imports: [
-    GraphQLModule.forRootAsync({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const baseConfig: GqlModuleOptions = {
+        const baseConfig: ApolloDriverConfig = {
           path: '/api/graphql',
           debug: false,
           autoSchemaFile: true,
