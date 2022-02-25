@@ -20,7 +20,7 @@
     "@vue/apollo-composable": "4.0.0-alpha.16",
     "@vueuse/core": "7.6.2",
     "apollo-upload-client": "17.0.0",
-    "axios": "0.25.0",
+    "axios": "0.26.0",
     "core-js": "3.21.1",
     "graphql": "15.8.0",
     "graphql-tag": "2.12.6",
