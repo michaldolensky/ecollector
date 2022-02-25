@@ -1,18 +1,16 @@
 <script lang="ts" setup>
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { QForm, useQuasar } from 'quasar';
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { QForm, useQuasar } from "quasar";
 
-import { useCategories } from 'src/modules/dashboard/modules/categories/composables/useCategories';
-import { useGetCategoryQuery } from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
-import { UpdateCategoryInput } from 'src/types/graphql';
-import { validationHelper } from 'src/validationHelper';
+import { useCategories } from "src/modules/dashboard/modules/categories/composables/useCategories";
+import { useGetCategoryQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { UpdateCategoryInput } from "src/types/graphql";
+import { validationHelper } from "src/validationHelper";
 
-import {
-  ref, reactive, onMounted,
-} from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { ref, reactive, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const { updateCategory, createCategory } = useCategories();
@@ -23,31 +21,34 @@ const { notify } = useQuasar();
 const { t } = useI18n();
 
 interface Props {
-  inEditMode?: boolean,
-  categoryId?: number,
-  header?:string
+  inEditMode?: boolean;
+  categoryId?: number;
+  header?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  header: 'dashboard.headers.createCategory',
+  header: "dashboard.headers.createCategory",
   categoryId: undefined,
 });
 
 const resetObject: UpdateCategoryInput = {
   id: 0,
-  name: '',
-  perex: '',
+  name: "",
+  perex: "",
 };
 
 const category = reactive(resetObject);
 const enableQuery = ref(false);
 const form = ref<QForm>();
 
-const { onResult, restart, loading } = useGetCategoryQuery({
-  id: props.categoryId,
-}, () => ({
-  enabled: enableQuery.value,
-}));
+const { onResult, restart, loading } = useGetCategoryQuery(
+  {
+    id: props.categoryId,
+  },
+  () => ({
+    enabled: enableQuery.value,
+  })
+);
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
@@ -66,8 +67,10 @@ const onSubmit = () => {
     void updateCategory(category).then((result) => {
       if (result?.data) {
         notify({
-          type: 'positive',
-          message: t('dashboard.categories.notification.message.category_updated'),
+          type: "positive",
+          message: t(
+            "dashboard.categories.notification.message.category_updated"
+          ),
         });
       }
     });
@@ -76,25 +79,24 @@ const onSubmit = () => {
     void createCategory(category).then((result) => {
       if (result?.data) {
         notify({
-          type: 'positive',
-          message: t('dashboard.categories.notification.message.category_created'),
+          type: "positive",
+          message: t(
+            "dashboard.categories.notification.message.category_created"
+          ),
         });
         void router.push({
-          name: 'DashBoardCategoryEdit',
+          name: "DashBoardCategoryEdit",
           params: { categoryId: result.data.createCategory.id },
         });
       }
     });
   }
 };
-
 </script>
 
 <template>
   <dashboard-page>
-    <dashboard-page-header
-      :title="$t(props.header)"
-    >
+    <dashboard-page-header :title="$t(props.header)">
       <q-btn
         :label="$t('buttons.common.save')"
         color="secondary"
@@ -114,7 +116,7 @@ const onSubmit = () => {
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.categories.card.title.category_description') }}
+                {{ $t("dashboard.categories.card.title.category_description") }}
               </div>
             </q-card-section>
 
@@ -132,7 +134,9 @@ const onSubmit = () => {
 
               <q-input
                 v-model="category.perex"
-                :label="$t('dashboard.categories.input.label.short_description')"
+                :label="
+                  $t('dashboard.categories.input.label.short_description')
+                "
                 maxlength="250"
                 outlined
                 stack-label

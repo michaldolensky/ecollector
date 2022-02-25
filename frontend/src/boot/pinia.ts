@@ -1,5 +1,5 @@
-import { createPinia } from 'pinia';
-import { boot } from 'quasar/wrappers';
+import { createPinia } from "pinia";
+import { boot } from "quasar/wrappers";
 
 export default boot(({ app, router }) => {
   const pinia = createPinia();

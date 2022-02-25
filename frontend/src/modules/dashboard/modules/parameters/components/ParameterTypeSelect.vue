@@ -1,27 +1,24 @@
 <script lang="ts" setup>
-import { useVModel } from '@vueuse/core';
-import { ParameterType } from 'src/types/graphql';
-import { validationHelper } from 'src/validationHelper';
-import { computed, ref } from 'vue';
+import { useVModel } from "@vueuse/core";
+import { ParameterType } from "src/types/graphql";
+import { validationHelper } from "src/validationHelper";
+import { computed, ref } from "vue";
 
 interface Props {
-  modelValue: string | null
-  required?: boolean
-  clearable?: boolean
+  modelValue: string | null;
+  required?: boolean;
+  clearable?: boolean;
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
-const value = useVModel(props, 'modelValue', emit);
-const options = ref([
-  { value: ParameterType.Text, label: 'Text' },
-]);
+const emit = defineEmits(["update:modelValue"]);
+const value = useVModel(props, "modelValue", emit);
+const options = ref([{ value: ParameterType.Text, label: "Text" }]);
 
 // Validation
 const { required } = validationHelper;
 
 const rules = computed(() => (props.required ? [required] : []));
-
 </script>
 
 <template>

@@ -1,34 +1,36 @@
 <script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import { useVModel } from '@vueuse/core';
+import { useResult } from "@vue/apollo-composable";
+import { useVModel } from "@vueuse/core";
 
-import { useRouteParams } from 'src/composables/useRoute';
-import {
-  useGetCategoriesForSelectorQuery,
-} from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
-import { FilterFn } from 'src/types/FilterFn.type';
-import { validationHelper } from 'src/validationHelper';
-import { computed, ref } from 'vue';
+import { useRouteParams } from "src/composables/useRoute";
+import { useGetCategoriesForSelectorQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { FilterFn } from "src/types/FilterFn.type";
+import { validationHelper } from "src/validationHelper";
+import { computed, ref } from "vue";
 
 const { siteId } = useRouteParams();
 
 interface Props {
-  modelValue: number | null
-  required?: boolean
-  clearable?: boolean
-  multiple?: boolean
+  modelValue: number | null;
+  required?: boolean;
+  clearable?: boolean;
+  multiple?: boolean;
 }
 
 const props = defineProps<Props>();
 // eslint-disable-next-line
 const emit = defineEmits<{ (e: 'update:modelValue', id: number|null): void }>();
-const model = useVModel(props, 'modelValue', emit);
+const model = useVModel(props, "modelValue", emit);
 
-const { result, onResult } = useGetCategoriesForSelectorQuery(() => ({ siteId: siteId.value }));
-const categories = useResult(result, [], (data) => data.categories.map((category) => ({
-  value: category.id,
-  label: category.name,
-})));
+const { result, onResult } = useGetCategoriesForSelectorQuery(() => ({
+  siteId: siteId.value,
+}));
+const categories = useResult(result, [], (data) =>
+  data.categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }))
+);
 
 const options = ref(categories.value);
 
@@ -46,7 +48,7 @@ const computedModel = computed({
     const rs = options.value.filter((row) => row.value === model.value);
     return rs.length === 1 ? rs[0] : rs;
   },
-  set(v: { value: number, label: string } | null) {
+  set(v: { value: number; label: string } | null) {
     if (v === null) {
       model.value = null;
       return;
@@ -56,7 +58,7 @@ const computedModel = computed({
 });
 
 const filterFn: FilterFn = (val, update) => {
-  if (val === '') {
+  if (val === "") {
     update(() => {
       options.value = categories.value;
     });
@@ -65,8 +67,9 @@ const filterFn: FilterFn = (val, update) => {
 
   update(() => {
     const needle = val.toLowerCase();
-    options.value = categories.value
-      .filter((v) => v.label.toLowerCase().indexOf(needle) > -1);
+    options.value = categories.value.filter(
+      (v) => v.label.toLowerCase().indexOf(needle) > -1
+    );
   });
 };
 
@@ -74,7 +77,6 @@ const filterFn: FilterFn = (val, update) => {
 const { required } = validationHelper;
 
 const rules = computed(() => (props.required ? [required] : []));
-
 </script>
 
 <template>

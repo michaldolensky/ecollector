@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { QFile } from 'quasar';
-import { useRouteParams } from 'src/composables/useRoute';
+import { QFile } from "quasar";
+import { useRouteParams } from "src/composables/useRoute";
 import {
   UploadImageMutation,
   useUploadImageMutation,
-} from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
-import { ref } from 'vue';
+} from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations";
+import { ref } from "vue";
 
 const { itemId, siteId } = useRouteParams();
 
-interface Props{
+interface Props {
   disabled: boolean;
 }
 const props = defineProps<Props>();
@@ -27,19 +27,17 @@ const upload = async () => {
       files: files.value,
       siteId: siteId.value,
       itemId: itemId.value,
-
     });
     files.value = [];
 
     if (uploadResult) {
       const images = uploadResult.data?.uploadImage;
 
-      emit('addImages', images);
+      emit("addImages", images);
     }
   }
 };
-const getImageSrc = (file:File) => URL.createObjectURL(file);
-
+const getImageSrc = (file: File) => URL.createObjectURL(file);
 </script>
 
 <template>
@@ -51,7 +49,7 @@ const getImageSrc = (file:File) => URL.createObjectURL(file);
     hint="Click or drag and drop image here"
     multiple
     outlined
-    style="width: 100%;"
+    style="width: 100%"
     @update:model-value="upload"
   >
     <template #file="{ file }">

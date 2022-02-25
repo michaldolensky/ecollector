@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-
 interface Props {
-  title?: string
+  title?: string;
 }
 
 const props = defineProps<Props>();
-
 </script>
 
 <template>
@@ -13,10 +11,7 @@ const props = defineProps<Props>();
     <slot name="title">
       <span class="text-h4">{{ props.title }}</span>
     </slot>
-    <div
-      v-if="$slots.default"
-      class="float-right"
-    >
+    <div v-if="$slots.default" class="float-right">
       <slot />
     </div>
   </header>

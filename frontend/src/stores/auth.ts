@@ -1,119 +1,133 @@
-import { provideApolloClient, useApolloClient } from '@vue/apollo-composable';
-import { AxiosError, AxiosResponse } from 'axios';
-import { apolloClient } from 'boot/apollo';
-import { api } from 'boot/axios';
-import { i18n } from 'boot/i18n';
-import { defineStore } from 'pinia';
-import { LoginInterface, SignUpInterface } from 'src/types/auth.interface';
-import { Site } from 'src/types/graphql';
-import { getParsedInt } from 'src/utils';
-import { RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router';
+import { provideApolloClient, useApolloClient } from "@vue/apollo-composable";
+import { AxiosError, AxiosResponse } from "axios";
+import { apolloClient } from "boot/apollo";
+import { api } from "boot/axios";
+import { i18n } from "boot/i18n";
+import { defineStore } from "pinia";
+import { LoginInterface, SignUpInterface } from "src/types/auth.interface";
+import { Site } from "src/types/graphql";
+import { getParsedInt } from "src/utils";
+import {
+  RouteLocationNormalized,
+  RouteLocationNormalizedLoaded,
+} from "vue-router";
 
-export const localStorageTokenKey = 'token';
+export const localStorageTokenKey = "token";
 
 interface UserStateInterface {
   id: number;
-  role: string
-  email: string
-  sitesIds: number[]
-  sites: Site[]
-  firstName: string
-  lastName: string
+  role: string;
+  email: string;
+  sitesIds: number[];
+  sites: Site[];
+  firstName: string;
+  lastName: string;
 }
 
 interface LoginResponseData {
-  accessToken: string
+  accessToken: string;
 }
 
 interface APIErrorInterface {
-  message: string
-  status: number
+  message: string;
+  status: number;
 }
 
 interface ChangePasswordInterface {
-  oldPassword: string
-  newPassword: string
-  verifyPassword: string
+  oldPassword: string;
+  newPassword: string;
+  verifyPassword: string;
 }
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: {
       id: 0,
-      role: '',
-      email: '',
+      role: "",
+      email: "",
       sitesIds: [],
       sites: [],
-      firstName: '',
-      lastName: '',
+      firstName: "",
+      lastName: "",
     } as UserStateInterface,
     authState: false,
-    authError: '',
+    authError: "",
   }),
   getters: {
     fullName: (state) => {
       if (state.authState) {
         return `${state.user.firstName} ${state.user.lastName}`;
       }
-      return '';
+      return "";
     },
-    isAdmin: (state) => state.user?.role === 'Admin',
+    isAdmin: (state) => state.user?.role === "Admin",
     isLoggedIn: (state) => state.authState,
     userSites: (state): Site[] => state.user?.sites,
     getErrorMessage: (state) => {
-      if (state.authError === 'USER_EXISTS') return i18n.global.t('forms.auth.errors.user_exists');
-      if (state.authError === 'INVALID_CREDENTIALS') return i18n.global.t('forms.auth.errors.invalid_credentials');
-      if (state.authError === 'PASSWORD_MISMATCH') return i18n.global.t('forms.auth.errors.password_mismatch');
-      if (state.authError === 'PASSWORD_CHANGE_MISMATCH') return i18n.global.t('forms.auth.errors.change_password_mismatch');
-      if (state.authError === 'PASSWORD_CHANGE_SAME') return i18n.global.t('forms.auth.errors.change_password_same');
-      if (state.authError === 'PASSWORD_CHANGE_CURRENT') return i18n.global.t('forms.auth.errors.change_current_invalid');
-      return 'Unknown Error';
+      if (state.authError === "USER_EXISTS")
+        return i18n.global.t("forms.auth.errors.user_exists");
+      if (state.authError === "INVALID_CREDENTIALS")
+        return i18n.global.t("forms.auth.errors.invalid_credentials");
+      if (state.authError === "PASSWORD_MISMATCH")
+        return i18n.global.t("forms.auth.errors.password_mismatch");
+      if (state.authError === "PASSWORD_CHANGE_MISMATCH")
+        return i18n.global.t("forms.auth.errors.change_password_mismatch");
+      if (state.authError === "PASSWORD_CHANGE_SAME")
+        return i18n.global.t("forms.auth.errors.change_password_same");
+      if (state.authError === "PASSWORD_CHANGE_CURRENT")
+        return i18n.global.t("forms.auth.errors.change_current_invalid");
+      return "Unknown Error";
     },
-    hasError: (state) => state.authError !== '',
+    hasError: (state) => state.authError !== "",
   },
   actions: {
     isOwner(to: RouteLocationNormalized) {
       return this.user?.sitesIds.includes(getParsedInt(to.params.siteId));
     },
     me() {
-      const token = localStorage.getItem(localStorageTokenKey) ?? '';
+      const token = localStorage.getItem(localStorageTokenKey) ?? "";
       if (token.length === 0) return Promise.resolve();
 
       return api
-        .get<UserStateInterface>('/auth/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then(
-        (response) => {
-          this.user = response.data;
-          this.authState = true;
-          return response;
-        },
-        (error: AxiosError<APIErrorInterface>) => {
-          this.$reset();
-          localStorage.setItem(localStorageTokenKey, '');
-          return error;
-        },
-      );
+        .get<UserStateInterface>("/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(
+          (response) => {
+            this.user = response.data;
+            this.authState = true;
+            return response;
+          },
+          (error: AxiosError<APIErrorInterface>) => {
+            this.$reset();
+            localStorage.setItem(localStorageTokenKey, "");
+            return error;
+          }
+        );
     },
     login(loginData: LoginInterface) {
-      this.authError = '';
+      this.authError = "";
       return api
-        .post<LoginResponseData>('/auth/login', loginData)
+        .post<LoginResponseData>("/auth/login", loginData)
         .then((res) => this.handleSuccess(res))
-        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) =>
+          this.handleError(error)
+        );
     },
     signup(signupData: SignUpInterface) {
-      this.authError = '';
+      this.authError = "";
       return api
-        .post<LoginResponseData>('/auth/signup', signupData)
+        .post<LoginResponseData>("/auth/signup", signupData)
         .then((res) => this.handleSuccess(res))
-        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) =>
+          this.handleError(error)
+        );
     },
 
     logout() {
-      localStorage.setItem(localStorageTokenKey, '');
+      localStorage.setItem(localStorageTokenKey, "");
       provideApolloClient(apolloClient);
       const { client } = useApolloClient();
       void client.clearStore();
@@ -121,16 +135,18 @@ export const useAuthStore = defineStore('auth', {
     },
 
     changePassword(changePasswordData: ChangePasswordInterface) {
-      const token = localStorage.getItem(localStorageTokenKey) ?? '';
+      const token = localStorage.getItem(localStorageTokenKey) ?? "";
 
       return api
-        .post('/auth/change-password', changePasswordData, {
+        .post("/auth/change-password", changePasswordData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res: AxiosResponse) => res)
-        .catch((error: AxiosError<APIErrorInterface>) => this.handleError(error));
+        .catch((error: AxiosError<APIErrorInterface>) =>
+          this.handleError(error)
+        );
     },
 
     async handleSuccess(response: AxiosResponse<LoginResponseData>) {
@@ -139,12 +155,14 @@ export const useAuthStore = defineStore('auth', {
       await this.me();
 
       // eslint-disable-next-line max-len
-      const redirect = (<RouteLocationNormalizedLoaded><unknown> this.router.currentRoute).query.redirect as string;
+      const redirect = (<RouteLocationNormalizedLoaded>(
+        (<unknown>this.router.currentRoute)
+      )).query.redirect as string;
 
       if (redirect) {
         void this.router.push(redirect);
       } else {
-        void this.router.push({ name: 'profile' });
+        void this.router.push({ name: "profile" });
       }
     },
     handleError(error: AxiosError<APIErrorInterface>) {

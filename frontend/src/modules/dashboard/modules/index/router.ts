@@ -1,9 +1,10 @@
-import { RouteRecordRaw } from 'vue-router';
+import { RouteRecordRaw } from "vue-router";
 
-export const DashboardIndexRoutes:RouteRecordRaw[] = [
+export const DashboardIndexRoutes: RouteRecordRaw[] = [
   {
-    name: 'DashBoardIndex',
-    path: '',
-    component: () => import('src/modules/dashboard/modules/index/pages/Index.vue'),
+    name: "DashBoardIndex",
+    path: "",
+    component: () =>
+      import("src/modules/dashboard/modules/index/pages/Index.vue"),
   },
 ];

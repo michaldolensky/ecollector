@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import ParametersTable from 'src/modules/dashboard/modules/parameters/components/ParametersTable.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardParameters } from 'src/modules/dashboard/modules/parameters/composables/useDashboardParameters';
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import ParametersTable from "src/modules/dashboard/modules/parameters/components/ParametersTable.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { useDashboardParameters } from "src/modules/dashboard/modules/parameters/composables/useDashboardParameters";
 
 const { filter, refetch, resetFilter } = useDashboardParameters();
-
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const { filter, refetch, resetFilter } = useDashboardParameters();
     <dashboard-page-header :title="$t('dashboard.navigation.parameters')">
       <q-btn
         :label="$t('dashboard.parameters.addParameter')"
-        :to="{name:'DashBoardParameterCreate'}"
+        :to="{ name: 'DashBoardParameterCreate' }"
         color="primary"
         icon="add"
       />
@@ -39,13 +38,10 @@ const { filter, refetch, resetFilter } = useDashboardParameters();
       </q-card-section>
       <q-card-actions align="right">
         <q-btn @click="resetFilter">
-          {{ $t('buttons.common.reset') }}
+          {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn
-          color="secondary"
-          @click="refetch()"
-        >
-          {{ $t('buttons.common.filter') }}
+        <q-btn color="secondary" @click="refetch()">
+          {{ $t("buttons.common.filter") }}
         </q-btn>
       </q-card-actions>
     </q-card>

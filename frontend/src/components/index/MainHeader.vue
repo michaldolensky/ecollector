@@ -1,19 +1,16 @@
 <script lang="ts" setup>
-import AccountDropdown from 'src/modules/account/components/AuthDropdown.vue';
-import { useSiteSettingsStore } from 'src/stores/settings';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import AccountDropdown from "src/modules/account/components/AuthDropdown.vue";
+import { useSiteSettingsStore } from "src/stores/settings";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 const settings = useSiteSettingsStore();
 
 const route = useRoute();
 const showDrawer = ref(route.meta.showDrawer);
-
 </script>
 <template>
-  <q-header
-    bordered
-  >
+  <q-header bordered>
     <q-toolbar>
       <q-btn
         v-if="showDrawer"
@@ -25,14 +22,9 @@ const showDrawer = ref(route.meta.showDrawer);
         @click="settings.toggleDrawer"
       />
       <q-toolbar-title shrink>
-        <q-item
-          clickable
-          exact
-          tag="a"
-          to="/"
-        >
+        <q-item clickable exact tag="a" to="/">
           <q-item-section class="text-white">
-            {{ $t('site_name') }}
+            {{ $t("site_name") }}
           </q-item-section>
         </q-item>
       </q-toolbar-title>

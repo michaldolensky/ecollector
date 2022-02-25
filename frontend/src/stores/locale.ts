@@ -1,22 +1,24 @@
-import { appLanguages, i18n } from 'boot/i18n';
-import { defineStore } from 'pinia';
-import { date, Quasar } from 'quasar';
+import { appLanguages, i18n } from "boot/i18n";
+import { defineStore } from "pinia";
+import { date, Quasar } from "quasar";
 
 export interface LocaleState {
   locale: string;
 }
-type QuasarLanguageModule = typeof import('quasar/lang/en-US');
+type QuasarLanguageModule = typeof import("quasar/lang/en-US");
 
-export const useLocaleStore = defineStore('locale', {
-  state: () => ({
-    locale: 'en-US',
-
-  } as LocaleState),
+export const useLocaleStore = defineStore("locale", {
+  state: () =>
+    ({
+      locale: "en-US",
+    } as LocaleState),
   getters: {
     getLocale: (state) => state.locale,
-    getLangOptions: () => appLanguages.map((lang) => ({
-      label: lang.nativeName, value: lang.isoName,
-    })),
+    getLangOptions: () =>
+      appLanguages.map((lang) => ({
+        label: lang.nativeName,
+        value: lang.isoName,
+      })),
   },
 
   actions: {
@@ -24,7 +26,9 @@ export const useLocaleStore = defineStore('locale', {
       this.setLocale(this.locale);
     },
     getFormatedDate(dateString: string) {
-      return date.extractDate(dateString, 'YYYY-MM-DD').toLocaleDateString(this.locale);
+      return date
+        .extractDate(dateString, "YYYY-MM-DD")
+        .toLocaleDateString(this.locale);
     },
     setLocale(val: string) {
       void import(

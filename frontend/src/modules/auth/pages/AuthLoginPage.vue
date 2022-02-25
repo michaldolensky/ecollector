@@ -1,39 +1,30 @@
 <script lang="ts" setup>
-import { useAuthStore } from 'src/stores/auth';
-import { LoginInterface } from 'src/types/auth.interface';
-import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
+import { useAuthStore } from "src/stores/auth";
+import { LoginInterface } from "src/types/auth.interface";
+import { validationHelper } from "src/validationHelper";
+import { reactive } from "vue";
 
 const authStore = useAuthStore();
 const { required } = validationHelper;
 
-authStore.authError = '';
+authStore.authError = "";
 
 const loginData = reactive<LoginInterface>({
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 });
 
 const onSubmit = () => {
   void authStore.login(loginData);
 };
-
 </script>
 
 <template>
-  <q-page
-    padding
-  >
-    <q-form
-      class="flex flex-center"
-      @submit="onSubmit"
-    >
-      <q-card
-        class="login-card"
-        square
-      >
+  <q-page padding>
+    <q-form class="flex flex-center" @submit="onSubmit">
+      <q-card class="login-card" square>
         <q-card-section class="text-center text-h2">
-          {{ $t('pages.auth.login.title') }}
+          {{ $t("pages.auth.login.title") }}
         </q-card-section>
         <q-card-section>
           <q-input
@@ -56,10 +47,7 @@ const onSubmit = () => {
             square
             type="password"
           />
-          <p
-            v-if="authStore.hasError"
-            class="text-negative"
-          >
+          <p v-if="authStore.hasError" class="text-negative">
             {{ authStore.getErrorMessage }}
           </p>
         </q-card-section>

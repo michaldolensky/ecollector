@@ -1,19 +1,21 @@
 <script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import { useRouteParams } from 'src/composables/useRoute';
-import { useGetParametersQuery } from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
-import { ItemParameter, ItemParameterInput } from 'src/types/graphql';
-import { computed } from 'vue';
+import { useResult } from "@vue/apollo-composable";
+import { useRouteParams } from "src/composables/useRoute";
+import { useGetParametersQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
+import { ItemParameter, ItemParameterInput } from "src/types/graphql";
+import { computed } from "vue";
 
 const { siteId } = useRouteParams();
-const { result, loading, refetch } = useGetParametersQuery(() => ({ siteId: siteId.value }));
+const { result, loading, refetch } = useGetParametersQuery(() => ({
+  siteId: siteId.value,
+}));
 const parameters = useResult(result, []);
 void refetch();
 
 interface Props {
   modelValue: ItemParameter[];
 }
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(["update:modelValue"]);
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => [],
 });
@@ -21,8 +23,9 @@ const props = withDefaults(defineProps<Props>(), {
 const itemParameters = computed<ItemParameterInput[]>({
   get() {
     return parameters.value.map((parameter) => {
-      const itemParameter = props.modelValue
-        .find((modelParameter) => modelParameter.parameter.id === parameter.id);
+      const itemParameter = props.modelValue.find(
+        (modelParameter) => modelParameter.parameter.id === parameter.id
+      );
 
       return {
         id: itemParameter?.id ?? null,
@@ -32,12 +35,18 @@ const itemParameters = computed<ItemParameterInput[]>({
     });
   },
   set(value: ItemParameter[]) {
-    const nonNullParameters = value.filter((itemParameter) => !((itemParameter.value == null || itemParameter.value === '') && itemParameter.id == null));
-    emit('update:modelValue', nonNullParameters);
+    const nonNullParameters = value.filter(
+      (itemParameter) =>
+        !(
+          (itemParameter.value == null || itemParameter.value === "") &&
+          itemParameter.id == null
+        )
+    );
+    emit("update:modelValue", nonNullParameters);
   },
 });
 
-const updateFunction = (inputId:number, value:string) => {
+const updateFunction = (inputId: number, value: string) => {
   itemParameters.value = itemParameters.value.map((item) => {
     if (item.parameter.id === inputId) {
       return {
@@ -54,7 +63,7 @@ const updateFunction = (inputId:number, value:string) => {
   <q-card v-if="!loading">
     <q-card-section>
       <div class="text-h6 text-weight-regular">
-        {{ $t('dashboard.items.card.title.parameters') }}
+        {{ $t("dashboard.items.card.title.parameters") }}
       </div>
     </q-card-section>
     <q-separator />
@@ -65,7 +74,9 @@ const updateFunction = (inputId:number, value:string) => {
         v-model="itemParameter.value"
         :label="itemParameter.parameter.name"
         outlined
-        @update:model-value="(val) => updateFunction(itemParameter.parameter.id, val)"
+        @update:model-value="
+          (val) => updateFunction(itemParameter.parameter.id, val)
+        "
       />
     </q-card-section>
   </q-card>

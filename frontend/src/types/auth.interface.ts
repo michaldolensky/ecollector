@@ -5,8 +5,8 @@ export interface LoginInterface {
 
 export interface SignUpInterface {
   email: string;
-  firstName:string,
-  lastName:string,
+  firstName: string;
+  lastName: string;
   password: string;
-  verifyPassword: string,
+  verifyPassword: string;
 }

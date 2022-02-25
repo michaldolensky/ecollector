@@ -1,14 +1,14 @@
-import { useResult } from '@vue/apollo-composable';
-import { useQuasar } from 'quasar';
+import { useResult } from "@vue/apollo-composable";
+import { useQuasar } from "quasar";
 
-import { useRouteParams } from 'src/composables/useRoute';
+import { useRouteParams } from "src/composables/useRoute";
 import {
   useGetCategoriesQuery,
   useRemoveCategoryMutation,
-} from 'src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations';
-import { Category, CategoryFilterInput } from 'src/types/graphql';
-import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { Category, CategoryFilterInput } from "src/types/graphql";
+import { reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
 const filter = reactive<CategoryFilterInput>({
   name: null,
@@ -30,7 +30,7 @@ export function useDashboardCategories() {
     filter,
   });
 
-  const removeCategory = (id:number) => {
+  const removeCategory = (id: number) => {
     void removeCategoryMutation({
       deleteCategoryInput: {
         categoryId: id,
@@ -41,8 +41,10 @@ export function useDashboardCategories() {
 
   const confirmDelete = (category: Category) => {
     dialog({
-      title: t('dialogs.titles.confirm', [category.name]),
-      message: t('dashboard.categories.dialogs.message.delete', [category.name]),
+      title: t("dialogs.titles.confirm", [category.name]),
+      message: t("dashboard.categories.dialogs.message.delete", [
+        category.name,
+      ]),
       cancel: true,
       persistent: true,
     }).onOk(() => {

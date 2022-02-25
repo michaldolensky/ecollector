@@ -1,10 +1,13 @@
-import { route } from 'quasar/wrappers';
-import { useAuthStore } from 'src/stores/auth';
-import { isParamPositiveInteger } from 'src/utils';
+import { route } from "quasar/wrappers";
+import { useAuthStore } from "src/stores/auth";
+import { isParamPositiveInteger } from "src/utils";
 import {
-  createMemoryHistory, createRouter, createWebHashHistory, createWebHistory,
-} from 'vue-router';
-import getRoutes, { redirectToLogin } from './routes';
+  createMemoryHistory,
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
+import getRoutes, { redirectToLogin } from "./routes";
 
 /*
  * If not building with SSR mode, you can
@@ -18,7 +21,9 @@ import getRoutes, { redirectToLogin } from './routes';
 export default route((/* { store, ssrContext } */) => {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
+    : process.env.VUE_ROUTER_MODE === "history"
+    ? createWebHistory
+    : createWebHashHistory;
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
@@ -28,7 +33,7 @@ export default route((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(
-      process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE,
+      process.env.MODE === "ssr" ? void 0 : process.env.VUE_ROUTER_BASE
     ),
   });
 
@@ -43,10 +48,11 @@ export default route((/* { store, ssrContext } */) => {
       if (siteId && !isParamPositiveInteger(siteId)) error = true;
       if (itemId && !isParamPositiveInteger(itemId)) error = true;
       if (categoryId && !isParamPositiveInteger(categoryId)) error = true;
-      if (error) next({ name: 'Error404' });
+      if (error) next({ name: "Error404" });
     }
 
-    if (to.meta.requiresAuth && !authStore.isLoggedIn) next(redirectToLogin(to));
+    if (to.meta.requiresAuth && !authStore.isLoggedIn)
+      next(redirectToLogin(to));
 
     next();
   });

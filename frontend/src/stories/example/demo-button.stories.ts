@@ -1,4 +1,4 @@
-import MyButton from './Button.vue';
+import MyButton from "./Button.vue";
 
 const Template = (args: any) => ({
   components: { MyButton },
@@ -15,14 +15,14 @@ export const Secondary = Template.bind({}) as any;
 Secondary.args = { primary: false };
 
 export default {
-  title: 'MyButton/Button',
+  title: "MyButton/Button",
   component: MyButton,
-  args: { label: 'MyButton' },
+  args: { label: "MyButton" },
   argTypes: {
-    backgroundColor: { control: 'color' },
+    backgroundColor: { control: "color" },
     size: {
-      options: ['small', 'medium', 'large'],
-      control: 'select',
+      options: ["small", "medium", "large"],
+      control: "select",
     },
   },
 };

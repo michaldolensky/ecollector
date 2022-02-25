@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-
 interface Props {
-  count: number
-  title: string
+  count: number;
+  title: string;
 }
 const props = defineProps<Props>();
-
 </script>
 
 <template>
@@ -24,6 +22,4 @@ const props = defineProps<Props>();
   </q-card>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

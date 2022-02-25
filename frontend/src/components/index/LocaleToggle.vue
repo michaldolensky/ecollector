@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useLocaleStore } from 'src/stores/locale';
-import { computed } from 'vue';
+import { useLocaleStore } from "src/stores/locale";
+import { computed } from "vue";
 
 const localeStore = useLocaleStore();
 
