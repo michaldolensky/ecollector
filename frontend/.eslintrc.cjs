@@ -40,10 +40,7 @@ module.exports = {
     // 'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
-
-    'airbnb-base',
-    'airbnb-typescript/base',
-
+    "@vue/eslint-config-prettier",
     'plugin:@intlify/vue-i18n/recommended',
   ],
 
