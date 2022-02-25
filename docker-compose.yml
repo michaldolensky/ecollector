@@ -37,7 +37,7 @@ services:
       - ./.data/prod/uploads:/app/uploads
 
   postgres:
-    image: postgres:14.1
+    image: postgres:14.2
     container_name: ecollector-prod-postgres
     restart: on-failure
     working_dir: /application
