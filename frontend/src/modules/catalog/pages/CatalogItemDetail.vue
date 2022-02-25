@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import { useGetCatalogItemQuery } from 'src/modules/catalog/graphql/categoryCatalog.operations';
-import Breadcrumbs from 'src/modules/catalog/components/Breadcrumbs.vue';
-import CatalogItemImagesBrowser from 'src/modules/catalog/components/CatalogItemImagesBrowser.vue';
-import { useLocaleStore } from 'src/stores/locale';
-import { ItemParameter } from 'src/types/graphql';
+import { useResult } from "@vue/apollo-composable";
+import { useGetCatalogItemQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
+import Breadcrumbs from "src/modules/catalog/components/Breadcrumbs.vue";
+import CatalogItemImagesBrowser from "src/modules/catalog/components/CatalogItemImagesBrowser.vue";
+import { useLocaleStore } from "src/stores/locale";
+import { ItemParameter } from "src/types/graphql";
 
 interface Props {
-  itemId: number
+  itemId: number;
 }
 
 const localeStore = useLocaleStore();
@@ -23,26 +23,24 @@ const item = useResult(result, {});
 
 const columns = [
   {
-    name: 'name',
+    name: "name",
     required: true,
-    align: 'left',
-    field: (row:ItemParameter) => row.parameter.name,
+    align: "left",
+    field: (row: ItemParameter) => row.parameter.name,
     sortable: true,
-    classes: 'text-bold',
+    classes: "text-bold",
   },
   {
-    name: 'value',
-    align: 'left',
-    field: 'value',
+    name: "value",
+    align: "left",
+    field: "value",
     sortable: true,
   },
 ];
 </script>
 
 <template>
-  <q-page
-    v-if="!loading"
-  >
+  <q-page v-if="!loading">
     <div class="row">
       <div class="col-12 q-px-md q-pt-md">
         <Breadcrumbs />
@@ -54,15 +52,12 @@ const columns = [
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6 ">
+      <div class="col-12 col-md-6">
         <catalog-item-images-browser :images="item.images" />
       </div>
       <div class="col-12 col-md-6 q-pa-md">
         <q-card>
-          <q-list
-            bordered
-            separator
-          >
+          <q-list bordered separator>
             <q-item>
               <q-item-section>
                 <q-item-label>{{ item.shortDesc }}</q-item-label>
@@ -71,7 +66,7 @@ const columns = [
             <q-item>
               <q-item-section>
                 <q-item-label overline>
-                  {{ $t('catalog.itemDetail.item.numberOfItemsForExchange') }}
+                  {{ $t("catalog.itemDetail.item.numberOfItemsForExchange") }}
                 </q-item-label>
                 <q-item-label>
                   {{ item.numberForExchange }}
@@ -81,7 +76,7 @@ const columns = [
             <q-item>
               <q-item-section>
                 <q-item-label overline>
-                  {{ $t('catalog.itemDetail.item.numberOfItemsInCollection') }}
+                  {{ $t("catalog.itemDetail.item.numberOfItemsInCollection") }}
                 </q-item-label>
                 <q-item-label>
                   {{ item.numberInCollection }}
@@ -91,7 +86,7 @@ const columns = [
             <q-item>
               <q-item-section>
                 <q-item-label overline>
-                  {{ $t('catalog.itemDetail.item.created') }}
+                  {{ $t("catalog.itemDetail.item.created") }}
                 </q-item-label>
                 <q-item-label>
                   {{ localeStore.getFormatedDate(item.createdAt) }}
@@ -107,7 +102,7 @@ const columns = [
         <q-card>
           <q-card-section>
             <div class="text-h6">
-              {{ $t('catalog.itemDetail.item.description') }}
+              {{ $t("catalog.itemDetail.item.description") }}
             </div>
           </q-card-section>
           <q-separator />
@@ -117,7 +112,7 @@ const columns = [
       <div class="col-4 q-pa-md">
         <q-table
           :columns="columns"
-          :row-key="row => row.parameter.id"
+          :row-key="(row) => row.parameter.id"
           :rows="item.itemParameters"
           :title="$t('catalog.itemDetail.item.parameters')"
           hide-bottom

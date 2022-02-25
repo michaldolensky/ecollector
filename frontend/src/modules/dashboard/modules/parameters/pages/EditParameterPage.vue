@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import ParameterTypeSelect from 'src/modules/dashboard/modules/parameters/components/ParameterTypeSelect.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { QForm, useQuasar } from 'quasar';
-import { useParameters } from 'src/modules/dashboard/modules/parameters/composables/useParameters';
-import { useGetParameterQuery } from 'src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations';
-import { ParameterType } from 'src/types/graphql';
-import { validationHelper } from 'src/validationHelper';
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import ParameterTypeSelect from "src/modules/dashboard/modules/parameters/components/ParameterTypeSelect.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { QForm, useQuasar } from "quasar";
+import { useParameters } from "src/modules/dashboard/modules/parameters/composables/useParameters";
+import { useGetParameterQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
+import { ParameterType } from "src/types/graphql";
+import { validationHelper } from "src/validationHelper";
 
-import { onMounted, reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { onMounted, reactive, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const { createParameter, updateParameter } = useParameters();
@@ -21,9 +21,9 @@ const { notify } = useQuasar();
 const { t } = useI18n();
 
 interface Props {
-  inEditMode?: boolean,
-  paramId?: number,
-  headerTitle:string
+  inEditMode?: boolean;
+  paramId?: number;
+  headerTitle: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const resetObject = {
   id: 0,
-  name: '',
+  name: "",
   type: ParameterType.Text,
 };
 
@@ -40,11 +40,14 @@ const parameter = reactive(resetObject);
 const enableQuery = ref(false);
 const form = ref<QForm>();
 
-const { onResult, restart, loading } = useGetParameterQuery({
-  id: props.paramId,
-}, () => ({
-  enabled: enableQuery.value,
-}));
+const { onResult, restart, loading } = useGetParameterQuery(
+  {
+    id: props.paramId,
+  },
+  () => ({
+    enabled: enableQuery.value,
+  })
+);
 onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
@@ -63,8 +66,10 @@ const onSubmit = () => {
     void updateParameter(parameter).then((result) => {
       if (result?.data) {
         notify({
-          type: 'positive',
-          message: t('dashboard.parameters.notification.message.parameter_updated'),
+          type: "positive",
+          message: t(
+            "dashboard.parameters.notification.message.parameter_updated"
+          ),
         });
       }
     });
@@ -73,25 +78,24 @@ const onSubmit = () => {
     void createParameter(parameter).then((result) => {
       if (result?.data) {
         notify({
-          type: 'positive',
-          message: t('dashboard.parameters.notification.message.parameter_created'),
+          type: "positive",
+          message: t(
+            "dashboard.parameters.notification.message.parameter_created"
+          ),
         });
         void router.push({
-          name: 'DashBoardParameterEdit',
+          name: "DashBoardParameterEdit",
           params: { paramId: result.data.createParameter.id },
         });
       }
     });
   }
 };
-
 </script>
 
 <template>
   <dashboard-page>
-    <dashboard-page-header
-      :title="props.headerTitle"
-    >
+    <dashboard-page-header :title="props.headerTitle">
       <q-btn
         :label="$t('buttons.common.save')"
         color="secondary"
@@ -111,7 +115,7 @@ const onSubmit = () => {
           <q-card>
             <q-card-section>
               <div class="text-h6 text-weight-regular">
-                {{ $t('dashboard.parameters.card.title.parameterProperties') }}
+                {{ $t("dashboard.parameters.card.title.parameterProperties") }}
               </div>
             </q-card-section>
 
@@ -119,14 +123,11 @@ const onSubmit = () => {
             <q-card-section>
               <q-input
                 v-model="parameter.name"
-                :label=" $t('dashboard.parameters.table.column.label.name') "
+                :label="$t('dashboard.parameters.table.column.label.name')"
                 :rules="[required]"
                 outlined
               />
-              <parameter-type-select
-                v-model="parameter.type"
-                required
-              />
+              <parameter-type-select v-model="parameter.type" required />
             </q-card-section>
           </q-card>
         </div>

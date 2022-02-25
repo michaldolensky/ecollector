@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-
-interface Props{
+interface Props {
   title: string;
   icon?: string;
   routeName: string;
@@ -8,24 +7,15 @@ interface Props{
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  icon: '',
-  routeName: '#',
-  caption: '',
+  icon: "",
+  routeName: "#",
+  caption: "",
 });
 </script>
 
 <template>
-  <q-item
-    v-ripple
-    :to="{name:props.routeName}"
-    clickable
-    exact
-    tag="a"
-  >
-    <q-item-section
-      v-if="props.icon"
-      avatar
-    >
+  <q-item v-ripple :to="{ name: props.routeName }" clickable exact tag="a">
+    <q-item-section v-if="props.icon" avatar>
       <q-icon :name="props.icon" />
     </q-item-section>
 

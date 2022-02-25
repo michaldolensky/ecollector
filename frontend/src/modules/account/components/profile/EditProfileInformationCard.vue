@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useQuasar } from 'quasar';
-import { useUsers } from 'src/modules/account/composables/useUsers';
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useQuasar } from "quasar";
+import { useUsers } from "src/modules/account/composables/useUsers";
+import { useAuthStore } from "src/stores/auth";
+import { validationHelper } from "src/validationHelper";
+import { reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const { notify } = useQuasar();
@@ -20,8 +20,8 @@ const onSubmit = () => {
   void updateUser(profileData).then((result) => {
     if (result?.data) {
       notify({
-        message: t('notifications.profile.updated'),
-        type: 'positive',
+        message: t("notifications.profile.updated"),
+        type: "positive",
       });
       void authStore.me();
     }
@@ -30,17 +30,14 @@ const onSubmit = () => {
 
 // Validation
 const { required } = validationHelper;
-
 </script>
 
 <template>
-  <q-form
-    @submit="onSubmit"
-  >
+  <q-form @submit="onSubmit">
     <q-card>
       <q-card-section>
         <div class="text-h6 text-weight-regular">
-          {{ $t('account.profile.card.title.description') }}
+          {{ $t("account.profile.card.title.description") }}
         </div>
       </q-card-section>
       <q-separator />
@@ -48,7 +45,7 @@ const { required } = validationHelper;
         <q-input
           v-model.trim="profileData.firstName"
           :label="$t('forms.auth.first_name')"
-          :rules="[ required]"
+          :rules="[required]"
           autofocus
           lazy-rules
           outlined
@@ -58,7 +55,7 @@ const { required } = validationHelper;
         <q-input
           v-model.trim="profileData.lastName"
           :label="$t('forms.auth.last_name')"
-          :rules="[ required]"
+          :rules="[required]"
           lazy-rules
           outlined
           required
@@ -77,6 +74,4 @@ const { required } = validationHelper;
   </q-form>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

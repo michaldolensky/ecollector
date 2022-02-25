@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-
-import { toRefs, useToggle } from '@vueuse/core';
-import { Image } from 'src/types/graphql';
-import { computed, ref } from 'vue';
+import { toRefs, useToggle } from "@vueuse/core";
+import { Image } from "src/types/graphql";
+import { computed, ref } from "vue";
 
 interface Props {
-  images: Image[]
+  images: Image[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,7 +17,6 @@ const moreThanOneImage = computed((): boolean => images.value.length > 1);
 const slide = ref(0);
 
 const [fullscreen, toggleFullscreen] = useToggle();
-
 </script>
 
 <template>
@@ -31,11 +29,7 @@ const [fullscreen, toggleFullscreen] = useToggle();
     infinite
     swipeable
   >
-    <q-carousel-slide
-      v-if="images.length===0"
-      :name="0"
-      class="text-center"
-    >
+    <q-carousel-slide v-if="images.length === 0" :name="0" class="text-center">
       <q-img
         class="full-height"
         fit="contain"
@@ -66,7 +60,6 @@ const [fullscreen, toggleFullscreen] = useToggle();
           color="white"
           dense
           icon="close"
-
           round
           text-color="primary"
           @click="fullscreen = false"

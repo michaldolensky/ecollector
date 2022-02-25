@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import CatalogListCategory from 'src/modules/catalog/components/CatalogListCategory.vue';
-import { useGetCatalogueCategoriesQuery } from 'src/modules/catalog/graphql/categoryCatalog.operations';
-import { useSites } from 'src/composables/useSites';
-import { useSiteSettingsStore } from 'src/stores/settings';
-import { computed, ref } from 'vue';
+import { useResult } from "@vue/apollo-composable";
+import CatalogListCategory from "src/modules/catalog/components/CatalogListCategory.vue";
+import { useGetCatalogueCategoriesQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
+import { useSites } from "src/composables/useSites";
+import { useSiteSettingsStore } from "src/stores/settings";
+import { computed, ref } from "vue";
 
 const settings = useSiteSettingsStore();
 
 const { currentSiteId } = useSites();
 
-const filter = ref('');
+const filter = ref("");
 
 const { result, loading } = useGetCatalogueCategoriesQuery({
   siteId: currentSiteId.value,
@@ -18,11 +18,13 @@ const { result, loading } = useGetCatalogueCategoriesQuery({
 
 const categories = useResult(result, []);
 
-const sortedCategories = computed(() => categories.value
-  .filter((item) => item.name.toLowerCase().includes(filter.value.toLowerCase()))
-  .sort(
-    (a, b) => a.name.localeCompare(b.name),
-  ));
+const sortedCategories = computed(() =>
+  categories.value
+    .filter((item) =>
+      item.name.toLowerCase().includes(filter.value.toLowerCase())
+    )
+    .sort((a, b) => a.name.localeCompare(b.name))
+);
 </script>
 
 <template>
@@ -34,19 +36,15 @@ const sortedCategories = computed(() => categories.value
     show-if-above
     side="left"
   >
-    <div style="flex: 0 1 auto;">
-      <q-item
-        v-ripple
-        :to="{name:'CatalogIndex'}"
-        clickable
-        exact
-        tag="a"
-      >
+    <div style="flex: 0 1 auto">
+      <q-item v-ripple :to="{ name: 'CatalogIndex' }" clickable exact tag="a">
         <q-item-section avatar>
           <q-icon name="home" />
         </q-item-section>
 
-        <q-item-section>{{ $t('catalog.navigation.item.home') }}</q-item-section>
+        <q-item-section>{{
+          $t("catalog.navigation.item.home")
+        }}</q-item-section>
       </q-item>
       <q-separator />
 
@@ -71,10 +69,7 @@ const sortedCategories = computed(() => categories.value
       separator
     >
       <template #default="{ item, index }">
-        <catalog-list-category
-          :key="index"
-          :category="item"
-        />
+        <catalog-list-category :key="index" :category="item" />
       </template>
     </q-virtual-scroll>
   </q-drawer>

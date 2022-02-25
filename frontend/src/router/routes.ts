@@ -1,19 +1,19 @@
-import { AccountModuleRoutes } from 'src/modules/account/router';
-import { AuthModuleRoutes } from 'src/modules/auth/router';
-import { CatalogModuleRoutes } from 'src/modules/catalog/router';
-import { DashboardModuleRoutes } from 'src/modules/dashboard/router';
-import { IndexModuleRoutes } from 'src/modules/index/router';
-import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
+import { AccountModuleRoutes } from "src/modules/account/router";
+import { AuthModuleRoutes } from "src/modules/auth/router";
+import { CatalogModuleRoutes } from "src/modules/catalog/router";
+import { DashboardModuleRoutes } from "src/modules/dashboard/router";
+import { IndexModuleRoutes } from "src/modules/index/router";
+import { RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 
-declare module 'vue-router' {
+declare module "vue-router" {
   interface RouteMeta {
-    showDrawer?: boolean
-    requireAuth?: boolean
+    showDrawer?: boolean;
+    requireAuth?: boolean;
   }
 }
 
 export const redirectToLogin = (to: RouteLocationNormalized) => ({
-  name: 'login',
+  name: "login",
   query: { redirect: to.fullPath },
 });
 
@@ -28,14 +28,14 @@ export const redirectToLogin = (to: RouteLocationNormalized) => ({
 
 const getRoutes = (): RouteRecordRaw[] => [
   {
-    name: 'Home',
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    name: "Home",
+    path: "/",
+    component: () => import("layouts/MainLayout.vue"),
     children: [
       IndexModuleRoutes,
       {
-        path: 'site/:siteId',
-        redirect: { name: 'CatalogIndex' },
+        path: "site/:siteId",
+        redirect: { name: "CatalogIndex" },
       },
       CatalogModuleRoutes,
       DashboardModuleRoutes,
@@ -45,17 +45,17 @@ const getRoutes = (): RouteRecordRaw[] => [
   },
 
   {
-    path: '/error401',
-    name: 'Error401',
-    component: () => import('pages/Error-401.vue'),
+    path: "/error401",
+    name: "Error401",
+    component: () => import("pages/Error-401.vue"),
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
-    name: 'Error404',
-    component: () => import('pages/Error-404.vue'),
+    path: "/:catchAll(.*)*",
+    name: "Error404",
+    component: () => import("pages/Error-404.vue"),
   },
 ];
 export default getRoutes;

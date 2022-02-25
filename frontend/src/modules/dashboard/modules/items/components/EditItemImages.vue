@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { useVModel } from '@vueuse/core';
-import { useRouteParams } from 'src/composables/useRoute';
-import ImageUpload from 'src/modules/dashboard/modules/items/components/ImageUpload.vue';
-import {
-  useRemoveImageMutation,
-} from 'src/modules/dashboard/modules/items/graphql/imageDashboard.operations';
-import { Image } from 'src/types/graphql';
+import { useVModel } from "@vueuse/core";
+import { useRouteParams } from "src/composables/useRoute";
+import ImageUpload from "src/modules/dashboard/modules/items/components/ImageUpload.vue";
+import { useRemoveImageMutation } from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations";
+import { Image } from "src/types/graphql";
 
 const { siteId } = useRouteParams();
 
@@ -20,11 +18,14 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: () => [],
 });
 
-const emit = defineEmits(['update:modelValue']);
-const images = useVModel(props, 'modelValue', emit);
+const emit = defineEmits(["update:modelValue"]);
+const images = useVModel(props, "modelValue", emit);
 
 const removeImage = (id: number) => {
-  void removeImageMutation({ deleteImageInput: { id }, siteId: siteId.value }).then(() => {
+  void removeImageMutation({
+    deleteImageInput: { id },
+    siteId: siteId.value,
+  }).then(() => {
     images.value = images.value.filter((image: Image) => image.id !== id);
   });
 };
@@ -46,38 +47,31 @@ const setAsMainImage = (id: number) => {
   }));
 };
 
-const addImages = (imag:Image[]) => {
+const addImages = (imag: Image[]) => {
   images.value = [...images.value, ...imag];
 };
-
 </script>
 <template>
   <q-card>
     <q-card-section>
       <div class="text-h6 text-weight-regular">
-        {{ $t('dashboard.items.card.title.item_images') }}
+        {{ $t("dashboard.items.card.title.item_images") }}
       </div>
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <image-upload
-        :disabled="!props.inEditMode"
-        @add-images="addImages"
-      />
+      <image-upload :disabled="!props.inEditMode" @add-images="addImages" />
     </q-card-section>
     <q-card-section>
       <div class="q-pa-xs row items-start q-gutter-xs">
-        <q-card
-          v-for="image in images"
-          :key="image.id"
-        >
+        <q-card v-for="image in images" :key="image.id">
           <q-img
             :src="image.file.url"
-            style="width: 125px;max-height: 125px"
+            style="width: 125px; max-height: 125px"
           />
           <q-card-actions align="center">
             <q-btn
-              :color="image.main?'positive':''"
+              :color="image.main ? 'positive' : ''"
               flat
               icon="star"
               round

@@ -10,7 +10,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint func-names: 0 */
 /* eslint global-require: 0 */
-const { configure } = require('quasar/wrappers');
+const { configure } = require("quasar/wrappers");
 
 module.exports = configure((ctx) => ({
   // https://quasar.dev/quasar-cli/supporting-ts
@@ -18,7 +18,7 @@ module.exports = configure((ctx) => ({
     tsCheckerConfig: {
       eslint: {
         enabled: true,
-        files: './src/**/*.{ts,tsx,js,jsx,vue}',
+        files: "./src/**/*.{ts,tsx,js,jsx,vue}",
       },
     },
   },
@@ -29,35 +29,28 @@ module.exports = configure((ctx) => ({
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://quasar.dev/quasar-cli/boot-files
-  boot: [
-    'i18n',
-    'axios',
-    'apollo',
-    'pinia',
-  ],
+  boot: ["i18n", "axios", "apollo", "pinia"],
 
   // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
-  css: [
-    'app.scss',
-  ],
+  css: ["app.scss"],
 
   // https://github.com/quasarframework/quasar/tree/dev/extras
   extras: [
     // 'ionicons-v4',
-    'mdi-v5',
-    'fontawesome-v5',
+    "mdi-v5",
+    "fontawesome-v5",
     // 'eva-icons',
     // 'themify',
     // 'line-awesome',
     // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-    'roboto-font', // optional, you are not bound to it
-    'material-icons', // optional, you are not bound to it
+    "roboto-font", // optional, you are not bound to it
+    "material-icons", // optional, you are not bound to it
   ],
 
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
   build: {
-    vueRouterMode: 'history', // available values: 'hash', 'history'
+    vueRouterMode: "history", // available values: 'hash', 'history'
     env: {
       GRAPHQL_URL: process.env.GRAPHQL_URL,
       SERVER_URL_API: process.env.SERVER_URL_API,
@@ -96,7 +89,7 @@ module.exports = configure((ctx) => ({
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
   devServer: {
     server: {
-      type: 'http',
+      type: "http",
     },
     port: 8080,
     open: false, // opens browser window automatically
@@ -106,7 +99,7 @@ module.exports = configure((ctx) => ({
   framework: {
     config: {},
 
-    iconSet: 'svg-mdi-v5', // Quasar icon set
+    iconSet: "svg-mdi-v5", // Quasar icon set
     // lang: 'en-US', // Quasar language pack
 
     // For special cases outside of where the auto-import strategy can have an impact
@@ -117,10 +110,7 @@ module.exports = configure((ctx) => ({
     // directives: [],
 
     // Quasar plugins
-    plugins: [
-      'Dialog',
-      'Notify',
-    ],
+    plugins: ["Dialog", "Notify"],
   },
 
   // animations: 'all', // --- includes all animations
@@ -145,14 +135,14 @@ module.exports = configure((ctx) => ({
     },
 
     middlewares: [
-      ctx.prod ? 'compression' : '',
-      'render', // keep this as last one
+      ctx.prod ? "compression" : "",
+      "render", // keep this as last one
     ],
   },
 
   // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
   pwa: {
-    workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+    workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
     workboxOptions: {}, // only for GenerateSW
 
     // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
@@ -162,38 +152,38 @@ module.exports = configure((ctx) => ({
     },
 
     manifest: {
-      name: 'E-Collector',
-      short_name: 'E-Collector',
-      description: '',
-      display: 'standalone',
-      orientation: 'portrait',
-      background_color: '#ffffff',
-      theme_color: '#027be3',
+      name: "E-Collector",
+      short_name: "E-Collector",
+      description: "",
+      display: "standalone",
+      orientation: "portrait",
+      background_color: "#ffffff",
+      theme_color: "#027be3",
       icons: [
         {
-          src: 'icons/icon-128x128.png',
-          sizes: '128x128',
-          type: 'image/png',
+          src: "icons/icon-128x128.png",
+          sizes: "128x128",
+          type: "image/png",
         },
         {
-          src: 'icons/icon-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
+          src: "icons/icon-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
         },
         {
-          src: 'icons/icon-256x256.png',
-          sizes: '256x256',
-          type: 'image/png',
+          src: "icons/icon-256x256.png",
+          sizes: "256x256",
+          type: "image/png",
         },
         {
-          src: 'icons/icon-384x384.png',
-          sizes: '384x384',
-          type: 'image/png',
+          src: "icons/icon-384x384.png",
+          sizes: "384x384",
+          type: "image/png",
         },
         {
-          src: 'icons/icon-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
+          src: "icons/icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
         },
       ],
     },

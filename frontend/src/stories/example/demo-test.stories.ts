@@ -1,9 +1,9 @@
 export default {
-  title: 'Quasar',
+  title: "Quasar",
 };
 
 export const Components = () => ({
-  title: 'QuasarComponents',
+  title: "QuasarComponents",
   template: `<q-layout>
     <q-page-container>
       <q-page class="full-height full-width justify-center items-center q-pa-xl">
@@ -17,8 +17,8 @@ export const Components = () => ({
   data() {
     return {
       name: null,
-      role: 'User',
-      options: ['Admin', 'Supervisor', 'User'],
+      role: "User",
+      options: ["Admin", "Supervisor", "User"],
     };
   },
 });

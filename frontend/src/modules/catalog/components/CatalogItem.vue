@@ -1,23 +1,22 @@
 <script lang="ts" setup>
-
-import { Item } from 'src/types/graphql';
+import { Item } from "src/types/graphql";
 
 interface Props {
-  item: Item
+  item: Item;
 }
 
 const props = defineProps<Props>();
-
 </script>
 <template>
-  <q-card
-    style="width: 100%; max-width: 250px"
-  >
+  <q-card style="width: 100%; max-width: 250px">
     <q-card-section>
       <router-link
-        :to="{name:'CatalogItemDetail',params:{
-          itemId:props.item.id,
-        }}"
+        :to="{
+          name: 'CatalogItemDetail',
+          params: {
+            itemId: props.item.id,
+          },
+        }"
         class="no-decoration justify-center"
       >
         <q-img
@@ -37,31 +36,19 @@ const props = defineProps<Props>();
         />
       </router-link>
       <div class="justify-around">
-        <q-badge
-          class="float-left"
-          color="blue"
-        >
+        <q-badge class="float-left" color="blue">
           <q-tooltip>
-            {{ $t('catalog.itemDetail.item.numberOfItemsForExchange') }}
+            {{ $t("catalog.itemDetail.item.numberOfItemsForExchange") }}
           </q-tooltip>
-          <q-icon
-            left
-            name="fas fa-exchange-alt"
-          />
+          <q-icon left name="fas fa-exchange-alt" />
           {{ props.item.numberForExchange }}
         </q-badge>
-        <q-badge
-          class="float-right q-mr-5"
-          color="green"
-        >
+        <q-badge class="float-right q-mr-5" color="green">
           <q-tooltip>
-            {{ $t('catalog.itemDetail.item.numberOfItemsInCollection') }}
+            {{ $t("catalog.itemDetail.item.numberOfItemsInCollection") }}
           </q-tooltip>
           {{ props.item.numberInCollection }}
-          <q-icon
-            name="fas fa-layer-group"
-            right
-          />
+          <q-icon name="fas fa-layer-group" right />
         </q-badge>
       </div>
     </q-card-section>
@@ -77,7 +64,7 @@ const props = defineProps<Props>();
 </template>
 
 <style scoped>
-.no-decoration{
+.no-decoration {
   text-decoration: none;
 }
 </style>

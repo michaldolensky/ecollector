@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import { QInput } from 'quasar';
-import { useAuthStore } from 'src/stores/auth';
-import { validationHelper } from 'src/validationHelper';
-import { reactive, ref } from 'vue';
-import { SignUpInterface } from 'src/types/auth.interface';
+import { QInput } from "quasar";
+import { useAuthStore } from "src/stores/auth";
+import { validationHelper } from "src/validationHelper";
+import { reactive, ref } from "vue";
+import { SignUpInterface } from "src/types/auth.interface";
 
 const authStore = useAuthStore();
-authStore.authError = '';
+authStore.authError = "";
 
 const signupData = reactive<SignUpInterface>({
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  verifyPassword: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  verifyPassword: "",
 });
 
 const onSubmit = () => {
@@ -24,29 +24,20 @@ const onSubmit = () => {
 const { required, minLength, passportMismatch } = validationHelper;
 const passportInput = ref<QInput>();
 const verifyPassportInput = ref<QInput>();
-
 </script>
 
 <template>
-  <q-page
-    padding
-  >
-    <q-form
-      class="flex flex-center"
-      @submit="onSubmit"
-    >
-      <q-card
-        class="login-card"
-        square
-      >
+  <q-page padding>
+    <q-form class="flex flex-center" @submit="onSubmit">
+      <q-card class="login-card" square>
         <q-card-section class="text-center text-h2">
-          {{ $t('pages.auth.signup.title') }}
+          {{ $t("pages.auth.signup.title") }}
         </q-card-section>
         <q-card-section>
           <q-input
             v-model.trim="signupData.firstName"
             :label="$t('forms.auth.first_name')"
-            :rules="[ required]"
+            :rules="[required]"
             autofocus
             lazy-rules
             outlined
@@ -56,7 +47,7 @@ const verifyPassportInput = ref<QInput>();
           <q-input
             v-model.trim="signupData.lastName"
             :label="$t('forms.auth.last_name')"
-            :rules="[ required]"
+            :rules="[required]"
             lazy-rules
             outlined
             required
@@ -65,7 +56,7 @@ const verifyPassportInput = ref<QInput>();
           <q-input
             v-model.trim="signupData.email"
             :label="$t('forms.auth.email')"
-            :rules="[ required ]"
+            :rules="[required]"
             lazy-rules
             outlined
             required
@@ -76,7 +67,11 @@ const verifyPassportInput = ref<QInput>();
             ref="passportInput"
             v-model="signupData.password"
             :label="$t('forms.auth.password')"
-            :rules="[ required,passportMismatch(signupData.verifyPassword),minLength(8) ]"
+            :rules="[
+              required,
+              passportMismatch(signupData.verifyPassword),
+              minLength(8),
+            ]"
             lazy-rules
             outlined
             required
@@ -88,7 +83,11 @@ const verifyPassportInput = ref<QInput>();
             ref="verifyPassportInput"
             v-model="signupData.verifyPassword"
             :label="$t('forms.auth.confirm_password')"
-            :rules="[required,passportMismatch(signupData.password),minLength(8) ]"
+            :rules="[
+              required,
+              passportMismatch(signupData.password),
+              minLength(8),
+            ]"
             lazy-rules
             outlined
             required
@@ -96,16 +95,11 @@ const verifyPassportInput = ref<QInput>();
             type="password"
             @change="passportInput.validate()"
           />
-          <p
-            v-if="authStore.hasError"
-            class="text-negative"
-          >
+          <p v-if="authStore.hasError" class="text-negative">
             {{ authStore.getErrorMessage }}
           </p>
         </q-card-section>
-        <q-card-actions
-          align="around"
-        >
+        <q-card-actions align="around">
           <q-btn
             :label="$t('buttons.auth.login')"
             :to="{ name: 'login' }"

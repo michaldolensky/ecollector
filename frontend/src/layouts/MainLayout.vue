@@ -1,25 +1,20 @@
 <script lang="ts" setup>
-import LocaleToggle from 'components/index/LocaleToggle.vue';
-import AccountDropdown from 'src/modules/account/components/AuthDropdown.vue';
-import { useSiteSettingsStore } from 'src/stores/settings';
+import LocaleToggle from "components/index/LocaleToggle.vue";
+import AccountDropdown from "src/modules/account/components/AuthDropdown.vue";
+import { useSiteSettingsStore } from "src/stores/settings";
 
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
 const settings = useSiteSettingsStore();
 
 const route = useRoute();
 const showDrawer = computed(() => route.meta.showDrawer);
-
 </script>
 
 <template>
   <q-layout view="hHh LpR fFf">
-    <q-header
-      class="bg-primary text-white"
-      elevated
-      height-hint="98"
-    >
+    <q-header class="bg-primary text-white" elevated height-hint="98">
       <q-toolbar>
         <q-btn
           v-if="showDrawer"
@@ -31,14 +26,9 @@ const showDrawer = computed(() => route.meta.showDrawer);
           @click="settings.toggleDrawer"
         />
         <q-toolbar-title shrink>
-          <q-item
-            clickable
-            exact
-            tag="a"
-            to="/"
-          >
+          <q-item clickable exact tag="a" to="/">
             <q-item-section class="text-white">
-              {{ $t('site_name') }}
+              {{ $t("site_name") }}
             </q-item-section>
           </q-item>
         </q-toolbar-title>

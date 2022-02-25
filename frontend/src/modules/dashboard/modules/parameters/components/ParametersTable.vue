@@ -1,53 +1,47 @@
 <script lang="ts" setup>
-import { useDashboardParameters } from 'src/modules/dashboard/modules/parameters/composables/useDashboardParameters';
-import { Category, Parameter } from 'src/types/graphql';
-import { computed, reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useDashboardParameters } from "src/modules/dashboard/modules/parameters/composables/useDashboardParameters";
+import { Category, Parameter } from "src/types/graphql";
+import { computed, reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
 const ParametersTableColumns = computed(() => [
   {
-    name: 'name',
+    name: "name",
     required: true,
-    label: t('dashboard.parameters.table.column.label.name'),
-    align: 'left',
-    field: (row:Category) => row.name,
+    label: t("dashboard.parameters.table.column.label.name"),
+    align: "left",
+    field: (row: Category) => row.name,
     sortable: true,
   },
   {
-    name: 'type',
+    name: "type",
     required: true,
-    label: t('dashboard.parameters.table.column.label.type'),
-    align: 'left',
-    field: (parameter:Parameter) => parameter.type,
+    label: t("dashboard.parameters.table.column.label.type"),
+    align: "left",
+    field: (parameter: Parameter) => parameter.type,
     sortable: true,
   },
 
   {
-    name: 'Action',
-    label: t('dashboard.parameters.table.column.label.action'),
-    field: 'Action',
+    name: "Action",
+    label: t("dashboard.parameters.table.column.label.action"),
+    field: "Action",
     sortable: false,
-    align: 'center',
+    align: "center",
   },
-
 ]);
-const {
-  loading,
-  confirmDelete,
-  parameters,
-  refetch,
-} = useDashboardParameters();
+const { loading, confirmDelete, parameters, refetch } =
+  useDashboardParameters();
 void refetch();
 
 const initialPagination = reactive({
-  sortBy: 'name',
+  sortBy: "name",
   descending: false,
   page: 1,
   rowsPerPage: 50,
 });
-
 </script>
 <template>
   <q-table
@@ -74,7 +68,7 @@ const initialPagination = reactive({
         <q-btn
           :to="{
             name: 'DashBoardParameterEdit',
-            params: { paramId: prop.row.id},
+            params: { paramId: prop.row.id },
           }"
           dense
           flat

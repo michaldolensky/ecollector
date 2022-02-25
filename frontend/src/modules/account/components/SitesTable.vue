@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import { Site } from 'src/types/graphql';
-import { toRowDate } from 'src/utils';
-import { computed, reactive, ref } from 'vue';
-import { useAuthStore } from 'src/stores/auth';
-import { useI18n } from 'vue-i18n';
+import { Site } from "src/types/graphql";
+import { toRowDate } from "src/utils";
+import { computed, reactive, ref } from "vue";
+import { useAuthStore } from "src/stores/auth";
+import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 
-const filter = ref('');
+const filter = ref("");
 
 const { t } = useI18n();
 
 const initialPagination = reactive({
-  sortBy: 'name',
+  sortBy: "name",
   descending: false,
   page: 1,
   rowsPerPage: 50,
@@ -20,31 +20,30 @@ const initialPagination = reactive({
 
 const SitesTableColumns = computed(() => [
   {
-    name: 'name',
+    name: "name",
     required: true,
-    label: t('account.sites.table.column.label.name'),
-    align: 'left',
+    label: t("account.sites.table.column.label.name"),
+    align: "left",
     field: (item: Site) => item.name,
-    format: (val: string):string => `${val}`,
+    format: (val: string): string => `${val}`,
     sortable: true,
   },
   {
-    name: 'created',
+    name: "created",
     required: true,
-    label: t('account.sites.table.column.label.created'),
-    align: 'left',
+    label: t("account.sites.table.column.label.created"),
+    align: "left",
     field: (item: Site) => item.createdAt,
-    format: (val: string):string => `${toRowDate(val)}`,
+    format: (val: string): string => `${toRowDate(val)}`,
     sortable: true,
   },
   {
-    name: 'action',
-    label: t('account.sites.table.column.label.action'),
+    name: "action",
+    label: t("account.sites.table.column.label.action"),
     sortable: false,
-    align: 'center',
+    align: "center",
   },
 ]);
-
 </script>
 <template>
   <q-table
@@ -67,11 +66,7 @@ const SitesTableColumns = computed(() => [
 
     <template #body-cell-action="props">
       <q-td :props="props">
-        <q-btn
-          :to="`/site/${props.row.id}/dashboard`"
-          flat
-          icon="edit"
-        />
+        <q-btn :to="`/site/${props.row.id}/dashboard`" flat icon="edit" />
         <q-btn
           :to="`/site/${props.row.id}/`"
           class="q-ml-sm"

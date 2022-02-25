@@ -1,5 +1,8 @@
-import { useDeleteUserMutation, useUpdateUserMutation } from 'src/modules/account/graphql/profile.operations';
-import { UpdateUserInput } from 'src/types/graphql';
+import {
+  useDeleteUserMutation,
+  useUpdateUserMutation,
+} from "src/modules/account/graphql/profile.operations";
+import { UpdateUserInput } from "src/types/graphql";
 
 export function useUsers() {
   const { mutate: deleteUserMutation } = useDeleteUserMutation({});
@@ -7,9 +10,11 @@ export function useUsers() {
 
   const removeUser = () => deleteUserMutation();
 
-  const updateUser = (updateUserInput: UpdateUserInput) => updateUserMutation({ updateUserInput });
+  const updateUser = (updateUserInput: UpdateUserInput) =>
+    updateUserMutation({ updateUserInput });
 
   return {
-    updateUser, removeUser,
+    updateUser,
+    removeUser,
   };
 }

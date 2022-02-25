@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { useResult } from '@vue/apollo-composable';
-import { useQuasar } from 'quasar';
-import { useRouteParams } from 'src/composables/useRoute';
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
-import ItemsTable from 'src/modules/dashboard/modules/items/components/ItemsTable.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardItems } from 'src/modules/dashboard/modules/items/composables/useDashboardItems';
-import { useGetItemsQuery } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
-import { Item, ItemFilterInput } from 'src/types/graphql';
-import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useResult } from "@vue/apollo-composable";
+import { useQuasar } from "quasar";
+import { useRouteParams } from "src/composables/useRoute";
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
+import ItemsTable from "src/modules/dashboard/modules/items/components/ItemsTable.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { useDashboardItems } from "src/modules/dashboard/modules/items/composables/useDashboardItems";
+import { useGetItemsQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
+import { Item, ItemFilterInput } from "src/types/graphql";
+import { reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
 const { dialog } = useQuasar();
 const { t } = useI18n();
@@ -42,8 +42,8 @@ const items = useResult(result, []);
 
 const confirmDelete = (item: Item) => {
   dialog({
-    title: t('dialogs.titles.confirm', [item.name]),
-    message: t('dashboard.items.dialogs.message.delete', [item.name]),
+    title: t("dialogs.titles.confirm", [item.name]),
+    message: t("dashboard.items.dialogs.message.delete", [item.name]),
     cancel: true,
     persistent: true,
   }).onOk(() => {
@@ -52,7 +52,6 @@ const confirmDelete = (item: Item) => {
     });
   });
 };
-
 </script>
 
 <template>
@@ -60,7 +59,7 @@ const confirmDelete = (item: Item) => {
     <dashboard-page-header :title="$t('dashboard.navigation.items')">
       <q-btn
         :label="$t('dashboard.items.addItem')"
-        :to="{name:'DashBoardItemCreate'}"
+        :to="{ name: 'DashBoardItemCreate' }"
         color="primary"
         icon="add"
       />
@@ -83,22 +82,16 @@ const confirmDelete = (item: Item) => {
             </q-input>
           </div>
           <div class="col">
-            <item-category-select
-              v-model="filter.categoryId"
-              clearable
-            />
+            <item-category-select v-model="filter.categoryId" clearable />
           </div>
         </div>
       </q-card-section>
       <q-card-actions align="right">
         <q-btn @click="resetFilter">
-          {{ $t('buttons.common.reset') }}
+          {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn
-          color="secondary"
-          @click="refetch()"
-        >
-          {{ $t('buttons.common.filter') }}
+        <q-btn color="secondary" @click="refetch()">
+          {{ $t("buttons.common.filter") }}
         </q-btn>
       </q-card-actions>
     </q-card>

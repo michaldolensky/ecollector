@@ -1,13 +1,12 @@
 <script lang="ts" setup>
+import { useResult } from "@vue/apollo-composable";
+import { useGetCatalogItemsQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 
-import { useResult } from '@vue/apollo-composable';
-import { useGetCatalogItemsQuery } from 'src/modules/catalog/graphql/categoryCatalog.operations';
-
-import CatalogItem from 'src/modules/catalog/components/CatalogItem.vue';
+import CatalogItem from "src/modules/catalog/components/CatalogItem.vue";
 
 interface Props {
-  siteId: number
-  categoryId?: number
+  siteId: number;
+  categoryId?: number;
 }
 const props = defineProps<Props>();
 
@@ -20,20 +19,13 @@ const { result, loading, refetch } = useGetCatalogItemsQuery(() => ({
 void refetch();
 
 const items = useResult(result, []);
-
 </script>
 
 <template>
   <q-page>
-    <q-scroll-area style="height: 80vh; width:100%">
-      <div
-        v-if="!loading"
-        class="q-pa-md row items-start q-gutter-md items"
-      >
-        <template
-          v-for="item in items"
-          :key="item.id"
-        >
+    <q-scroll-area style="height: 80vh; width: 100%">
+      <div v-if="!loading" class="q-pa-md row items-start q-gutter-md items">
+        <template v-for="item in items" :key="item.id">
           <CatalogItem :item="item" />
         </template>
       </div>
@@ -41,7 +33,7 @@ const items = useResult(result, []);
   </q-page>
 </template>
 <style>
-.items{
+.items {
   width: 100%;
   display: flex;
   align-items: stretch;

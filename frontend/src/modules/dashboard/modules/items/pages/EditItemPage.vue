@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import EditItemImages from 'src/modules/dashboard/modules/items/components/EditItemImages.vue';
-import Editor from 'src/modules/dashboard/modules/items/components/Editor.vue';
-import ItemCategorySelect from 'components/dashboard/ItemCategorySelect.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useItemQuery } from 'src/modules/dashboard/modules/items/graphql/ItemDashboard.operations';
-import Parameters from 'src/modules/dashboard/modules/parameters/components/ParametersPanel.vue';
-import { QForm, useQuasar } from 'quasar';
-import { useItems } from 'src/modules/dashboard/modules/items/composables/useItems';
-import { UpdateItemInput } from 'src/types/graphql';
-import { validationHelper } from 'src/validationHelper';
-import { onMounted, reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import EditItemImages from "src/modules/dashboard/modules/items/components/EditItemImages.vue";
+import Editor from "src/modules/dashboard/modules/items/components/Editor.vue";
+import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { useItemQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
+import Parameters from "src/modules/dashboard/modules/parameters/components/ParametersPanel.vue";
+import { QForm, useQuasar } from "quasar";
+import { useItems } from "src/modules/dashboard/modules/items/composables/useItems";
+import { UpdateItemInput } from "src/types/graphql";
+import { validationHelper } from "src/validationHelper";
+import { onMounted, reactive, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const { createItem, updateItem } = useItems();
@@ -23,21 +23,21 @@ const { notify } = useQuasar();
 const { t } = useI18n();
 
 interface Props {
-  inEditMode?: boolean,
-  itemId?: number,
+  inEditMode?: boolean;
+  itemId?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   inEditMode: false,
   itemId: undefined,
 });
 
-const resetObject:UpdateItemInput = {
+const resetObject: UpdateItemInput = {
   id: 0,
-  name: '',
+  name: "",
   categoryId: 0,
-  shortDesc: '',
-  longDesc: '',
-  internalNumber: '',
+  shortDesc: "",
+  longDesc: "",
+  internalNumber: "",
   numberForExchange: 0,
   numberInCollection: 0,
   itemParameters: [],
@@ -45,7 +45,7 @@ const resetObject:UpdateItemInput = {
 };
 
 const formItemData = reactive({ ...resetObject });
-const tab = ref('detail');
+const tab = ref("detail");
 const form = ref<QForm>();
 
 const enableQuery = ref(false);
@@ -53,11 +53,14 @@ onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
 
-const { onResult, loading } = useItemQuery({
-  id: props.itemId,
-}, () => ({
-  enabled: enableQuery.value,
-}));
+const { onResult, loading } = useItemQuery(
+  {
+    id: props.itemId,
+  },
+  () => ({
+    enabled: enableQuery.value,
+  })
+);
 
 onResult((result) => {
   if (!result.loading) {
@@ -83,16 +86,17 @@ const onSubmit = () => {
         main: image.main,
       })),
       itemParameters: formItemData.itemParameters,
-    }).then(() => {
-      notify({
-        message: t('dashboard.items.notification.message.item_updated'),
-        type: 'positive',
-      });
     })
+      .then(() => {
+        notify({
+          message: t("dashboard.items.notification.message.item_updated"),
+          type: "positive",
+        });
+      })
       .catch(() => {
         notify({
-          message: t('dashboard.items.notification.message.item_updated_error'),
-          type: 'negative',
+          message: t("dashboard.items.notification.message.item_updated_error"),
+          type: "negative",
         });
       });
   } else {
@@ -104,24 +108,26 @@ const onSubmit = () => {
       internalNumber: formItemData.internalNumber,
       numberForExchange: formItemData.numberForExchange,
       numberInCollection: formItemData.numberInCollection,
-    }).then((result) => {
-      if (result?.data?.createItem.id) {
+    })
+      .then((result) => {
+        if (result?.data?.createItem.id) {
+          notify({
+            message: t("dashboard.items.notification.message.item_created"),
+            type: "positive",
+          });
+          void router.push({
+            name: "DashBoardItemEdit",
+            params: { itemId: result?.data.createItem.id },
+          });
+          formItemData.id = result?.data.createItem.id;
+        }
+      })
+      .catch(() => {
         notify({
-          message: t('dashboard.items.notification.message.item_created'),
-          type: 'positive',
+          message: t("dashboard.items.notification.message.item_created_error"),
+          type: "negative",
         });
-        void router.push({
-          name: 'DashBoardItemEdit',
-          params: { itemId: result?.data.createItem.id },
-        });
-        formItemData.id = result?.data.createItem.id;
-      }
-    }).catch(() => {
-      notify({
-        message: t('dashboard.items.notification.message.item_created_error'),
-        type: 'negative',
       });
-    });
   }
 };
 </script>
@@ -129,7 +135,11 @@ const onSubmit = () => {
 <template>
   <dashboard-page>
     <dashboard-page-header
-      :title="props.inEditMode?$t('dashboard.headers.editItem'):$t('dashboard.headers.createItem')"
+      :title="
+        props.inEditMode
+          ? $t('dashboard.headers.editItem')
+          : $t('dashboard.headers.createItem')
+      "
     >
       <q-btn
         :label="$t('buttons.common.save')"
@@ -151,10 +161,7 @@ const onSubmit = () => {
         indicator-color="primary"
         narrow-indicator
       >
-        <q-tab
-          :label="$t('dashboard.items.tabs.label.detail')"
-          name="detail"
-        />
+        <q-tab :label="$t('dashboard.items.tabs.label.detail')" name="detail" />
         <q-tab
           :disable="!props.inEditMode"
           :label="$t('dashboard.items.tabs.label.images')"
@@ -169,20 +176,14 @@ const onSubmit = () => {
 
       <q-separator />
 
-      <q-tab-panels
-        v-model="tab"
-        animated
-      >
-        <q-tab-panel
-          class="bg-grey-3"
-          name="detail"
-        >
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel class="bg-grey-3" name="detail">
           <div class="row">
             <div class="col-12 col-md-8 q-pa-md q-gutter-md">
               <q-card>
                 <q-card-section>
                   <div class="text-h6 text-weight-regular">
-                    {{ $t('dashboard.items.card.title.item_description') }}
+                    {{ $t("dashboard.items.card.title.item_description") }}
                   </div>
                 </q-card-section>
 
@@ -209,17 +210,17 @@ const onSubmit = () => {
                 </q-card-section>
                 <q-card-section>
                   <div class="text-h6 text-weight-regular">
-                    {{ $t('dashboard.items.input.label.long_description') }}
+                    {{ $t("dashboard.items.input.label.long_description") }}
                   </div>
                   <Editor v-model="formItemData.longDesc" />
                 </q-card-section>
               </q-card>
             </div>
-            <div class="col-12 col-md-4 q-pa-md ">
+            <div class="col-12 col-md-4 q-pa-md">
               <q-card>
                 <q-card-section>
                   <div class="text-h6 text-weight-regular">
-                    {{ $t('dashboard.items.card.title.item_details') }}
+                    {{ $t("dashboard.items.card.title.item_details") }}
                   </div>
                 </q-card-section>
                 <q-separator />
@@ -244,14 +245,18 @@ const onSubmit = () => {
                   />
                   <q-input
                     v-model.number="formItemData.numberForExchange"
-                    :label="$t('dashboard.items.input.label.items_for_exchange')"
+                    :label="
+                      $t('dashboard.items.input.label.items_for_exchange')
+                    "
                     outlined
                     stack-label
                     type="number"
                   />
                   <q-input
                     v-model.number="formItemData.numberInCollection"
-                    :label="$t('dashboard.items.input.label.items_in_collection')"
+                    :label="
+                      $t('dashboard.items.input.label.items_in_collection')
+                    "
                     outlined
                     stack-label
                     type="number"

@@ -1,25 +1,26 @@
 <script lang="ts" setup>
-
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 
 interface Category {
-  id:number,
-  name:string,
-  description:string
+  id: number;
+  name: string;
+  description: string;
 }
-interface Props{
-  category:Category
+interface Props {
+  category: Category;
 }
 const props = defineProps<Props>();
 
 const route = useRoute();
-
 </script>
 
 <template>
   <q-item
     v-ripple
-    :to="{name:'CatalogCategory',params:{categoryId:props.category.id,siteId:route.params.siteId}}"
+    :to="{
+      name: 'CatalogCategory',
+      params: { categoryId: props.category.id, siteId: route.params.siteId },
+    }"
     clickable
     exact
     tag="a"

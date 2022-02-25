@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import CategoriesTable from 'src/modules/dashboard/modules/categories/components/CategoriesTable.vue';
-import DashboardPageHeader from 'src/modules/dashboard/components/DashboardPageHeader.vue';
-import DashboardPage from 'src/modules/dashboard/DashboardModule.vue';
-import { useDashboardCategories } from 'src/modules/dashboard/modules/categories/composables/useDashboardCategories';
+import CategoriesTable from "src/modules/dashboard/modules/categories/components/CategoriesTable.vue";
+import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
+import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
+import { useDashboardCategories } from "src/modules/dashboard/modules/categories/composables/useDashboardCategories";
 
 const { filter, refetch, resetFilter } = useDashboardCategories();
-
 </script>
 
 <template>
@@ -13,7 +12,7 @@ const { filter, refetch, resetFilter } = useDashboardCategories();
     <dashboard-page-header :title="$t('dashboard.navigation.categories')">
       <q-btn
         :label="$t('dashboard.categories.addCategory')"
-        :to="{name:'DashBoardCategoryCreate'}"
+        :to="{ name: 'DashBoardCategoryCreate' }"
         color="primary"
         icon="add"
       />
@@ -39,13 +38,10 @@ const { filter, refetch, resetFilter } = useDashboardCategories();
       </q-card-section>
       <q-card-actions align="right">
         <q-btn @click="resetFilter">
-          {{ $t('buttons.common.reset') }}
+          {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn
-          color="secondary"
-          @click="refetch()"
-        >
-          {{ $t('buttons.common.filter') }}
+        <q-btn color="secondary" @click="refetch()">
+          {{ $t("buttons.common.filter") }}
         </q-btn>
       </q-card-actions>
     </q-card>

@@ -1,8 +1,8 @@
-import 'pinia';
-import { Router } from 'vue-router';
+import "pinia";
+import { Router } from "vue-router";
 
-declare module 'pinia' {
+declare module "pinia" {
   export interface PiniaCustomProperties {
-    router: Router
+    router: Router;
   }
 }

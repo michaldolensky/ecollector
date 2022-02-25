@@ -1,68 +1,59 @@
 <script lang="ts" setup>
-import { useDashboardCategories } from 'src/modules/dashboard/modules/categories/composables/useDashboardCategories';
-import { Category } from 'src/types/graphql';
-import { toRowDate } from 'src/utils';
-import {
-  computed,
-  reactive,
-} from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useDashboardCategories } from "src/modules/dashboard/modules/categories/composables/useDashboardCategories";
+import { Category } from "src/types/graphql";
+import { toRowDate } from "src/utils";
+import { computed, reactive } from "vue";
+import { useI18n } from "vue-i18n";
 
-const {
-  loading,
-  confirmDelete,
-  categories,
-  refetch,
-} = useDashboardCategories();
+const { loading, confirmDelete, categories, refetch } =
+  useDashboardCategories();
 void refetch();
 
 const { t } = useI18n();
 
 const CategoriesTableColumns = computed(() => [
   {
-    name: 'name',
+    name: "name",
     required: true,
-    label: t('dashboard.categories.table.column.label.name'),
-    align: 'left',
-    field: (item:Category) => item.name,
-    format: (val:string):string => `${val}`,
+    label: t("dashboard.categories.table.column.label.name"),
+    align: "left",
+    field: (item: Category) => item.name,
+    format: (val: string): string => `${val}`,
     sortable: true,
   },
   {
-    name: 'Created',
+    name: "Created",
     required: true,
-    label: t('dashboard.categories.table.column.label.created'),
-    align: 'left',
-    field: (item:Category) => item.createdAt,
-    format: (val:string) => `${toRowDate(val)}`,
+    label: t("dashboard.categories.table.column.label.created"),
+    align: "left",
+    field: (item: Category) => item.createdAt,
+    format: (val: string) => `${toRowDate(val)}`,
     sortable: true,
   },
   {
-    name: 'Updated',
+    name: "Updated",
     required: true,
-    label: t('dashboard.categories.table.column.label.updated'),
-    align: 'left',
-    field: (item:Category) => item.updatedAt,
-    format: (row:string):string => `${toRowDate(row)}`,
+    label: t("dashboard.categories.table.column.label.updated"),
+    align: "left",
+    field: (item: Category) => item.updatedAt,
+    format: (row: string): string => `${toRowDate(row)}`,
     sortable: true,
   },
   {
-    name: 'Action',
-    label: t('dashboard.categories.table.column.label.action'),
-    field: 'Action',
+    name: "Action",
+    label: t("dashboard.categories.table.column.label.action"),
+    field: "Action",
     sortable: false,
-    align: 'center',
+    align: "center",
   },
-
 ]);
 
 const initialPagination = reactive({
-  sortBy: 'name',
+  sortBy: "name",
   descending: false,
   page: 1,
   rowsPerPage: 50,
 });
-
 </script>
 <template>
   <q-table
@@ -89,7 +80,7 @@ const initialPagination = reactive({
         <q-btn
           :to="{
             name: 'DashBoardCategoryEdit',
-            params: { categoryId: prop.row.id},
+            params: { categoryId: prop.row.id },
           }"
           dense
           flat
