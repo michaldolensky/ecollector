@@ -6,12 +6,12 @@
   "author": "Michal Dolenský <1257948+michaldolensky@users.noreply.github.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
     "build": "quasar build",
     "dev": "quasar dev",
     "generate:watch": "graphql-codegen --config codegen.yml -w",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
     "@apollo/client": "3.5.9",
