@@ -4,7 +4,7 @@ import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageH
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { useDashboardCategories } from "src/modules/dashboard/modules/categories/composables/useDashboardCategories";
 
-const { filter, refetch, resetFilter } = useDashboardCategories();
+const { filter, resetFilter } = useDashboardCategories();
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const { filter, refetch, resetFilter } = useDashboardCategories();
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="refetch()">
+        <q-btn color="secondary" @click="alert('refetch')">
           {{ $t("buttons.common.filter") }}
         </q-btn>
       </q-card-actions>

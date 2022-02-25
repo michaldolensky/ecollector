@@ -4,7 +4,7 @@ import EditItemImages from "src/modules/dashboard/modules/items/components/EditI
 import Editor from "src/modules/dashboard/modules/items/components/Editor.vue";
 import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
-import { useItemQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
+import { useItemQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
 import Parameters from "src/modules/dashboard/modules/parameters/components/ParametersPanel.vue";
 import { QForm, useQuasar } from "quasar";
 import { useItems } from "src/modules/dashboard/modules/items/composables/useItems";
@@ -53,18 +53,16 @@ onMounted(() => {
   if (props.inEditMode) enableQuery.value = true;
 });
 
-const { onResult, loading } = useItemQuery(
-  {
+const { then, fetching } = useItemQuery({
+  pause: enableQuery.value,
+  variables: {
     id: props.itemId,
   },
-  () => ({
-    enabled: enableQuery.value,
-  })
-);
+});
 
-onResult((result) => {
-  if (!result.loading) {
-    const reqItem = result.data.item;
+then((result) => {
+  if (result?.data.value?.item) {
+    const reqItem = result.data.value.item;
 
     Object.assign(formItemData, reqItem);
   }
@@ -149,7 +147,7 @@ const onSubmit = () => {
       />
     </dashboard-page-header>
     <q-form
-      v-if="!loading"
+      v-if="!fetching"
       ref="form"
       class="items-start full-width"
       @submit="onSubmit"

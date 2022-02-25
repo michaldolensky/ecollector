@@ -4,11 +4,11 @@ import ParameterTypeSelect from "src/modules/dashboard/modules/parameters/compon
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { QForm, useQuasar } from "quasar";
 import { useParameters } from "src/modules/dashboard/modules/parameters/composables/useParameters";
-import { useGetParameterQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
+import { useGetParameterQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations.urql";
 import { ParameterType } from "src/types/graphql";
 import { validationHelper } from "src/validationHelper";
 
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
@@ -37,29 +37,22 @@ const resetObject = {
 };
 
 const parameter = reactive(resetObject);
-const enableQuery = ref(false);
 const form = ref<QForm>();
 
-const { onResult, restart, loading } = useGetParameterQuery(
-  {
+const { fetching, then } = useGetParameterQuery({
+  pause: props.inEditMode,
+  variables: {
     id: props.paramId,
   },
-  () => ({
-    enabled: enableQuery.value,
-  })
-);
-onMounted(() => {
-  if (props.inEditMode) enableQuery.value = true;
 });
 
-onResult((result) => {
-  if (!result.loading) {
-    parameter.id = result.data.parameter.id;
-    parameter.name = result.data.parameter.name;
-    parameter.type = result.data.parameter.type;
+then((result) => {
+  if (result.data.value?.parameter) {
+    parameter.id = result.data.value.parameter.id;
+    parameter.name = result.data.value.parameter.name;
+    parameter.type = result.data.value.parameter.type;
   }
 });
-restart();
 
 const onSubmit = () => {
   if (props.inEditMode) {
@@ -105,7 +98,7 @@ const onSubmit = () => {
     </dashboard-page-header>
 
     <q-form
-      v-if="!loading"
+      v-if="!fetching"
       ref="form"
       class="items-start full-width"
       @submit="onSubmit"

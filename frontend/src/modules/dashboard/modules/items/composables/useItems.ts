@@ -3,7 +3,7 @@ import {
   useCreateItemMutation,
   useItemQuery,
   useUpdateItemMutation,
-} from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
+} from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
 import { CreateItemInput, UpdateItemInput } from "src/types/graphql";
 
 export function useItems() {
@@ -11,10 +11,12 @@ export function useItems() {
 
   const getItem = (id: number) =>
     useItemQuery({
-      id,
+      variables: {
+        id,
+      },
     });
-  const { mutate: createItemMutation } = useCreateItemMutation({});
-  const { mutate: updateItemMutation } = useUpdateItemMutation({});
+  const { executeMutation: createItemMutation } = useCreateItemMutation();
+  const { executeMutation: updateItemMutation } = useUpdateItemMutation();
 
   // eslint-disable-next-line max-len
   const createItem = (createItemInput: CreateItemInput) =>

@@ -7,7 +7,7 @@ import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
 import ItemsTable from "src/modules/dashboard/modules/items/components/ItemsTable.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { useDashboardItems } from "src/modules/dashboard/modules/items/composables/useDashboardItems";
-import { useGetItemsQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
+import { useGetItemsQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
 import { Item, ItemFilterInput } from "src/types/graphql";
 import { reactive } from "vue";
 import { useI18n } from "vue-i18n";
@@ -32,13 +32,14 @@ const resetFilter = () => {
   Object.assign(filter, resetFilterObject);
 };
 
-const { result, loading, refetch } = useGetItemsQuery({
-  siteId: siteId.value,
-  filter,
+const { data, fetching } = useGetItemsQuery({
+  variables: {
+    siteId: siteId.value,
+    filter,
+  },
 });
-void refetch();
 
-const items = useResult(result, []);
+const items = useResult(data, []);
 
 const confirmDelete = (item: Item) => {
   dialog({
@@ -48,7 +49,7 @@ const confirmDelete = (item: Item) => {
     persistent: true,
   }).onOk(() => {
     void removeItem(item.id).then(() => {
-      void refetch();
+      // void refetch();
     });
   });
 };
@@ -90,7 +91,7 @@ const confirmDelete = (item: Item) => {
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="refetch()">
+        <q-btn color="secondary" @click="alert('refetch')">
           {{ $t("buttons.common.filter") }}
         </q-btn>
       </q-card-actions>
@@ -98,7 +99,7 @@ const confirmDelete = (item: Item) => {
 
     <q-card>
       <items-table
-        :loading="loading"
+        :loading="fetching"
         :items="items"
         @delete-row="confirmDelete"
       />

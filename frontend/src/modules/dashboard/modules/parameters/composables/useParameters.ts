@@ -2,14 +2,16 @@ import { useRouteParams } from "src/composables/useRoute";
 import {
   useCreateParameterMutation,
   useUpdateParameterMutation,
-} from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
+} from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations.urql";
 import { CreateParameterInput, UpdateParameterInput } from "src/types/graphql";
 
 export function useParameters() {
   const { siteId } = useRouteParams();
 
-  const { mutate: createParameterMutation } = useCreateParameterMutation({});
-  const { mutate: updateParameterMutation } = useUpdateParameterMutation({});
+  const { executeMutation: createParameterMutation } =
+    useCreateParameterMutation();
+  const { executeMutation: updateParameterMutation } =
+    useUpdateParameterMutation();
 
   // eslint-disable-next-line max-len
   const createParameter = (createParameterInput: CreateParameterInput) =>

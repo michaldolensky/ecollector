@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import { useResult } from "@vue/apollo-composable";
 import { useRouteParams } from "src/composables/useRoute";
-import { useGetParametersQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
+import { useGetParametersQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations.urql";
 import { ItemParameter, ItemParameterInput } from "src/types/graphql";
 import { computed } from "vue";
 
 const { siteId } = useRouteParams();
-const { result, loading, refetch } = useGetParametersQuery(() => ({
-  siteId: siteId.value,
-}));
-const parameters = useResult(result, []);
-void refetch();
+const { data, fetching } = useGetParametersQuery({
+  variables: {
+    siteId: siteId.value,
+  },
+});
+const parameters = useResult(data, []);
 
 interface Props {
   modelValue: ItemParameter[];
@@ -60,7 +61,7 @@ const updateFunction = (inputId: number, value: string) => {
 </script>
 
 <template>
-  <q-card v-if="!loading">
+  <q-card v-if="!fetching">
     <q-card-section>
       <div class="text-h6 text-weight-regular">
         {{ $t("dashboard.items.card.title.parameters") }}

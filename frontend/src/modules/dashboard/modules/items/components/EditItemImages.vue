@@ -2,12 +2,12 @@
 import { useVModel } from "@vueuse/core";
 import { useRouteParams } from "src/composables/useRoute";
 import ImageUpload from "src/modules/dashboard/modules/items/components/ImageUpload.vue";
-import { useRemoveImageMutation } from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations";
+import { useRemoveImageMutation } from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations.urql";
 import { Image } from "src/types/graphql";
 
 const { siteId } = useRouteParams();
 
-const { mutate: removeImageMutation } = useRemoveImageMutation({});
+const { executeMutation: removeImageMutation } = useRemoveImageMutation();
 
 interface Props {
   inEditMode: boolean;

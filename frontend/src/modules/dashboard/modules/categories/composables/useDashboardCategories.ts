@@ -5,7 +5,7 @@ import { useRouteParams } from "src/composables/useRoute";
 import {
   useGetCategoriesQuery,
   useRemoveCategoryMutation,
-} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations.urql";
 import { Category, CategoryFilterInput } from "src/types/graphql";
 import { reactive } from "vue";
 import { useI18n } from "vue-i18n";
@@ -19,15 +19,18 @@ export function useDashboardCategories() {
   const { dialog } = useQuasar();
   const { t } = useI18n();
 
-  const { mutate: removeCategoryMutation } = useRemoveCategoryMutation({});
+  const { executeMutation: removeCategoryMutation } =
+    useRemoveCategoryMutation();
 
   const resetFilter = () => {
     filter.name = null;
   };
 
-  const { result, loading, refetch } = useGetCategoriesQuery({
-    siteId: siteId.value,
-    filter,
+  const { data, fetching } = useGetCategoriesQuery({
+    variables: {
+      siteId: siteId.value,
+      filter,
+    },
   });
 
   const removeCategory = (id: number) => {
@@ -53,9 +56,8 @@ export function useDashboardCategories() {
   };
 
   return {
-    categories: useResult(result, []),
-    loading,
-    refetch,
+    categories: useResult(data, []),
+    fetching,
     filter,
     confirmDelete,
     resetFilter,

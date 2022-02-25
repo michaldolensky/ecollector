@@ -3,7 +3,7 @@ import { useResult } from "@vue/apollo-composable";
 import { useVModel } from "@vueuse/core";
 
 import { useRouteParams } from "src/composables/useRoute";
-import { useGetCategoriesForSelectorQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { useGetCategoriesForSelectorQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations.urql";
 import { FilterFn } from "src/types/FilterFn.type";
 import { validationHelper } from "src/validationHelper";
 import { computed, ref } from "vue";
@@ -22,26 +22,19 @@ const props = defineProps<Props>();
 const emit = defineEmits<{ (e: 'update:modelValue', id: number|null): void }>();
 const model = useVModel(props, "modelValue", emit);
 
-const { result, onResult } = useGetCategoriesForSelectorQuery(() => ({
-  siteId: siteId.value,
-}));
-const categories = useResult(result, [], (data) =>
-  data.categories.map((category) => ({
+const { data } = useGetCategoriesForSelectorQuery({
+  variables: {
+    siteId: siteId.value,
+  },
+});
+const categories = useResult(data, [], (value) =>
+  value.categories.map((category) => ({
     value: category.id,
     label: category.name,
   }))
 );
 
 const options = ref(categories.value);
-
-onResult(({ data }) => {
-  if (data) {
-    options.value = data.categories.map((category) => ({
-      value: category.id,
-      label: category.name,
-    }));
-  }
-});
 
 const computedModel = computed({
   get() {

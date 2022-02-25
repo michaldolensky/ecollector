@@ -6,20 +6,19 @@ import { useSites } from "src/composables/useSites";
 
 const { getSite, currentSiteId } = useSites();
 
-const { result, loading, refetch } = getSite(currentSiteId.value);
-void refetch();
+const { data, fetching } = getSite(currentSiteId.value);
 </script>
 
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.headers.dashboard')" />
-    <div v-if="!loading" class="q-pa-md row items-start q-gutter-md">
+    <div v-if="!fetching" class="q-pa-md row items-start q-gutter-md">
       <dashboard-widget
-        :count="result.site.stats.totalItems"
+        :count="data.site.stats.totalItems"
         :title="$t('dashboard.stats.item_count')"
       />
       <dashboard-widget
-        :count="result.site.stats.totalCategories"
+        :count="data.site.stats.totalCategories"
         :title="$t('dashboard.stats.categories_count')"
       />
     </div>

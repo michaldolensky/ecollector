@@ -5,7 +5,7 @@ import {
   useGetCategoryQuery,
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
-} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations.urql";
 import { CreateCategoryInput, UpdateCategoryInput } from "src/types/graphql";
 
 export function useCategories() {
@@ -13,21 +13,30 @@ export function useCategories() {
 
   const getCategories = () =>
     useGetCategoriesQuery({
-      siteId: currentSiteId.value,
+      variables: {
+        siteId: currentSiteId.value,
+      },
     });
 
-  const { result, loading, refetch } = useGetCategoriesQuery({
-    siteId: currentSiteId.value,
+  const { data, fetching } = useGetCategoriesQuery({
+    variables: {
+      siteId: currentSiteId.value,
+    },
   });
 
   const getCategory = (id: number) =>
     useGetCategoryQuery({
-      id,
+      variables: {
+        id,
+      },
     });
 
-  const { mutate: removeCategoryMutation } = useRemoveCategoryMutation({});
-  const { mutate: createCategoryMutation } = useCreateCategoryMutation({});
-  const { mutate: updateCategoryMutation } = useUpdateCategoryMutation({});
+  const { executeMutation: removeCategoryMutation } =
+    useRemoveCategoryMutation();
+  const { executeMutation: createCategoryMutation } =
+    useCreateCategoryMutation();
+  const { executeMutation: updateCategoryMutation } =
+    useUpdateCategoryMutation();
 
   const removeCategory = (id: number) => {
     void removeCategoryMutation({
@@ -35,8 +44,6 @@ export function useCategories() {
         categoryId: id,
       },
       siteId: currentSiteId.value,
-    }).then(() => {
-      void refetch();
     });
   };
 
@@ -56,9 +63,8 @@ export function useCategories() {
     });
 
   return {
-    result,
-    loading,
-    refetch,
+    data,
+    fetching,
     getCategory,
     getCategories,
     removeCategory,
