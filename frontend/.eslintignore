@@ -4,8 +4,5 @@
 /src-cordova
 /.quasar
 /node_modules
-.eslintrc.js
-babel.config.js
-/storybook-static/**
 /.storybook/
 /src/stories/example/**
