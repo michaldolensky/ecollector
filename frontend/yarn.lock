@@ -2676,6 +2676,17 @@
     change-case-all "1.0.14"
     tslib "~2.3.0"
 
+"@graphql-codegen/typescript-vue-urql@2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-vue-urql/-/typescript-vue-urql-2.2.6.tgz#2b2c9e9f301889e42121d7b1ebcb4259a75fc279"
+  integrity sha512-Tv8kJVpU6NEmNQQIPXNZn4YNosvoeywSI7eTxd/K4HYt+3T4mWKIyRiDlSHIXMCeGBVRba1nOCvHm36KMt/Qlw==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^2.4.0"
+    "@graphql-codegen/visitor-plugin-common" "2.7.1"
+    auto-bind "~4.0.0"
+    change-case-all "1.0.14"
+    tslib "~2.3.0"
+
 "@graphql-codegen/typescript@2.4.5", "@graphql-codegen/typescript@^2.4.5":
   version "2.4.5"
   resolved "https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-2.4.5.tgz"
@@ -4836,7 +4847,7 @@
     "@graphql-typed-document-node/core" "^3.1.1"
     wonka "^4.0.14"
 
-"@urql/vue@^0.6.1":
+"@urql/vue@0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@urql/vue/-/vue-0.6.1.tgz#bb315650c5158f862b4065a127690805c7191b79"
   integrity sha512-sQMWiPMDGpCP+ybF4eMWyR4JXK6U2Fn9KsmdXnP8wRJiUdON+RVIkr44aulcF4yjdCRl0PeQjZAG+0h6HmYdag==
