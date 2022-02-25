@@ -1,6 +1,7 @@
 /* eslint-env node */
 require("@rushstack/eslint-patch/modern-module-resolution");
 module.exports = {
+  ignorePatterns: ["/src/stories/example/*.**", "**/*.operations.ts"],
   root: true,
 
   extends: [
