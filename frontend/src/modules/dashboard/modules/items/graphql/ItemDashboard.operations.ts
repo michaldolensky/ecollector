@@ -11,7 +11,7 @@ export type ItemQueryVariables = Types.Exact<{
 }>;
 
 
-export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: Types.ParameterType } }> } };
+export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: Types.ParameterType } }> } };
 
 export type CreateItemMutationVariables = Types.Exact<{
   createItemInput: Types.CreateItemInput;
@@ -35,7 +35,7 @@ export type UpdateItemMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined } };
+export type UpdateItemMutation = { __typename?: 'Mutation', updateItem: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null } };
 
 export type GetItemsQueryVariables = Types.Exact<{
   filter?: Types.InputMaybe<Types.ItemFilterInput>;
@@ -43,7 +43,7 @@ export type GetItemsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null | undefined> | null | undefined }> };
+export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null }> };
 
 
 export const ItemDocument = gql`
@@ -97,6 +97,9 @@ export const ItemDocument = gql`
  */
 export function useItemQuery(variables: ItemQueryVariables | VueCompositionApi.Ref<ItemQueryVariables> | ReactiveFunction<ItemQueryVariables>, options: VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<ItemQuery, ItemQueryVariables>(ItemDocument, variables, options);
+}
+export function useItemLazyQuery(variables: ItemQueryVariables | VueCompositionApi.Ref<ItemQueryVariables> | ReactiveFunction<ItemQueryVariables>, options: VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<ItemQuery, ItemQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<ItemQuery, ItemQueryVariables>(ItemDocument, variables, options);
 }
 export type ItemQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<ItemQuery, ItemQueryVariables>;
 export const CreateItemDocument = gql`
@@ -249,5 +252,8 @@ export const GetItemsDocument = gql`
  */
 export function useGetItemsQuery(variables: GetItemsQueryVariables | VueCompositionApi.Ref<GetItemsQueryVariables> | ReactiveFunction<GetItemsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetItemsQuery, GetItemsQueryVariables>(GetItemsDocument, variables, options);
+}
+export function useGetItemsLazyQuery(variables: GetItemsQueryVariables | VueCompositionApi.Ref<GetItemsQueryVariables> | ReactiveFunction<GetItemsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetItemsQuery, GetItemsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetItemsQuery, GetItemsQueryVariables>(GetItemsDocument, variables, options);
 }
 export type GetItemsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetItemsQuery, GetItemsQueryVariables>;

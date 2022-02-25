@@ -177,6 +177,9 @@ export const GetCategoriesDocument = gql`
 export function useGetCategoriesQuery(variables: GetCategoriesQueryVariables | VueCompositionApi.Ref<GetCategoriesQueryVariables> | ReactiveFunction<GetCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options);
 }
+export function useGetCategoriesLazyQuery(variables: GetCategoriesQueryVariables | VueCompositionApi.Ref<GetCategoriesQueryVariables> | ReactiveFunction<GetCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options);
+}
 export type GetCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesQuery, GetCategoriesQueryVariables>;
 export const GetCategoriesForSelectorDocument = gql`
     query getCategoriesForSelector($siteId: Int!) {
@@ -204,6 +207,9 @@ export const GetCategoriesForSelectorDocument = gql`
  */
 export function useGetCategoriesForSelectorQuery(variables: GetCategoriesForSelectorQueryVariables | VueCompositionApi.Ref<GetCategoriesForSelectorQueryVariables> | ReactiveFunction<GetCategoriesForSelectorQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>(GetCategoriesForSelectorDocument, variables, options);
+}
+export function useGetCategoriesForSelectorLazyQuery(variables: GetCategoriesForSelectorQueryVariables | VueCompositionApi.Ref<GetCategoriesForSelectorQueryVariables> | ReactiveFunction<GetCategoriesForSelectorQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>(GetCategoriesForSelectorDocument, variables, options);
 }
 export type GetCategoriesForSelectorQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>;
 export const GetCategoryDocument = gql`
@@ -233,5 +239,8 @@ export const GetCategoryDocument = gql`
  */
 export function useGetCategoryQuery(variables: GetCategoryQueryVariables | VueCompositionApi.Ref<GetCategoryQueryVariables> | ReactiveFunction<GetCategoryQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, variables, options);
+}
+export function useGetCategoryLazyQuery(variables: GetCategoryQueryVariables | VueCompositionApi.Ref<GetCategoryQueryVariables> | ReactiveFunction<GetCategoryQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, variables, options);
 }
 export type GetCategoryQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoryQuery, GetCategoryQueryVariables>;

@@ -69,6 +69,9 @@ export const SiteDocument = gql`
 export function useSiteQuery(variables: SiteQueryVariables | VueCompositionApi.Ref<SiteQueryVariables> | ReactiveFunction<SiteQueryVariables>, options: VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<SiteQuery, SiteQueryVariables>(SiteDocument, variables, options);
 }
+export function useSiteLazyQuery(variables: SiteQueryVariables | VueCompositionApi.Ref<SiteQueryVariables> | ReactiveFunction<SiteQueryVariables>, options: VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<SiteQuery, SiteQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<SiteQuery, SiteQueryVariables>(SiteDocument, variables, options);
+}
 export type SiteQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<SiteQuery, SiteQueryVariables>;
 export const CreateSiteDocument = gql`
     mutation createSite($createSiteInput: CreateSiteInput!) {

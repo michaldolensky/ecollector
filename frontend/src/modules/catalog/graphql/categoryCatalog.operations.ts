@@ -19,14 +19,14 @@ export type GetCatalogItemsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetCatalogItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null | undefined> | null | undefined }> };
+export type GetCatalogItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null> | null }> };
 
 export type GetCatalogItemQueryVariables = Types.Exact<{
   itemId: Types.Scalars['Int'];
 }>;
 
 
-export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null | undefined> | null | undefined, itemParameters: Array<{ __typename?: 'ItemParameter', value: string, parameter: { __typename?: 'Parameter', name: string, id: number } }> } };
+export type GetCatalogItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, createdAt: any, shortDesc: string, longDesc: string, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', url: string } } | null> | null, itemParameters: Array<{ __typename?: 'ItemParameter', value: string, parameter: { __typename?: 'Parameter', name: string, id: number } }> } };
 
 
 export const GetCatalogueCategoriesDocument = gql`
@@ -55,6 +55,9 @@ export const GetCatalogueCategoriesDocument = gql`
  */
 export function useGetCatalogueCategoriesQuery(variables: GetCatalogueCategoriesQueryVariables | VueCompositionApi.Ref<GetCatalogueCategoriesQueryVariables> | ReactiveFunction<GetCatalogueCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>(GetCatalogueCategoriesDocument, variables, options);
+}
+export function useGetCatalogueCategoriesLazyQuery(variables: GetCatalogueCategoriesQueryVariables | VueCompositionApi.Ref<GetCatalogueCategoriesQueryVariables> | ReactiveFunction<GetCatalogueCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>(GetCatalogueCategoriesDocument, variables, options);
 }
 export type GetCatalogueCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCatalogueCategoriesQuery, GetCatalogueCategoriesQueryVariables>;
 export const GetCatalogItemsDocument = gql`
@@ -95,6 +98,9 @@ export const GetCatalogItemsDocument = gql`
  */
 export function useGetCatalogItemsQuery(variables: GetCatalogItemsQueryVariables | VueCompositionApi.Ref<GetCatalogItemsQueryVariables> | ReactiveFunction<GetCatalogItemsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>(GetCatalogItemsDocument, variables, options);
+}
+export function useGetCatalogItemsLazyQuery(variables: GetCatalogItemsQueryVariables | VueCompositionApi.Ref<GetCatalogItemsQueryVariables> | ReactiveFunction<GetCatalogItemsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>(GetCatalogItemsDocument, variables, options);
 }
 export type GetCatalogItemsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCatalogItemsQuery, GetCatalogItemsQueryVariables>;
 export const GetCatalogItemDocument = gql`
@@ -142,5 +148,8 @@ export const GetCatalogItemDocument = gql`
  */
 export function useGetCatalogItemQuery(variables: GetCatalogItemQueryVariables | VueCompositionApi.Ref<GetCatalogItemQueryVariables> | ReactiveFunction<GetCatalogItemQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetCatalogItemQuery, GetCatalogItemQueryVariables>(GetCatalogItemDocument, variables, options);
+}
+export function useGetCatalogItemLazyQuery(variables: GetCatalogItemQueryVariables | VueCompositionApi.Ref<GetCatalogItemQueryVariables> | ReactiveFunction<GetCatalogItemQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCatalogItemQuery, GetCatalogItemQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetCatalogItemQuery, GetCatalogItemQueryVariables>(GetCatalogItemDocument, variables, options);
 }
 export type GetCatalogItemQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCatalogItemQuery, GetCatalogItemQueryVariables>;

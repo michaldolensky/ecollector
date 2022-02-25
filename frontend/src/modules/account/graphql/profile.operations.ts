@@ -16,7 +16,7 @@ export type UpdateUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName?: string | null | undefined, lastName?: string | null | undefined } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName?: string | null, lastName?: string | null } };
 
 
 export const DeleteUserDocument = gql`

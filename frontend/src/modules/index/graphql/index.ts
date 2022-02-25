@@ -9,7 +9,7 @@ export type ReactiveFunction<TParam> = () => TParam;
 export type GetPublicSitesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetPublicSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: number, name: string, owner: { __typename?: 'User', firstName?: string | null | undefined, lastName?: string | null | undefined } }> };
+export type GetPublicSitesQuery = { __typename?: 'Query', sites: Array<{ __typename?: 'Site', id: number, name: string, owner: { __typename?: 'User', firstName?: string | null, lastName?: string | null } }> };
 
 
 export const GetPublicSitesDocument = gql`
@@ -39,5 +39,8 @@ export const GetPublicSitesDocument = gql`
  */
 export function useGetPublicSitesQuery(options: VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<GetPublicSitesQuery, GetPublicSitesQueryVariables>(GetPublicSitesDocument, {}, options);
+}
+export function useGetPublicSitesLazyQuery(options: VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetPublicSitesQuery, GetPublicSitesQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<GetPublicSitesQuery, GetPublicSitesQueryVariables>(GetPublicSitesDocument, {}, options);
 }
 export type GetPublicSitesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetPublicSitesQuery, GetPublicSitesQueryVariables>;
