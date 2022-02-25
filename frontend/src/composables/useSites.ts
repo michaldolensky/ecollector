@@ -3,7 +3,7 @@ import {
   useRemoveSiteMutation,
   useSiteQuery,
   useUpdateSiteMutation,
-} from "src/modules/account/graphql/sitesDashboard.operations";
+} from "src/modules/account/graphql/sitesDashboard.operations.urql";
 import { CreateSiteInput, UpdateSiteInput } from "src/types/graphql";
 import { getParsedInt } from "src/utils";
 import { useRoute } from "vue-router";
@@ -15,11 +15,11 @@ export function useSites() {
     getParsedInt(route.params.siteId)
   );
 
-  const { mutate: removeSiteMutation } = useRemoveSiteMutation({});
-  const { mutate: createSiteMutation } = useCreateSiteMutation({});
-  const { mutate: updateSiteMutation } = useUpdateSiteMutation({});
+  const { executeMutation: removeSiteMutation } = useRemoveSiteMutation();
+  const { executeMutation: createSiteMutation } = useCreateSiteMutation();
+  const { executeMutation: updateSiteMutation } = useUpdateSiteMutation();
 
-  const getSite = (id: number) => useSiteQuery({ id });
+  const getSite = (id: number) => useSiteQuery({ variables: { id } });
 
   const removeSite = (id: number) =>
     removeSiteMutation({
