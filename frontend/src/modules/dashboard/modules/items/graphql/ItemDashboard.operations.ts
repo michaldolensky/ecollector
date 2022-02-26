@@ -12,6 +12,8 @@ export type ItemQueryVariables = Types.Exact<{
 
 export type ItemQuery = { __typename?: 'Query', item: { __typename?: 'Item', id: number, name: string, numberForExchange: number, numberInCollection: number, internalNumber: string, longDesc: string, shortDesc: string, categoryId: number, updatedAt: any, createdAt: any, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null, itemParameters: Array<{ __typename?: 'ItemParameter', id: number, value: string, parameter: { __typename?: 'Parameter', id: number, name: string, type: Types.ParameterType } }> } };
 
+export type EditItemImageFragment = { __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } };
+
 export type CreateItemMutationVariables = Types.Exact<{
   createItemInput: Types.CreateItemInput;
   siteId: Types.Scalars['Int'];
@@ -42,9 +44,18 @@ export type GetItemsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null }> };
+export type GetItemsQuery = { __typename?: 'Query', items: Array<{ __typename?: 'Item', id: number, name: string, createdAt: any, updatedAt: any, numberForExchange: number, numberInCollection: number, category: { __typename?: 'Category', name: string }, images?: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } } | null> | null }> };
 
-
+export const EditItemImageFragmentDoc = gql`
+    fragment EditItemImage on Image {
+  id
+  main
+  file {
+    id
+    url
+  }
+}
+    `;
 export const ItemDocument = gql`
     query item($id: Int!) {
   item(id: $id) {
@@ -59,12 +70,7 @@ export const ItemDocument = gql`
     updatedAt
     createdAt
     images {
-      id
-      main
-      file {
-        id
-        url
-      }
+      ...EditItemImage
     }
     itemParameters {
       id
@@ -77,7 +83,7 @@ export const ItemDocument = gql`
     }
   }
 }
-    `;
+    ${EditItemImageFragmentDoc}`;
 
 export function useItemQuery(options: Omit<Urql.UseQueryArgs<never, ItemQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ItemQuery>({ query: ItemDocument, ...options });
@@ -120,16 +126,11 @@ export const UpdateItemDocument = gql`
     updatedAt
     createdAt
     images {
-      id
-      file {
-        id
-        url
-      }
-      main
+      ...EditItemImage
     }
   }
 }
-    `;
+    ${EditItemImageFragmentDoc}`;
 
 export function useUpdateItemMutation() {
   return Urql.useMutation<UpdateItemMutation, UpdateItemMutationVariables>(UpdateItemDocument);
@@ -147,15 +148,11 @@ export const GetItemsDocument = gql`
       name
     }
     images(main: true) {
-      file {
-        id
-        url
-      }
-      main
+      ...EditItemImage
     }
   }
 }
-    `;
+    ${EditItemImageFragmentDoc}`;
 
 export function useGetItemsQuery(options: Omit<Urql.UseQueryArgs<never, GetItemsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetItemsQuery>({ query: GetItemsDocument, ...options });

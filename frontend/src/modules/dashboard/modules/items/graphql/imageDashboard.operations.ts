@@ -3,6 +3,7 @@
 import * as Types from '../../../../../types/graphql';
 
 import gql from 'graphql-tag';
+import { EditItemImageFragmentDoc } from './ItemDashboard.operations';
 import * as Urql from '@urql/vue';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RemoveImageMutationVariables = Types.Exact<{
@@ -20,7 +21,7 @@ export type UploadImageMutationVariables = Types.Exact<{
 }>;
 
 
-export type UploadImageMutation = { __typename?: 'Mutation', uploadImage: Array<{ __typename?: 'Image', id: number, itemId: number, updatedAt: any, file: { __typename?: 'S3File', id: number, url: string } }> };
+export type UploadImageMutation = { __typename?: 'Mutation', uploadImage: Array<{ __typename?: 'Image', id: number, main: boolean, file: { __typename?: 'S3File', id: number, url: string } }> };
 
 
 export const RemoveImageDocument = gql`
@@ -37,17 +38,10 @@ export function useRemoveImageMutation() {
 export const UploadImageDocument = gql`
     mutation uploadImage($files: [Upload!]!, $itemId: Int!, $siteId: Int!) {
   uploadImage(uploadImageInput: {files: $files, itemId: $itemId}, siteId: $siteId) {
-    id
-    file {
-      id
-      url
-    }
-    itemId
-    updatedAt
-    updatedAt
+    ...EditItemImage
   }
 }
-    `;
+    ${EditItemImageFragmentDoc}`;
 
 export function useUploadImageMutation() {
   return Urql.useMutation<UploadImageMutation, UploadImageMutationVariables>(UploadImageDocument);
