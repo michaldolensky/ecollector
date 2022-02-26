@@ -2665,17 +2665,6 @@
     auto-bind "~4.0.0"
     tslib "~2.3.0"
 
-"@graphql-codegen/typescript-vue-apollo@3.2.6":
-  version "3.2.6"
-  resolved "https://registry.npmjs.org/@graphql-codegen/typescript-vue-apollo/-/typescript-vue-apollo-3.2.6.tgz"
-  integrity sha512-jwKQCLLt9ppAc46bHsULuE7wKbd5ZMmIieZc8d8qddOCOHB1p3Dbw8jj+76rtcjd9qM18CCf/JpfvXIdabU2bA==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^2.4.0"
-    "@graphql-codegen/visitor-plugin-common" "2.7.1"
-    auto-bind "~4.0.0"
-    change-case-all "1.0.14"
-    tslib "~2.3.0"
-
 "@graphql-codegen/typescript-vue-urql@2.2.6":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-vue-urql/-/typescript-vue-urql-2.2.6.tgz#2b2c9e9f301889e42121d7b1ebcb4259a75fc279"
