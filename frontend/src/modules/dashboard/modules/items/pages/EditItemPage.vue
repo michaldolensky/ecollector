@@ -4,7 +4,7 @@ import EditItemImages from "src/modules/dashboard/modules/items/components/EditI
 import Editor from "src/modules/dashboard/modules/items/components/Editor.vue";
 import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
-import { useItemQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
+import { useItemQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
 import Parameters from "src/modules/dashboard/modules/parameters/components/ParametersPanel.vue";
 import { QForm, useQuasar } from "quasar";
 import { useItems } from "src/modules/dashboard/modules/items/composables/useItems";

@@ -3,7 +3,7 @@ import {
   useCreateItemMutation,
   useItemQuery,
   useUpdateItemMutation,
-} from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
+} from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
 import { CreateItemInput, UpdateItemInput } from "src/types/graphql";
 
 export function useItems() {

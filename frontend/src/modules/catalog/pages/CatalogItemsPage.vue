@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useResult } from "@vue/apollo-composable";
-import { useGetCatalogItemsQuery } from "src/modules/catalog/graphql/categoryCatalog.operations.urql";
+import { useGetCatalogItemsQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 
 import CatalogItem from "src/modules/catalog/components/CatalogItem.vue";
 

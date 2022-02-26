@@ -1,5 +1,5 @@
 import { useRouteParams } from "src/composables/useRoute";
-import { useRemoveItemMutation } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
+import { useRemoveItemMutation } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
 
 export function useDashboardItems() {
   const { executeMutation: removeItemMutation } = useRemoveItemMutation();

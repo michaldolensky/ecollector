@@ -5,7 +5,7 @@ import { useRouteParams } from "src/composables/useRoute";
 import {
   useGetParametersQuery,
   useRemoveParameterMutation,
-} from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations.urql";
+} from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
 import { Parameter, ParameterFilterInput } from "src/types/graphql";
 import { reactive } from "vue";
 import { useI18n } from "vue-i18n";

@@ -7,7 +7,7 @@ import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
 import ItemsTable from "src/modules/dashboard/modules/items/components/ItemsTable.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { useDashboardItems } from "src/modules/dashboard/modules/items/composables/useDashboardItems";
-import { useGetItemsQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations.urql";
+import { useGetItemsQuery } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
 import { Item, ItemFilterInput } from "src/types/graphql";
 import { reactive } from "vue";
 import { useI18n } from "vue-i18n";

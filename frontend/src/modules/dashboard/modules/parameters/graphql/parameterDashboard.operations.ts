@@ -3,9 +3,8 @@
 import * as Types from '../../../../../types/graphql';
 
 import gql from 'graphql-tag';
-import * as VueApolloComposable from '@vue/apollo-composable';
-import * as VueCompositionApi from 'vue';
-export type ReactiveFunction<TParam> = () => TParam;
+import * as Urql from '@urql/vue';
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type CreateParameterMutationVariables = Types.Exact<{
   createParameterInput: Types.CreateParameterInput;
   siteId: Types.Scalars['Int'];
@@ -56,28 +55,9 @@ export const CreateParameterDocument = gql`
 }
     `;
 
-/**
- * __useCreateParameterMutation__
- *
- * To run a mutation, you first call `useCreateParameterMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useCreateParameterMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useCreateParameterMutation({
- *   variables: {
- *     createParameterInput: // value for 'createParameterInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useCreateParameterMutation(options: VueApolloComposable.UseMutationOptions<CreateParameterMutation, CreateParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateParameterMutation, CreateParameterMutationVariables>>) {
-  return VueApolloComposable.useMutation<CreateParameterMutation, CreateParameterMutationVariables>(CreateParameterDocument, options);
-}
-export type CreateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateParameterMutation, CreateParameterMutationVariables>;
+export function useCreateParameterMutation() {
+  return Urql.useMutation<CreateParameterMutation, CreateParameterMutationVariables>(CreateParameterDocument);
+};
 export const RemoveParameterDocument = gql`
     mutation removeParameter($deleteParameterInput: DeleteParameterInput!, $siteId: Int!) {
   removeParameter(deleteParameterInput: $deleteParameterInput, siteId: $siteId) {
@@ -86,28 +66,9 @@ export const RemoveParameterDocument = gql`
 }
     `;
 
-/**
- * __useRemoveParameterMutation__
- *
- * To run a mutation, you first call `useRemoveParameterMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useRemoveParameterMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useRemoveParameterMutation({
- *   variables: {
- *     deleteParameterInput: // value for 'deleteParameterInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useRemoveParameterMutation(options: VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RemoveParameterMutation, RemoveParameterMutationVariables>>) {
-  return VueApolloComposable.useMutation<RemoveParameterMutation, RemoveParameterMutationVariables>(RemoveParameterDocument, options);
-}
-export type RemoveParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveParameterMutation, RemoveParameterMutationVariables>;
+export function useRemoveParameterMutation() {
+  return Urql.useMutation<RemoveParameterMutation, RemoveParameterMutationVariables>(RemoveParameterDocument);
+};
 export const UpdateParameterDocument = gql`
     mutation updateParameter($updateParameterInput: UpdateParameterInput!, $siteId: Int!) {
   updateParameter(updateParameterInput: $updateParameterInput, siteId: $siteId) {
@@ -118,28 +79,9 @@ export const UpdateParameterDocument = gql`
 }
     `;
 
-/**
- * __useUpdateParameterMutation__
- *
- * To run a mutation, you first call `useUpdateParameterMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useUpdateParameterMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useUpdateParameterMutation({
- *   variables: {
- *     updateParameterInput: // value for 'updateParameterInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useUpdateParameterMutation(options: VueApolloComposable.UseMutationOptions<UpdateParameterMutation, UpdateParameterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateParameterMutation, UpdateParameterMutationVariables>>) {
-  return VueApolloComposable.useMutation<UpdateParameterMutation, UpdateParameterMutationVariables>(UpdateParameterDocument, options);
-}
-export type UpdateParameterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParameterMutation, UpdateParameterMutationVariables>;
+export function useUpdateParameterMutation() {
+  return Urql.useMutation<UpdateParameterMutation, UpdateParameterMutationVariables>(UpdateParameterDocument);
+};
 export const GetParametersDocument = gql`
     query getParameters($filter: ParameterFilterInput, $siteId: Int!) {
   parameters(filter: $filter, siteId: $siteId) {
@@ -150,29 +92,9 @@ export const GetParametersDocument = gql`
 }
     `;
 
-/**
- * __useGetParametersQuery__
- *
- * To run a query within a Vue component, call `useGetParametersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetParametersQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetParametersQuery({
- *   filter: // value for 'filter'
- *   siteId: // value for 'siteId'
- * });
- */
-export function useGetParametersQuery(variables: GetParametersQueryVariables | VueCompositionApi.Ref<GetParametersQueryVariables> | ReactiveFunction<GetParametersQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetParametersQuery, GetParametersQueryVariables>(GetParametersDocument, variables, options);
-}
-export function useGetParametersLazyQuery(variables: GetParametersQueryVariables | VueCompositionApi.Ref<GetParametersQueryVariables> | ReactiveFunction<GetParametersQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParametersQuery, GetParametersQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<GetParametersQuery, GetParametersQueryVariables>(GetParametersDocument, variables, options);
-}
-export type GetParametersQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParametersQuery, GetParametersQueryVariables>;
+export function useGetParametersQuery(options: Omit<Urql.UseQueryArgs<never, GetParametersQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetParametersQuery>({ query: GetParametersDocument, ...options });
+};
 export const GetParameterDocument = gql`
     query getParameter($id: Int!) {
   parameter(id: $id) {
@@ -183,25 +105,6 @@ export const GetParameterDocument = gql`
 }
     `;
 
-/**
- * __useGetParameterQuery__
- *
- * To run a query within a Vue component, call `useGetParameterQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetParameterQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetParameterQuery({
- *   id: // value for 'id'
- * });
- */
-export function useGetParameterQuery(variables: GetParameterQueryVariables | VueCompositionApi.Ref<GetParameterQueryVariables> | ReactiveFunction<GetParameterQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetParameterQuery, GetParameterQueryVariables>(GetParameterDocument, variables, options);
-}
-export function useGetParameterLazyQuery(variables: GetParameterQueryVariables | VueCompositionApi.Ref<GetParameterQueryVariables> | ReactiveFunction<GetParameterQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParameterQuery, GetParameterQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<GetParameterQuery, GetParameterQueryVariables>(GetParameterDocument, variables, options);
-}
-export type GetParameterQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParameterQuery, GetParameterQueryVariables>;
+export function useGetParameterQuery(options: Omit<Urql.UseQueryArgs<never, GetParameterQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetParameterQuery>({ query: GetParameterDocument, ...options });
+};

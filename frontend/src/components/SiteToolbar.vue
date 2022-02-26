@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useSiteQuery } from "src/modules/account/graphql/sitesDashboard.operations.urql";
+import { useSiteQuery } from "src/modules/account/graphql/sitesDashboard.operations";
 import { useSites } from "src/composables/useSites";
 
 const { currentSiteId } = useSites();

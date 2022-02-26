@@ -3,9 +3,8 @@
 import * as Types from '../../../../../types/graphql';
 
 import gql from 'graphql-tag';
-import * as VueApolloComposable from '@vue/apollo-composable';
-import * as VueCompositionApi from 'vue';
-export type ReactiveFunction<TParam> = () => TParam;
+import * as Urql from '@urql/vue';
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type CreateCategoryMutationVariables = Types.Exact<{
   createCategoryInput: Types.CreateCategoryInput;
   siteId: Types.Scalars['Int'];
@@ -63,28 +62,9 @@ export const CreateCategoryDocument = gql`
 }
     `;
 
-/**
- * __useCreateCategoryMutation__
- *
- * To run a mutation, you first call `useCreateCategoryMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useCreateCategoryMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useCreateCategoryMutation({
- *   variables: {
- *     createCategoryInput: // value for 'createCategoryInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useCreateCategoryMutation(options: VueApolloComposable.UseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables>>) {
-  return VueApolloComposable.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, options);
-}
-export type CreateCategoryMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateCategoryMutation, CreateCategoryMutationVariables>;
+export function useCreateCategoryMutation() {
+  return Urql.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument);
+};
 export const RemoveCategoryDocument = gql`
     mutation removeCategory($deleteCategoryInput: DeleteCategoryInput!, $siteId: Int!) {
   removeCategory(deleteCategoryInput: $deleteCategoryInput, siteId: $siteId) {
@@ -93,28 +73,9 @@ export const RemoveCategoryDocument = gql`
 }
     `;
 
-/**
- * __useRemoveCategoryMutation__
- *
- * To run a mutation, you first call `useRemoveCategoryMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useRemoveCategoryMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useRemoveCategoryMutation({
- *   variables: {
- *     deleteCategoryInput: // value for 'deleteCategoryInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useRemoveCategoryMutation(options: VueApolloComposable.UseMutationOptions<RemoveCategoryMutation, RemoveCategoryMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RemoveCategoryMutation, RemoveCategoryMutationVariables>>) {
-  return VueApolloComposable.useMutation<RemoveCategoryMutation, RemoveCategoryMutationVariables>(RemoveCategoryDocument, options);
-}
-export type RemoveCategoryMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RemoveCategoryMutation, RemoveCategoryMutationVariables>;
+export function useRemoveCategoryMutation() {
+  return Urql.useMutation<RemoveCategoryMutation, RemoveCategoryMutationVariables>(RemoveCategoryDocument);
+};
 export const UpdateCategoryDocument = gql`
     mutation updateCategory($updateCategoryInput: UpdateCategoryInput!, $siteId: Int!) {
   updateCategory(updateCategoryInput: $updateCategoryInput, siteId: $siteId) {
@@ -125,28 +86,9 @@ export const UpdateCategoryDocument = gql`
 }
     `;
 
-/**
- * __useUpdateCategoryMutation__
- *
- * To run a mutation, you first call `useUpdateCategoryMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useUpdateCategoryMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useUpdateCategoryMutation({
- *   variables: {
- *     updateCategoryInput: // value for 'updateCategoryInput'
- *     siteId: // value for 'siteId'
- *   },
- * });
- */
-export function useUpdateCategoryMutation(options: VueApolloComposable.UseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>>) {
-  return VueApolloComposable.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, options);
-}
-export type UpdateCategoryMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export function useUpdateCategoryMutation() {
+  return Urql.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument);
+};
 export const GetCategoriesDocument = gql`
     query getCategories($filter: CategoryFilterInput, $siteId: Int!) {
   categories(filter: $filter, siteId: $siteId) {
@@ -158,29 +100,9 @@ export const GetCategoriesDocument = gql`
 }
     `;
 
-/**
- * __useGetCategoriesQuery__
- *
- * To run a query within a Vue component, call `useGetCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoriesQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetCategoriesQuery({
- *   filter: // value for 'filter'
- *   siteId: // value for 'siteId'
- * });
- */
-export function useGetCategoriesQuery(variables: GetCategoriesQueryVariables | VueCompositionApi.Ref<GetCategoriesQueryVariables> | ReactiveFunction<GetCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options);
-}
-export function useGetCategoriesLazyQuery(variables: GetCategoriesQueryVariables | VueCompositionApi.Ref<GetCategoriesQueryVariables> | ReactiveFunction<GetCategoriesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesQuery, GetCategoriesQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options);
-}
-export type GetCategoriesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesQuery, GetCategoriesQueryVariables>;
+export function useGetCategoriesQuery(options: Omit<Urql.UseQueryArgs<never, GetCategoriesQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCategoriesQuery>({ query: GetCategoriesDocument, ...options });
+};
 export const GetCategoriesForSelectorDocument = gql`
     query getCategoriesForSelector($siteId: Int!) {
   categories(siteId: $siteId) {
@@ -190,28 +112,9 @@ export const GetCategoriesForSelectorDocument = gql`
 }
     `;
 
-/**
- * __useGetCategoriesForSelectorQuery__
- *
- * To run a query within a Vue component, call `useGetCategoriesForSelectorQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoriesForSelectorQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetCategoriesForSelectorQuery({
- *   siteId: // value for 'siteId'
- * });
- */
-export function useGetCategoriesForSelectorQuery(variables: GetCategoriesForSelectorQueryVariables | VueCompositionApi.Ref<GetCategoriesForSelectorQueryVariables> | ReactiveFunction<GetCategoriesForSelectorQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>(GetCategoriesForSelectorDocument, variables, options);
-}
-export function useGetCategoriesForSelectorLazyQuery(variables: GetCategoriesForSelectorQueryVariables | VueCompositionApi.Ref<GetCategoriesForSelectorQueryVariables> | ReactiveFunction<GetCategoriesForSelectorQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>(GetCategoriesForSelectorDocument, variables, options);
-}
-export type GetCategoriesForSelectorQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoriesForSelectorQuery, GetCategoriesForSelectorQueryVariables>;
+export function useGetCategoriesForSelectorQuery(options: Omit<Urql.UseQueryArgs<never, GetCategoriesForSelectorQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCategoriesForSelectorQuery>({ query: GetCategoriesForSelectorDocument, ...options });
+};
 export const GetCategoryDocument = gql`
     query getCategory($id: Int!) {
   category(id: $id) {
@@ -222,25 +125,6 @@ export const GetCategoryDocument = gql`
 }
     `;
 
-/**
- * __useGetCategoryQuery__
- *
- * To run a query within a Vue component, call `useGetCategoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoryQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetCategoryQuery({
- *   id: // value for 'id'
- * });
- */
-export function useGetCategoryQuery(variables: GetCategoryQueryVariables | VueCompositionApi.Ref<GetCategoryQueryVariables> | ReactiveFunction<GetCategoryQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, variables, options);
-}
-export function useGetCategoryLazyQuery(variables: GetCategoryQueryVariables | VueCompositionApi.Ref<GetCategoryQueryVariables> | ReactiveFunction<GetCategoryQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetCategoryQuery, GetCategoryQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, variables, options);
-}
-export type GetCategoryQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetCategoryQuery, GetCategoryQueryVariables>;
+export function useGetCategoryQuery(options: Omit<Urql.UseQueryArgs<never, GetCategoryQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCategoryQuery>({ query: GetCategoryDocument, ...options });
+};

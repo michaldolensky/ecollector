@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useSiteQuery } from "src/modules/account/graphql/sitesDashboard.operations.urql";
+import { useSiteQuery } from "src/modules/account/graphql/sitesDashboard.operations";
 import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { useQuasar } from "quasar";

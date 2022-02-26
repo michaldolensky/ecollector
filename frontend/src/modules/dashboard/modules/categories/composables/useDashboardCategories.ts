@@ -5,7 +5,7 @@ import { useRouteParams } from "src/composables/useRoute";
 import {
   useGetCategoriesQuery,
   useRemoveCategoryMutation,
-} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations.urql";
+} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
 import { Category, CategoryFilterInput } from "src/types/graphql";
 import { reactive } from "vue";
 import { useI18n } from "vue-i18n";

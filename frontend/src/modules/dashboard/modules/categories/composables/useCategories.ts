@@ -5,7 +5,7 @@ import {
   useGetCategoryQuery,
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
-} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations.urql";
+} from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
 import { CreateCategoryInput, UpdateCategoryInput } from "src/types/graphql";
 
 export function useCategories() {

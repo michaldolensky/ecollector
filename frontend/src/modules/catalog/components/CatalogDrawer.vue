@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useResult } from "@vue/apollo-composable";
 import CatalogListCategory from "src/modules/catalog/components/CatalogListCategory.vue";
-import { useGetCatalogueCategoriesQuery } from "src/modules/catalog/graphql/categoryCatalog.operations.urql";
+import { useGetCatalogueCategoriesQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 import { useSites } from "src/composables/useSites";
 import { useSiteSettingsStore } from "src/stores/settings";
 import { computed, ref } from "vue";
