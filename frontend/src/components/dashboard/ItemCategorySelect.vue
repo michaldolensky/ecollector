@@ -3,7 +3,7 @@ import { useResult } from "@vue/apollo-composable";
 import { useVModel } from "@vueuse/core";
 
 import { useRouteParams } from "src/composables/useRoute";
-import { useGetCategoriesForSelectorQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { useGetCategoriesForSelectorQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard.operations";
 import { FilterFn } from "src/types/FilterFn.type";
 import { validationHelper } from "src/validationHelper";
 import { computed, ref } from "vue";
@@ -18,8 +18,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-// eslint-disable-next-line
-const emit = defineEmits<{ (e: 'update:modelValue', id: number|null): void }>();
+
+const emit =
+  defineEmits<{ (e: "update:modelValue", id: number | null): void }>();
 const model = useVModel(props, "modelValue", emit);
 
 const { data } = useGetCategoriesForSelectorQuery({
