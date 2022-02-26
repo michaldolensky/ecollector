@@ -40,9 +40,9 @@ const { filter, resetFilter } = useDashboardCategories();
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="alert('refetch')">
-          {{ $t("buttons.common.filter") }}
-        </q-btn>
+        <!--        <q-btn color="secondary" @click="alert('refetch')">-->
+        <!--          {{ $t("buttons.common.filter") }}-->
+        <!--        </q-btn>-->
       </q-card-actions>
     </q-card>
 

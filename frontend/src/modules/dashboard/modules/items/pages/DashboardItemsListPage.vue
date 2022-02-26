@@ -48,9 +48,7 @@ const confirmDelete = (item: Item) => {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    void removeItem(item.id).then(() => {
-      // void refetch();
-    });
+    void removeItem(item.id);
   });
 };
 </script>
@@ -91,9 +89,9 @@ const confirmDelete = (item: Item) => {
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="alert('refetch')">
-          {{ $t("buttons.common.filter") }}
-        </q-btn>
+        <!--        <q-btn color="secondary" @click="alert('refetch')">-->
+        <!--          {{ $t("buttons.common.filter") }}-->
+        <!--        </q-btn>-->
       </q-card-actions>
     </q-card>
 
