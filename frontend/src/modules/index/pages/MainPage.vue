@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useGetPublicSitesQuery } from "src/modules/index/graphql/index.urql";
+import { useGetPublicSitesQuery } from "src/modules/index/graphql";
 import { Site } from "src/types/graphql";
 import { useI18n } from "vue-i18n";
 
