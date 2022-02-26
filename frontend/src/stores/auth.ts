@@ -1,6 +1,4 @@
-import { provideApolloClient, useApolloClient } from "@vue/apollo-composable";
 import { AxiosError, AxiosResponse } from "axios";
-import { apolloClient } from "boot/apollo";
 import { api } from "boot/axios";
 import { i18n } from "boot/i18n";
 import { defineStore } from "pinia";
@@ -128,9 +126,7 @@ export const useAuthStore = defineStore("auth", {
 
     logout() {
       localStorage.setItem(localStorageTokenKey, "");
-      provideApolloClient(apolloClient);
-      const { client } = useApolloClient();
-      void client.clearStore();
+      // todo clear urql cache
       this.$reset();
     },
 
