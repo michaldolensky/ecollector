@@ -28,7 +28,7 @@ export function useSites() {
 
   const createSite = (createSiteInput: CreateSiteInput) =>
     createSiteMutation({ createSiteInput });
-  // eslint-disable-next-line max-len
+
   const updateSite = (updateSiteInput: UpdateSiteInput) =>
     updateSiteMutation({ updateSiteInput, siteId: currentSiteId.value });
 

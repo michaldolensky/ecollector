@@ -18,10 +18,9 @@ export function useItems() {
   const { executeMutation: createItemMutation } = useCreateItemMutation();
   const { executeMutation: updateItemMutation } = useUpdateItemMutation();
 
-  // eslint-disable-next-line max-len
   const createItem = (createItemInput: CreateItemInput) =>
     createItemMutation({ createItemInput, siteId: currentSiteId.value });
-  // eslint-disable-next-line max-len
+
   const updateItem = (updateItemInput: UpdateItemInput) =>
     updateItemMutation({ updateItemInput, siteId: currentSiteId.value });
 

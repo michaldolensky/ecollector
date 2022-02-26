@@ -47,15 +47,12 @@ export function useCategories() {
     });
   };
 
-  // todo rename
-  // eslint-disable-next-line max-len
   const createCategory = (createCategoryInput: CreateCategoryInput) =>
     createCategoryMutation({
       createCategoryInput,
       siteId: currentSiteId.value,
     });
 
-  // eslint-disable-next-line max-len
   const updateCategory = (updateCategoryInput: UpdateCategoryInput) =>
     updateCategoryMutation({
       updateCategoryInput,

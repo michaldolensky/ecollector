@@ -13,9 +13,9 @@ interface Props {
   disabled: boolean;
 }
 const props = defineProps<Props>();
-// eslint-disable-next-line
-const emit = defineEmits<{ (e: 'addImages', images: UploadImageMutation): void
-}>();
+
+const emit =
+  defineEmits<{ (e: "addImages", images: UploadImageMutation): void }>();
 
 const files = ref<File[]>([]);
 

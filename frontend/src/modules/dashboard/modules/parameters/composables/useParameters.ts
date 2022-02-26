@@ -13,10 +13,9 @@ export function useParameters() {
   const { executeMutation: updateParameterMutation } =
     useUpdateParameterMutation();
 
-  // eslint-disable-next-line max-len
   const createParameter = (createParameterInput: CreateParameterInput) =>
     createParameterMutation({ createParameterInput, siteId: siteId.value });
-  // eslint-disable-next-line max-len
+
   const updateParameter = (updateParameterInput: UpdateParameterInput) =>
     updateParameterMutation({ updateParameterInput, siteId: siteId.value });
 

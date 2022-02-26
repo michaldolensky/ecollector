@@ -154,7 +154,6 @@ export const useAuthStore = defineStore("auth", {
       localStorage.setItem(localStorageTokenKey, response.data.accessToken);
       await this.me();
 
-      // eslint-disable-next-line max-len
       const redirect = (<RouteLocationNormalizedLoaded>(
         (<unknown>this.router.currentRoute)
       )).query.redirect as string;
