@@ -3333,9 +3333,9 @@
   dependencies:
     serialize-javascript "^5.0.1"
 
-"@rushstack/eslint-patch@^1.1.0":
+"@rushstack/eslint-patch@1.1.0":
   version "1.1.0"
-  resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz#7f698254aadf921e48dda8c0a6b304026b8a9323"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
 
 "@samverschueren/stream-to-observable@^0.3.0":
@@ -4807,14 +4807,14 @@
     "@graphql-typed-document-node/core" "^3.1.1"
     wonka "^4.0.14"
 
-"@urql/devtools@^2.0.3":
+"@urql/devtools@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-2.0.3.tgz#780998c37386c72af9402a8f88c1b388e62f28cd"
   integrity sha512-TktPLiBS9LcBPHD6qcnb8wqOVcg3Bx0iCtvQ80uPpfofwwBGJmqnQTjUdEFU6kwaLOFZULQ9+Uo4831G823mQw==
   dependencies:
     wonka ">= 4.0.9"
 
-"@urql/exchange-multipart-fetch@^0.1.14":
+"@urql/exchange-multipart-fetch@0.1.14":
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/@urql/exchange-multipart-fetch/-/exchange-multipart-fetch-0.1.14.tgz#c34294895be03ed9f0677d587c54c0a6d0f3af26"
   integrity sha512-JdffZtfsJHQ4v0IevimPWbteXT1C5OH3PPbNJrbLigC9aCZB9dp2ZOjMXTvpP+3SIjJRFRguuRaL7hAGB04vgw==
@@ -4896,9 +4896,9 @@
     eslint-config-prettier "^8.3.0"
     eslint-plugin-prettier "^4.0.0"
 
-"@vue/eslint-config-typescript@^10.0.0":
+"@vue/eslint-config-typescript@10.0.0":
   version "10.0.0"
-  resolved "https://registry.npmjs.org/@vue/eslint-config-typescript/-/eslint-config-typescript-10.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@vue/eslint-config-typescript/-/eslint-config-typescript-10.0.0.tgz#3b63c8cf276962cb89414857581b9b424acf2820"
   integrity sha512-F94cL8ug3FaYXlCfU5/wiGjk1qeadmoBpRGAOBq+qre3Smdupa59dd6ZJrsfRODpsMPyTG7330juMDsUvpZ3Rw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.0.0"
