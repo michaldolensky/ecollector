@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
+import { useResult } from "src/composables/useResult";
 import { useRouteParams } from "src/composables/useRoute";
 import { useGetParametersQuery } from "src/modules/dashboard/modules/parameters/graphql/parameterDashboard.operations";
 import { ItemParameter, ItemParameterInput } from "src/types/graphql";

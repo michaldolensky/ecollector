@@ -1,5 +1,5 @@
-import { useResult } from "@vue/apollo-composable";
 import { useQuasar } from "quasar";
+import { useResult } from "src/composables/useResult";
 
 import { useRouteParams } from "src/composables/useRoute";
 import {

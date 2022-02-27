@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
+import { useResult } from "src/composables/useResult";
 import CatalogListCategory from "src/modules/catalog/components/CatalogListCategory.vue";
 import { useGetCatalogueCategoriesQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 import { useSites } from "src/composables/useSites";
