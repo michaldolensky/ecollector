@@ -1,5 +1,5 @@
-import { useResult } from "@vue/apollo-composable";
 import { useQuasar } from "quasar";
+import { useResult } from "src/composables/useResult";
 import { useRouteParams } from "src/composables/useRoute";
 
 import {
@@ -19,15 +19,18 @@ export function useDashboardParameters() {
   const { dialog } = useQuasar();
   const { t } = useI18n();
 
-  const { mutate: removeParameterMutation } = useRemoveParameterMutation({});
+  const { executeMutation: removeParameterMutation } =
+    useRemoveParameterMutation();
 
   const resetFilter = () => {
     filter.name = null;
   };
 
-  const { result, loading, refetch } = useGetParametersQuery({
-    siteId: siteId.value,
-    filter,
+  const { data, fetching } = useGetParametersQuery({
+    variables: {
+      siteId: siteId.value,
+      filter,
+    },
   });
   const removeParameter = (id: number) =>
     removeParameterMutation({
@@ -45,15 +48,15 @@ export function useDashboardParameters() {
       cancel: true,
       persistent: true,
     }).onOk(() => {
-      if (parameter.id != null)
-        void removeParameter(parameter.id).then(() => void refetch());
+      // if (parameter.id != null)
+      // void removeParameter(parameter.id).then(() => void refetch());
     });
   };
 
   return {
-    parameters: useResult(result, []),
-    loading,
-    refetch,
+    parameters: useResult(data, []),
+    fetching,
+    // refetch,
     filter,
     confirmDelete,
     resetFilter,

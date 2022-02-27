@@ -1,14 +1,14 @@
 <script lang="ts" setup>
+import { QForm, useQuasar } from "quasar";
 import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
-import { QForm, useQuasar } from "quasar";
 
 import { useCategories } from "src/modules/dashboard/modules/categories/composables/useCategories";
-import { useGetCategoryQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard..operations";
+import { useGetCategoryQuery } from "src/modules/dashboard/modules/categories/graphql/categoryDashboard.operations";
 import { UpdateCategoryInput } from "src/types/graphql";
 import { validationHelper } from "src/validationHelper";
 
-import { ref, reactive, onMounted } from "vue";
+import { reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
@@ -38,34 +38,30 @@ const resetObject: UpdateCategoryInput = {
 };
 
 const category = reactive(resetObject);
-const enableQuery = ref(false);
 const form = ref<QForm>();
 
-const { onResult, restart, loading } = useGetCategoryQuery(
-  {
+const {
+  data: resultData,
+  fetching,
+  then,
+} = useGetCategoryQuery({
+  pause: props.inEditMode,
+  variables: {
     id: props.categoryId,
   },
-  () => ({
-    enabled: enableQuery.value,
-  })
-);
-onMounted(() => {
-  if (props.inEditMode) enableQuery.value = true;
 });
-
-onResult((result) => {
-  if (!result.loading) {
-    category.id = result.data.category.id;
-    category.name = result.data.category.name;
-    category.perex = result.data.category.perex;
+then(({ data }) => {
+  if (data.value?.category) {
+    category.id = data.value.category.id;
+    category.name = data.value.category.name;
+    category.perex = data.value.category.perex;
   }
 });
-restart();
 
 const onSubmit = () => {
   if (props.inEditMode) {
     void updateCategory(category).then((result) => {
-      if (result?.data) {
+      if (result) {
         notify({
           type: "positive",
           message: t(
@@ -77,7 +73,7 @@ const onSubmit = () => {
   } else {
     delete category.id;
     void createCategory(category).then((result) => {
-      if (result?.data) {
+      if (result) {
         notify({
           type: "positive",
           message: t(
@@ -86,7 +82,7 @@ const onSubmit = () => {
         });
         void router.push({
           name: "DashBoardCategoryEdit",
-          params: { categoryId: result.data.createCategory.id },
+          params: { categoryId: resultData.createCategory.id },
         });
       }
     });
@@ -106,7 +102,7 @@ const onSubmit = () => {
     </dashboard-page-header>
 
     <q-form
-      v-if="!loading"
+      v-if="!fetching"
       ref="form"
       class="items-start full-width"
       @submit="onSubmit"

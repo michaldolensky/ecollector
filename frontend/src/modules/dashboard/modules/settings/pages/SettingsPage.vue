@@ -24,22 +24,22 @@ const props = defineProps<Props>();
 const router = useRouter();
 const { notify, dialog } = useQuasar();
 
-const { loading, onResult, restart, refetch } = useSiteQuery(() => ({
-  id: props.siteId,
-}));
-void refetch();
+const { fetching, then } = useSiteQuery({
+  variables: {
+    id: props.siteId,
+  },
+});
 
 const currentSettings = reactive<UpdateSiteInput>({
   name: "",
 });
 
-onResult((result) => {
-  if (!result.loading) {
-    const { name } = result.data.site;
+then((result) => {
+  if (result.data.value?.site) {
+    const { name } = result.data.value.site;
     currentSettings.name = name;
   }
 });
-restart();
 
 const onSubmit = () => {
   void updateSite(currentSettings).then((result) => {
@@ -68,7 +68,7 @@ const askForDelete = () => {
 <template>
   <dashboard-page>
     <dashboard-page-header :title="$t('dashboard.navigation.settings')" />
-    <div v-if="!loading" class="items-start full-width">
+    <div v-if="!fetching" class="items-start full-width">
       <div class="row">
         <div class="col-12 col-md-8 q-pa-md q-gutter-md">
           <q-form @submit="onSubmit">
@@ -83,7 +83,7 @@ const askForDelete = () => {
                 <q-input
                   v-model="currentSettings.name"
                   :label="$t('dashboard.settings.inputs.site_name')"
-                  :loading="loading"
+                  :loading="fetching"
                   :rules="[required]"
                   lazy-rules
                   outlined
@@ -120,6 +120,6 @@ const askForDelete = () => {
         </div>
       </div>
     </div>
-    <q-inner-loading :showing="loading" color="primary" size="50px" />
+    <q-inner-loading :showing="fetching" color="primary" size="50px" />
   </dashboard-page>
 </template>

@@ -24,7 +24,6 @@ generates:
       - add:
           content: '// noinspection ES6UnusedImports'
       - "typescript-operations"
-      - "typescript-vue-apollo"
+      - "typescript-vue-urql"
     config:
-      withCompositionFunctions: true
-      vueCompositionApiImportFrom: vue
+      gqlImport: '@urql/vue#gql'

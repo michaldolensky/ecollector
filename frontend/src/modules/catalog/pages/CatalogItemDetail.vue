@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
+import { useResult } from "src/composables/useResult";
 import { useGetCatalogItemQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 import Breadcrumbs from "src/modules/catalog/components/Breadcrumbs.vue";
 import CatalogItemImagesBrowser from "src/modules/catalog/components/CatalogItemImagesBrowser.vue";
@@ -14,12 +14,13 @@ const localeStore = useLocaleStore();
 
 const props = defineProps<Props>();
 
-const { result, loading, refetch } = useGetCatalogItemQuery(() => ({
-  itemId: props.itemId,
-}));
-void refetch();
+const { data, fetching } = useGetCatalogItemQuery({
+  variables: {
+    itemId: props.itemId,
+  },
+});
 
-const item = useResult(result, {});
+const item = useResult(data, {});
 
 const columns = [
   {
@@ -40,7 +41,7 @@ const columns = [
 </script>
 
 <template>
-  <q-page v-if="!loading">
+  <q-page v-if="!fetching">
     <div class="row">
       <div class="col-12 q-px-md q-pt-md">
         <Breadcrumbs />

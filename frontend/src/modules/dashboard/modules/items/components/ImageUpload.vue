@@ -13,28 +13,26 @@ interface Props {
   disabled: boolean;
 }
 const props = defineProps<Props>();
-// eslint-disable-next-line
-const emit = defineEmits<{ (e: 'addImages', images: UploadImageMutation): void
-}>();
+
+const emit =
+  defineEmits<{ (e: "addImages", images: UploadImageMutation): void }>();
 
 const files = ref<File[]>([]);
 
-const { mutate: uploadImage } = useUploadImageMutation({});
+const { executeMutation: uploadImage } = useUploadImageMutation();
 
 const upload = async () => {
   if (files.value.length > 0) {
-    const uploadResult = await uploadImage({
+    uploadImage({
       files: files.value,
       siteId: siteId.value,
       itemId: itemId.value,
+    }).then((result) => {
+      if (result.data?.uploadImage) {
+        emit("addImages", result.data);
+      }
+      files.value = [];
     });
-    files.value = [];
-
-    if (uploadResult) {
-      const images = uploadResult.data?.uploadImage;
-
-      emit("addImages", images);
-    }
   }
 };
 const getImageSrc = (file: File) => URL.createObjectURL(file);

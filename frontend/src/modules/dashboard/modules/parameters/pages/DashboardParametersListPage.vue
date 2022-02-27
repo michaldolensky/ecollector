@@ -4,7 +4,7 @@ import ParametersTable from "src/modules/dashboard/modules/parameters/components
 import DashboardPage from "src/modules/dashboard/DashboardModule.vue";
 import { useDashboardParameters } from "src/modules/dashboard/modules/parameters/composables/useDashboardParameters";
 
-const { filter, refetch, resetFilter } = useDashboardParameters();
+const { filter, resetFilter } = useDashboardParameters();
 </script>
 
 <template>
@@ -40,9 +40,9 @@ const { filter, refetch, resetFilter } = useDashboardParameters();
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="refetch()">
-          {{ $t("buttons.common.filter") }}
-        </q-btn>
+        <!--        <q-btn color="secondary" @click="alert('refetch')">-->
+        <!--          {{ $t("buttons.common.filter") }}-->
+        <!--        </q-btn>-->
       </q-card-actions>
     </q-card>
 

@@ -2,10 +2,9 @@
 // noinspection ES6UnusedImports
 import * as Types from '../../../types/graphql';
 
-import gql from 'graphql-tag';
-import * as VueApolloComposable from '@vue/apollo-composable';
-import * as VueCompositionApi from 'vue';
-export type ReactiveFunction<TParam> = () => TParam;
+import { gql } from '@urql/vue';
+import * as Urql from '@urql/vue';
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type DeleteUserMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
@@ -16,7 +15,7 @@ export type UpdateUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName?: string | null | undefined, lastName?: string | null | undefined } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName?: string | null, lastName?: string | null } };
 
 
 export const DeleteUserDocument = gql`
@@ -27,23 +26,9 @@ export const DeleteUserDocument = gql`
 }
     `;
 
-/**
- * __useDeleteUserMutation__
- *
- * To run a mutation, you first call `useDeleteUserMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useDeleteUserMutation();
- */
-export function useDeleteUserMutation(options: VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>> = {}) {
-  return VueApolloComposable.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
-}
-export type DeleteUserMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<DeleteUserMutation, DeleteUserMutationVariables>;
+export function useDeleteUserMutation() {
+  return Urql.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument);
+};
 export const UpdateUserDocument = gql`
     mutation updateUser($updateUserInput: UpdateUserInput!) {
   updateUser(updateUserInput: $updateUserInput) {
@@ -53,24 +38,6 @@ export const UpdateUserDocument = gql`
 }
     `;
 
-/**
- * __useUpdateUserMutation__
- *
- * To run a mutation, you first call `useUpdateUserMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserMutation` returns an object that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
- *
- * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
- *
- * @example
- * const { mutate, loading, error, onDone } = useUpdateUserMutation({
- *   variables: {
- *     updateUserInput: // value for 'updateUserInput'
- *   },
- * });
- */
-export function useUpdateUserMutation(options: VueApolloComposable.UseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>>) {
-  return VueApolloComposable.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
-}
-export type UpdateUserMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateUserMutation, UpdateUserMutationVariables>;
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
+};

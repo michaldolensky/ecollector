@@ -1,14 +1,11 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
 import { useGetPublicSitesQuery } from "src/modules/index/graphql";
 import { Site } from "src/types/graphql";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const { result, loading } = useGetPublicSitesQuery();
-
-const sites = useResult(result, []);
+const { fetching, data } = useGetPublicSitesQuery();
 
 const columns = [
   {
@@ -44,7 +41,12 @@ const columns = [
 
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-table :columns="columns" :loading="loading" :rows="sites" row-key="id">
+    <q-table
+      v-if="!fetching && data.sites.length > 0"
+      :columns="columns"
+      :rows="data.sites"
+      row-key="id"
+    >
       <template #body-cell-Action="props">
         <q-td :props="props">
           <q-btn

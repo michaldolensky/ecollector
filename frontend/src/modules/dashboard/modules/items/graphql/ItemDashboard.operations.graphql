@@ -11,12 +11,7 @@ query item($id:Int!){
     updatedAt
     createdAt
     images{
-      id
-      main
-      file {
-        id
-        url
-      }
+      ...EditItemImage
     }
     itemParameters {
       id
@@ -27,6 +22,15 @@ query item($id:Int!){
       }
       value
     }
+  }
+}
+
+fragment EditItemImage on Image {
+  id
+  main
+  file {
+    id
+    url
   }
 }
 
@@ -56,12 +60,7 @@ mutation updateItem($updateItemInput:UpdateItemInput!,$siteId:Int!){
     updatedAt
     createdAt
     images{
-      id
-      file {
-        id
-        url
-      }
-      main
+      ...EditItemImage
     }
   }
 }
@@ -78,11 +77,7 @@ query getItems($filter:ItemFilterInput,$siteId:Int!){
       name
     }
     images(main:true){
-      file {
-        id
-        url
-      }
-      main
+      ...EditItemImage
     }
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
+import { useResult } from "src/composables/useResult";
 import CatalogListCategory from "src/modules/catalog/components/CatalogListCategory.vue";
 import { useGetCatalogueCategoriesQuery } from "src/modules/catalog/graphql/categoryCatalog.operations";
 import { useSites } from "src/composables/useSites";
@@ -12,11 +12,13 @@ const { currentSiteId } = useSites();
 
 const filter = ref("");
 
-const { result, loading } = useGetCatalogueCategoriesQuery({
-  siteId: currentSiteId.value,
+const { data, fetching } = useGetCatalogueCategoriesQuery({
+  variables: {
+    siteId: currentSiteId.value,
+  },
 });
 
-const categories = useResult(result, []);
+const categories = useResult(data, [], (data) => data.categories);
 
 const sortedCategories = computed(() =>
   categories.value
@@ -62,7 +64,7 @@ const sortedCategories = computed(() =>
       <q-separator size="5px" />
     </div>
     <q-virtual-scroll
-      v-if="!loading"
+      v-if="!fetching"
       :items="sortedCategories"
       :virtual-scroll-item-size="32"
       scroll-target="#scroll-area-with-virtual-scroll-1 > .scroll"

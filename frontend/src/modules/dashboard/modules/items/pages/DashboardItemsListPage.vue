@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useResult } from "@vue/apollo-composable";
 import { useQuasar } from "quasar";
+import { useResult } from "src/composables/useResult";
 import { useRouteParams } from "src/composables/useRoute";
 import DashboardPageHeader from "src/modules/dashboard/components/DashboardPageHeader.vue";
 import ItemCategorySelect from "components/dashboard/ItemCategorySelect.vue";
@@ -32,13 +32,14 @@ const resetFilter = () => {
   Object.assign(filter, resetFilterObject);
 };
 
-const { result, loading, refetch } = useGetItemsQuery({
-  siteId: siteId.value,
-  filter,
+const { data, fetching } = useGetItemsQuery({
+  variables: {
+    siteId: siteId.value,
+    filter,
+  },
 });
-void refetch();
 
-const items = useResult(result, []);
+const items = useResult(data, []);
 
 const confirmDelete = (item: Item) => {
   dialog({
@@ -47,9 +48,7 @@ const confirmDelete = (item: Item) => {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    void removeItem(item.id).then(() => {
-      void refetch();
-    });
+    void removeItem(item.id);
   });
 };
 </script>
@@ -90,15 +89,15 @@ const confirmDelete = (item: Item) => {
         <q-btn @click="resetFilter">
           {{ $t("buttons.common.reset") }}
         </q-btn>
-        <q-btn color="secondary" @click="refetch()">
-          {{ $t("buttons.common.filter") }}
-        </q-btn>
+        <!--        <q-btn color="secondary" @click="alert('refetch')">-->
+        <!--          {{ $t("buttons.common.filter") }}-->
+        <!--        </q-btn>-->
       </q-card-actions>
     </q-card>
 
     <q-card>
       <items-table
-        :loading="loading"
+        :loading="fetching"
         :items="items"
         @delete-row="confirmDelete"
       />

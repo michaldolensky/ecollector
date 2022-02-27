@@ -2,16 +2,19 @@
 import { useVModel } from "@vueuse/core";
 import { useRouteParams } from "src/composables/useRoute";
 import ImageUpload from "src/modules/dashboard/modules/items/components/ImageUpload.vue";
-import { useRemoveImageMutation } from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations";
-import { Image } from "src/types/graphql";
+import {
+  UploadImageMutation,
+  useRemoveImageMutation,
+} from "src/modules/dashboard/modules/items/graphql/imageDashboard.operations";
+import { EditItemImageFragment } from "src/modules/dashboard/modules/items/graphql/ItemDashboard.operations";
 
 const { siteId } = useRouteParams();
 
-const { mutate: removeImageMutation } = useRemoveImageMutation({});
+const { executeMutation: removeImageMutation } = useRemoveImageMutation();
 
 interface Props {
   inEditMode: boolean;
-  modelValue: Image[];
+  modelValue: EditItemImageFragment[];
 }
 const props = withDefaults(defineProps<Props>(), {
   inEditMode: false,
@@ -26,7 +29,9 @@ const removeImage = (id: number) => {
     deleteImageInput: { id },
     siteId: siteId.value,
   }).then(() => {
-    images.value = images.value.filter((image: Image) => image.id !== id);
+    images.value = images.value.filter(
+      (image: EditItemImageFragment) => image.id !== id
+    );
   });
 };
 
@@ -39,16 +44,11 @@ const setAsMainImage = (id: number) => {
     file: value.file,
     id: value.id,
     main: value.id === id,
-    createdAt: value.createdAt,
-    updatedAt: value.updatedAt,
-    itemId: value.itemId,
-    originalName: value.originalName,
-    item: value.item,
   }));
 };
 
-const addImages = (imag: Image[]) => {
-  images.value = [...images.value, ...imag];
+const addImages = (data: UploadImageMutation) => {
+  images.value = [...images.value, ...data.uploadImage];
 };
 </script>
 <template>

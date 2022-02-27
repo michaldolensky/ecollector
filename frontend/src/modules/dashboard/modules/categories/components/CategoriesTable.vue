@@ -5,9 +5,7 @@ import { toRowDate } from "src/utils";
 import { computed, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { loading, confirmDelete, categories, refetch } =
-  useDashboardCategories();
-void refetch();
+const { confirmDelete, categories, fetching } = useDashboardCategories();
 
 const { t } = useI18n();
 
@@ -59,7 +57,7 @@ const initialPagination = reactive({
   <q-table
     :columns="CategoriesTableColumns"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="fetching"
     :no-data-label="$t('dashboard.categories.table.not_found')"
     :pagination="initialPagination"
     :rows="categories"

@@ -32,9 +32,7 @@ const ParametersTableColumns = computed(() => [
     align: "center",
   },
 ]);
-const { loading, confirmDelete, parameters, refetch } =
-  useDashboardParameters();
-void refetch();
+const { fetching, confirmDelete, parameters } = useDashboardParameters();
 
 const initialPagination = reactive({
   sortBy: "name",
@@ -47,7 +45,7 @@ const initialPagination = reactive({
   <q-table
     :columns="ParametersTableColumns"
     :grid="$q.screen.xs"
-    :loading="loading"
+    :loading="fetching"
     :no-data-label="$t('dashboard.parameters.table.not_found')"
     :pagination="initialPagination"
     :rows="parameters"

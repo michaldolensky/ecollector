@@ -10,7 +10,7 @@ interface Props {
   items: Item[];
   loading: boolean;
 }
-// eslint-disable-next-line
+
 const emit = defineEmits<{
   (e: "deleteRow", item: Item): void;
 }>();

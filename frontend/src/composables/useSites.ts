@@ -15,11 +15,11 @@ export function useSites() {
     getParsedInt(route.params.siteId)
   );
 
-  const { mutate: removeSiteMutation } = useRemoveSiteMutation({});
-  const { mutate: createSiteMutation } = useCreateSiteMutation({});
-  const { mutate: updateSiteMutation } = useUpdateSiteMutation({});
+  const { executeMutation: removeSiteMutation } = useRemoveSiteMutation();
+  const { executeMutation: createSiteMutation } = useCreateSiteMutation();
+  const { executeMutation: updateSiteMutation } = useUpdateSiteMutation();
 
-  const getSite = (id: number) => useSiteQuery({ id });
+  const getSite = (id: number) => useSiteQuery({ variables: { id } });
 
   const removeSite = (id: number) =>
     removeSiteMutation({
@@ -28,7 +28,7 @@ export function useSites() {
 
   const createSite = (createSiteInput: CreateSiteInput) =>
     createSiteMutation({ createSiteInput });
-  // eslint-disable-next-line max-len
+
   const updateSite = (updateSiteInput: UpdateSiteInput) =>
     updateSiteMutation({ updateSiteInput, siteId: currentSiteId.value });
 
