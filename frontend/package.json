@@ -19,7 +19,6 @@
     "@urql/devtools": "^2.0.3",
     "@urql/exchange-multipart-fetch": "^0.1.14",
     "@urql/vue": "0.6.1",
-    "@vue/apollo-composable": "4.0.0-alpha.16",
     "@vueuse/core": "7.6.2",
     "axios": "0.26.0",
     "core-js": "3.21.1",
