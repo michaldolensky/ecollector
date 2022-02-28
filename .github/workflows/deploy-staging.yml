@@ -10,8 +10,20 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - '**.md'
+      - '**.spec.js'
+      - '.idea'
+      - '.gitignore'
+      - '.github/**'
+      - '!.github/workflows/deploy-staging.yml'
   # Allow this workflow to be triggered manually (ex: in GitHub UI)
   workflow_dispatch:
+
+concurrency:
+  group: staging-${{ github.ref }}
+  cancel-in-progress: true
+
 
 env:
   API_FOLDER: api
