@@ -48,7 +48,7 @@ jobs:
 
       # checkout GitHub repository
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # If merge event triggered this, get the name of the branch
       - name: Get branch name (merge)
@@ -150,7 +150,7 @@ jobs:
 
       # checkout GitHub repository
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # If merge event triggered this, get the name of the branch
       - name: Get branch name (merge)
