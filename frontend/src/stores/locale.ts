@@ -1,11 +1,11 @@
-import { appLanguages, i18n } from "boot/i18n";
+import { appLanguages } from "boot/i18n";
 import { defineStore } from "pinia";
-import { date, Quasar } from "quasar";
+import { date } from "quasar";
 
 export interface LocaleState {
   locale: string;
 }
-type QuasarLanguageModule = typeof import("quasar/lang/en-US");
+// type QuasarLanguageModule = typeof import("quasar/lang/en-US");
 
 export const useLocaleStore = defineStore("locale", {
   state: () =>
@@ -31,14 +31,17 @@ export const useLocaleStore = defineStore("locale", {
         .toLocaleDateString(this.locale);
     },
     setLocale(val: string) {
-      void import(
-        /* webpackInclude: /(cs|en-US)\.js$/ */
-        `quasar/lang/${val}`
-      ).then((lang: QuasarLanguageModule) => {
-        Quasar.lang.set(lang.default);
-      });
+      // TODO
+      // const localeModule = import.meta.glob("./dir/*.js");
+      //
+      // void import(
+      //   /* webpackInclude: /(cs|en-US)\.js$/ */
+      //   `quasar/lang/${val}`
+      // ).then((lang: QuasarLanguageModule) => {
+      //   Quasar.lang.set(lang.default);
+      // });
       this.locale = val;
-      i18n.global.locale = val;
+      // i18n.global.locale = val;
     },
   },
 });

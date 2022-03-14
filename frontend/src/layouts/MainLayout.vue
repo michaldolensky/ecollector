@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import LocaleToggle from "components/index/LocaleToggle.vue";
 import AccountDropdown from "src/modules/account/components/AuthDropdown.vue";
-import { useSiteSettingsStore } from "src/stores/settings";
+import { useSiteSettingsStore } from "stores/settings";
 
 import { computed } from "vue";
 import { useRoute } from "vue-router";
@@ -36,6 +36,7 @@ const showDrawer = computed(() => route.meta.showDrawer);
 
         <locale-toggle />
         <q-space />
+
         <AccountDropdown />
       </q-toolbar>
 

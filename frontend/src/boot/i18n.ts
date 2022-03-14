@@ -12,6 +12,8 @@ export const appLanguages = languages.filter((lang) =>
 type MessageSchema = typeof enUS;
 const i18n = createI18n<[MessageSchema], Locales>({
   locale: Locales.EN,
+  //fixme
+  globalInjection: true,
   messages: {
     [Locales.EN]: enUS,
     [Locales.CS]: cs,
