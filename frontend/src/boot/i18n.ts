@@ -2,20 +2,16 @@ import languages from "quasar/lang/index.json";
 import { boot } from "quasar/wrappers";
 import { Locales } from "src/types/Locales";
 import { createI18n } from "vue-i18n";
-import cs from "../i18n/cs-CZ.json";
-import enUS from "../i18n/en-US.json";
 
 export const appLanguages = languages.filter((lang) =>
   Object.values(Locales).includes(lang.isoName as Locales)
 );
+import messages from "@intlify/vite-plugin-vue-i18n/messages";
 
-type MessageSchema = typeof enUS;
-const i18n = createI18n<[MessageSchema], Locales>({
+const i18n = createI18n({
   locale: Locales.EN,
-  messages: {
-    [Locales.EN]: enUS,
-    [Locales.CS]: cs,
-  },
+  globalInjection: true,
+  messages,
   fallbackLocale: Locales.EN,
 });
 

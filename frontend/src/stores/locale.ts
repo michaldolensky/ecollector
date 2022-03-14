@@ -5,7 +5,6 @@ import { date, Quasar } from "quasar";
 export interface LocaleState {
   locale: string;
 }
-type QuasarLanguageModule = typeof import("quasar/lang/en-US");
 
 export const useLocaleStore = defineStore("locale", {
   state: () =>
@@ -30,15 +29,21 @@ export const useLocaleStore = defineStore("locale", {
         .extractDate(dateString, "YYYY-MM-DD")
         .toLocaleDateString(this.locale);
     },
-    setLocale(val: string) {
-      void import(
-        /* webpackInclude: /(cs|en-US)\.js$/ */
-        `quasar/lang/${val}`
-      ).then((lang: QuasarLanguageModule) => {
-        Quasar.lang.set(lang.default);
-      });
+    async setLocale(val: string) {
+      const localeModules = await import.meta.glob(
+        `/node_modules/quasar/lang/(cs|en-US)*`
+      );
+
+      for (const path in localeModules) {
+        if (path.includes(val)) {
+          localeModules[path]().then((mod) => {
+            Quasar.lang.set(mod.default);
+          });
+          break;
+        }
+      }
       this.locale = val;
-      i18n.global.locale = val;
+      i18n.global.locale.value = val;
     },
   },
 });

@@ -1,13 +1,44 @@
 {
-  "extends": "@quasar/app/tsconfig-preset",
+  "extends": "@quasar/app-vite/tsconfig-preset",
   "compilerOptions": {
-    "target": "es2017",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": ["@intlify/vite-plugin-vue-i18n/client"],
+    "paths": {
+      "src/*": [
+        "src/*"
+      ],
+      "app/*": [
+        "*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "layouts/*": [
+        "src/layouts/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
+      ],
+      "assets/*": [
+        "src/assets/*"
+      ],
+      "boot/*": [
+        "src/boot/*"
+      ],
+      "stores/*": [
+        "src/stores/*"
+      ]
+    }
   },
-  "paths": {
-    "@/*": [
-      "src/*"
-    ]
-  },
-  "exclude": ["**/*.js"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+//  "references": [
+//    {
+//      "path": "./tsconfig.node.json"
+//    }
+//  ]
 }
