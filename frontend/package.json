@@ -6,11 +6,9 @@
   "author": "Michal Dolenský <1257948+michaldolensky@users.noreply.github.com>",
   "scripts": {
     "build": "quasar build",
-    "build-storybook": "build-storybook",
     "dev": "quasar dev",
     "generate:watch": "graphql-codegen --config codegen.yml -w",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
     "@quasar/extras": "1.13.0",
