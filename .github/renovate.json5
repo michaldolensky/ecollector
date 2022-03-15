@@ -5,7 +5,7 @@
     ":automergeTypes",
     ":automergeMinor",
     ":label(dependencies)",
-    // ":rebaseStalePrs",
+    ":rebaseStalePrs",
     ":prHourlyLimitNone",
     ":docker"
   ]
