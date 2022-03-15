@@ -5,34 +5,8 @@
     ":automergeTypes",
     ":automergeMinor",
     ":label(dependencies)",
-    ":rebaseStalePrs",
+    // ":rebaseStalePrs",
     ":prHourlyLimitNone",
     ":docker"
-  ],
-  "packageRules": [
-    {
-      "matchPackagePatterns": [
-        "eslint"
-      ],
-      "labels": [
-        "linting"
-      ]
-    },
-    {
-      "matchDepTypes": [
-        "optionalDependencies"
-      ],
-      "addLabels": [
-        "optional"
-      ]
-    }
-  ],
-  "docker": {
-    "major": {
-      "enabled": false
-    },
-    "minor": {
-      "enabled": true
-    }
-  }
+  ]
 }
