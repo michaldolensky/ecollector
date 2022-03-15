@@ -1098,7 +1098,7 @@
   resolved "https://registry.yarnpkg.com/@intlify/shared/-/shared-9.2.0-beta.32.tgz#fc4868c500b473a9e9a2ecfd3170c31d8edce3a2"
   integrity sha512-lVaHnKFNg16eWlfDLzDFLapurrf0WK7xLWEkz8DMYNIXJshRQOZCkH7sQaqtONPoOT0LqjyPo1+sV0Wq85/HRQ==
 
-"@intlify/vite-plugin-vue-i18n@^3.3.1":
+"@intlify/vite-plugin-vue-i18n@3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@intlify/vite-plugin-vue-i18n/-/vite-plugin-vue-i18n-3.3.1.tgz#d43e8561d20c13c48fb5fd4c1c3dc53cf2195bef"
   integrity sha512-b9HIUANzL4/LmrA5RqeiPabZl2/RiWNAJ90TVZ8kSi3APRZ4BbmwUAclKe8ip+1jCDhqaGO/qfAI7SbQ0Y76Uw==
@@ -1158,7 +1158,7 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app-vite@^1.0.0-alpha.3":
+"@quasar/app-vite@1.0.0-beta.3":
   version "1.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.0.0-beta.3.tgz#544729c929eb950c33a6a39c43cb79a41ba22870"
   integrity sha512-KAzgh/z/37GNEYnDM06Gzaac4Po9ZuNJym32GlWNeXizhpCEOAJkbA7WOuvrSyjnmZ6Gmiv1t872rOYLdje8zA==
@@ -1860,7 +1860,7 @@ auto-bind@~4.0.0:
   resolved "https://registry.npmjs.org/auto-bind/-/auto-bind-4.0.0.tgz"
   integrity sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
 
-autoprefixer@^10.4.2:
+autoprefixer@10.4.2:
   version "10.4.2"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.2.tgz#25e1df09a31a9fba5c40b578936b90d35c9d4d3b"
   integrity sha512-9fOPpHKuDW1w/0EKfRmVnxTDt8166MAnLI3mgZ1JCnhNtYWxcJ6Ud5CO/AVOZi/AvFa8DY9RTy3h3+tFBlrrdQ==
