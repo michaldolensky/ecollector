@@ -5,6 +5,8 @@
     ":automergeTypes",
     ":automergeMinor",
     ":label(dependencies)",
+    ":rebaseStalePrs",
+    ":prHourlyLimitNone",
     ":docker"
   ],
   "packageRules": [
