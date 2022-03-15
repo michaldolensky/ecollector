@@ -35,5 +35,12 @@
     "minor": {
       "enabled": true
     }
+  },
+  "bumpVersion": "patch",
+  "patch": {
+    "automerge": true
+  },
+  "minor": {
+    "automerge": true
   }
 }
