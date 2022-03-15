@@ -1,5 +1,5 @@
 #https://discord.com/channels/415874313728688138/856517489542561792/914889910215905311
-FROM node:16.14.0-alpine3.14 AS develop-stage
+FROM node:17.7.1-alpine3.14 AS develop-stage
 WORKDIR /app
 COPY package.json .
 COPY yarn.lock .
@@ -17,7 +17,7 @@ ENV GRAPHQL_URL=$GRAPHQL_URL
 ENV SERVER_URL_API=$SERVER_URL_API
 RUN quasar build
 
-FROM node:16.14.0-alpine3.14 AS production-stage
+FROM node:17.7.1-alpine3.14 AS production-stage
 WORKDIR /app
 COPY --from=build-stage /app/dist/spa .
 

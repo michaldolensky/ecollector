@@ -1,4 +1,4 @@
-FROM node:16.14.0-alpine3.14 AS development
+FROM node:17.7.1-alpine3.14 AS development
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN npm run build
 
 EXPOSE 3000
 
-FROM node:16.14.0-alpine3.14 as production
+FROM node:17.7.1-alpine3.14 as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
