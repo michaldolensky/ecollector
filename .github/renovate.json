@@ -10,8 +10,6 @@
     ":ignoreModulesAndTests",
     ":maintainLockFilesDisabled",
     ":autodetectPinVersions",
-    ":prHourlyLimit2",
-    ":prConcurrentLimit20",
     "group:monorepos",
     "helpers:disableTypesNodeMajor",
     "helpers:oddIsUnstablePackages",
@@ -26,6 +24,10 @@
     {
       "matchDepTypes": ["optionalDependencies"],
       "addLabels": ["optional"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
     }
   ],
   "docker": {
@@ -35,12 +37,5 @@
     "minor": {
       "enabled": true
     }
-  },
-  "bumpVersion": "patch",
-  "patch": {
-    "automerge": true
-  },
-  "minor": {
-    "automerge": true
   }
 }
