@@ -1,5 +1,4 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Factory } from 'nestjs-seeder';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Item } from '../../items/entities/item.entity';
@@ -9,11 +8,9 @@ import { Site } from '../../sites/entities/site.entity';
 @InputType('CategoryInput')
 @Entity()
 export class Category extends BaseEntity {
-  @Factory((faker) => faker.lorem.words(5))
   @Column('text')
   name: string;
 
-  @Factory((faker) => faker.lorem.paragraph(5))
   @Column('text')
   perex: string;
 
@@ -22,7 +19,6 @@ export class Category extends BaseEntity {
   @JoinColumn({ name: 'siteId' })
   site: Site;
 
-  @Factory((faker, ctx) => ctx.siteId)
   @Column()
   siteId: number;
 
