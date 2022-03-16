@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@quasar/extras": "1.13.1",
+    "@quasar/extras": "1.13.2",
     "@urql/devtools": "2.0.3",
     "@urql/exchange-multipart-fetch": "0.1.14",
     "@urql/vue": "0.6.1",
