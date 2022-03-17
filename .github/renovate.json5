@@ -9,6 +9,12 @@
     ":prHourlyLimitNone",
     ":separatePatchReleases",
   ],
+  "packageRules": [
+    {
+      "matchDatasources": ["npm"],
+      "stabilityDays": 3
+    }
+  ],
   "docker": {
     "major": {
       "enabled": false
