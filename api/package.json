@@ -48,7 +48,7 @@
     "rimraf": "3.0.2",
     "rxjs": "7.5.5",
     "sanitize-html": "2.7.0",
-    "typeorm": "0.2.45",
+    "typeorm": "0.3.5",
     "uuid": "8.3.2"
   },
   "devDependencies": {
